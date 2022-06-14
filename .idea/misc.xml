@@ -3,15 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/drawable/bg_edittext.xml" value="0.137" />
-        <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.137" />
-        <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/drawable/shape_outline_grey.xml" value="0.137" />
-        <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/drawable/shape_outline_grey_alamat.xml" value="0.137" />
-        <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/drawable/shape_rounded_cyan.xml" value="0.137" />
-        <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/activity_login.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/activity_main.xml" value="0.184375" />
-        <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/activity_profile.xml" value="0.22" />
-        <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/activity_register.xml" value="0.184375" />
+        <entry key="..\:/FinalProject/app/src/main/res/drawable/bg_rounded.xml" value="0.145" />
+        <entry key="..\:/FinalProject/app/src/main/res/layout-v28/fragment_home.xml" value="0.209375" />
+        <entry key="..\:/FinalProject/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/FinalProject/app/src/main/res/layout/activity_main.xml" value="0.209375" />
+        <entry key="..\:/FinalProject/app/src/main/res/layout/activity_register.xml" value="0.22" />
+        <entry key="..\:/FinalProject/app/src/main/res/layout/fragment_akun.xml" value="0.209375" />
+        <entry key="..\:/FinalProject/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.209375" />
+        <entry key="..\:/FinalProject/app/src/main/res/layout/fragment_home.xml" value="0.209375" />
+        <entry key="..\:/FinalProject/app/src/main/res/layout/fragment_jual.xml" value="0.209375" />
+        <entry key="..\:/FinalProject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.209375" />
       </map>
     </option>
   </component>
