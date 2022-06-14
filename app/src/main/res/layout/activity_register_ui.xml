@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginUI">
-
+    tools:context=".RegisterUI">
 
     <ImageView
         android:id="@+id/iv_iconback"
@@ -18,12 +17,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/iv_tvmasuk"
+        android:id="@+id/iv_tvdaftar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="50dp"
-        android:text="Masuk"
+        android:text="DAFTAR"
         android:textColor="@color/black"
         android:textSize="26sp"
         android:textStyle="bold"
@@ -31,16 +30,42 @@
         app:layout_constraintTop_toBottomOf="@id/iv_iconback" />
 
     <TextView
+        android:id="@+id/tv_nama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text="Nama"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_tvdaftar"/>
+
+    <EditText
+        android:id="@+id/et_nama"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape_login"
+        android:hint="Masukkan Nama"
+        android:paddingLeft="15dp"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_nama" />
+
+    <TextView
         android:id="@+id/tv_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:text="Email"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_tvmasuk" />
+        app:layout_constraintTop_toBottomOf="@id/et_nama" />
 
     <EditText
         android:id="@+id/et_email"
@@ -49,7 +74,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/shape_login"
-        android:hint="Masukkan Email"
+        android:hint="Contoh: johndee@gmail.com"
         android:paddingLeft="15dp"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -76,7 +101,7 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/shape_login"
         android:drawableRight="@drawable/ic_remove_password"
-        android:hint="Masukkan Password"
+        android:hint="Buat Password"
         android:paddingLeft="15dp"
         android:paddingRight="10dp"
         android:textSize="16sp"
@@ -85,13 +110,13 @@
         app:layout_constraintTop_toBottomOf="@id/tv_password" />
 
     <Button
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_daftar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/shape_buttonlogin"
-        android:text="Masuk"
+        android:text="Daftar"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -102,24 +127,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="150dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/btn_login">
+        app:layout_constraintTop_toBottomOf="@id/btn_daftar">
 
         <TextView
+            android:id="@+id/tv_punyaakun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Belum punya akun?"
+            android:text="Sudah punya akun?"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
 
         <TextView
+            android:id="@+id/tv_masukdisini"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="Daftar di sini"
+            android:text="Masuk di sini"
             android:textColor="@color/button_login"
             android:textSize="16sp"
             android:textStyle="bold" />
