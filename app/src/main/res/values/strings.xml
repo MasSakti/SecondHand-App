@@ -6,4 +6,8 @@
     <string name="title_daftar_jual">Daftar Jual</string>
     <string name="title_akun">Akun</string>
     <string name="title_notifications">Notifications</string>
+    <string name="masuk">Masuk</string>
+    <string name="email">Email</string>
+    <string name="belum_punya_akun">Belum punya akun?</string>
+    <string name="daftar_di_sini">Daftar di sini</string>
 </resources>
