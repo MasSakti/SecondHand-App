@@ -14,6 +14,10 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="GeneralSignIn" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/bg_button_login</item>
+    </style>
+
     <style name="Theme.BinarAndroidFinalProject.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark" />
     <style name="Theme.BinarAndroidFinalProject.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 </resources>
