@@ -10,4 +10,18 @@
     <string name="email">Email</string>
     <string name="belum_punya_akun">Belum punya akun?</string>
     <string name="daftar_di_sini">Daftar di sini</string>
+    <string name="lengkapi_info_akun">Lengkapi Info Akun</string>
+    <string name="nama">Nama*</string>
+    <string name="selected_item">Selected item:</string>
+    <string-array name="daftar_kota">
+        <item>-- Pilih Kota --</item>
+        <item>Bakso</item>
+        <item>Ayam Goreng</item>
+        <item>Mie Rebus</item>
+        <item>Nasi Padang</item>
+        <item>Ikan Bakar</item>
+        <item>Seblak</item>
+        <item>Gorengan</item>
+        <item>Mie Ayam</item>
+    </string-array>
 </resources>

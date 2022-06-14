@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SecondHandEcomerce">
         <activity
+            android:name=".ui.profile.Profile"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.MainActivity"
             android:exported="true"
             android:label="@string/title_activity_main">
