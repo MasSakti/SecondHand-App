@@ -1,7 +1,8 @@
-package com.tegarpenemuan.secondhandecomerce
+package com.tegarpenemuan.secondhandecomerce.ui.register
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.tegarpenemuan.secondhandecomerce.R
 
 class Register : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

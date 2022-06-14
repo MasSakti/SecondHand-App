@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SecondHandEcomerce">
         <activity
-            android:name=".Login"
+            android:name=".ui.login.Login"
             android:exported="false" />
         <activity
-            android:name=".Register"
+            android:name=".ui.register.Register"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
