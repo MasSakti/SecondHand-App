@@ -15,7 +15,22 @@
         android:theme="@style/Theme.BinarAndroidFinalProject"
         tools:targetApi="s">
         <activity
-            android:name=".ui.home.HomeActivity"
+            android:name=".ui.product_add.ProductAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.info_bid.InfoBidActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.product.ProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.AuthActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.dashboard.DashboardActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
