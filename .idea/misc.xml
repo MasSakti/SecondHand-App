@@ -6,13 +6,18 @@
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/ic_menu_akun.xml" value="0.1105" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/ic_menu_home.xml" value="0.1105" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/ic_outline_person_24.xml" value="0.1105" />
-        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/activity_login_ui.xml" value="0.11302083333333333" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/activity_main.xml" value="0.12" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/activity_register_ui.xml" value="0.11302083333333333" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/fragment_daftar.xml" value="0.11302083333333333" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/fragment_home.xml" value="0.11302083333333333" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/fragment_notifikasi.xml" value="0.1" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2076923076923077" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/activity_main.xml" value="0.18541666666666667" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
