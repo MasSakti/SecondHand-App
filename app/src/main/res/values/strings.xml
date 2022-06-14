@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SecondHand</string>
+    <string name="title_menu_home">Home</string>
+    <string name="title_menu_notifikasi">Notifikasi</string>
+    <string name="title_menu_jual">Jual</string>
+    <string name="title_menu_daftar">Daftar Jual</string>
+    <string name="title_menu_akun">Akun</string>
 </resources>
