@@ -13,11 +13,11 @@ interface AuthApi {
     @Multipart
     @POST("auth/register")
     suspend fun register(
-        @Part("full_name ") full_name: RequestBody? = null,
+        @Part("full_name") full_name: RequestBody? = null,
         @Part("email") email: RequestBody? = null,
         @Part("password") password: RequestBody? = null,
-        @Part("phone_number ") phone_number : RequestBody? = null,
-        @Part("address  ") address  : RequestBody? = null,
+        @Part("phone_number") phone_number : RequestBody? = null,
+        @Part("address") address  : RequestBody? = null,
         @Part image : MultipartBody.Part? = null
     ): Response<SuccessRegisterResponse>
 }
