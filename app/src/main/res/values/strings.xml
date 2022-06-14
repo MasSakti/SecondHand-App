@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">SecondHand Ecomerce</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_jual">Jual</string>
+    <string name="title_daftar_jual">Daftar Jual</string>
+    <string name="title_akun">Akun</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
