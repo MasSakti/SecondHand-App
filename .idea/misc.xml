@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/activity_auth.xml" value="0.2875" />
-        <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/activity_dashboard.xml" value="0.2875" />
+        <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/activity_dashboard.xml" value="0.18064516129032257" />
+        <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/activity_info_bid.xml" value="0.2875" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/fragment_notification.xml" value="0.14010416666666667" />
+        <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/menu/menu_dashboard.xml" value="0.2875" />
       </map>
     </option>
   </component>

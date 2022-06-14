@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_dashboard"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="id.co.binar.secondhand.ui.dashboard.account.AccountFragment"
+        android:label="Akun"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/listSellFragment"
+        android:name="id.co.binar.secondhand.ui.dashboard.list_sell.ListSellFragment"
+        android:label="Daftar Jual Saya"
+        tools:layout="@layout/fragment_list_sell" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="id.co.binar.secondhand.ui.dashboard.home.HomeFragment"
+        android:label="Beranda"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="id.co.binar.secondhand.ui.dashboard.notification.NotificationFragment"
+        android:label="Notifikasi"
+        tools:layout="@layout/fragment_notification" />
+</navigation>

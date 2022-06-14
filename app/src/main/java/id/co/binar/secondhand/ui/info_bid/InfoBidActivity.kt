@@ -4,10 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import dagger.hilt.EntryPoint
 import id.co.binar.secondhand.R
+import id.co.binar.secondhand.databinding.ActivityInfoBidBinding
 
 class InfoBidActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityInfoBidBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_info_bid)
+        binding = ActivityInfoBidBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 }
