@@ -5,7 +5,6 @@ import android.os.Bundle
 import dagger.hilt.EntryPoint
 import id.co.binar.secondhand.R
 
-@EntryPoint
 class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

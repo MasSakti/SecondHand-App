@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import dagger.hilt.EntryPoint
 import id.co.binar.secondhand.R
 
-@EntryPoint
 class ListSellFragment : Fragment() {
 
     companion object {
