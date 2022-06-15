@@ -5,14 +5,11 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class GetAuthResponse(
-
-	@SerializedName("access_token")
-	val accessToken: String? = null,
+data class GetAuthError(
 
 	@SerializedName("name")
 	val name: String? = null,
 
-	@SerializedName("email")
-	val email: String? = null
+	@SerializedName("message")
+	val message: String? = null
 ) : Parcelable

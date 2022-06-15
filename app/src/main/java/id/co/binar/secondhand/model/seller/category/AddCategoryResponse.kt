@@ -7,15 +7,15 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class AddCategoryResponse(
 
-	@field:SerializedName("createdAt")
+	@SerializedName("createdAt")
 	val createdAt: String? = null,
 
-	@field:SerializedName("name")
+	@SerializedName("name")
 	val name: String? = null,
 
-	@field:SerializedName("id")
+	@SerializedName("id")
 	val id: Int? = null,
 
-	@field:SerializedName("updatedAt")
+	@SerializedName("updatedAt")
 	val updatedAt: String? = null
 ) : Parcelable

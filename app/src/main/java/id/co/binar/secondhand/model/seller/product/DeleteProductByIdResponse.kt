@@ -7,9 +7,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class DeleteProductByIdResponse(
 
-	@field:SerializedName("name")
+	@SerializedName("name")
 	val name: String? = null,
 
-	@field:SerializedName("message")
+	@SerializedName("message")
 	val message: String? = null
 ) : Parcelable

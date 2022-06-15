@@ -5,13 +5,10 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class GetAuthResponse(
+data class GetAuthRequest(
 
-	@SerializedName("access_token")
-	val accessToken: String? = null,
-
-	@SerializedName("name")
-	val name: String? = null,
+	@SerializedName("password")
+	val password: String? = null,
 
 	@SerializedName("email")
 	val email: String? = null

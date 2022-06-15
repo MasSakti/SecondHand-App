@@ -1,4 +1,4 @@
-package id.co.binar.secondhand.ui.auth.register
+package id.co.binar.secondhand.ui.register
 
 import androidx.lifecycle.ViewModel
 

@@ -7,18 +7,18 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class AddAuthRequest(
 
-    @field:SerializedName("password")
+    @SerializedName("password")
     val password: String? = null,
 
-    @field:SerializedName("full_name")
+    @SerializedName("full_name")
     val fullName: String? = null,
 
-    @field:SerializedName("phone_number")
+    @SerializedName("phone_number")
     val phoneNumber: Long? = null,
 
-    @field:SerializedName("email")
+    @SerializedName("email")
     val email: String? = null,
 
-    @field:SerializedName("address")
+    @SerializedName("address")
     val address: String? = null
 ) : Parcelable

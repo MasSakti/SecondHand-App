@@ -12,7 +12,7 @@
         android:title="Notifikasi"/>
 
     <item
-        android:id="@+id/productAdd"
+        android:id="@+id/productAddFragment"
         android:icon="@drawable/ic_round_add_circle_24"
         android:title="Jual"/>
 

@@ -7,24 +7,24 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class AddBannerResponse(
 
-	@field:SerializedName("image_name")
+	@SerializedName("image_name")
 	val imageName: String? = null,
 
-	@field:SerializedName("createdAt")
+	@SerializedName("createdAt")
 	val createdAt: String? = null,
 
-	@field:SerializedName("user_id")
+	@SerializedName("user_id")
 	val userId: Int? = null,
 
-	@field:SerializedName("image_url")
+	@SerializedName("image_url")
 	val imageUrl: String? = null,
 
-	@field:SerializedName("name")
+	@SerializedName("name")
 	val name: String? = null,
 
-	@field:SerializedName("id")
+	@SerializedName("id")
 	val id: Int? = null,
 
-	@field:SerializedName("updatedAt")
+	@SerializedName("updatedAt")
 	val updatedAt: String? = null
 ) : Parcelable

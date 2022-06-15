@@ -7,43 +7,43 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class GetProductByIdResponse(
 
-	@field:SerializedName("image_name")
+	@SerializedName("image_name")
 	val imageName: String? = null,
 
-	@field:SerializedName("updated_at")
+	@SerializedName("updated_at")
 	val updatedAt: String? = null,
 
-	@field:SerializedName("user_id")
+	@SerializedName("user_id")
 	val userId: Int? = null,
 
-	@field:SerializedName("image_url")
+	@SerializedName("image_url")
 	val imageUrl: String? = null,
 
-	@field:SerializedName("name")
+	@SerializedName("name")
 	val name: String? = null,
 
-	@field:SerializedName("base_price")
+	@SerializedName("base_price")
 	val basePrice: Int? = null,
 
-	@field:SerializedName("created_at")
+	@SerializedName("created_at")
 	val createdAt: String? = null,
 
-	@field:SerializedName("location")
+	@SerializedName("location")
 	val location: String? = null,
 
-	@field:SerializedName("id")
+	@SerializedName("id")
 	val id: Int? = null,
 
-	@field:SerializedName("categories")
+	@SerializedName("categories")
 	val categories: List<CategoriesItemById>? = null
 ) : Parcelable
 
 @Parcelize
 data class CategoriesItemById(
 
-	@field:SerializedName("name")
+	@SerializedName("name")
 	val name: String? = null,
 
-	@field:SerializedName("id")
+	@SerializedName("id")
 	val id: Int? = null
 ) : Parcelable

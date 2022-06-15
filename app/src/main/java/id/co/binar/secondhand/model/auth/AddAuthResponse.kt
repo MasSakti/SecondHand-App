@@ -7,30 +7,30 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class AddAuthResponse(
 
-	@field:SerializedName("createdAt")
+	@SerializedName("createdAt")
 	val createdAt: String? = null,
 
-	@field:SerializedName("password")
+	@SerializedName("password")
 	val password: String? = null,
 
-	@field:SerializedName("full_name")
+	@SerializedName("full_name")
 	val fullName: String? = null,
 
-	@field:SerializedName("address")
+	@SerializedName("address")
 	val address: String? = null,
 
-	@field:SerializedName("image_url")
+	@SerializedName("image_url")
 	val imageUrl: String? = null,
 
-	@field:SerializedName("phone_number")
+	@SerializedName("phone_number")
 	val phoneNumber: Long? = null,
 
-	@field:SerializedName("id")
+	@SerializedName("id")
 	val id: Int? = null,
 
-	@field:SerializedName("email")
+	@SerializedName("email")
 	val email: String? = null,
 
-	@field:SerializedName("updatedAt")
+	@SerializedName("updatedAt")
 	val updatedAt: String? = null
 ) : Parcelable
