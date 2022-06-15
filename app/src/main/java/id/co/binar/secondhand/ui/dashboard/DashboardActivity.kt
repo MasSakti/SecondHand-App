@@ -3,6 +3,7 @@ package id.co.binar.secondhand.ui.dashboard
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import com.google.android.material.navigation.NavigationBarView
@@ -23,6 +24,7 @@ class DashboardActivity : AppCompatActivity(),
 
     private lateinit var sectionViewPager: DashboardViewPagerAdapter
     private lateinit var binding: ActivityDashboardBinding
+    private val viewModel by viewModels<DashboardViewModel>()
 
     @Inject lateinit var store: DataStoreManager
 
@@ -31,7 +33,7 @@ class DashboardActivity : AppCompatActivity(),
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = "Dashboard"
+        supportActionBar?.title = "Beranda"
 
         val itemFragment = listOf(
             HomeFragment(),
@@ -46,6 +48,17 @@ class DashboardActivity : AppCompatActivity(),
             itemFragment
         )
 
+        bindObserver()
+        bindView()
+    }
+
+    private fun bindObserver() {
+        viewModel.title.observe(this) {
+            supportActionBar?.title = it
+        }
+    }
+
+    private fun bindView() {
         binding.viewPager.adapter = sectionViewPager
         binding.viewPager.isUserInputEnabled = false
         binding.bottomNavbar.setOnItemSelectedListener(this)
@@ -56,23 +69,23 @@ class DashboardActivity : AppCompatActivity(),
         when (binding.viewPager.currentItem) {
             0 -> {
                 onSetBottomNavigation(R.id.homeFragment)
-                supportActionBar?.title = "Beranda"
+                viewModel.title("Beranda")
             }
             1 -> {
                 onSetBottomNavigation(R.id.notificationFragment)
-                supportActionBar?.title = "Notifikasi"
+                viewModel.title("Notifikasi")
             }
             2 -> {
                 onSetBottomNavigation(R.id.listSellFragment)
-                supportActionBar?.title = "Daftar Jual Saya"
+                viewModel.title("Jual Produk Saya")
             }
             3 -> {
                 onSetBottomNavigation(R.id.accountFragment)
-                supportActionBar?.title = "Akun"
+                viewModel.title("Akun")
             }
             else -> {
                 onSetBottomNavigation(R.id.homeFragment)
-                supportActionBar?.title = "Beranda"
+                viewModel.title("Beranda")
             }
         }
     }
