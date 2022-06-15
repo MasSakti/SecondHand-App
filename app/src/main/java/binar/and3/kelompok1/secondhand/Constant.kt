@@ -1,10 +1,12 @@
 package binar.and3.kelompok1.secondhand
 
+import androidx.datastore.preferences.core.stringPreferencesKey
+
 object Constant {
 
     object PrefDatastore {
         const val PREF_NAME = "SecondHand"
-        val ACCESS_TOKEN = "ACCESS_TOKEN"
+        val ACCESS_TOKEN = stringPreferencesKey("ACCESS_TOKEN")
     }
 
     object Named {
