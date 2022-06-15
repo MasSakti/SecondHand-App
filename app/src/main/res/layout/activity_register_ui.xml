@@ -39,7 +39,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_tvdaftar"/>
+        app:layout_constraintTop_toBottomOf="@id/iv_tvdaftar" />
 
     <EditText
         android:id="@+id/et_nama"
