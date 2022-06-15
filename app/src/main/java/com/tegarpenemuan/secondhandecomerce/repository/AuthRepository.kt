@@ -1,6 +1,8 @@
 package com.tegarpenemuan.secondhandecomerce.repository
 
 import com.tegarpenemuan.secondhandecomerce.data.api.AuthApi
+import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
+import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.register.request.SignUpRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.register.response.SuccessRegisterResponse
 import retrofit2.Response
@@ -26,5 +28,8 @@ class AuthRepository  @Inject constructor(
             address = request.address,
             image = request.image
         )
+    }
+    suspend fun login(request: LoginRequest): Response<LoginResponse> {
+        return api.login(request)
     }
 }
