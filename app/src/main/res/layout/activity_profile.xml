@@ -100,10 +100,10 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_profile" />
 
     <TextView
-        android:id="@+id/tv_lengkapi_info_akun"
+        android:id="@+id/tv_akun_saya"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="-40dp"
@@ -116,13 +116,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iv_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_lengkapi_info_akun"
+        app:layout_constraintTop_toBottomOf="@+id/tv_akun_saya"
         app:srcCompat="@drawable/img_profile" />
 
     <TextView
