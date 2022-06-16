@@ -3,8 +3,10 @@ package id.co.binar.secondhand.ui.dashboard
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.datastore.core.DataStore
 import com.google.android.material.navigation.NavigationBarView
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +33,7 @@ class DashboardActivity : AppCompatActivity(),
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = "Beranda"
+        supportActionBar?.title = ""
 
         val itemFragment = listOf(
             HomeFragment(),
@@ -59,6 +61,7 @@ class DashboardActivity : AppCompatActivity(),
     private fun bindView() {
         binding.viewPager.adapter = sectionViewPager
         binding.viewPager.isUserInputEnabled = false
+        binding.toolbar.isVisible = false
         binding.bottomNavbar.setOnItemSelectedListener(this)
     }
 
@@ -67,23 +70,28 @@ class DashboardActivity : AppCompatActivity(),
         when (binding.viewPager.currentItem) {
             0 -> {
                 onSetBottomNavigation(R.id.homeFragment)
-                viewModel.title("Beranda")
+                binding.toolbar.isVisible = false
+                viewModel.title("")
             }
             1 -> {
                 onSetBottomNavigation(R.id.notificationFragment)
+                binding.toolbar.isVisible = true
                 viewModel.title("Notifikasi")
             }
             2 -> {
                 onSetBottomNavigation(R.id.listSellFragment)
-                viewModel.title("Jual Produk Saya")
+                binding.toolbar.isVisible = true
+                viewModel.title("Daftar Jual Saya")
             }
             3 -> {
                 onSetBottomNavigation(R.id.accountFragment)
+                binding.toolbar.isVisible = true
                 viewModel.title("Akun")
             }
             else -> {
                 onSetBottomNavigation(R.id.homeFragment)
-                viewModel.title("Beranda")
+                binding.toolbar.isVisible = false
+                viewModel.title("")
             }
         }
     }

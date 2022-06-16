@@ -59,16 +59,12 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                 binding.ivImageProfile.setImageBitmap(bmp)
             }
         }
-        viewModel.field.observe(this) {
-            it.fullName?.let { str ->
-                binding.txtInputLayoutNama.setText(str)
-            }
-        }
     }
 
     private fun bindView() {
         intent.extras?.getParcelable<AddAuthRequest>(PASSING_TO_PROFILE)?.let {
             viewModel.field(it)
+            binding.txtInputLayoutNama.setText(it.fullName)
         }
 
         binding.toolbar.setNavigationIcon(R.drawable.ic_round_arrow_back_24)
@@ -140,9 +136,9 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                 val it = viewModel.field.value
                 viewModel.register(
                     AddAuthRequest(
-                        fullName = binding.txtInputLayoutNama.text.toString(),
                         email = it?.email,
                         password = it?.password,
+                        fullName = binding.txtInputLayoutNama.text.toString(),
                         phoneNumber = binding.txtInputLayoutNoHandphone.text.toString().toLong(),
                         address = "${binding.txtInputLayoutKota.text}, ${binding.txtInputLayoutAlamat.text}"
                     ),
