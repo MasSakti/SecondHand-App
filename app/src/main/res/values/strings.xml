@@ -32,4 +32,5 @@
         <item>Hobi</item>
         <item>Kendaraan</item>
     </string-array>
+    <string name="label_notifikai">Notifikasi</string>
 </resources>
