@@ -2,7 +2,7 @@ package binar.and3.kelompok1.secondhand.data.api.auth
 
 import com.google.gson.annotations.SerializedName
 
-data class UpdateUserResponse(
+data class UpdateUserDataResponse(
     @SerializedName("id"           ) var id          : Int?    = null,
     @SerializedName("full_name"    ) var fullName    : String? = null,
     @SerializedName("email"        ) var email       : String? = null,

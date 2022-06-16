@@ -20,5 +20,5 @@ interface AuthAPI {
     suspend fun updateUser(
         @Header("access_token") token: String,
         @Path("id") id: String
-    ): Response<UpdateUserResponse>
+    ): Response<UpdateUserDataResponse>
 }

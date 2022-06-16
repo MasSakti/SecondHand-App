@@ -11,5 +11,7 @@ object Constant {
 
     object Named {
         const val BASE_URL_SECONDHAND = "BASE_URL_SECONDHAND"
+
+        const val RETROFIT_SECONDHAND = "RETROFIT_SECONDHAND"
     }
 }

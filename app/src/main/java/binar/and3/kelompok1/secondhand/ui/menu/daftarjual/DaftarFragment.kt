@@ -1,4 +1,4 @@
-package binar.and3.kelompok1.secondhand.ui
+package binar.and3.kelompok1.secondhand.ui.menu.daftarjual
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
