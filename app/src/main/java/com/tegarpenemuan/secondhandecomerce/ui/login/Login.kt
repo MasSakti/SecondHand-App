@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
 import com.tegarpenemuan.secondhandecomerce.databinding.ActivityLoginBinding
 import com.tegarpenemuan.secondhandecomerce.ui.main.MainActivity
+import com.tegarpenemuan.secondhandecomerce.ui.register.Register
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,6 +48,10 @@ class Login : AppCompatActivity() {
 
         binding.btnSignIn.setOnClickListener {
             viewModel.onClickSignIn()
+        }
+        binding.tvDaftarDiSini.setOnClickListener{
+            val intent = Intent(this, Register::class.java)
+            startActivity(intent)
         }
     }
 }
