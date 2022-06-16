@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="21dp"
+    android:layout_marginTop="13dp"
+    android:layout_marginEnd="2dp"
+    android:layout_marginBottom="13dp"
+    app:cardCornerRadius="16dp">
+    
+    <LinearLayout
+        android:layout_width="156dp"
+        android:layout_height="206dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="vertical">
+        
+        <ImageView
+            android:id="@+id/iv_image_product"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@color/purple_100" />
+
+        <TextView
+            android:id="@+id/tv_nama_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jam Tangan Casio"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/tv_jenis_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aksesoris"
+            android:textSize="10sp"
+            android:textColor="#8A8A8A"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/tv_harga_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rp 250.000"
+            android:layout_marginTop="10dp" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
