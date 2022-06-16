@@ -26,8 +26,6 @@ class DashboardActivity : AppCompatActivity(),
     private lateinit var binding: ActivityDashboardBinding
     private val viewModel by viewModels<DashboardViewModel>()
 
-    @Inject lateinit var store: DataStoreManager
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardBinding.inflate(layoutInflater)

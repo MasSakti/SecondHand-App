@@ -1,4 +1,4 @@
-package id.co.binar.secondhand.ui.dashboard.account
+package id.co.binar.secondhand.ui.product_add
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,12 +10,8 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
-class AccountViewModel @Inject constructor(
+class ProductAddViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
-    fun logout() = CoroutineScope(Dispatchers.IO).launch {
-        authRepository.logout()
-    }
-
     fun getTokenId() = runBlocking { authRepository.store().getTokenId() }
 }

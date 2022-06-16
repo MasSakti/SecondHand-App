@@ -20,16 +20,25 @@ class DataStoreManager @Inject constructor(
     companion object {
         private const val DATASTORE_SETTINGS: String = "SETTINGS"
         private val Context.dataStore by preferencesDataStore(DATASTORE_SETTINGS)
-        private val USR_ID = stringPreferencesKey("USER_TOKEN")
+        private val TOKEN_ID = stringPreferencesKey("USER_TOKEN")
+        private val USR_ID = intPreferencesKey("USER_ID")
     }
 
-    fun setUserId(value: String) {
+    fun setTokenId(value: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            context.dataStore.setValue(TOKEN_ID, value)
+        }
+    }
+
+    fun setUsrId(value: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             context.dataStore.setValue(USR_ID, value)
         }
     }
 
-    fun getUserId() = runBlocking { context.dataStore.getValue(USR_ID, "").firstOrNull() }
+    suspend fun getTokenId() = context.dataStore.getValue(TOKEN_ID, "").firstOrNull()
+    suspend fun getUsrId() = context.dataStore.getValue(USR_ID, -1).firstOrNull()
+    suspend fun clear() = context.dataStore.clear()
 }
 
 fun <T> DataStore<Preferences>.getValue(

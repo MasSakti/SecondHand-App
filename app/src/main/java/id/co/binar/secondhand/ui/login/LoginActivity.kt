@@ -7,10 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ActivityLoginBinding
+import id.co.binar.secondhand.model.auth.GetAuthRequest
 import id.co.binar.secondhand.ui.register.RegisterActivity
-import id.co.binar.secondhand.util.Resource
-import id.co.binar.secondhand.util.onSnackbar
-import id.co.binar.secondhand.util.onToast
+import id.co.binar.secondhand.util.*
+import io.github.anderscheow.validator.Validator
+import io.github.anderscheow.validator.constant.Mode
+import io.github.anderscheow.validator.validator
+
+const val PASSING_TO_SIGN_IN = "PASSING_TO_SIGN_IN"
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
@@ -34,7 +38,8 @@ class LoginActivity : AppCompatActivity() {
         viewModel.login.observe(this) {
             when(it) {
                 is Resource.Success -> {
-                    this.onToast(it.data.toString())
+                    onBackPressed()
+
                 }
                 is Resource.Loading -> {
                     this.onToast("Mohon menunggu...")
@@ -49,15 +54,36 @@ class LoginActivity : AppCompatActivity() {
     private fun bindView() {
         binding.toolbar.setNavigationIcon(R.drawable.ic_round_arrow_back_24)
         binding.btnMasuk.setOnClickListener {
-            viewModel.login(
-                binding.txtInputLayoutEmail.text.toString(),
-                binding.txtInputLayoutPassword.text.toString()
-            )
+            onValidate()
         }
         binding.tvDaftarDiSini.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun onValidate() {
+        validator(this) {
+            mode = Mode.SINGLE
+            listener = onSignIn
+            validate(
+                emailValid(binding.etEmail),
+                passwordValid(binding.etPassword)
+            )
+        }
+    }
+
+    private val onSignIn = object : Validator.OnValidateListener {
+        override fun onValidateSuccess(values: List<String>) {
+            viewModel.login(
+                GetAuthRequest(
+                    email = binding.txtInputLayoutEmail.text.toString(),
+                    password = binding.txtInputLayoutPassword.text.toString()
+                )
+            )
+        }
+
+        override fun onValidateFailed(errors: List<String>) {}
     }
 
     override fun onSupportNavigateUp(): Boolean {

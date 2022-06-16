@@ -51,16 +51,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_Email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Email"
-                android:textSize="12sp"
-                app:layout_constraintLeft_toLeftOf="@id/tv_Masuk"
-                app:layout_constraintTop_toBottomOf="@id/tv_Masuk" />
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/et_Email"
@@ -68,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
                 android:layout_marginStart="21dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="21dp"
                 app:boxCornerRadiusBottomEnd="16dp"
                 app:boxCornerRadiusBottomStart="16dp"
@@ -76,25 +66,15 @@
                 app:boxCornerRadiusTopStart="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_Email">
+                app:layout_constraintTop_toBottomOf="@+id/tv_Masuk">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_input_layout_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Contoh: johndee@gmail.com"
+                    android:hint="Email"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tv_Password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Password"
-                android:textSize="12sp"
-                app:layout_constraintLeft_toLeftOf="@id/tv_Email"
-                app:layout_constraintTop_toBottomOf="@id/et_Email" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/et_Password"
@@ -102,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
                 android:layout_marginStart="21dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="21dp"
                 android:layout_marginEnd="21dp"
                 app:boxCornerRadiusBottomEnd="16dp"
                 app:boxCornerRadiusBottomStart="16dp"
@@ -110,14 +90,14 @@
                 app:boxCornerRadiusTopStart="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_Password"
+                app:layout_constraintTop_toBottomOf="@+id/et_Email"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_input_layout_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Masukan Password"
+                    android:hint="Password"
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -3,6 +3,7 @@ package id.co.binar.secondhand.ui.product_add
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
@@ -15,8 +16,7 @@ import javax.inject.Inject
 class ProductAddActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProductAddBinding
-
-    @Inject lateinit var store: DataStoreManager
+    private val viewModel by viewModels<ProductAddViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,7 @@ class ProductAddActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        if (store.getUserId().isNullOrEmpty()) {
+        if (viewModel.getTokenId().isNullOrEmpty()) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
