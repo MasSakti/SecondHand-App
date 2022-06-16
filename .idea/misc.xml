@@ -5,25 +5,32 @@
       <map>
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/capsule_shape.xml" value="0.1105" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/ic_button_arrowback.xml" value="0.1105" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/ic_edit.xml" value="0.1105" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/ic_logout.xml" value="0.1105" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/ic_menu_akun.xml" value="0.1105" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/ic_menu_daftar.xml" value="0.1105" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/ic_menu_home.xml" value="0.1105" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/ic_menu_jual.xml" value="0.1105" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/ic_menu_notifikasi.xml" value="0.1105" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/ic_outline_person_24.xml" value="0.1105" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/ic_profile_image.xml" value="0.1105" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/ic_remove_password.xml" value="0.1105" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/ic_search.xml" value="0.1105" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/ic_setting.xml" value="0.1105" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/rounded_search.xml" value="0.1105" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/shape_buttonlogin.xml" value="0.1105" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/shape_login.xml" value="0.1105" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/drawable/shape_rounded.xml" value="0.1105" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/font/poppins.xml" value="0.20462962962962963" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout-v28/fragment_notifikasi.xml" value="0.11197916666666667" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/activity_login_ui.xml" value="0.11302083333333333" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/activity_main.xml" value="0.12" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/activity_register_ui.xml" value="0.11302083333333333" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/fragment_akun.xml" value="0.264" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/fragment_daftar.xml" value="0.11302083333333333" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/fragment_notifikasi.xml" value="0.264" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/fragment_profil.xml" value="0.11302083333333333" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/list_item_home.xml" value="0.4" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/list_item_notifikasi.xml" value="0.4" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2076923076923077" />
