@@ -16,6 +16,9 @@ class AuthRepository @Inject constructor(
     private val authDao: AuthDao,
     private val store: DataStoreManager
 ) {
+    fun authDao() = authDao
+    fun store() = store
+
     suspend fun login(field: GetAuthRequest) = authApi.login(field)
 
     suspend fun register(field: AddAuthRequest, image: MultipartBody.Part) = authApi.register(
@@ -28,11 +31,4 @@ class AuthRepository @Inject constructor(
         ),
         image = image
     )
-
-    suspend fun logout() {
-        store.clear()
-        authDao.logout()
-    }
-
-    fun store() = store
 }

@@ -7,21 +7,23 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class GetCategoryResponse(
 
-	val getCategoryResponse: List<GetCategoryResponseItem>? = null
+    val getCategoryResponse: List<GetCategoryResponseItem>? = null
 ) : Parcelable
 
 @Parcelize
 data class GetCategoryResponseItem(
 
-	@SerializedName("createdAt")
-	val createdAt: String? = null,
+    @SerializedName("createdAt")
+    val createdAt: String? = null,
 
-	@SerializedName("name")
-	val name: String? = null,
+    @SerializedName("name")
+    val name: String? = null,
 
-	@SerializedName("id")
-	val id: Int? = null,
+    @SerializedName("id")
+    val id: Int? = null,
 
-	@SerializedName("updatedAt")
-	val updatedAt: String? = null
+    @SerializedName("updatedAt")
+    val updatedAt: String? = null,
+
+    var check: Boolean? = false
 ) : Parcelable

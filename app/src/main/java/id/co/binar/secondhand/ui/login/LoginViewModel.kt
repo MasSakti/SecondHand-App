@@ -1,5 +1,6 @@
 package id.co.binar.secondhand.ui.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,9 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val authRepository: AuthRepository,
-    private val authDao: AuthDao,
-    private val store: DataStoreManager
+    private val authRepository: AuthRepository
 ) : ViewModel() {
 
     private val _login = MutableLiveData<Resource<GetAuthResponse>>()
@@ -30,12 +29,14 @@ class LoginViewModel @Inject constructor(
             val response = authRepository.login(field)
             if (response.isSuccessful) {
                 response.body()?.let {
-                    authDao.login(it.name.toString(), it.email.toString(), it.accessToken.toString())
-                    store.setTokenId(it.accessToken.toString())
+                    authRepository.authDao().login(it.name.toString(), it.email.toString(), it.accessToken.toString())
+                    authRepository.store().setTokenId(it.accessToken.toString())
                     _login.postValue(Resource.Success(it))
                 }
+            } else if (response.code() == 401) {
+                throw Exception("Email atau Password tidak valid")
             } else {
-                throw Exception("Email atau Password salah!")
+                throw Exception("Terjadi kesalahan")
             }
         } catch (ex: Exception) {
             _login.postValue(Resource.Error(code = null, message = ex.message.toString()))

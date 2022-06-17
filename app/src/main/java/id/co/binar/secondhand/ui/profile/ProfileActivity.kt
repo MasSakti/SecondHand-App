@@ -6,6 +6,9 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import coil.load
+import coil.size.ViewSizeResolver
+import coil.transform.RoundedCornersTransformation
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.EasyPermissions.somePermissionPermanentlyDenied
@@ -56,7 +59,13 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
         }
         viewModel.bitmap.observe(this) {
             it?.let { bmp ->
-                binding.ivImageProfile.setImageBitmap(bmp)
+                binding.ivImageProfile.load(bmp) {
+                    crossfade(true)
+                    placeholder(R.drawable.ic_profile_image)
+                    error(R.drawable.ic_profile_image)
+                    transformations(RoundedCornersTransformation(14F))
+                    size(ViewSizeResolver(binding.ivImageProfile))
+                }
             }
         }
     }
@@ -83,7 +92,13 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
             when (resultCode) {
                 RESULT_OK -> {
                     data?.let { intent ->
-                        binding.ivImageProfile.setImageURI(intent.data)
+                        binding.ivImageProfile.load(intent.data) {
+                            crossfade(true)
+                            placeholder(R.drawable.ic_profile_image)
+                            error(R.drawable.ic_profile_image)
+                            transformations(RoundedCornersTransformation(14F))
+                            size(ViewSizeResolver(binding.ivImageProfile))
+                        }
                         val drawable = binding.ivImageProfile.drawable as BitmapDrawable
                         viewModel.bitmap(drawable.bitmap)
                     }

@@ -13,8 +13,12 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <item name="android:textColor">@color/white</item>
         <!-- Customize your theme here. -->
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
     </style>
 
+    <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/ModalBottomSheetDialog</item>
+    </style>
     <style name="Theme.BinarAndroidFinalProject.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark" />
     <style name="Theme.BinarAndroidFinalProject.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 </resources>

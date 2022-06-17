@@ -70,8 +70,8 @@ object NetworkModule {
             )
             cookieJar(JavaNetCookieJar(CookieManager()))
             connectTimeout(15, TimeUnit.MINUTES)
-            writeTimeout(30, TimeUnit.SECONDS)
-            readTimeout(30, TimeUnit.SECONDS)
+            writeTimeout(30, TimeUnit.MINUTES)
+            readTimeout(30, TimeUnit.MINUTES)
         }.build()
     }
 

@@ -24,7 +24,6 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val authDao: AuthDao,
     state: SavedStateHandle
 ) : ViewModel() {
     private val _field = state.getLiveData<AddAuthRequest>("FIELD")
@@ -47,7 +46,7 @@ class ProfileViewModel @Inject constructor(
             val response = authRepository.register(field, image)
             if (response.isSuccessful) {
                 response.body()?.let {
-                    authDao.register(
+                    authRepository.authDao().register(
                         AuthLocal(
                             id = it.id!!,
                             fullName = it.fullName,
@@ -61,8 +60,10 @@ class ProfileViewModel @Inject constructor(
                     )
                     _register.postValue(Resource.Success(it))
                 }
+            } else if (response.code() == 400) {
+                throw Exception("Email telah dibuat")
             } else {
-                throw Exception("Email telah dibuat!")
+                throw Exception("Terjadi kesalahan")
             }
         } catch (ex: Exception) {
             _register.postValue(Resource.Error(code = null, message = ex.message.toString()))

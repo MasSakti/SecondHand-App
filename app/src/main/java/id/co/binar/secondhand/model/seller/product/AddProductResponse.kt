@@ -32,5 +32,8 @@ data class AddProductResponse(
 	val location: String? = null,
 
 	@SerializedName("id")
-	val id: Int? = null
+	val id: Int? = null,
+
+	@SerializedName("status")
+	val status: String? = null
 ) : Parcelable
