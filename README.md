@@ -8,5 +8,5 @@
 ```
 Official Logo SecondHand Final Project Group 2
 (terdiri dari letter S dan h)
-inspirasi dari pinterest
+inspirasi dari pinterest & pembuatan menggunakan Adobe Illustrator
 ````
