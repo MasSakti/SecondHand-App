@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toBitmap
 import coil.load
 import coil.size.ViewSizeResolver
 import coil.transform.RoundedCornersTransformation
@@ -59,13 +60,7 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
         }
         viewModel.bitmap.observe(this) {
             it?.let { bmp ->
-                binding.ivImageProfile.load(bmp) {
-                    crossfade(true)
-                    placeholder(R.drawable.ic_profile_image)
-                    error(R.drawable.ic_profile_image)
-                    transformations(RoundedCornersTransformation(14F))
-                    size(ViewSizeResolver(binding.ivImageProfile))
-                }
+                binding.ivImageProfile.setImageBitmap(bmp)
             }
         }
     }
@@ -92,15 +87,9 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
             when (resultCode) {
                 RESULT_OK -> {
                     data?.let { intent ->
-                        binding.ivImageProfile.load(intent.data) {
-                            crossfade(true)
-                            placeholder(R.drawable.ic_profile_image)
-                            error(R.drawable.ic_profile_image)
-                            transformations(RoundedCornersTransformation(14F))
-                            size(ViewSizeResolver(binding.ivImageProfile))
-                        }
-                        val drawable = binding.ivImageProfile.drawable as BitmapDrawable
-                        viewModel.bitmap(drawable.bitmap)
+                        binding.ivImageProfile.setImageURI(intent.data)
+                        val drawable = binding.ivImageProfile.drawable.toBitmap()
+                        viewModel.bitmap(drawable)
                     }
                 }
                 ImagePicker.RESULT_ERROR -> {

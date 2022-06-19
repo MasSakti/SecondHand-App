@@ -17,6 +17,4 @@ class AccountViewModel @Inject constructor(
         authRepository.store().clear()
         authRepository.authDao().logout()
     }
-
-    fun getTokenId() = runBlocking { authRepository.store().getTokenId() }
 }

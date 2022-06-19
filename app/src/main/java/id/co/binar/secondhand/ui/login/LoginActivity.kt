@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doOnTextChanged
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ActivityLoginBinding
@@ -39,7 +40,6 @@ class LoginActivity : AppCompatActivity() {
             when(it) {
                 is Resource.Success -> {
                     onBackPressed()
-
                 }
                 is Resource.Loading -> {
                     this.onToast("Mohon menunggu...")

@@ -31,6 +31,11 @@ class CategoryDialogAdapter : ListAdapter<GetCategoryResponseItem, RecyclerView.
 
         fun bind(item: GetCategoryResponseItem) {
             binding.txtName.text = item.name
+            if (getItem(bindingAdapterPosition).check == true) {
+                binding.imgCheck.setImageResource(R.drawable.ic_round_check_circle_24)
+            } else {
+                binding.imgCheck.setImageResource(R.drawable.ic_round_check_circle_outline_24)
+            }
         }
     }
 

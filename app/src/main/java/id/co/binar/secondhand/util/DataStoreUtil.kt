@@ -14,16 +14,14 @@ import kotlinx.coroutines.runBlocking
 import java.io.IOException
 import javax.inject.Inject
 
+const val DATASTORE_SETTINGS: String = "SETTINGS"
+val TOKEN_ID = stringPreferencesKey("USER_TOKEN")
+val USR_ID = intPreferencesKey("USER_ID")
+val Context.dataStore by preferencesDataStore(DATASTORE_SETTINGS)
+
 class DataStoreManager @Inject constructor(
     private val context: Context
 ) {
-    companion object {
-        private const val DATASTORE_SETTINGS: String = "SETTINGS"
-        private val Context.dataStore by preferencesDataStore(DATASTORE_SETTINGS)
-        private val TOKEN_ID = stringPreferencesKey("USER_TOKEN")
-        private val USR_ID = intPreferencesKey("USER_ID")
-    }
-
     fun setTokenId(value: String) {
         CoroutineScope(Dispatchers.IO).launch {
             context.dataStore.setValue(TOKEN_ID, value)

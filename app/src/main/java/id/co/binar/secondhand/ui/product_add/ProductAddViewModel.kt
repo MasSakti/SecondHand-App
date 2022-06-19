@@ -12,6 +12,7 @@ import id.co.binar.secondhand.model.seller.product.AddProductRequest
 import id.co.binar.secondhand.model.seller.product.AddProductResponse
 import id.co.binar.secondhand.repository.AuthRepository
 import id.co.binar.secondhand.repository.SellerRepository
+import id.co.binar.secondhand.util.LiveEvent
 import id.co.binar.secondhand.util.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,10 +28,16 @@ class ProductAddViewModel @Inject constructor(
 ) : ViewModel() {
     fun getTokenId() = runBlocking { sellerRepository.store().getTokenId() }
 
-    private val _list = state.getLiveData<List<GetCategoryResponseItem>>("LIST_CATEGORY_PRODUCT")
-    val list: LiveData<List<GetCategoryResponseItem>> = _list
-    fun list(list: List<GetCategoryResponseItem>) {
-        _list.postValue(list)
+    private val _list = state.getLiveData<MutableList<GetCategoryResponseItem>>("LIST_CATEGORY_PRODUCT")
+    val list: LiveData<MutableList<GetCategoryResponseItem>> = _list
+    fun list(list: MutableList<GetCategoryResponseItem>) {
+        _list.postValue(list.distinctBy { it.id }.toMutableList())
+    }
+
+    private val _lastList = state.getLiveData<MutableList<GetCategoryResponseItem>>("LAST_LIST_CATEGORY_PRODUCT")
+    val lastList: LiveData<MutableList<GetCategoryResponseItem>> = _lastList
+    fun lastList(list: MutableList<GetCategoryResponseItem>) {
+        _lastList.postValue(list.distinctBy { it.id }.toMutableList())
     }
 
     private val _categoryProduct = MutableLiveData<Resource<List<GetCategoryResponseItem>>>()

@@ -18,6 +18,11 @@ import id.co.binar.secondhand.databinding.FragmentAccountBinding
 import id.co.binar.secondhand.ui.login.LoginActivity
 import id.co.binar.secondhand.ui.login.PASSING_TO_SIGN_IN
 import id.co.binar.secondhand.util.DataStoreManager
+import id.co.binar.secondhand.util.TOKEN_ID
+import id.co.binar.secondhand.util.dataStore
+import id.co.binar.secondhand.util.getValue
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -37,7 +42,11 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        bindObserver()
+        bindView()
+    }
 
+    private fun bindView() {
         binding.tvLogoutAccount.setOnClickListener {
             dialogLogout {
                 viewModel.logout()
@@ -52,33 +61,36 @@ class AccountFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (viewModel.getTokenId().isNullOrEmpty()) {
-            binding.apply {
-                ivEditAccount.visibility = View.INVISIBLE
-                ivLogoutAccount.visibility = View.INVISIBLE
-                ivOptionAccount.visibility = View.INVISIBLE
-                tvEditAccount.visibility = View.INVISIBLE
-                tvLogoutAccount.visibility = View.INVISIBLE
-                tvOptionAccount.visibility = View.INVISIBLE
-                viewEdit.visibility = View.INVISIBLE
-                viewLogout.visibility = View.INVISIBLE
-                viewOption.visibility = View.INVISIBLE
-                btnMasuk.visibility = View.VISIBLE
-            }
-        } else {
-            binding.apply {
-                btnMasuk.visibility = View.INVISIBLE
-                ivEditAccount.visibility = View.VISIBLE
-                ivLogoutAccount.visibility = View.VISIBLE
-                ivOptionAccount.visibility = View.VISIBLE
-                tvEditAccount.visibility = View.VISIBLE
-                tvLogoutAccount.visibility = View.VISIBLE
-                tvOptionAccount.visibility = View.VISIBLE
-                viewEdit.visibility = View.VISIBLE
-                viewLogout.visibility = View.VISIBLE
-                viewOption.visibility = View.VISIBLE
+    private fun bindObserver() {
+        lifecycleScope.launch {
+            requireContext().dataStore.getValue(TOKEN_ID, "").collectLatest {
+                if (it.isNullOrEmpty()) {
+                    binding.apply {
+                        ivEditAccount.visibility = View.INVISIBLE
+                        ivLogoutAccount.visibility = View.INVISIBLE
+                        ivOptionAccount.visibility = View.INVISIBLE
+                        tvEditAccount.visibility = View.INVISIBLE
+                        tvLogoutAccount.visibility = View.INVISIBLE
+                        tvOptionAccount.visibility = View.INVISIBLE
+                        viewEdit.visibility = View.INVISIBLE
+                        viewLogout.visibility = View.INVISIBLE
+                        viewOption.visibility = View.INVISIBLE
+                        btnMasuk.visibility = View.VISIBLE
+                    }
+                } else {
+                    binding.apply {
+                        btnMasuk.visibility = View.INVISIBLE
+                        ivEditAccount.visibility = View.VISIBLE
+                        ivLogoutAccount.visibility = View.VISIBLE
+                        ivOptionAccount.visibility = View.VISIBLE
+                        tvEditAccount.visibility = View.VISIBLE
+                        tvLogoutAccount.visibility = View.VISIBLE
+                        tvOptionAccount.visibility = View.VISIBLE
+                        viewEdit.visibility = View.VISIBLE
+                        viewLogout.visibility = View.VISIBLE
+                        viewOption.visibility = View.VISIBLE
+                    }
+                }
             }
         }
     }

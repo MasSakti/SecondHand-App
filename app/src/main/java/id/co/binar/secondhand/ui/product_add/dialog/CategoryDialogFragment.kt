@@ -2,6 +2,7 @@ package id.co.binar.secondhand.ui.product_add.dialog
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,9 @@ import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
 import id.co.binar.secondhand.ui.product_add.ProductAddViewModel
 import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.onToast
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 const val TAG_CATEGORY_DIALOG = "CATEGORY_DIALOG"
 
@@ -21,8 +25,8 @@ const val TAG_CATEGORY_DIALOG = "CATEGORY_DIALOG"
 class CategoryDialogFragment : BottomSheetDialogFragment() {
 
     private var _binding: BottomSheetCategoryProductAddBinding? = null
+    private var chooseList = mutableListOf<GetCategoryResponseItem>()
     private val binding get() = _binding!!
-    private val chooseItem = mutableListOf<GetCategoryResponseItem>()
     private val adapter = CategoryDialogAdapter()
     private val viewModel by activityViewModels<ProductAddViewModel>()
 
@@ -40,12 +44,19 @@ class CategoryDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun bindObserver() {
-        viewModel.categoryProduct()
         viewModel.categoryProduct.observe(viewLifecycleOwner) {
             when(it) {
                 is Resource.Success -> {
                     adapter.submitList(it.data)
                     binding.list.adapter = adapter
+
+                    viewModel.list.observe(viewLifecycleOwner) {
+                        chooseList = it
+                    }
+
+                    viewModel.lastList.observe(viewLifecycleOwner) {
+                        adapter.submitList(it)
+                    }
                 }
                 is Resource.Loading -> {
                     requireContext().onToast("Mohon menunggu...")
@@ -54,24 +65,24 @@ class CategoryDialogFragment : BottomSheetDialogFragment() {
                     requireContext().onToast(it.message.toString())
                 }
             }
-
         }
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        viewModel.list(chooseItem)
     }
 
     private fun bindView() {
         adapter.onClickAdapter { _, getCategoryResponseItem ->
             if (getCategoryResponseItem.check == true) {
-                chooseItem.add(getCategoryResponseItem)
+                chooseList.add(getCategoryResponseItem)
             } else {
-                chooseItem.remove(getCategoryResponseItem)
+                chooseList.remove(getCategoryResponseItem)
             }
         }
         binding.list.layoutManager = LinearLayoutManager(context)
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        viewModel.list(chooseList)
+        viewModel.lastList(adapter.currentList)
     }
 
     override fun onDestroyView() {

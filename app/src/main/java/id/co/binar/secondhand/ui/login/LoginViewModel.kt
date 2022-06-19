@@ -1,15 +1,14 @@
 package id.co.binar.secondhand.ui.login
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.co.binar.secondhand.data.local.AuthDao
 import id.co.binar.secondhand.model.auth.GetAuthRequest
 import id.co.binar.secondhand.model.auth.GetAuthResponse
 import id.co.binar.secondhand.repository.AuthRepository
-import id.co.binar.secondhand.util.DataStoreManager
+import id.co.binar.secondhand.util.LiveEvent
 import id.co.binar.secondhand.util.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
