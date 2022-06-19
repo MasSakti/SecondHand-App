@@ -20,5 +20,8 @@ data class AddAuthRequest(
     val email: String? = null,
 
     @SerializedName("address")
-    val address: String? = null
+    val address: String? = null,
+
+    @SerializedName("city")
+    val city: String? = null
 ) : Parcelable

@@ -46,18 +46,6 @@ class ProfileViewModel @Inject constructor(
             val response = authRepository.register(field, image)
             if (response.isSuccessful) {
                 response.body()?.let {
-                    authRepository.authDao().register(
-                        AuthLocal(
-                            id = it.id!!,
-                            fullName = it.fullName,
-                            email = it.email,
-                            password = it.password,
-                            address = it.address,
-                            phoneNumber = it.phoneNumber,
-                            imageUrl = it.imageUrl,
-                            createdAt = it.createdAt
-                        )
-                    )
                     _register.postValue(Resource.Success(it))
                 }
             } else if (response.code() == 400) {

@@ -144,7 +144,8 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                         password = it?.password,
                         fullName = binding.txtInputLayoutNama.text.toString(),
                         phoneNumber = binding.txtInputLayoutNoHandphone.text.toString().toLong(),
-                        address = "${binding.txtInputLayoutKota.text}, ${binding.txtInputLayoutAlamat.text}"
+                        address = binding.txtInputLayoutAlamat.text.toString(),
+                        city = binding.txtInputLayoutKota.text.toString()
                     ),
                     this@ProfileActivity.buildImageMultipart("image", bitmap)
                 )

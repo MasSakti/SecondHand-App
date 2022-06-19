@@ -1,19 +1,19 @@
 package id.co.binar.secondhand.data.local
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import id.co.binar.secondhand.data.local.model.AuthLocal
 
 @Dao
 interface AuthDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun register(field: AuthLocal)
+    suspend fun setAccount(field: AuthLocal)
 
-    @Query("UPDATE tbl_auth SET token=:token WHERE full_name=:fullName AND email=:email")
-    suspend fun login(fullName: String, email: String, token: String)
+    @Query("SELECT * FROM tbl_auth WHERE token=:token AND id=:id")
+    suspend fun getAccount(token: String, id: Int)
+    
+    @Delete
+    suspend fun removeAccount(field: AuthLocal)
 
     @Query("DELETE FROM tbl_auth")
     suspend fun logout()

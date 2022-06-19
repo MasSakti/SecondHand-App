@@ -27,7 +27,8 @@ class AuthRepository @Inject constructor(
             "full_name" to field.fullName.toString().toRequestBody(MultipartBody.FORM),
             "phone_number" to field.phoneNumber.toString().toRequestBody(MultipartBody.FORM),
             "email" to field.email.toString().toRequestBody(MultipartBody.FORM),
-            "address" to field.address.toString().toRequestBody(MultipartBody.FORM)
+            "address" to field.address.toString().toRequestBody(MultipartBody.FORM),
+            "city" to field.city.toString().toRequestBody(MultipartBody.FORM)
         ),
         image = image
     )

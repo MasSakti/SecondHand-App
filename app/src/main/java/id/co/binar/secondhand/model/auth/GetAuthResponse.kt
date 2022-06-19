@@ -14,5 +14,8 @@ data class GetAuthResponse(
 	val name: String? = null,
 
 	@SerializedName("email")
-	val email: String? = null
+	val email: String? = null,
+
+	@SerializedName("id")
+	val id: Int? = null
 ) : Parcelable
