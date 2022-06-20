@@ -22,6 +22,10 @@
         <item name="android:background">@drawable/bg_button</item>
     </style>
 
+    <style name="fab">
+        <item name="android:padding">16dp</item>
+    </style>
+
     <style name="NavBottom" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="fontFamily">@font/nunitobold</item>
     </style>
