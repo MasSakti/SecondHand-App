@@ -1,83 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_banner"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:background="@drawable/bg_home">
+        android:layout_height="240dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/etSearch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_rounded"
-            android:drawableEnd="@drawable/ic_search"
-            android:hint="Cari di Second Chance"
-            android:paddingHorizontal="16dp"
-            android:maxLines="1"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:paddingVertical="10dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vp_banner"
+        tools:itemCount="1"
+        tools:listitem="@layout/list_item_category_home" />
 
-        <TextView
-            android:id="@+id/tvDiskon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="32dp"
-            android:lineHeight="40dp"
-            android:text="Bulan Ramadhan \nBanyak diskon!"
-            android:textColor="#151515"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="@id/etSearch"
-            app:layout_constraintTop_toBottomOf="@id/etSearch" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/rv_category"
+        tools:itemCount="1"
+        tools:listitem="@layout/list_item_product_home"/>
 
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/gift"
-            android:layout_marginBottom="-9dp"
-            app:layout_constraintEnd_toEndOf="@id/etSearch"
-            app:layout_constraintBottom_toBottomOf="@id/tvAngkaDiskon"
-            app:layout_constraintTop_toTopOf="@id/tvDiskon" />
-
-        <TextView
-            android:id="@+id/tvDiskonHingga"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Diskon Hingga"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@id/tvDiskon"
-            app:layout_constraintTop_toBottomOf="@id/tvDiskon" />
-
-        <TextView
-            android:id="@+id/tvAngkaDiskon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="60%"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="8dp"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="#FA2C5A"
-            app:layout_constraintStart_toStartOf="@id/tvDiskonHingga"
-            app:layout_constraintTop_toBottomOf="@id/tvDiskonHingga" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
