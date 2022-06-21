@@ -1,6 +1,7 @@
 package binar.and3.kelompok1.secondhand.di
 
 import binar.and3.kelompok1.secondhand.Constant
+import binar.and3.kelompok1.secondhand.data.api.auth.AuthAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,5 +50,13 @@ class NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideAuthAPI(
+        @Named(Constant.Named.RETROFIT_SECONDHAND) retrofit: Retrofit
+    ): AuthAPI {
+        return retrofit.create(AuthAPI::class.java)
     }
 }

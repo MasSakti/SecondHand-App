@@ -10,15 +10,13 @@ interface AuthAPI {
     @POST("auth/register")
     suspend fun signUp(@Body request: SignUpRequest): Response<SignUpResponse>
 
-    @GET("auth/user/{id}")
+    @GET("auth/user")
     suspend fun getUser(
         @Header("access_token") token: String,
-        @Path("id") id: String
     ): Response<GetUserResponse>
 
-    @PUT("auth/user/{id}")
+    @PUT("auth/user")
     suspend fun updateUser(
         @Header("access_token") token: String,
-        @Path("id") id: String
     ): Response<UpdateUserDataResponse>
 }

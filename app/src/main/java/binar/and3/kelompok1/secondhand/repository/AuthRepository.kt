@@ -33,6 +33,10 @@ class AuthRepository @Inject constructor(
         return api.signUp(request)
     }
 
+    suspend fun getUser(token: String): Response<GetUserResponse> {
+        return api.getUser(token = token)
+    }
+
     suspend fun insertUser(userEntity: UserEntity): Long {
         return dao.insertUser(userEntity)
     }
