@@ -1,4 +1,4 @@
-package binar.and3.kelompok1.secondhand.ui.signin
+package binar.and3.kelompok1.secondhand.ui.signup
 
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import binar.and3.kelompok1.secondhand.data.ErrorResponse
 import binar.and3.kelompok1.secondhand.data.api.auth.SignInRequest
+import binar.and3.kelompok1.secondhand.data.api.auth.SignUpRequest
 import binar.and3.kelompok1.secondhand.data.local.UserEntity
 import binar.and3.kelompok1.secondhand.repository.AuthRepository
 import com.google.gson.Gson
@@ -14,20 +15,28 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.ResponseBody
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(
+class SignUpViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ): ViewModel() {
-
+    private var fullName: String = ""
     private var email: String = ""
     private var password: String = ""
+    private var phoneNumber: Int = hashCode()
+    private var address: String = "Not yet added"
+    private var city: String = "Not yet added"
+    private var imageUrl: String? = null
 
     val shouldShowError: MutableLiveData<String> = MutableLiveData()
-    val shouldOpenMenuPage: MutableLiveData<Boolean> = MutableLiveData()
-
     val shouldShowLoading: MutableLiveData<Boolean> = MutableLiveData()
+    val shouldOpenUpdateProfile: MutableLiveData<Boolean> = MutableLiveData()
+
+    fun onChangeFullName(fullName: String) {
+        this.fullName = fullName
+    }
 
     fun onChangeEmail(email: String) {
         this.email = email
@@ -37,18 +46,43 @@ class SignInViewModel @Inject constructor(
         this.password = password
     }
 
-    fun onClickSignIn() {
-        if (email.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+    fun onValidate() {
+        if (fullName.isEmpty() && fullName.length < 3) {
+            shouldShowError.postValue("Nickname tidak valid")
+        } else if (email.isEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             shouldShowError.postValue("Email tidak valid")
-        } else if (password.isNotEmpty() && password.length < 6) {
+        } else if (password.isEmpty() && password.length < 8) {
             shouldShowError.postValue("Password tidak valid")
         } else {
-            signInFromAPI()
+            processToSignUp()
         }
     }
 
-    private fun signInFromAPI() {
-        shouldShowLoading.postValue(true)
+    private fun processToSignUp() {
+        CoroutineScope(Dispatchers.IO).launch {
+            shouldShowLoading.postValue(true)
+            val request = SignUpRequest(
+                fullName = fullName,
+                email = email,
+                password = password,
+                address = address,
+                city = city,
+                phoneNumber = phoneNumber,
+                imageUrl = imageUrl
+            )
+            val result = authRepository.signUp(request = request)
+            withContext(Dispatchers.Main) {
+                if (result.isSuccessful) {
+                    processToSignIn()
+                } else {
+                    showErrorMessage(result.errorBody())
+                    shouldShowLoading.postValue(false)
+                }
+            }
+        }
+    }
+
+    private fun processToSignIn() {
         CoroutineScope(Dispatchers.IO).launch {
             val request = SignInRequest(
                 email = email,
@@ -56,28 +90,19 @@ class SignInViewModel @Inject constructor(
             )
             val response = authRepository.signIn(request)
             withContext(Dispatchers.Main) {
-                if (response.isSuccessful) {
-                    val signinResponse = response.body()
-                    signinResponse?.let {
-                        val token = it.accessToken.orEmpty()
-                        insertToken(token = token)
-                        getUserData(token = token)
-                    }
-                } else {
-                    val error =
-                        Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java)
-                    shouldShowError.postValue(error.message.orEmpty() + " #${error.code}")
+                val signInResponse = response.body()
+                signInResponse?.let {
+                    val token = it.accessToken.orEmpty()
+                    insertToken(token = token)
+                    getUserData(token = token)
                 }
             }
-            shouldShowLoading.postValue(false)
         }
     }
 
     private fun insertToken(token: String) {
-        if (token.isNotEmpty()) {
-            viewModelScope.launch {
-                authRepository.updateToken(token)
-            }
+        viewModelScope.launch {
+            authRepository.updateToken(token)
         }
     }
 
@@ -113,11 +138,16 @@ class SignInViewModel @Inject constructor(
             val result = authRepository.insertUser(userEntity)
             withContext(Dispatchers.Main) {
                 if (result != 0L) {
-                    shouldOpenMenuPage.postValue(true)
+                    shouldOpenUpdateProfile.postValue(true)
                 } else {
                     shouldShowError.postValue("Maaf, gagal insert ke dalam database")
                 }
             }
         }
+    }
+
+    private fun showErrorMessage(response: ResponseBody?) {
+        val error = Gson().fromJson(response?.string(), ErrorResponse::class.java)
+        shouldShowError.postValue(error.message.orEmpty() + " #${error.code}")
     }
 }

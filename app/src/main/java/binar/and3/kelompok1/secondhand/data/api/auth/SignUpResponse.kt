@@ -9,5 +9,6 @@ data class SignUpResponse(
     @SerializedName("password"     ) var password    : String? = null,
     @SerializedName("phone_number" ) var phoneNumber : Int?    = null,
     @SerializedName("address"      ) var address     : String? = null,
+    @SerializedName("city"         ) var city        : String? = null,
     @SerializedName("image_url"    ) var imageUrl    : String? = null
 )

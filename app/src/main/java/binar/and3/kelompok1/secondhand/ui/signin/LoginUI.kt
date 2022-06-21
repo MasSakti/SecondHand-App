@@ -40,10 +40,6 @@ class LoginUI : AppCompatActivity() {
 
         binding.btnLogin.setOnClickListener {
             viewModel.onClickSignIn()
-//            val email = binding.etEmail.text
-//            val password = binding.etPassword.text
-//            val snackbar = Snackbar.make(binding.root, "Email: $email, Password: $password", Snackbar.LENGTH_LONG)
-//            snackbar.show()
         }
 
         binding.llDaftar.setOnClickListener{
