@@ -3,6 +3,7 @@ package id.co.binar.secondhand.data.local.model
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -16,11 +17,9 @@ data class BuyerCategoryLocal(
     @ColumnInfo(name = "name")
     val name: String? = null,
 
-    @ColumnInfo(name = "id")
-    val id: Int? = null,
+    @PrimaryKey(autoGenerate = false)
+    val id: Int,
 
     @ColumnInfo(name = "updatedAt")
-    val updatedAt: String? = null,
-
-    var check: Boolean? = false
+    val updatedAt: String? = null
 ) : Parcelable

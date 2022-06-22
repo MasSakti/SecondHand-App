@@ -3,6 +3,7 @@ package id.co.binar.secondhand.data.local.model
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "tbl_home")
@@ -36,11 +37,11 @@ data class BuyerProductLocal(
     @ColumnInfo(name = "location")
     val location: String? = null,
 
-    @ColumnInfo(name = "id")
-    val id: Int? = null,
+    @PrimaryKey(autoGenerate = false)
+    val id: Int
 
-    @ColumnInfo(name = "categories")
-    val categories: List<CategoriesItemLocal>? = null
+    /*@ColumnInfo(name = "categories")
+    val categories: List<CategoriesItemLocal>? = emptyList()*/
 ) : Parcelable
 
 @Parcelize
