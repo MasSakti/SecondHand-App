@@ -7,6 +7,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -22,21 +23,17 @@ val Context.dataStore by preferencesDataStore(DATASTORE_SETTINGS)
 class DataStoreManager @Inject constructor(
     private val context: Context
 ) {
-    fun setTokenId(value: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            context.dataStore.setValue(TOKEN_ID, value)
-        }
+    fun setTokenId(value: String) = CoroutineScope(Dispatchers.IO).launch {
+        context.dataStore.setValue(TOKEN_ID, value)
     }
 
-    fun setUsrId(value: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
-            context.dataStore.setValue(USR_ID, value)
-        }
+    fun setUsrId(value: Int) = CoroutineScope(Dispatchers.IO).launch {
+        context.dataStore.setValue(USR_ID, value)
     }
 
-    suspend fun getTokenId() = context.dataStore.getValue(TOKEN_ID, "").firstOrNull()
-    suspend fun getUsrId() = context.dataStore.getValue(USR_ID, -1).firstOrNull()
-    suspend fun clear() = context.dataStore.clear()
+    fun getTokenId() = runBlocking { context.dataStore.getValue(TOKEN_ID, "").first() }
+    fun getUsrId() = runBlocking { context.dataStore.getValue(USR_ID, -1).first() }
+    fun clear() = runBlocking { context.dataStore.clear() }
 }
 
 fun <T> DataStore<Preferences>.getValue(

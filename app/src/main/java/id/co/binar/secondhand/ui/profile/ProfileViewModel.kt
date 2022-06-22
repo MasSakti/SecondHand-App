@@ -3,15 +3,11 @@ package id.co.binar.secondhand.ui.profile
 import android.graphics.Bitmap
 import android.util.Log
 import androidx.datastore.core.DataStore
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.co.binar.secondhand.data.local.AuthDao
 import id.co.binar.secondhand.data.local.model.AuthLocal
-import id.co.binar.secondhand.model.auth.AddAuthRequest
-import id.co.binar.secondhand.model.auth.AddAuthResponse
+import id.co.binar.secondhand.model.auth.*
 import id.co.binar.secondhand.repository.AuthRepository
 import id.co.binar.secondhand.util.DataStoreManager
 import id.co.binar.secondhand.util.Resource
@@ -54,7 +50,29 @@ class ProfileViewModel @Inject constructor(
                 throw Exception("Terjadi kesalahan")
             }
         } catch (ex: Exception) {
-            _register.postValue(Resource.Error(code = null, message = ex.message.toString()))
+            _register.postValue(Resource.Error(ex))
         }
     }
+
+    private val _updateAccount = MutableLiveData<Resource<UpdateAuthByTokenResponse>>()
+    val updateAccount : LiveData<Resource<UpdateAuthByTokenResponse>> = _updateAccount
+    fun updateAccount(field: UpdateAuthByTokenRequest, image: MultipartBody.Part) = CoroutineScope(Dispatchers.IO).launch {
+        _updateAccount.postValue(Resource.Loading())
+        try {
+            val response = authRepository.updateAccount(field, image)
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    _updateAccount.postValue(Resource.Success(it))
+                }
+            } else if (response.code() == 400) {
+                throw Exception("Email telah dibuat")
+            } else {
+                throw Exception("Terjadi kesalahan")
+            }
+        } catch (ex: Exception) {
+            _updateAccount.postValue(Resource.Error(ex))
+        }
+    }
+
+    fun getAccount() = authRepository.getAccount().asLiveData()
 }

@@ -22,6 +22,9 @@ data class AuthLocal(
     @ColumnInfo(name = "address")
     val address: String? = null,
 
+    @ColumnInfo(name = "city")
+    val city: String? = null,
+
     @ColumnInfo(name = "image_url")
     val imageUrl: String? = null,
 

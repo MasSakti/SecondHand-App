@@ -1,15 +1,13 @@
 package id.co.binar.secondhand.ui.profile
 
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
 import coil.load
 import coil.size.ViewSizeResolver
-import coil.transform.RoundedCornersTransformation
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.EasyPermissions.somePermissionPermanentlyDenied
@@ -18,12 +16,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ActivityProfileBinding
 import id.co.binar.secondhand.model.auth.AddAuthRequest
+import id.co.binar.secondhand.model.auth.UpdateAuthByTokenRequest
 import id.co.binar.secondhand.util.*
 import io.github.anderscheow.validator.Validator
 import io.github.anderscheow.validator.constant.Mode
 import io.github.anderscheow.validator.validator
+import java.util.*
 
-const val PASSING_TO_PROFILE = "PASSING_TO_PROFILE"
+const val PASSING_FROM_REGISTER_TO_PROFILE = "PASSING_FROM_REGISTER_TO_PROFILE"
+const val PASSING_FROM_ACCOUNT_TO_PROFILE = "PASSING_FROM_ACCOUNT_TO_PROFILE"
 
 @AndroidEntryPoint
 class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
@@ -44,6 +45,20 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
     }
 
     private fun bindObserver() {
+        viewModel.updateAccount.observe(this) {
+            when(it) {
+                is Resource.Success -> {
+                    this.onToast("Data berhasil diupdate")
+                    onBackPressed()
+                }
+                is Resource.Loading -> {
+                    this.onToast("Mohon menunggu...")
+                }
+                is Resource.Error -> {
+                    this.onSnackbar(binding.root, it.error?.message.toString())
+                }
+            }
+        }
         viewModel.register.observe(this) {
             when(it) {
                 is Resource.Success -> {
@@ -54,7 +69,7 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                     this.onToast("Mohon menunggu...")
                 }
                 is Resource.Error -> {
-                    this.onSnackbar(binding.root, it.message.toString())
+                    this.onSnackbar(binding.root, it.error?.message.toString())
                 }
             }
         }
@@ -66,9 +81,38 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
     }
 
     private fun bindView() {
-        intent.extras?.getParcelable<AddAuthRequest>(PASSING_TO_PROFILE)?.let {
-            viewModel.field(it)
-            binding.txtInputLayoutNama.setText(it.fullName)
+        if (intent.hasExtra(PASSING_FROM_ACCOUNT_TO_PROFILE)) {
+            intent.extras?.getBoolean(PASSING_FROM_ACCOUNT_TO_PROFILE)?.let {
+                if (it) {
+                    binding.txtInputLayoutEmail.visibility = View.VISIBLE
+                    binding.txtInputLayoutPassword.visibility = View.VISIBLE
+                    viewModel.getAccount().observe(this) {
+                        binding.ivImageProfile.load(it.data?.imageUrl) {
+                            placeholder(R.drawable.ic_profile_image)
+                            error(R.drawable.ic_profile_image)
+                            size(ViewSizeResolver(binding.ivImageProfile))
+                        }
+                        viewModel.bitmap(binding.ivImageProfile.drawable.toBitmap())
+                        binding.txtInputEmail.setText(it.data?.email)
+                        binding.txtInputLayoutNama.setText(it.data?.fullName)
+                        binding.txtInputLayoutKota.setText(it.data?.city)
+                        binding.txtInputLayoutAlamat.setText(it.data?.address)
+                        binding.txtInputLayoutNoHandphone.setText(it.data?.phoneNumber.toString())
+                        when (it) {
+                            is Resource.Success -> {}
+                            is Resource.Loading -> {}
+                            is Resource.Error -> {
+                                this.onSnackbar(binding.root, it.error?.message.toString())
+                            }
+                        }
+                    }
+                }
+            }
+        } else if (intent.hasExtra(PASSING_FROM_REGISTER_TO_PROFILE)) {
+            intent.extras?.getParcelable<AddAuthRequest>(PASSING_FROM_REGISTER_TO_PROFILE)?.let {
+                viewModel.field(it)
+                binding.txtInputLayoutNama.setText(it.fullName)
+            }
         }
 
         binding.toolbar.setNavigationIcon(R.drawable.ic_round_arrow_back_24)
@@ -119,15 +163,30 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
     }
 
     private fun onValidate() {
-        validator(this) {
-            mode = Mode.SINGLE
-            listener = onProfileSubmit
-            validate(
-                generalValid(binding.etNamaProfile),
-                generalValid(binding.etKotaProfile),
-                generalValid(binding.etAlamatProfile),
-                generalValid(binding.etNoHandphoneProfile)
-            )
+        if (intent.hasExtra(PASSING_FROM_REGISTER_TO_PROFILE)) {
+            validator(this) {
+                mode = Mode.SINGLE
+                listener = onProfileSubmit
+                validate(
+                    generalValid(binding.etNamaProfile),
+                    generalValid(binding.etKotaProfile),
+                    generalValid(binding.etAlamatProfile),
+                    phoneValid(binding.etNoHandphoneProfile)
+                )
+            }
+        } else if (intent.hasExtra(PASSING_FROM_ACCOUNT_TO_PROFILE)) {
+            validator(this) {
+                mode = Mode.SINGLE
+                listener = onProfileSubmit
+                validate(
+                    emailValid(binding.txtInputLayoutEmail),
+                    passwordValid(binding.txtInputLayoutPassword),
+                    generalValid(binding.etNamaProfile),
+                    generalValid(binding.etKotaProfile),
+                    generalValid(binding.etAlamatProfile),
+                    phoneValid(binding.etNoHandphoneProfile)
+                )
+            }
         }
     }
 
@@ -137,18 +196,32 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
             if (bitmap == null) {
                 this@ProfileActivity.onSnackbar(binding.root, "File gambar tidak boleh kosong!")
             } else {
-                val it = viewModel.field.value
-                viewModel.register(
-                    AddAuthRequest(
-                        email = it?.email,
-                        password = it?.password,
-                        fullName = binding.txtInputLayoutNama.text.toString(),
-                        phoneNumber = binding.txtInputLayoutNoHandphone.text.toString().toLong(),
-                        address = binding.txtInputLayoutAlamat.text.toString(),
-                        city = binding.txtInputLayoutKota.text.toString()
-                    ),
-                    this@ProfileActivity.buildImageMultipart("image", bitmap)
-                )
+                if (intent.hasExtra(PASSING_FROM_REGISTER_TO_PROFILE)) {
+                    val it = viewModel.field.value
+                    viewModel.register(
+                        AddAuthRequest(
+                            email = it?.email,
+                            password = it?.password,
+                            fullName = binding.txtInputLayoutNama.text.toString(),
+                            phoneNumber = binding.txtInputLayoutNoHandphone.text.toString().toLong(),
+                            address = binding.txtInputLayoutAlamat.text.toString(),
+                            city = binding.txtInputLayoutKota.text.toString()
+                        ),
+                        this@ProfileActivity.buildImageMultipart("image", bitmap)
+                    )
+                } else if (intent.hasExtra(PASSING_FROM_ACCOUNT_TO_PROFILE)) {
+                    viewModel.updateAccount(
+                        UpdateAuthByTokenRequest(
+                            password = binding.txtInputPassword.text.toString(),
+                            email = binding.txtInputEmail.text.toString(),
+                            fullName = binding.txtInputLayoutNama.text.toString(),
+                            phoneNumber = binding.txtInputLayoutNoHandphone.text.toString().toLong(),
+                            address = binding.txtInputLayoutAlamat.text.toString(),
+                            city = binding.txtInputLayoutKota.text.toString()
+                        ),
+                        this@ProfileActivity.buildImageMultipart("image", bitmap)
+                    )
+                }
             }
         }
 

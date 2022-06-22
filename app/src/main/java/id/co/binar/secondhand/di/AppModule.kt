@@ -8,6 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import id.co.binar.secondhand.data.local.AuthDao
+import id.co.binar.secondhand.data.local.BuyerDao
 import id.co.binar.secondhand.data.remote.*
 import id.co.binar.secondhand.database.RoomDatabase
 import id.co.binar.secondhand.util.DataStoreManager
@@ -19,8 +20,13 @@ import javax.inject.Singleton
 object AppModule {
 
     @Provides
-    fun provideMoviessDao(roomDB: RoomDatabase): AuthDao {
+    fun provideMoviesDao(roomDB: RoomDatabase): AuthDao {
         return roomDB.authDao()
+    }
+
+    @Provides
+    fun provideHomeDao(roomDB: RoomDatabase): BuyerDao {
+        return roomDB.buyerDao()
     }
 
     @Singleton

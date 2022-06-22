@@ -15,10 +15,10 @@ class SellerRepository @Inject constructor(
 ) {
     fun store() = store
 
-    suspend fun getCategory(token: String) = sellerApi.getCategory(token)
+    suspend fun getCategory() = sellerApi.getCategory()
 
     suspend fun addProduct(field: AddProductRequest, image: MultipartBody.Part) = sellerApi.addProduct(
-        store.getTokenId().toString(),
+        store.getTokenId(),
         hashMapOf(
             "name" to field.name.toString().toRequestBody(MultipartBody.FORM),
             "description" to field.description.toString().toRequestBody(MultipartBody.FORM),

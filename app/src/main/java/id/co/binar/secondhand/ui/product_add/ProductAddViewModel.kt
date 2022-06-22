@@ -1,5 +1,6 @@
 package id.co.binar.secondhand.ui.product_add
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -26,7 +27,13 @@ class ProductAddViewModel @Inject constructor(
     private val sellerRepository: SellerRepository,
     state: SavedStateHandle
 ) : ViewModel() {
-    fun getTokenId() = runBlocking { sellerRepository.store().getTokenId() }
+    fun getTokenId() = sellerRepository.store().getTokenId()
+
+    private val _bitmap = state.getLiveData<Bitmap>("BITMAP")
+    val bitmap: LiveData<Bitmap> = _bitmap
+    fun bitmap(bitmap: Bitmap) {
+        _bitmap.postValue(bitmap)
+    }
 
     private val _list = state.getLiveData<MutableList<GetCategoryResponseItem>>("LIST_CATEGORY_PRODUCT")
     val list: LiveData<MutableList<GetCategoryResponseItem>> = _list
@@ -45,7 +52,7 @@ class ProductAddViewModel @Inject constructor(
     fun categoryProduct() = CoroutineScope(Dispatchers.IO).launch {
         _categoryProduct.postValue(Resource.Loading())
         try {
-            val response = sellerRepository.getCategory(getTokenId().toString())
+            val response = sellerRepository.getCategory()
             if (response.isSuccessful) {
                 response.body()?.let {
                     _categoryProduct.postValue(Resource.Success(it))
@@ -54,7 +61,7 @@ class ProductAddViewModel @Inject constructor(
                 throw Exception("Terjadi kesalahan")
             }
         } catch (ex: Exception) {
-            _categoryProduct.postValue(Resource.Error(code = null, message = ex.message.toString()))
+            _categoryProduct.postValue(Resource.Error(ex))
             throw ex
         }
     }
@@ -77,7 +84,7 @@ class ProductAddViewModel @Inject constructor(
                 throw Exception("Terjadi kesalahan")
             }
         } catch (ex: Exception) {
-            _addProduct.postValue(Resource.Error(code = null, message = ex.message.toString()))
+            _addProduct.postValue(Resource.Error(ex))
         }
     }
 }

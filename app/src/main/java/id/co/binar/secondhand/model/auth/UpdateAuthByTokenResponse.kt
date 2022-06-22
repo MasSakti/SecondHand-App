@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class UpdateByIdResponse(
+data class UpdateAuthByTokenResponse(
 
 	@SerializedName("createdAt")
 	val createdAt: String? = null,
@@ -21,6 +21,9 @@ data class UpdateByIdResponse(
 
 	@SerializedName("image_url")
 	val imageUrl: String? = null,
+
+	@SerializedName("city")
+	val city: String? = null,
 
 	@SerializedName("phone_number")
 	val phoneNumber: Long? = null,

@@ -37,10 +37,13 @@ data class GetProductResponseItem(
 	@SerializedName("location")
 	val location: String? = null,
 
+	@SerializedName("description")
+	val description: String? = null,
+
 	@SerializedName("id")
 	val id: Int? = null,
 
-	@SerializedName("categories")
+	@SerializedName("Categories")
 	val categories: List<CategoriesItem>? = null
 ) : Parcelable
 

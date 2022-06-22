@@ -19,4 +19,17 @@ interface AuthApi {
         @PartMap field: HashMap<String, RequestBody>,
         @Part image: MultipartBody.Part
     ) : Response<AddAuthResponse>
+
+    @GET("auth/user")
+    suspend fun getAccount(
+        @Header("access_token") token: String
+    ) : Response<GetAuthByTokenResponse>
+
+    @Multipart
+    @PUT("auth/user")
+    suspend fun updateAccount(
+        @Header("access_token") token: String,
+        @PartMap field: HashMap<String, RequestBody>,
+        @Part image: MultipartBody.Part
+    ) : Response<UpdateAuthByTokenResponse>
 }

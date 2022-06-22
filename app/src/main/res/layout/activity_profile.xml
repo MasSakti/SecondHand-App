@@ -35,7 +35,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appbar">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -43,13 +44,58 @@
                 android:id="@+id/iv_image_profile"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="24dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_profile_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:src="@drawable/ic_profile_image" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_input_layout_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="21dp"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginEnd="21dp"
+                android:visibility="gone"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusTopStart="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_input_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_input_layout_password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="21dp"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginEnd="21dp"
+                android:visibility="gone"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusTopStart="16dp"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_input_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/et_nama_profile"
@@ -62,10 +108,7 @@
                 app:boxCornerRadiusBottomEnd="16dp"
                 app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusTopEnd="16dp"
-                app:boxCornerRadiusTopStart="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_image_profile">
+                app:boxCornerRadiusTopStart="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_input_layout_nama"
@@ -87,17 +130,14 @@
                 app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusTopEnd="16dp"
                 app:boxCornerRadiusTopStart="16dp"
-                app:endIconDrawable="@drawable/ic_round_keyboard_arrow_down_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_nama_profile">
+                app:endIconDrawable="@drawable/ic_round_keyboard_arrow_down_24">
 
                 <AutoCompleteTextView
                     android:id="@+id/txt_input_layout_kota"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Pilih Kota"
-                    android:inputType="none"
+                    android:inputType="text"
                     app:simpleItems="@array/simple_items" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -113,10 +153,7 @@
                 app:boxCornerRadiusBottomEnd="16dp"
                 app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusTopEnd="16dp"
-                app:boxCornerRadiusTopStart="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_kota_profile">
+                app:boxCornerRadiusTopStart="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_input_layout_alamat"
@@ -138,10 +175,7 @@
                 app:boxCornerRadiusBottomEnd="16dp"
                 app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusTopEnd="16dp"
-                app:boxCornerRadiusTopStart="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_alamat_profile">
+                app:boxCornerRadiusTopStart="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_input_layout_noHandphone"
@@ -162,13 +196,9 @@
                 android:text="Simpan"
                 android:textAllCaps="false"
                 android:textSize="18sp"
-                app:cornerRadius="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_noHandphone_profile" />
+                app:cornerRadius="16dp" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </ScrollView>
 

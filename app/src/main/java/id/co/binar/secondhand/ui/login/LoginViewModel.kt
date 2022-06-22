@@ -47,7 +47,7 @@ class LoginViewModel @Inject constructor(
                 throw Exception("Terjadi kesalahan")
             }
         } catch (ex: Exception) {
-            _login.postValue(Resource.Error(code = null, message = ex.message.toString()))
+            _login.postValue(Resource.Error(ex))
         }
     }
 }

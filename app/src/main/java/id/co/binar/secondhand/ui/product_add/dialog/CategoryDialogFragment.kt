@@ -62,7 +62,7 @@ class CategoryDialogFragment : BottomSheetDialogFragment() {
                     requireContext().onToast("Mohon menunggu...")
                 }
                 is Resource.Error -> {
-                    requireContext().onToast(it.message.toString())
+                    requireContext().onToast(it.error?.message.toString())
                 }
             }
         }

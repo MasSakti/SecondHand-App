@@ -1,6 +1,7 @@
 package id.co.binar.secondhand.ui.dashboard.account
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.co.binar.secondhand.repository.AuthRepository
 import kotlinx.coroutines.CoroutineScope
@@ -17,4 +18,6 @@ class AccountViewModel @Inject constructor(
         authRepository.store().clear()
         authRepository.authDao().logout()
     }
+
+    fun getAccount() = authRepository.getAccount().asLiveData()
 }

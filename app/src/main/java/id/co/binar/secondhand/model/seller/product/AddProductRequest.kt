@@ -11,7 +11,7 @@ data class AddProductRequest(
 	val name: String? = null,
 
 	@SerializedName("base_price")
-	val basePrice: Int? = null,
+	val basePrice: Long? = null,
 
 	@SerializedName("description")
 	val description: String? = null,
@@ -20,5 +20,5 @@ data class AddProductRequest(
 	val location: String? = null,
 
 	@SerializedName("category_ids")
-	val categoryIds: List<Int>? = null
+	val categoryIds: String? = null
 ) : Parcelable

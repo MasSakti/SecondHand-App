@@ -79,14 +79,15 @@
                 app:boxCornerRadiusTopStart="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_title_product">
+                app:layout_constraintTop_toBottomOf="@+id/et_title_product"
+                app:prefixText="Rp.">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_input_layout_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Harga Produk"
-                    android:inputType="text" />
+                    android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -117,7 +118,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/et_description"
+                android:id="@+id/et_input_layout_location"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -131,6 +132,30 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_categori_product">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_input_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Lokasi Produk"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_description"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginEnd="21dp"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusTopStart="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_input_layout_location">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_input_layout_description"

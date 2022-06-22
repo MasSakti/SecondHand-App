@@ -28,6 +28,9 @@ data class GetProductResponseItem(
 	@SerializedName("name")
 	val name: String? = null,
 
+	@SerializedName("description")
+	val description: String? = null,
+
 	@SerializedName("base_price")
 	val basePrice: Int? = null,
 

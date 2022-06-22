@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class GetAuthByIdResponse(
+data class GetAuthByTokenResponse(
 
 	@SerializedName("createdAt")
 	val createdAt: String? = null,
@@ -18,6 +18,9 @@ data class GetAuthByIdResponse(
 
 	@SerializedName("address")
 	val address: String? = null,
+
+	@SerializedName("city")
+	val city: String? = null,
 
 	@SerializedName("image_url")
 	val imageUrl: String? = null,

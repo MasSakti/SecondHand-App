@@ -1,13 +1,12 @@
 package id.co.binar.secondhand.ui.register
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ActivityRegisterBinding
 import id.co.binar.secondhand.model.auth.AddAuthRequest
-import id.co.binar.secondhand.model.auth.GetAuthRequest
-import id.co.binar.secondhand.ui.profile.PASSING_TO_PROFILE
+import id.co.binar.secondhand.ui.profile.PASSING_FROM_REGISTER_TO_PROFILE
 import id.co.binar.secondhand.ui.profile.ProfileActivity
 import id.co.binar.secondhand.util.emailValid
 import id.co.binar.secondhand.util.generalValid
@@ -56,7 +55,7 @@ class RegisterActivity : AppCompatActivity() {
     private val onSignUp= object : Validator.OnValidateListener {
         override fun onValidateSuccess(values: List<String>) {
             val intent = Intent(this@RegisterActivity, ProfileActivity::class.java)
-            intent.putExtra(PASSING_TO_PROFILE,
+            intent.putExtra(PASSING_FROM_REGISTER_TO_PROFILE,
                     AddAuthRequest(
                         fullName = binding.txtInputLayoutNama.text.toString(),
                         email = binding.txtInputLayoutEmail.text.toString(),

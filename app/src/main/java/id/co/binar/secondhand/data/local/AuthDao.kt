@@ -1,8 +1,8 @@
 package id.co.binar.secondhand.data.local
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import id.co.binar.secondhand.data.local.model.AuthLocal
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AuthDao {
@@ -11,10 +11,10 @@ interface AuthDao {
     suspend fun setAccount(field: AuthLocal)
 
     @Query("SELECT * FROM tbl_auth WHERE token=:token AND id=:id")
-    fun getAccount(token: String, id: Int) : LiveData<AuthLocal>
+    fun getAccount(token: String, id: Int) : Flow<AuthLocal>
 
-    @Delete
-    suspend fun removeAccount(field: AuthLocal)
+    @Query("DELETE FROM tbl_auth WHERE token=:token AND id=:id")
+    suspend fun removeAccount(token: String, id: Int)
 
     @Query("DELETE FROM tbl_auth")
     suspend fun logout()

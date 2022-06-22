@@ -6,24 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import coil.load
+import coil.size.ViewSizeResolver
+import coil.transform.RoundedCornersTransformation
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.FragmentAccountBinding
 import id.co.binar.secondhand.ui.login.LoginActivity
-import id.co.binar.secondhand.ui.login.PASSING_TO_SIGN_IN
-import id.co.binar.secondhand.util.DataStoreManager
-import id.co.binar.secondhand.util.TOKEN_ID
-import id.co.binar.secondhand.util.dataStore
-import id.co.binar.secondhand.util.getValue
+import id.co.binar.secondhand.ui.profile.PASSING_FROM_ACCOUNT_TO_PROFILE
+import id.co.binar.secondhand.ui.profile.ProfileActivity
+import id.co.binar.secondhand.util.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AccountFragment : Fragment() {
@@ -47,6 +45,11 @@ class AccountFragment : Fragment() {
     }
 
     private fun bindView() {
+        binding.tvEditAccount.setOnClickListener {
+            val intent = Intent(requireContext(), ProfileActivity::class.java)
+            intent.putExtra(PASSING_FROM_ACCOUNT_TO_PROFILE, true)
+            startActivity(intent)
+        }
         binding.tvLogoutAccount.setOnClickListener {
             dialogLogout {
                 viewModel.logout()
@@ -62,9 +65,25 @@ class AccountFragment : Fragment() {
     }
 
     private fun bindObserver() {
+        viewModel.getAccount().observe(viewLifecycleOwner) {
+            binding.ivImageAccount.load(it.data?.imageUrl.toString()) {
+                placeholder(R.drawable.ic_profile_image)
+                error(R.drawable.ic_profile_image)
+                transformations(RoundedCornersTransformation(14F))
+                size(ViewSizeResolver(binding.ivImageAccount))
+            }
+            when (it) {
+                is Resource.Success -> {}
+                is Resource.Loading -> {}
+                is Resource.Error -> {
+                    requireContext().onSnackbar(binding.root, it.error?.message.toString())
+                }
+            }
+        }
+
         lifecycleScope.launch {
             requireContext().dataStore.getValue(TOKEN_ID, "").collectLatest {
-                if (it.isNullOrEmpty()) {
+                if (it.isEmpty()) {
                     binding.apply {
                         ivEditAccount.visibility = View.INVISIBLE
                         ivLogoutAccount.visibility = View.INVISIBLE
