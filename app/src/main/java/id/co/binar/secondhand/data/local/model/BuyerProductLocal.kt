@@ -38,10 +38,10 @@ data class BuyerProductLocal(
     val location: String? = null,
 
     @PrimaryKey(autoGenerate = false)
-    val id: Int
+    val id: Int,
 
-    /*@ColumnInfo(name = "categories")
-    val categories: List<CategoriesItemLocal>? = emptyList()*/
+    @ColumnInfo(name = "categories")
+    val categories: List<CategoriesItemLocal>? = emptyList()
 ) : Parcelable
 
 @Parcelize
