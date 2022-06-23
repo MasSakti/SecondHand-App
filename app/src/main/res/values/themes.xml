@@ -30,4 +30,12 @@
         <item name="fontFamily">@font/nunitobold</item>
     </style>
 
+    <style name="WhiteButton" parent="Widget.AppCompat.Button">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">#7126B5</item>
+        <item name="android:textFontWeight" tools:targetApi="p">600</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">@drawable/bg_white_button</item>
+    </style>
+
 </resources>
