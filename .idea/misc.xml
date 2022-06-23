@@ -15,7 +15,6 @@
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/drawable/ic_round_bg_bottomsheet.xml" value="0.1855" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/drawable/ic_round_check_circle_24.xml" value="0.1855" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/drawable/ic_round_check_circle_outline_24.xml" value="0.1855" />
-        <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/drawable/ic_round_search_home.xml" value="0.1855" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/drawable/ic_round_tab_layout.xml" value="0.1855" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/drawable/shape_rounded_button1.xml" value="0.1855" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/drawable/shape_rounded_button2.xml" value="0.1855" />
@@ -38,11 +37,20 @@
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_category_home.xml" value="0.2864583333333333" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_category_list_sell.xml" value="0.2875" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_category_product_add.xml" value="0.2864583333333333" />
-        <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_product_home.xml" value="0.33" />
+        <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_product_home.xml" value="0.1" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/menu/menu_dashboard.xml" value="0.2875" />
         <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/activity_dashboard.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/activity_info_bid.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/activity_login.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/activity_product.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/activity_product_add.xml" value="0.18" />
         <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/fragment_account.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/fragment_list_sell.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/fragment_seller_18.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/list_item_category_home.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/list_item_category_list_sell.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/list_item_category_product_add.xml" value="0.17074275362318841" />
       </map>
     </option>
   </component>
