@@ -22,6 +22,8 @@ class Login : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel.onViewLoaded()
+
         bindview()
         bindviewModel()
     }
@@ -34,6 +36,16 @@ class Login : AppCompatActivity() {
             if (it){
                 startActivity(Intent(applicationContext,MainActivity::class.java))
             }
+        }
+        viewModel.shouldOpenSignIn.observe((this)) {
+            val intent = Intent(this, Login::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+        viewModel.shouldOpenMain.observe(this) {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
     }
 

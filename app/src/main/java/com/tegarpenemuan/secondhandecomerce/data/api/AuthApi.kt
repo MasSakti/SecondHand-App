@@ -1,15 +1,13 @@
 package com.tegarpenemuan.secondhandecomerce.data.api
 
+import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.register.response.SuccessRegisterResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.Multipart
-import retrofit2.http.POST
-import retrofit2.http.Part
+import retrofit2.http.*
 
 interface AuthApi {
 
@@ -26,4 +24,9 @@ interface AuthApi {
 
     @POST("auth/login")
     suspend fun login (@Body request: LoginRequest): Response<LoginResponse>
+
+    @GET("auth/user")
+    suspend fun getProfile(
+        @Query("access_token") access_token: String
+    ): Response<GetProfileResponse>
 }

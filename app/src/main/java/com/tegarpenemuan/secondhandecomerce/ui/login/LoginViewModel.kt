@@ -3,7 +3,9 @@ package com.tegarpenemuan.secondhandecomerce.ui.login
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
+import com.tegarpenemuan.secondhandecomerce.data.local.UserEntity
 import com.tegarpenemuan.secondhandecomerce.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -27,9 +29,12 @@ class LoginViewModel @Inject constructor(
 
     private var email: String = ""
     private var password: String = ""
+    private lateinit var token: String
 
     val shouldShowError: MutableLiveData<String> = MutableLiveData()
+    val shouldOpenSignIn: MutableLiveData<Boolean> = MutableLiveData()
     val shouldShowSuccess: MutableLiveData<Boolean> = MutableLiveData()
+    val shouldOpenMain: MutableLiveData<Boolean> = MutableLiveData()
 
     fun onChangeEmail(email: String) {
         this.email = email
@@ -60,14 +65,42 @@ class LoginViewModel @Inject constructor(
                 if (response.isSuccessful) {
                     val loginResponse = response.body()
                     loginResponse?.let {
-                        it.name
-                        it.email
-                        it.access_token
-                        shouldShowError.postValue(it.name)
+                        token = it.access_token
+                        insertToken(token)
+                        insertId(it.id)
                     }
                     shouldShowSuccess.postValue(true)
                 } else {
-                    shouldShowError.postValue("Request Tidak Failed")
+                    shouldShowError.postValue("Request login Tidak Failed")
+                }
+            }
+        }
+    }
+
+    private fun insertToken(token: String) {
+        if (token.isNotEmpty()) {
+            viewModelScope.launch {
+                repository.updateToken(token)
+            }
+        }
+    }
+
+    private fun insertId(id: String) {
+        if (id.isNotEmpty()) {
+            viewModelScope.launch {
+                repository.setId(id)
+            }
+        }
+    }
+
+    fun onViewLoaded() {
+        viewModelScope.launch {
+            val result = repository.getToken()
+            withContext(Dispatchers.Main) {
+                if (result.isNullOrEmpty()) {
+                    //shouldOpenSignIn.postValue(true)
+                } else {
+                    shouldOpenMain.postValue(true)
                 }
             }
         }
