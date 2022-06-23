@@ -28,11 +28,10 @@ class ThirdOnBoardingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnGetStarted.setOnClickListener{
-            startActivity(
-                Intent(activity, LoginActivity::class.java).also{
-
-                }
-            )
+            Intent(activity, LoginActivity::class.java).also {
+                it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(it)
+            }
         }
     }
 }

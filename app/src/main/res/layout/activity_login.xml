@@ -67,7 +67,7 @@
         app:layout_constraintTop_toBottomOf="@+id/et_emailLogin" />
 
     <EditText
-        android:id="@+id/et_emailPassword"
+        android:id="@+id/et_passwordLogin"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
@@ -86,15 +86,12 @@
         android:id="@+id/btn_masukLogin"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_button"
         android:text="Masuk"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="14sp"
-        android:background="@drawable/bg_button"
-        app:layout_constraintTop_toBottomOf="@+id/et_emailPassword"/>
+        app:layout_constraintTop_toBottomOf="@+id/et_passwordLogin" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"

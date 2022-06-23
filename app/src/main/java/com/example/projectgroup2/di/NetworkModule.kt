@@ -1,6 +1,8 @@
 package com.example.projectgroup2.di
 
 import com.example.projectgroup2.data.api.auth.AuthAPI
+import com.example.projectgroup2.data.api.image.ImageAPI
+import com.example.projectgroup2.data.api.main.ProductAPI
 import com.example.projectgroup2.utils.Constant
 import dagger.Module
 import dagger.Provides
@@ -35,7 +37,8 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(client: OkHttpClient) : Retrofit {
+    @Named(Constant.RetrofitAuth)
+    fun provideRetrofitAuth(client: OkHttpClient) : Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constant.baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
@@ -45,7 +48,41 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideAPI(retrofit: Retrofit) : AuthAPI {
+    @Named(Constant.RetrofitProduct)
+    fun provideRetrofitProduct(client: OkHttpClient) : Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(Constant.baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    @Named(Constant.RetrofitImgBB)
+    fun provideRetrofitImgBB(client: OkHttpClient) : Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(Constant.baseUrlImgBB)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideAuthAPI(@Named(Constant.RetrofitAuth) retrofit: Retrofit) : AuthAPI {
         return retrofit.create(AuthAPI::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideProductAPI(@Named(Constant.RetrofitProduct) retrofit: Retrofit) : ProductAPI {
+        return retrofit.create(ProductAPI::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAuthImgBB(@Named(Constant.RetrofitImgBB) retrofit: Retrofit) : ImageAPI {
+        return retrofit.create(ImageAPI::class.java)
     }
 }
