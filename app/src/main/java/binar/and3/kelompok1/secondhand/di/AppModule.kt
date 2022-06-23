@@ -4,6 +4,7 @@ import binar.and3.kelompok1.secondhand.data.api.auth.AuthAPI
 import binar.and3.kelompok1.secondhand.data.local.UserDAO
 import binar.and3.kelompok1.secondhand.datastore.AuthDataStoreManager
 import binar.and3.kelompok1.secondhand.repository.AuthRepository
+import binar.and3.kelompok1.secondhand.repository.ProfileRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,6 +25,18 @@ class AppModule {
             authDataStore = authDataStoreManager,
             api = api,
             dao = dao
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideProfileRepository(
+        authAPI: AuthAPI,
+        userDAO: UserDAO
+    ): ProfileRepository {
+        return ProfileRepository(
+            authAPI = authAPI,
+            dao = userDAO
         )
     }
 

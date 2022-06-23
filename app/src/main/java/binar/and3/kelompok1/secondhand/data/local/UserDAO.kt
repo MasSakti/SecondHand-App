@@ -14,5 +14,5 @@ interface UserDAO {
     suspend fun updateUser(id: Int, fullName: String, email: String, password: String, phoneNumber: String, address: String, imageUrl: String )
 
     @Delete
-    suspend fun deleteUser(userEntity: UserEntity): Int
+    suspend fun removeUser(userEntity: UserEntity): Int
 }

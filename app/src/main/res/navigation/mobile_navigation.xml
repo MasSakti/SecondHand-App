@@ -29,5 +29,14 @@
         android:id="@+id/daftarFragment2"
         android:name="binar.and3.kelompok1.secondhand.ui.menu.daftarjual.DaftarFragment"
         android:label="fragment_daftar"
-        tools:layout="@layout/fragment_daftar" />
+        tools:layout="@layout/fragment_daftar" >
+        <action
+            android:id="@+id/action_daftarFragment2_to_akunFragment"
+            app:destination="@id/akunFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/akunFragment"
+        android:name="binar.and3.kelompok1.secondhand.ui.menu.akun.AkunFragment"
+        android:label="fragment_akun"
+        tools:layout="@layout/fragment_akun" />
 </navigation>
