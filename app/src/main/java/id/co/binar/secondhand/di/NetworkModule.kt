@@ -20,7 +20,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.net.CookieManager
 import java.util.*
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module

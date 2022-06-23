@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.FragmentNotificationBinding
 
 class NotificationFragment : Fragment() {

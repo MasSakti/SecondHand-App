@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import id.co.binar.secondhand.model.buyer.product.CategoriesItem
 import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "tbl_home")
@@ -41,11 +42,5 @@ data class BuyerProductLocal(
     val id: Int,
 
     @ColumnInfo(name = "categories")
-    val categories: List<CategoriesItemLocal>? = emptyList()
-) : Parcelable
-
-@Parcelize
-data class CategoriesItemLocal(
-    val name: String? = null,
-    val id: Int? = null
+    val categories: List<CategoriesItem>? = emptyList()
 ) : Parcelable

@@ -40,7 +40,6 @@ class CategoryDialogAdapter : ListAdapter<GetCategoryResponseItem, RecyclerView.
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
         return ViewHolder(
             ListItemCategoryProductAddBinding.inflate(
                 LayoutInflater.from(
@@ -61,7 +60,7 @@ class CategoryDialogAdapter : ListAdapter<GetCategoryResponseItem, RecyclerView.
     }
 }
 
-val diffUtilCallback = object : DiffUtil.ItemCallback<GetCategoryResponseItem>() {
+private val diffUtilCallback = object : DiffUtil.ItemCallback<GetCategoryResponseItem>() {
     override fun areItemsTheSame(oldItem: GetCategoryResponseItem, newItem: GetCategoryResponseItem): Boolean {
         return oldItem.id == newItem.id
     }

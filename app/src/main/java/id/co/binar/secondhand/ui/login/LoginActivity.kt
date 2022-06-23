@@ -44,20 +44,22 @@ class LoginActivity : AppCompatActivity() {
                     this.onToast("Mohon menunggu...")
                 }
                 is Resource.Error -> {
-                    this.onSnackbar(binding.root, it.error?.message.toString())
+                    this.onSnackError(binding.root, it.error?.message.toString())
                 }
             }
         }
     }
 
     private fun bindView() {
-        binding.toolbar.setNavigationIcon(R.drawable.ic_round_arrow_back_24)
-        binding.btnMasuk.setOnClickListener {
-            onValidate()
-        }
-        binding.tvDaftarDiSini.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+        binding.apply {
+            toolbar.setNavigationIcon(R.drawable.ic_round_arrow_back_24)
+            btnMasuk.setOnClickListener {
+                onValidate()
+            }
+            tvDaftarDiSini.setOnClickListener {
+                val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 

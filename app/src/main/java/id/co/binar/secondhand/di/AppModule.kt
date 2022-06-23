@@ -1,6 +1,5 @@
 package id.co.binar.secondhand.di
 
-import android.app.Notification
 import android.content.Context
 import dagger.Module
 import dagger.Provides
@@ -9,6 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import id.co.binar.secondhand.data.local.AuthDao
 import id.co.binar.secondhand.data.local.BuyerDao
+import id.co.binar.secondhand.data.local.SellerDao
 import id.co.binar.secondhand.data.remote.*
 import id.co.binar.secondhand.database.RoomDatabase
 import id.co.binar.secondhand.util.DataStoreManager
@@ -27,6 +27,11 @@ object AppModule {
     @Provides
     fun provideHomeDao(roomDB: RoomDatabase): BuyerDao {
         return roomDB.buyerDao()
+    }
+
+    @Provides
+    fun provideCategoryDao(roomDB: RoomDatabase): SellerDao {
+        return roomDB.sellerDao()
     }
 
     @Singleton

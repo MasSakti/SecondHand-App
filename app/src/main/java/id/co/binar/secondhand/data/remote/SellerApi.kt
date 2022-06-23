@@ -20,9 +20,4 @@ interface SellerApi {
         @PartMap field: HashMap<String, RequestBody>,
         @Part image: MultipartBody.Part
     ) : Response<AddProductResponse>
-
-    @GET("seller/product")
-    suspend fun getProduct(
-        @Header("access_token") token: String
-    ) : Response<GetProductResponse>
 }

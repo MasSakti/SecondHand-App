@@ -1,24 +1,16 @@
 package id.co.binar.secondhand.ui.product_add
 
 import android.graphics.Bitmap
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.co.binar.secondhand.model.auth.AddAuthRequest
-import id.co.binar.secondhand.model.buyer.product.GetProductResponseItem
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
 import id.co.binar.secondhand.model.seller.product.AddProductRequest
 import id.co.binar.secondhand.model.seller.product.AddProductResponse
-import id.co.binar.secondhand.repository.AuthRepository
 import id.co.binar.secondhand.repository.SellerRepository
-import id.co.binar.secondhand.util.LiveEvent
 import id.co.binar.secondhand.util.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
@@ -47,24 +39,7 @@ class ProductAddViewModel @Inject constructor(
         _lastList.postValue(list.distinctBy { it.id }.toMutableList())
     }
 
-    private val _categoryProduct = MutableLiveData<Resource<List<GetCategoryResponseItem>>>()
-    val categoryProduct: LiveData<Resource<List<GetCategoryResponseItem>>> = _categoryProduct
-    fun categoryProduct() = CoroutineScope(Dispatchers.IO).launch {
-        _categoryProduct.postValue(Resource.Loading())
-        try {
-            val response = sellerRepository.getCategory()
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    _categoryProduct.postValue(Resource.Success(it))
-                }
-            } else {
-                throw Exception("Terjadi kesalahan")
-            }
-        } catch (ex: Exception) {
-            _categoryProduct.postValue(Resource.Error(ex))
-            throw ex
-        }
-    }
+    fun categoryProduct() = sellerRepository.getCategory().asLiveData()
 
     private val _addProduct = MutableLiveData<Resource<AddProductResponse>>()
     val addProduct: LiveData<Resource<AddProductResponse>> = _addProduct

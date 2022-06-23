@@ -1,9 +1,7 @@
 package id.co.binar.secondhand.ui.product
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import dagger.hilt.EntryPoint
-import id.co.binar.secondhand.R
+import androidx.appcompat.app.AppCompatActivity
 import id.co.binar.secondhand.databinding.ActivityProductBinding
 
 class ProductActivity : AppCompatActivity() {

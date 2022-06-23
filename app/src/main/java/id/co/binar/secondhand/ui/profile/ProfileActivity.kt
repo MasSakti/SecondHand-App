@@ -55,7 +55,7 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                     this.onToast("Mohon menunggu...")
                 }
                 is Resource.Error -> {
-                    this.onSnackbar(binding.root, it.error?.message.toString())
+                    this.onSnackError(binding.root, it.error?.message.toString())
                 }
             }
         }
@@ -69,7 +69,7 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                     this.onToast("Mohon menunggu...")
                 }
                 is Resource.Error -> {
-                    this.onSnackbar(binding.root, it.error?.message.toString())
+                    this.onSnackError(binding.root, it.error?.message.toString())
                 }
             }
         }
@@ -87,22 +87,24 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                     binding.txtInputLayoutEmail.visibility = View.VISIBLE
                     binding.txtInputLayoutPassword.visibility = View.VISIBLE
                     viewModel.getAccount().observe(this) {
-                        binding.ivImageProfile.load(it.data?.imageUrl) {
-                            placeholder(R.drawable.ic_profile_image)
-                            error(R.drawable.ic_profile_image)
-                            size(ViewSizeResolver(binding.ivImageProfile))
+                        binding.apply {
+                            ivImageProfile.load(it.data?.imageUrl) {
+                                placeholder(R.drawable.ic_profile_image)
+                                error(R.drawable.ic_profile_image)
+                                size(ViewSizeResolver(binding.ivImageProfile))
+                            }
+                            viewModel.bitmap(binding.ivImageProfile.drawable.toBitmap())
+                            txtInputEmail.setText(it.data?.email)
+                            txtInputLayoutNama.setText(it.data?.fullName)
+                            txtInputLayoutKota.setText(it.data?.city)
+                            txtInputLayoutAlamat.setText(it.data?.address)
+                            txtInputLayoutNoHandphone.setText(it.data?.phoneNumber.toString())
                         }
-                        viewModel.bitmap(binding.ivImageProfile.drawable.toBitmap())
-                        binding.txtInputEmail.setText(it.data?.email)
-                        binding.txtInputLayoutNama.setText(it.data?.fullName)
-                        binding.txtInputLayoutKota.setText(it.data?.city)
-                        binding.txtInputLayoutAlamat.setText(it.data?.address)
-                        binding.txtInputLayoutNoHandphone.setText(it.data?.phoneNumber.toString())
                         when (it) {
                             is Resource.Success -> {}
                             is Resource.Loading -> {}
                             is Resource.Error -> {
-                                this.onSnackbar(binding.root, it.error?.message.toString())
+                                this.onSnackError(binding.root, it.error?.message.toString())
                             }
                         }
                     }
@@ -194,7 +196,7 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
         override fun onValidateSuccess(values: List<String>) {
             val bitmap = viewModel.bitmap.value
             if (bitmap == null) {
-                this@ProfileActivity.onSnackbar(binding.root, "File gambar tidak boleh kosong!")
+                this@ProfileActivity.onSnackError(binding.root, "File gambar tidak boleh kosong!")
             } else {
                 if (intent.hasExtra(PASSING_FROM_REGISTER_TO_PROFILE)) {
                     val it = viewModel.field.value

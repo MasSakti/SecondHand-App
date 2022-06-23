@@ -3,11 +3,9 @@ package id.co.binar.secondhand.ui.dashboard
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.datastore.core.DataStore
 import com.google.android.material.navigation.NavigationBarView
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
@@ -17,8 +15,6 @@ import id.co.binar.secondhand.ui.dashboard.home.HomeFragment
 import id.co.binar.secondhand.ui.dashboard.list_sell.ListSellFragment
 import id.co.binar.secondhand.ui.dashboard.notification.NotificationFragment
 import id.co.binar.secondhand.ui.product_add.ProductAddActivity
-import id.co.binar.secondhand.util.DataStoreManager
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashboardActivity : AppCompatActivity(),
@@ -59,10 +55,12 @@ class DashboardActivity : AppCompatActivity(),
     }
 
     private fun bindView() {
-        binding.viewPager.adapter = sectionViewPager
-        binding.viewPager.isUserInputEnabled = false
-        binding.toolbar.isVisible = false
-        binding.bottomNavbar.setOnItemSelectedListener(this)
+        binding.apply {
+            viewPager.adapter = sectionViewPager
+            viewPager.isUserInputEnabled = false
+            toolbar.isVisible = false
+            bottomNavbar.setOnItemSelectedListener(this@DashboardActivity)
+        }
     }
 
     private fun onSetViewPager(it: Int) {

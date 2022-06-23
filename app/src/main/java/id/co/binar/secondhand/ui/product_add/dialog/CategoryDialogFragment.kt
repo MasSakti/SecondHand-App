@@ -2,22 +2,21 @@ package id.co.binar.secondhand.ui.product_add.dialog
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.BottomSheetCategoryProductAddBinding
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
 import id.co.binar.secondhand.ui.product_add.ProductAddViewModel
 import id.co.binar.secondhand.util.Resource
+import id.co.binar.secondhand.util.castFromLocalToRemote
 import id.co.binar.secondhand.util.onToast
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 const val TAG_CATEGORY_DIALOG = "CATEGORY_DIALOG"
 
@@ -44,23 +43,18 @@ class CategoryDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun bindObserver() {
-        viewModel.categoryProduct.observe(viewLifecycleOwner) {
+        viewModel.categoryProduct().observe(viewLifecycleOwner) {
+            adapter.submitList(it.data.castFromLocalToRemote())
+            binding.list.adapter = adapter
+            viewModel.list.observe(viewLifecycleOwner) {
+                chooseList = it
+            }
+            viewModel.lastList.observe(viewLifecycleOwner) {
+                adapter.submitList(it)
+            }
             when(it) {
-                is Resource.Success -> {
-                    adapter.submitList(it.data)
-                    binding.list.adapter = adapter
-
-                    viewModel.list.observe(viewLifecycleOwner) {
-                        chooseList = it
-                    }
-
-                    viewModel.lastList.observe(viewLifecycleOwner) {
-                        adapter.submitList(it)
-                    }
-                }
-                is Resource.Loading -> {
-                    requireContext().onToast("Mohon menunggu...")
-                }
+                is Resource.Success -> {}
+                is Resource.Loading -> {}
                 is Resource.Error -> {
                     requireContext().onToast(it.error?.message.toString())
                 }
@@ -76,6 +70,9 @@ class CategoryDialogFragment : BottomSheetDialogFragment() {
                 chooseList.remove(getCategoryResponseItem)
             }
         }
+        adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        binding.list.setHasFixedSize(true)
+        binding.list.itemAnimator = DefaultItemAnimator()
         binding.list.layoutManager = LinearLayoutManager(context)
     }
 

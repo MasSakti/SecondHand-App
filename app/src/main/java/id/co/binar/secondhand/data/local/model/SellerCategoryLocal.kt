@@ -4,12 +4,11 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-@Entity(tableName = "tbl_category_home")
+@Entity(tableName = "tbl_category")
 @Parcelize
-data class BuyerCategoryLocal(
+data class SellerCategoryLocal(
 
     @ColumnInfo(name = "createdAt")
     val createdAt: String? = null,

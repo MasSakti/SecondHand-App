@@ -2,8 +2,6 @@ package id.co.binar.secondhand.ui.product_add
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -14,14 +12,11 @@ import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ActivityProductAddBinding
-import id.co.binar.secondhand.model.auth.AddAuthRequest
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
 import id.co.binar.secondhand.model.seller.product.AddProductRequest
 import id.co.binar.secondhand.ui.login.LoginActivity
 import id.co.binar.secondhand.ui.product_add.dialog.CategoryDialogFragment
 import id.co.binar.secondhand.ui.product_add.dialog.TAG_CATEGORY_DIALOG
-import id.co.binar.secondhand.ui.profile.PASSING_FROM_ACCOUNT_TO_PROFILE
-import id.co.binar.secondhand.ui.profile.PASSING_FROM_REGISTER_TO_PROFILE
 import id.co.binar.secondhand.util.*
 import io.github.anderscheow.validator.Validator
 import io.github.anderscheow.validator.constant.Mode
@@ -54,7 +49,6 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
     }
 
     private fun bindObserver() {
-        viewModel.categoryProduct()
         viewModel.bitmap.observe(this) {
             it?.let { bmp ->
                 binding.imgView.setImageBitmap(bmp)
@@ -73,7 +67,7 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
                     this.onToast("Mohon menunggu...")
                 }
                 is Resource.Error -> {
-                    this.onSnackbar(binding.root, it.error?.message.toString())
+                    this.onSnackError(binding.root, it.error?.message.toString())
                 }
             }
         }
@@ -168,7 +162,7 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
         override fun onValidateSuccess(values: List<String>) {
             val bitmap = viewModel.bitmap.value
             if (bitmap == null) {
-                this@ProductAddActivity.onSnackbar(binding.root, "File gambar tidak boleh kosong!")
+                this@ProductAddActivity.onSnackError(binding.root, "File gambar tidak boleh kosong!")
             } else {
                 viewModel.addProduct(
                     AddProductRequest(

@@ -50,6 +50,7 @@ class AccountFragment : Fragment() {
             intent.putExtra(PASSING_FROM_ACCOUNT_TO_PROFILE, true)
             startActivity(intent)
         }
+
         binding.tvLogoutAccount.setOnClickListener {
             dialogLogout {
                 viewModel.logout()
@@ -58,6 +59,7 @@ class AccountFragment : Fragment() {
                 startActivity(intent)
             }
         }
+
         binding.btnMasuk.setOnClickListener {
             val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)
@@ -76,7 +78,7 @@ class AccountFragment : Fragment() {
                 is Resource.Success -> {}
                 is Resource.Loading -> {}
                 is Resource.Error -> {
-                    requireContext().onSnackbar(binding.root, it.error?.message.toString())
+                    requireContext().onSnackError(binding.root, it.error?.message.toString())
                 }
             }
         }
@@ -116,12 +118,14 @@ class AccountFragment : Fragment() {
 
     private fun dialogLogout(listener: (dialog: AlertDialog) -> Unit) {
         val builder = MaterialAlertDialogBuilder(requireContext())
-        builder.setCancelable(false)
-        builder.setTitle("Attention!")
-        builder.setMessage("Apakah anda ingin keluar dari akun ini?")
-        builder.setPositiveButton("Iya", null)
-        builder.setNegativeButton("Tidak") { dialog, _ ->
-            dialog.dismiss()
+        builder.apply {
+            setCancelable(false)
+            setTitle("Attention!")
+            setMessage("Apakah anda ingin keluar dari akun ini?")
+            setPositiveButton("Iya", null)
+            setNegativeButton("Tidak") { dialog, _ ->
+                dialog.dismiss()
+            }
         }
         val dialog = builder.show()
         val btnPositif = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
