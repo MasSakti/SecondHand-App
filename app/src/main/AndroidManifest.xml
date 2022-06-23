@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SecondHandEcomerce">
         <activity
+            android:name=".seller25"
+            android:exported="false" />
+        <activity
             android:name=".ui.jual.seller18.seller18"
             android:exported="false" />
         <activity
@@ -24,7 +27,7 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="false"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_main" />
         <activity
             android:name=".ui.login.Login"
             android:exported="true">
