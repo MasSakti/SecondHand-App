@@ -34,7 +34,7 @@
             android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:text="Semua"
-            android:textColor="@color/neutral" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>
