@@ -11,6 +11,7 @@ import id.co.binar.secondhand.util.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
@@ -49,7 +50,9 @@ class ProductAddViewModel @Inject constructor(
             val response = sellerRepository.addProduct(field, image)
             if (response.isSuccessful) {
                 response.body()?.let {
-                    _addProduct.postValue(Resource.Success(it))
+                    withContext(Dispatchers.Main) {
+                        _addProduct.postValue(Resource.Success(it))
+                    }
                 }
             } else if (response.code() == 400) {
                 throw Exception("Bad Request")
@@ -59,7 +62,9 @@ class ProductAddViewModel @Inject constructor(
                 throw Exception("Terjadi kesalahan")
             }
         } catch (ex: Exception) {
-            _addProduct.postValue(Resource.Error(ex))
+            withContext(Dispatchers.Main) {
+                _addProduct.postValue(Resource.Error(ex))
+            }
         }
     }
 }

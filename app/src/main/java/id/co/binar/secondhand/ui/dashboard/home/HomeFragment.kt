@@ -88,7 +88,6 @@ class HomeFragment : Fragment() {
             }
             adapterCategory.submitList(list)
             binding.rvCategory.adapter = adapterCategory
-
             when (it) {
                 is Resource.Success -> {}
                 is Resource.Loading -> {}

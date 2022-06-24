@@ -14,6 +14,7 @@ import id.co.binar.secondhand.util.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
@@ -42,7 +43,9 @@ class ProfileViewModel @Inject constructor(
             val response = authRepository.register(field, image)
             if (response.isSuccessful) {
                 response.body()?.let {
-                    _register.postValue(Resource.Success(it))
+                    withContext(Dispatchers.Main) {
+                        _register.postValue(Resource.Success(it))
+                    }
                 }
             } else if (response.code() == 400) {
                 throw Exception("Email telah dibuat")
@@ -50,7 +53,9 @@ class ProfileViewModel @Inject constructor(
                 throw Exception("Terjadi kesalahan")
             }
         } catch (ex: Exception) {
-            _register.postValue(Resource.Error(ex))
+            withContext(Dispatchers.Main) {
+                _register.postValue(Resource.Error(ex))
+            }
         }
     }
 
@@ -62,7 +67,9 @@ class ProfileViewModel @Inject constructor(
             val response = authRepository.updateAccount(field, image)
             if (response.isSuccessful) {
                 response.body()?.let {
-                    _updateAccount.postValue(Resource.Success(it))
+                    withContext(Dispatchers.Main) {
+                        _updateAccount.postValue(Resource.Success(it))
+                    }
                 }
             } else if (response.code() == 400) {
                 throw Exception("Email telah dibuat")
@@ -70,7 +77,9 @@ class ProfileViewModel @Inject constructor(
                 throw Exception("Terjadi kesalahan")
             }
         } catch (ex: Exception) {
-            _updateAccount.postValue(Resource.Error(ex))
+            withContext(Dispatchers.Main) {
+                _updateAccount.postValue(Resource.Error(ex))
+            }
         }
     }
 

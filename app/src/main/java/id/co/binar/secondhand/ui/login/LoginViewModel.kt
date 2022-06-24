@@ -14,6 +14,7 @@ import id.co.binar.secondhand.util.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,7 +40,9 @@ class LoginViewModel @Inject constructor(
                     )
                     authRepository.store().setTokenId(it.accessToken.toString())
                     authRepository.store().setUsrId(it.id)
-                    _login.postValue(Resource.Success(it))
+                    withContext(Dispatchers.Main) {
+                        _login.postValue(Resource.Success(it))
+                    }
                 }
             } else if (response.code() == 401) {
                 throw Exception("Email atau Password tidak valid")
@@ -47,7 +50,9 @@ class LoginViewModel @Inject constructor(
                 throw Exception("Terjadi kesalahan")
             }
         } catch (ex: Exception) {
-            _login.postValue(Resource.Error(ex))
+            withContext(Dispatchers.Main) {
+                _login.postValue(Resource.Error(ex))
+            }
         }
     }
 }

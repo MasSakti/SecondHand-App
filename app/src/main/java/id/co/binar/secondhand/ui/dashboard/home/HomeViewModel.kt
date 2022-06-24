@@ -10,6 +10,7 @@ import id.co.binar.secondhand.util.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,13 +41,17 @@ class HomeViewModel @Inject constructor(
             val response = buyerRepository.getProduct(category = category, search = null)
             if (response.isSuccessful) {
                 response.body()?.let {
-                    _getProduct.postValue(Resource.Success(it))
+                    withContext(Dispatchers.Main) {
+                        _getProduct.postValue(Resource.Success(it))
+                    }
                 }
             } else {
                 throw Exception("Terjadi kesalahan!")
             }
         } catch (ex: Exception) {
-            _getProduct.postValue(Resource.Error(ex))
+            withContext(Dispatchers.Main) {
+                _getProduct.postValue(Resource.Error(ex))
+            }
         }
     }
 
@@ -58,13 +63,17 @@ class HomeViewModel @Inject constructor(
             val response = buyerRepository.getProduct(search = search, category = null)
             if (response.isSuccessful) {
                 response.body()?.let {
-                    _getSearch.postValue(Resource.Success(it))
+                    withContext(Dispatchers.Main) {
+                        _getSearch.postValue(Resource.Success(it))
+                    }
                 }
             } else {
                 throw Exception("Terjadi kesalahan!")
             }
         } catch (ex: Exception) {
-            _getSearch.postValue(Resource.Error(ex))
+            withContext(Dispatchers.Main) {
+                _getSearch.postValue(Resource.Error(ex))
+            }
         }
     }
 }
