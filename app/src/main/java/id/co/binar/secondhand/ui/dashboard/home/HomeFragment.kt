@@ -15,6 +15,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.FragmentHomeBinding
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
 import id.co.binar.secondhand.util.*
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -68,8 +71,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun bindObserver() {
-        viewModel.getProduct(null)
-
         viewModel.getCategory().observe(viewLifecycleOwner) {
             val list = mutableListOf<GetCategoryResponseItem>()
             list.apply {
@@ -105,8 +106,22 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.query.observe(viewLifecycleOwner) {
+            get(it)
+        }
+    }
+
+    private fun get(it: Int?) {
+        MainScope().launch {
+            delay(200)
+            viewModel.getProduct(it)
+            delay(500)
             viewModel.getProduct(it)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        get(null)
     }
 
     override fun onDestroyView() {
