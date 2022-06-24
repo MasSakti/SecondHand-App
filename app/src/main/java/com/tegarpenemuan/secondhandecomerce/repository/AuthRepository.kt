@@ -30,6 +30,10 @@ class AuthRepository  @Inject constructor(
         updateToken("")
     }
 
+    suspend fun clearID() {
+        setId("")
+    }
+
     suspend fun updateToken(value: String) {
         authDatastore.setToken(value)
     }
@@ -66,5 +70,13 @@ class AuthRepository  @Inject constructor(
 
     suspend fun insertUser(userEntity: UserEntity): Long {
         return dao.insertUser(userEntity)
+    }
+
+    suspend fun getUser(): UserEntity {
+        return dao.getUser()!!
+    }
+
+    suspend fun deleteUser(userEntity: UserEntity): Int {
+        return dao.deleteUser(userEntity)
     }
 }

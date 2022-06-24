@@ -27,6 +27,6 @@ interface AuthApi {
 
     @GET("auth/user")
     suspend fun getProfile(
-        @Query("access_token") access_token: String
+        @Header("access_token") access_token: String
     ): Response<GetProfileResponse>
 }

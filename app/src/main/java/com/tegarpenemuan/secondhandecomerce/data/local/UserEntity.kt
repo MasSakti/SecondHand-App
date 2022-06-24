@@ -12,5 +12,6 @@ data class UserEntity(
     @ColumnInfo(name = "phone_number") val phone_number: String,
     @ColumnInfo(name = "address") val address: String,
     @ColumnInfo(name = "image_url") val image_url: String,
-    @ColumnInfo(name = "city") val city: String?
+    @ColumnInfo(name = "city") val city: String? = null
+
 )
