@@ -3,6 +3,7 @@ package id.co.binar.secondhand.ui.dashboard.home
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.co.binar.secondhand.model.buyer.product.GetProductResponseItem
+import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
 import id.co.binar.secondhand.repository.BuyerRepository
 import id.co.binar.secondhand.util.LiveEvent
 import id.co.binar.secondhand.util.Resource
@@ -13,12 +14,21 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val buyerRepository: BuyerRepository
+    private val buyerRepository: BuyerRepository,
+    state: SavedStateHandle
 ) : ViewModel() {
 
-    private val _query = LiveEvent<Int?>()
-    val query: LiveData<Int?> = _query
-    fun query(query: Int?) = _query.postValue(query)
+    private val _queryCategory = MutableLiveData<Int?>()
+    val queryCategory: LiveData<Int?> = _queryCategory
+    fun queryCategory(category: Int? = null) {
+        _queryCategory.postValue(category)
+    }
+
+    private val _querySearch = state.getLiveData<String?>("QUERY_SEARCH")
+    val querySearch: LiveData<String?> = _querySearch
+    fun querySearch(search: String? = null) {
+        _querySearch.postValue(search)
+    }
 
     fun getCategory() = buyerRepository.getCategory().asLiveData()
 
@@ -27,7 +37,7 @@ class HomeViewModel @Inject constructor(
     fun getProduct(category: Int?) = CoroutineScope(Dispatchers.IO).launch {
         _getProduct.postValue(Resource.Loading())
         try {
-            val response = buyerRepository.getProduct(category, null)
+            val response = buyerRepository.getProduct(category = category, search = null)
             if (response.isSuccessful) {
                 response.body()?.let {
                     _getProduct.postValue(Resource.Success(it))
@@ -37,6 +47,24 @@ class HomeViewModel @Inject constructor(
             }
         } catch (ex: Exception) {
             _getProduct.postValue(Resource.Error(ex))
+        }
+    }
+
+    private val _getSearch = MutableLiveData<Resource<List<GetProductResponseItem>>>()
+    val getSearch: LiveData<Resource<List<GetProductResponseItem>>> = _getSearch
+    fun getSearch(search: String?) = CoroutineScope(Dispatchers.IO).launch {
+        _getSearch.postValue(Resource.Loading())
+        try {
+            val response = buyerRepository.getProduct(search = search, category = null)
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    _getSearch.postValue(Resource.Success(it))
+                }
+            } else {
+                throw Exception("Terjadi kesalahan!")
+            }
+        } catch (ex: Exception) {
+            _getSearch.postValue(Resource.Error(ex))
         }
     }
 }

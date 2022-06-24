@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.FragmentHomeBinding
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
+import id.co.binar.secondhand.ui.dashboard.home.dialog.HomeSearchFragment
+import id.co.binar.secondhand.ui.dashboard.home.dialog.TAG_SEARCH_HOME_DIALOG
 import id.co.binar.secondhand.util.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -43,6 +45,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun bindView() {
+        get()
+
+        binding.etInputSearch.setOnClickListener {
+            val dialog = HomeSearchFragment()
+            dialog.show(parentFragmentManager, TAG_SEARCH_HOME_DIALOG)
+        }
+
         binding.rvCategory.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
@@ -53,7 +62,7 @@ class HomeFragment : Fragment() {
         adapterCategory.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             onClickAdapter { i, getCategoryResponseItem ->
-                viewModel.query(getCategoryResponseItem.id)
+                viewModel.queryCategory(category = getCategoryResponseItem.id)
             }
         }
 
@@ -79,6 +88,7 @@ class HomeFragment : Fragment() {
             }
             adapterCategory.submitList(list)
             binding.rvCategory.adapter = adapterCategory
+
             when (it) {
                 is Resource.Success -> {}
                 is Resource.Loading -> {}
@@ -105,23 +115,18 @@ class HomeFragment : Fragment() {
             }
         }
 
-        viewModel.query.observe(viewLifecycleOwner) {
+        viewModel.queryCategory.observe(viewLifecycleOwner) {
             get(it)
         }
     }
 
-    private fun get(it: Int?) {
+    private fun get(it: Int? = null) {
         MainScope().launch {
             delay(200)
             viewModel.getProduct(it)
             delay(500)
             viewModel.getProduct(it)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        get(null)
     }
 
     override fun onDestroyView() {
