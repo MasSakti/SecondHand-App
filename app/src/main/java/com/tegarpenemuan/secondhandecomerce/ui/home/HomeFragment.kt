@@ -1,10 +1,12 @@
 package com.tegarpenemuan.secondhandecomerce.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -54,6 +56,16 @@ class HomeFragment : Fragment() {
 
             }, emptyList())
         binding.rvProduct.adapter = homeAdapter
+
+        binding.etSearch.setOnEditorActionListener { textView, actionId, keyEvent ->
+            if(actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val keyword = binding.etSearch.text.toString()
+                viewModel.getProduct(search = keyword)
+                true
+            } else {
+                false
+            }
+        }
     }
 
     override fun onDestroyView() {
