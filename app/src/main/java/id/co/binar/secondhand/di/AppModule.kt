@@ -7,7 +7,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import id.co.binar.secondhand.data.local.AuthDao
-import id.co.binar.secondhand.data.local.BuyerDao
 import id.co.binar.secondhand.data.local.SellerDao
 import id.co.binar.secondhand.data.remote.*
 import id.co.binar.secondhand.database.RoomDatabase
@@ -22,11 +21,6 @@ object AppModule {
     @Provides
     fun provideMoviesDao(roomDB: RoomDatabase): AuthDao {
         return roomDB.authDao()
-    }
-
-    @Provides
-    fun provideHomeDao(roomDB: RoomDatabase): BuyerDao {
-        return roomDB.buyerDao()
     }
 
     @Provides

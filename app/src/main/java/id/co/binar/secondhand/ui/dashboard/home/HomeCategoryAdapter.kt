@@ -15,34 +15,18 @@ class HomeCategoryAdapter : ListAdapter<GetCategoryResponseItem, RecyclerView.Vi
     private var setPosition: Int? = 0
     private var _onClickAdapter: ((Int, GetCategoryResponseItem) -> Unit)? = null
 
-    fun onClickAdapter(listener: (Int, GetCategoryResponseItem) -> Unit) {
-        _onClickAdapter = listener
-    }
-
     inner class ViewHolder(val binding: ListItemCategoryHomeBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             itemView.setOnClickListener {
                 setPosition = bindingAdapterPosition
+                _onClickAdapter?.invoke(bindingAdapterPosition, getItem(bindingAdapterPosition))
                 notifyDataSetChanged()
             }
         }
 
         fun bind(item: GetCategoryResponseItem) {
             binding.txtCategory.text = item.name
-            if (getItem(bindingAdapterPosition).check == true) {
-                getItem(bindingAdapterPosition).check = true
-                _onClickAdapter?.invoke(bindingAdapterPosition, getItem(bindingAdapterPosition))
-                binding.root.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.purple_500))
-                binding.imgView.setImageResource(R.drawable.ic_round_search_white)
-                binding.txtCategory.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
-            } else {
-                getItem(bindingAdapterPosition).check = false
-                _onClickAdapter?.invoke(bindingAdapterPosition, getItem(bindingAdapterPosition))
-                binding.root.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.purple_100))
-                binding.imgView.setImageResource(R.drawable.ic_round_search_24)
-                binding.txtCategory.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
-            }
         }
     }
 
@@ -61,17 +45,19 @@ class HomeCategoryAdapter : ListAdapter<GetCategoryResponseItem, RecyclerView.Vi
         holder.bind(getItem(position))
         if (setPosition == position) {
             getItem(position).check = true
-            _onClickAdapter?.invoke(position, getItem(position))
             holder.binding.root.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.purple_500))
             holder.binding.imgView.setImageResource(R.drawable.ic_round_search_white)
             holder.binding.txtCategory.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.white))
         } else {
             getItem(position).check = false
-            _onClickAdapter?.invoke(position, getItem(position))
             holder.binding.root.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.purple_100))
             holder.binding.imgView.setImageResource(R.drawable.ic_round_search_24)
             holder.binding.txtCategory.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.black))
         }
+    }
+
+    fun onClickAdapter(listener: (Int, GetCategoryResponseItem) -> Unit) {
+        _onClickAdapter = listener
     }
 }
 

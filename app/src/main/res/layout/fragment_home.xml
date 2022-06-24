@@ -41,9 +41,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_round_search_home"
                 android:drawableEnd="@drawable/ic_round_search_24"
+                android:focusable="false"
                 android:hint="Cari di Second Chance"
                 android:imeOptions="actionSearch"
-                android:inputType="textFilter"
+                android:inputType="none"
                 android:paddingStart="21dp"
                 android:paddingEnd="21dp"
                 app:endIconMode="none"
@@ -70,25 +71,40 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/vp_banner" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_category"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView5"
-            tools:itemCount="1"
-            tools:listitem="@layout/list_item_category_home" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_product"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingEnd="14dp"
-            android:paddingBottom="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/rv_category"
-            tools:itemCount="1"
-            tools:listitem="@layout/list_item_product_home"
-            tools:ignore="RtlSymmetry" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                tools:itemCount="1"
+                tools:listitem="@layout/list_item_category_home" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="14dp"
+                android:paddingBottom="16dp"
+                tools:ignore="RtlSymmetry"
+                tools:itemCount="1"
+                tools:listitem="@layout/list_item_product_home" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

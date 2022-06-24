@@ -79,15 +79,14 @@
                 app:boxCornerRadiusTopStart="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_title_product"
-                app:prefixText="Rp.">
+                app:layout_constraintTop_toBottomOf="@+id/et_title_product">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_input_layout_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Harga Produk"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

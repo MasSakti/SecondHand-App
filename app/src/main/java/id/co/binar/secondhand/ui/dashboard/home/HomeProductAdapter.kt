@@ -13,6 +13,7 @@ import id.co.binar.secondhand.databinding.ListItemProductHomeBinding
 import id.co.binar.secondhand.model.buyer.product.CategoriesItem
 import id.co.binar.secondhand.model.buyer.product.GetProductResponseItem
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
+import id.co.binar.secondhand.util.convertRupiah
 
 class HomeProductAdapter : ListAdapter<GetProductResponseItem, RecyclerView.ViewHolder>(diffUtilCallback) {
 
@@ -47,7 +48,7 @@ class HomeProductAdapter : ListAdapter<GetProductResponseItem, RecyclerView.View
                 size(ViewSizeResolver(binding.ivImageProduct))
             }
             binding.tvNamaProduct.text = item.name
-            binding.tvHargaProduct.text = "Rp. ${item.basePrice.toString()}"
+            binding.tvHargaProduct.text = item.basePrice?.convertRupiah()
             binding.tvJenisProduct.text = item.categories?.toNameOnly()
         }
     }

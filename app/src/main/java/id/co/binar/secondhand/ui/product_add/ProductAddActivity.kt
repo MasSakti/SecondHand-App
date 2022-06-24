@@ -6,6 +6,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
@@ -93,17 +95,22 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
 
     private fun bindView() {
         binding.toolbar.setNavigationIcon(R.drawable.ic_round_arrow_back_24)
+
         binding.imgView.setOnClickListener {
             requestCameraAndWriteExternalPermission(this)
         }
+
         binding.btnSave.setOnClickListener {
             onValidate()
         }
+
         binding.txtInputLayoutCategory.setOnClickListener {
             val dialog = CategoryDialogFragment()
             dialog.show(supportFragmentManager, TAG_CATEGORY_DIALOG)
             viewModel.list(chooseList)
         }
+
+        binding.txtInputLayoutPrice.addTextChangedListener(MoneyTextWatcher(binding.txtInputLayoutPrice))
     }
 
     private val choosePhoto = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -167,7 +174,7 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
                 viewModel.addProduct(
                     AddProductRequest(
                         name = binding.txtInputLayoutTitle.text.toString(),
-                        basePrice = binding.txtInputLayoutPrice.text.toString().toLong(),
+                        basePrice = MoneyTextWatcher.parseCurrencyValue(binding.txtInputLayoutPrice.text.toString()).toLong(),
                         categoryIds = chooseList.toIntOnly(),
                         location = binding.txtInputLocation.text.toString(),
                         description = binding.txtInputLayoutDescription.text.toString()

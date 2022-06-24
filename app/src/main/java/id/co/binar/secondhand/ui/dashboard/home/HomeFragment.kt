@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -13,10 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.FragmentHomeBinding
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
-import id.co.binar.secondhand.util.Resource
-import id.co.binar.secondhand.util.castFromLocalToRemote
-import id.co.binar.secondhand.util.castFromProductLocalToProductRemote
-import id.co.binar.secondhand.util.onSnackError
+import id.co.binar.secondhand.util.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -51,7 +49,9 @@ class HomeFragment : Fragment() {
 
         adapterCategory.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { i, getCategoryResponseItem ->  }
+            onClickAdapter { i, getCategoryResponseItem ->
+                viewModel.query(getCategoryResponseItem.id)
+            }
         }
 
         binding.rvProduct.apply {
@@ -68,6 +68,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun bindObserver() {
+        viewModel.getProduct(null)
+
         viewModel.getCategory().observe(viewLifecycleOwner) {
             val list = mutableListOf<GetCategoryResponseItem>()
             list.apply {
@@ -84,16 +86,26 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-        viewModel.getProduct().observe(viewLifecycleOwner) {
-            adapterProduct.submitList(it.data.castFromProductLocalToProductRemote())
-            binding.rvProduct.adapter = adapterProduct
+
+        viewModel.getProduct.observe(viewLifecycleOwner) {
             when (it) {
-                is Resource.Success -> {}
-                is Resource.Loading -> {}
+                is Resource.Success -> {
+                    binding.progressBar.isVisible = false
+                    adapterProduct.submitList(it.data)
+                    binding.rvProduct.adapter = adapterProduct
+                }
+                is Resource.Loading -> {
+                    binding.progressBar.isVisible = true
+                }
                 is Resource.Error -> {
+                    binding.progressBar.isVisible = false
                     requireContext().onSnackError(binding.root, it.error?.message.toString())
                 }
             }
+        }
+
+        viewModel.query.observe(viewLifecycleOwner) {
+            viewModel.getProduct(it)
         }
     }
 
