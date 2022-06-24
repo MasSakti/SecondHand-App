@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.jual.bottomsheet.Seller30"
+    android:background="@drawable/dialog_bg">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="296dp"
+        android:layout_height="40dp"
+        android:text="Yeay kamu berhasil mendapatkan harga yang sesuai"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_text1"
+        android:layout_width="296dp"
+        android:layout_height="40dp"
+        android:text="Segera hubungi pembeli melalui whatsapp untuk transaksi selanjutnya"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_text1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/tv_title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product Match"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="@color/black"/>
+            <ImageView
+                android:id="@+id/iv_pembeli"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title2"
+                android:src="@drawable/ic_akun"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"/>
+            <TextView
+                android:id="@+id/tv_nama_pembeli"
+                android:layout_width="200dp"
+                android:layout_height="20dp"
+                android:text="Nama Pembeli"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="16dp"
+                app:layout_constraintTop_toTopOf="@id/iv_pembeli"
+                app:layout_constraintTop_toBottomOf="@id/tv_title2"
+                app:layout_constraintLeft_toRightOf="@id/iv_pembeli"/>
+            <TextView
+                android:id="@+id/tv_Kota_pembeli"
+                android:layout_width="200dp"
+                android:layout_height="20dp"
+                android:textSize="10sp"
+                android:text="Kota"
+                android:layout_marginLeft="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_pembeli"
+                app:layout_constraintTop_toBottomOf="@id/tv_nama_pembeli"
+                app:layout_constraintLeft_toRightOf="@id/iv_pembeli"/>
+            <ImageView
+                android:id="@+id/iv_barang"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_pembeli"
+                android:src="@drawable/ic_akun"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"/>
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:id="@+id/tv_nama_barang"
+                android:layout_width="200dp"
+                android:layout_height="20dp"
+                android:text="Nama Pembeli"
+                android:layout_marginLeft="16dp"
+                app:layout_constraintTop_toTopOf="@id/iv_barang"
+                app:layout_constraintLeft_toRightOf="@id/iv_barang"/>
+            <TextView
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:id="@+id/tv_harga_awal"
+                android:layout_width="200dp"
+                android:layout_height="20dp"
+                android:text="Rp 250.000"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_nama_barang"
+                app:layout_constraintLeft_toRightOf="@id/iv_pembeli"/>
+
+            <TextView
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:id="@+id/tv_harga_tawar"
+                android:layout_width="200dp"
+                android:layout_height="20dp"
+                android:text="Ditawar Rp 200.000"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_harga_awal"
+                app:layout_constraintLeft_toRightOf="@id/iv_pembeli"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnHubungi"
+        style="@style/GeneralButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="30dp"
+        android:text="Hubungi via Whatsapp"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv1"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,9 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SecondHandEcomerce">
         <activity
-            android:name=".seller25"
-            android:exported="false" />
-        <activity
             android:name=".ui.jual.seller18.seller18"
             android:exported="false" />
         <activity
