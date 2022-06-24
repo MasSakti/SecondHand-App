@@ -41,7 +41,7 @@ class ProductAdapter(private val listener: EventListener, private var list: List
             .into(holder.binding.ivImageProduct)
         holder.binding.tvNamaProduct.text = item.name
         holder.binding.tvHargaProduct.text = item.base_price.toString()
-        holder.binding.tvJenisProduct.text = "Aksesories"
+        holder.binding.tvJenisProduct.text = item.Categories.toString()
 
         holder.itemView.setOnClickListener {
             listener.onClick(item)
