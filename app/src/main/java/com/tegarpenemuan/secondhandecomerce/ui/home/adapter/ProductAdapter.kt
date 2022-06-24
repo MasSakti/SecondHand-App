@@ -8,6 +8,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.databinding.ListItemProductHomeBinding
+import okhttp3.internal.filterList
+import java.util.jar.Attributes
 
 /**
  * com.tegarpenemuan.secondhandecomerce.ui.home.adapter
@@ -41,7 +43,8 @@ class ProductAdapter(private val listener: EventListener, private var list: List
             .into(holder.binding.ivImageProduct)
         holder.binding.tvNamaProduct.text = item.name
         holder.binding.tvHargaProduct.text = item.base_price.toString()
-        holder.binding.tvJenisProduct.text = item.Categories.toString()
+        holder.binding.tvJenisProduct.text = item.Categories.joinToString{ it.name }
+//        holder.binding.tvJenisProduct.text = item.Categories.toString()
 
         holder.itemView.setOnClickListener {
             listener.onClick(item)
