@@ -45,10 +45,13 @@
         <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/activity_login.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/activity_product.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/activity_product_add.xml" value="0.18" />
+        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/activity_profile.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/activity_register.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/fragment_account.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/fragment_home.xml" value="0.25" />
-        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/fragment_list_sell.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/fragment_seller_18.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/fragment_home.xml" value="0.18" />
+        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/fragment_list_sell.xml" value="0.25" />
+        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/fragment_notification.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/fragment_seller_18.xml" value="0.25" />
         <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/list_item_category_home.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/list_item_category_list_sell.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/Dzami/AndroidStudioProjects/FinalProject-G5/app/src/main/res/layout/list_item_category_product_add.xml" value="0.17074275362318841" />
