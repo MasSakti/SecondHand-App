@@ -1,8 +1,8 @@
 package com.tegarpenemuan.secondhandecomerce.repository
 
 import com.tegarpenemuan.secondhandecomerce.data.api.AuthApi
-import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
+import com.tegarpenemuan.secondhandecomerce.data.api.getNotifications.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
@@ -15,14 +15,6 @@ import com.tegarpenemuan.secondhandecomerce.datastore.AuthDatastoreManager
 import kotlinx.coroutines.flow.firstOrNull
 import retrofit2.Response
 import javax.inject.Inject
-
-/**
- * com.tegarpenemuan.secondhandecomerce.repository
- *
- * Created by Tegar Penemuan on 14/06/2022.
- * https://github.com/tegarpenemuanr3
- *
- */
 
 class AuthRepository @Inject constructor(
     private val authDatastore: AuthDatastoreManager,
@@ -79,6 +71,10 @@ class AuthRepository @Inject constructor(
 
     suspend fun getCategory(): Response<List<GetCategoryResponseItem>> {
         return api.getCategory()
+    }
+
+    suspend fun getNotification(access_token: String): Response<List<GetNotifResponseItem>> {
+        return api.getNotification(access_token)
     }
 
     suspend fun insertUser(userEntity: UserEntity): Long {

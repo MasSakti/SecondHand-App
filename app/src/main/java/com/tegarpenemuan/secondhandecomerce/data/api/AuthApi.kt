@@ -1,6 +1,7 @@
 package com.tegarpenemuan.secondhandecomerce.data.api
 
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
+import com.tegarpenemuan.secondhandecomerce.data.api.getNotifications.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
@@ -42,4 +43,9 @@ interface AuthApi {
 
     @GET("seller/category")
     suspend fun getCategory():Response<List<GetCategoryResponseItem>>
+
+    @GET("notification")
+    suspend fun getNotification(
+        @Header("access_token") access_token: String
+    ):Response<List<GetNotifResponseItem>>
 }

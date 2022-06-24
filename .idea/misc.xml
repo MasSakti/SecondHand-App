@@ -3,17 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/FinalProject-G3-NoError/app/src/main/res/drawable/ic_round_search_24.xml" value="0.131" />
-        <entry key="..\:/FinalProject-G3-NoError/app/src/main/res/layout/activity_login.xml" value="0.209375" />
-        <entry key="..\:/FinalProject-G3-NoError/app/src/main/res/layout/activity_main.xml" value="0.21354166666666666" />
-        <entry key="..\:/FinalProject-G3-NoError/app/src/main/res/layout/activity_register.xml" value="0.16203703703703703" />
-        <entry key="..\:/FinalProject-G3-NoError/app/src/main/res/layout/activity_seller21.xml" value="0.209375" />
-        <entry key="..\:/FinalProject-G3-NoError/app/src/main/res/layout/fragment_akun.xml" value="0.209375" />
-        <entry key="..\:/FinalProject-G3-NoError/app/src/main/res/layout/fragment_home.xml" value="0.209375" />
-        <entry key="..\:/FinalProject-G3-NoError/app/src/main/res/layout/fragment_jual.xml" value="0.209375" />
-        <entry key="..\:/FinalProject-G3-NoError/app/src/main/res/layout/list_item_category_home.xml" value="0.209375" />
-        <entry key="..\:/FinalProject-G3-NoError/app/src/main/res/layout/list_item_kategori.xml" value="0.209375" />
-        <entry key="..\:/FinalProject-G3-NoError/app/src/main/res/layout/list_item_product_home.xml" value="0.209375" />
         <entry key="..\:/FinalProject/app/src/main/res/drawable/bg_rounded.xml" value="0.145" />
         <entry key="..\:/FinalProject/app/src/main/res/layout-v28/fragment_home.xml" value="0.209375" />
         <entry key="..\:/FinalProject/app/src/main/res/layout/activity_login.xml" value="0.1" />
@@ -41,12 +30,14 @@
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.1308876811594203" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/fragment_home.xml" value="0.12" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/fragment_jual.xml" value="0.1308876811594203" />
-        <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/fragment_notifications.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/fragment_notifications.xml" value="0.22" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/fragment_seller25.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/fragment_seller30.xml" value="0.1" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/list_item.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/list_item_banner_home.xml" value="0.1308876811594203" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/list_item_category_home.xml" value="0.5" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/list_item_diminati.xml" value="0.1308876811594203" />
+        <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/list_item_notifications.xml" value="0.184375" />
       </map>
     </option>
   </component>
