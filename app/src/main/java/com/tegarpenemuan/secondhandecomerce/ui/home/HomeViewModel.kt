@@ -1,13 +1,34 @@
 package com.tegarpenemuan.secondhandecomerce.ui.home
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductResponse
+import com.tegarpenemuan.secondhandecomerce.repository.AuthRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val repository: AuthRepository
+) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    val shouldShowGetProduct: MutableLiveData<List<GetProductResponse>> = MutableLiveData()
+
+    fun getProduct(status: String? = "", category_id: Int? = null, search: String? = "") {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.getProduct(status, category_id, search)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    val getProductResponse = response.body()
+                    shouldShowGetProduct.postValue(getProductResponse)
+                } else {
+                    //shouldShowError.postValue("Request get Profile Tidak Failed" + response.code())
+                }
+            }
+        }
     }
-    val text: LiveData<String> = _text
 }

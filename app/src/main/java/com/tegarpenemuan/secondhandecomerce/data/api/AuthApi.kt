@@ -1,5 +1,6 @@
 package com.tegarpenemuan.secondhandecomerce.data.api
 
+import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginResponse
@@ -30,4 +31,11 @@ interface AuthApi {
     suspend fun getProfile(
         @Header("access_token") access_token: String
     ): Response<GetProfileResponse>
+
+    @GET("buyer/product")
+    suspend fun getProduct(
+        @Query("status") status: String?,
+        @Query("category_id") category_id: Int?,
+        @Query("search") search: String?,
+    ):Response<List<GetProductResponse>>
 }

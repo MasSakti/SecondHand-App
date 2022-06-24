@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.tegarpenemuan.secondhandecomerce.databinding.FragmentAkunBinding
 import com.tegarpenemuan.secondhandecomerce.ui.login.Login
+import com.tegarpenemuan.secondhandecomerce.ui.profile.Profile
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,6 +51,12 @@ class AkunFragment : Fragment() {
         binding.tvKeluar.setOnClickListener {
             viewModel.logout()
             startActivity(Intent(requireContext(), Login::class.java))
+        }
+        binding.tvPengaturan.setOnClickListener {
+            Toast.makeText(requireContext(),"Setting",Toast.LENGTH_SHORT).show()
+        }
+        binding.tvUbahAkun.setOnClickListener {
+            startActivity(Intent(requireContext(), Profile::class.java))
         }
     }
 

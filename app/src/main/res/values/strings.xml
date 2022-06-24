@@ -15,14 +15,14 @@
     <string name="selected_item">Selected item:</string>
     <string-array name="daftar_kota">
         <item>-- Pilih Kota --</item>
-        <item>Bakso</item>
-        <item>Ayam Goreng</item>
-        <item>Mie Rebus</item>
-        <item>Nasi Padang</item>
-        <item>Ikan Bakar</item>
-        <item>Seblak</item>
-        <item>Gorengan</item>
-        <item>Mie Ayam</item>
+        <item>Semarang</item>
+        <item>Bandung</item>
+        <item>Jakarta</item>
+        <item>Yogyakarta</item>
+        <item>Makasar</item>
+        <item>Lampung</item>
+        <item>Surabaya</item>
+        <item>Padang</item>
     </string-array>
     <string-array name="kategori">
         <item>-- Pilih Kategori --</item>

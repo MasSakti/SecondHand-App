@@ -1,6 +1,7 @@
 package com.tegarpenemuan.secondhandecomerce.repository
 
 import com.tegarpenemuan.secondhandecomerce.data.api.AuthApi
+import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginResponse
@@ -68,6 +69,10 @@ class AuthRepository @Inject constructor(
 
     suspend fun getProfile(access_token: String): Response<GetProfileResponse> {
         return api.getProfile(access_token)
+    }
+
+    suspend fun getProduct(status: String?,category_id: Int?,search: String?): Response<List<GetProductResponse>> {
+        return api.getProduct(status,category_id,search)
     }
 
     suspend fun insertUser(userEntity: UserEntity): Long {

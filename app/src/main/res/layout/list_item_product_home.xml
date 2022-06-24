@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="21dp"
     android:layout_marginTop="13dp"
-    android:layout_marginEnd="2dp"
+    android:layout_marginEnd="5dp"
     android:layout_marginBottom="13dp"
     app:cardCornerRadius="16dp">
 
@@ -22,6 +22,8 @@
             android:id="@+id/iv_image_product"
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
             android:src="@color/purple_100" />
 
         <TextView
