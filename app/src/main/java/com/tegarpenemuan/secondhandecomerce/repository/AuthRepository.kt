@@ -21,7 +21,7 @@ import javax.inject.Inject
  *
  */
 
-class AuthRepository  @Inject constructor(
+class AuthRepository @Inject constructor(
     private val authDatastore: AuthDatastoreManager,
     private val api: AuthApi,
     private val dao: UserDAO
@@ -57,9 +57,11 @@ class AuthRepository  @Inject constructor(
             password = request.password,
             phone_number = request.phone_number,
             address = request.address,
-            image = request.image
+            image = request.image,
+            city = request.city
         )
     }
+
     suspend fun login(request: LoginRequest): Response<LoginResponse> {
         return api.login(request)
     }

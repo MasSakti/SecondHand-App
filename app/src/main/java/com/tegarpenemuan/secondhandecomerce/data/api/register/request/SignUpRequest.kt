@@ -10,5 +10,6 @@ data class SignUpRequest(
     @Part("password") var password: RequestBody? = null,
     @Part("phone_number ") var phone_number: RequestBody? = null,
     @Part("address  ") var address: RequestBody? = null,
-    @Part var image: MultipartBody.Part? = null
+    @Part var image: MultipartBody.Part? = null,
+    @Part("city  ") var city: RequestBody? = null,
 )

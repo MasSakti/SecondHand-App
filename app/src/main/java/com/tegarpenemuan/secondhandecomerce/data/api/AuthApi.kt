@@ -19,7 +19,8 @@ interface AuthApi {
         @Part("password") password: RequestBody? = null,
         @Part("phone_number") phone_number : RequestBody? = null,
         @Part("address") address  : RequestBody? = null,
-        @Part image : MultipartBody.Part? = null
+        @Part image : MultipartBody.Part? = null,
+        @Part("city") city  : RequestBody? = null,
     ): Response<SuccessRegisterResponse>
 
     @POST("auth/login")

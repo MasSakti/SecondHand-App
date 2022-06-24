@@ -13,9 +13,8 @@ import androidx.core.widget.doAfterTextChanged
 import com.bumptech.glide.Glide
 import com.github.drjacky.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
-import com.tegarpenemuan.secondhandecomerce.R
 import com.tegarpenemuan.secondhandecomerce.databinding.ActivityRegisterBinding
-import com.tegarpenemuan.secondhandecomerce.ui.main.MainActivity
+import com.tegarpenemuan.secondhandecomerce.ui.login.Login
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,6 +52,9 @@ class Register : AppCompatActivity() {
         binding.etAddress.doAfterTextChanged {
             viewModel.onChangeAddress(it.toString())
         }
+        binding.etCity.doAfterTextChanged {
+            viewModel.onChangeCity(it.toString())
+        }
         binding.ivimage.setOnClickListener {
             picImage()
         }
@@ -73,7 +75,7 @@ class Register : AppCompatActivity() {
 
         viewModel.showResponseSuccess.observe(this) {
             Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this@Register, MainActivity::class.java))
+            startActivity(Intent(this@Register, Login::class.java))
             finish()
         }
 

@@ -28,6 +28,7 @@ class RegisterViewModel @Inject constructor(
     private var password: String = ""
     private var phone_number: String = ""
     private var address: String = ""
+    private var city: String = ""
     private var fileImage: File? = null
 
     val showResponseError: MutableLiveData<String> = MutableLiveData()
@@ -55,6 +56,10 @@ class RegisterViewModel @Inject constructor(
         this.address = address
     }
 
+    fun onChangeCity(city: String) {
+        this.city = city
+    }
+
     fun getUriPath(uri: Uri) {
         fileImage = File(uri.path ?: "")
     }
@@ -70,6 +75,8 @@ class RegisterViewModel @Inject constructor(
             showResponseError.postValue("Nomer Telepon tidak valid")
         } else if (address.isEmpty()) {
             showResponseError.postValue("Alamat tidak valid")
+        } else if (city.isEmpty()) {
+            showResponseError.postValue("Alamat tidak valid")
         } else {
             register()
         }
@@ -80,8 +87,10 @@ class RegisterViewModel @Inject constructor(
         val full_name = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), full_name)
         val email = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), email)
         val password = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), password)
-        val phone_number = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), phone_number)
+        val phone_number =
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), phone_number)
         val address = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), address)
+        val city = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), city)
 
         val request = SignUpRequest(
             full_name = full_name,
@@ -90,6 +99,7 @@ class RegisterViewModel @Inject constructor(
             phone_number = phone_number,
             address = address,
             image = file,
+            city = city
         )
         CoroutineScope(Dispatchers.IO).launch {
             //shouldShowLoading.postValue(true)
@@ -100,21 +110,21 @@ class RegisterViewModel @Inject constructor(
                     showResponseSuccess.postValue("Register Berhasil")
                 } else {
                     shouldShowLoading.postValue(false)
-                    showResponseError.postValue(result.code().toString())
+                    showResponseError.postValue(result.errorBody().toString())
                 }
             }
         }
     }
 
-    @Suppress("UNCHECKED_CAST")
-    class Factory(
-        private val repository: AuthRepository
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
-                return RegisterViewModel(repository) as T
-            }
-            throw IllegalArgumentException("Unknown class name")
-        }
-    }
+//    @Suppress("UNCHECKED_CAST")
+//    class Factory(
+//        private val repository: AuthRepository
+//    ) : ViewModelProvider.Factory {
+//        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//            if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
+//                return RegisterViewModel(repository) as T
+//            }
+//            throw IllegalArgumentException("Unknown class name")
+//        }
+//    }
 }
