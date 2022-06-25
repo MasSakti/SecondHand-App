@@ -7,8 +7,10 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import id.co.binar.secondhand.data.local.model.SellerCategoryLocal
-import id.co.binar.secondhand.model.buyer.product.CategoriesItem
+import id.co.binar.secondhand.data.local.model.SellerProductLocal
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
+import id.co.binar.secondhand.model.seller.product.CategoriesItem
+import id.co.binar.secondhand.model.seller.product.GetProductResponseItem
 import java.lang.ref.WeakReference
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -49,6 +51,48 @@ fun List<SellerCategoryLocal>?.castFromLocalToRemote(): List<GetCategoryResponse
             GetCategoryResponseItem(
                 name = it.name,
                 id = it.id
+            )
+        )
+    }
+    return list
+}
+
+@JvmName("castFromRemoteToLocalGetProductResponseItem")
+fun List<GetProductResponseItem>?.castFromRemoteToLocal(): List<SellerProductLocal> {
+    val list = mutableListOf<SellerProductLocal>()
+    this?.forEach {
+        list.add(
+            SellerProductLocal(
+                imageName = it.imageName,
+                userId = it.userId,
+                imageUrl = it.imageUrl,
+                name = it.name,
+                description = it.description,
+                basePrice = it.basePrice,
+                location = it.location,
+                id = it.id!!,
+                categories = it.categories
+            )
+        )
+    }
+    return list
+}
+
+@JvmName("castFromLocalToRemoteSellerProductLocal")
+fun List<SellerProductLocal>?.castFromLocalToRemote(): List<GetProductResponseItem> {
+    val list = mutableListOf<GetProductResponseItem>()
+    this?.forEach {
+        list.add(
+            GetProductResponseItem(
+                imageName = it.imageName,
+                userId = it.userId,
+                imageUrl = it.imageUrl,
+                name = it.name,
+                description = it.description,
+                basePrice = it.basePrice,
+                location = it.location,
+                id = it.id,
+                categories = it.categories
             )
         )
     }

@@ -8,6 +8,7 @@
     tools:context=".ui.dashboard.list_sell.ListSellFragment">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
@@ -27,7 +28,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:src="@color/purple_100"
+                android:src="@drawable/ic_profile_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -95,6 +96,7 @@
         tools:listitem="@layout/list_item_category_list_sell" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

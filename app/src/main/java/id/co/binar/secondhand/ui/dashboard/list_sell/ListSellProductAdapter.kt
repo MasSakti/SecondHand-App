@@ -1,22 +1,21 @@
-package id.co.binar.secondhand.ui.dashboard.home
+package id.co.binar.secondhand.ui.dashboard.list_sell
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.ViewSizeResolver
 import coil.transform.RoundedCornersTransformation
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ListItemProductHomeBinding
-import id.co.binar.secondhand.model.buyer.product.CategoriesItem
-import id.co.binar.secondhand.model.buyer.product.GetProductResponseItem
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
+import id.co.binar.secondhand.model.seller.product.CategoriesItem
+import id.co.binar.secondhand.model.seller.product.GetProductResponseItem
 import id.co.binar.secondhand.util.convertRupiah
 
-class HomeProductAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ListSellProductAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val asyncDiffer = AsyncListDiffer(this, diffUtilCallback)
     private var _onClickAdapter: ((Int, GetProductResponseItem) -> Unit)? = null

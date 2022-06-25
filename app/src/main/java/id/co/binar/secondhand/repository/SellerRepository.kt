@@ -24,6 +24,22 @@ class SellerRepository @Inject constructor(
 ) {
     fun store() = store
 
+    fun getProduct() = networkBoundResource(
+        query = {
+            sellerDao.getProductHome()
+        },
+        fetch = {
+            sellerApi.getProduct(store.getTokenId())
+        },
+        saveFetchResult = {
+            val response = it.body().castFromRemoteToLocal()
+            db.withTransaction {
+                sellerDao.removeProductHome()
+                sellerDao.setProductHome(response)
+            }
+        }
+    )
+
     fun getCategory() = networkBoundResource(
         query = {
             sellerDao.getCategoryHome()
@@ -32,11 +48,10 @@ class SellerRepository @Inject constructor(
             sellerApi.getCategory()
         },
         saveFetchResult = {
-            val response = it.body()
-            val list = response.castFromRemoteToLocal()
+            val response = it.body().castFromRemoteToLocal()
             db.withTransaction {
                 sellerDao.removeCategoryHome()
-                sellerDao.setCategoryHome(list)
+                sellerDao.setCategoryHome(response)
             }
         }
     )

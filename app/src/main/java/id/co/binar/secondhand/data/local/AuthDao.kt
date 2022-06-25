@@ -7,6 +7,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AuthDao {
 
+    /**
+     * tbl tbl tbl Takut Banget Loh : Authentication
+     * */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun setAccount(field: AuthLocal)
 

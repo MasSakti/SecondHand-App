@@ -2,6 +2,7 @@ package id.co.binar.secondhand.ui.product_add.dialog
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,21 +10,22 @@ import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ListItemCategoryProductAddBinding
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
 
-class CategoryDialogAdapter : ListAdapter<GetCategoryResponseItem, RecyclerView.ViewHolder>(diffUtilCallback) {
+class CategoryDialogAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    val asyncDiffer = AsyncListDiffer(this, diffUtilCallback)
     private var _onClickAdapter: ((Int, GetCategoryResponseItem) -> Unit)? = null
 
     inner class ViewHolder(private val binding: ListItemCategoryProductAddBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             itemView.setOnClickListener {
-                if (getItem(bindingAdapterPosition).check == true) {
-                    getItem(bindingAdapterPosition).check = false
-                    _onClickAdapter?.invoke(bindingAdapterPosition, getItem(bindingAdapterPosition))
+                if (asyncDiffer.currentList[bindingAdapterPosition].check == true) {
+                    asyncDiffer.currentList[bindingAdapterPosition].check = false
+                    _onClickAdapter?.invoke(bindingAdapterPosition, asyncDiffer.currentList[bindingAdapterPosition])
                     binding.imgCheck.setImageResource(R.drawable.ic_round_check_circle_outline_24)
                 } else {
-                    getItem(bindingAdapterPosition).check = true
-                    _onClickAdapter?.invoke(bindingAdapterPosition, getItem(bindingAdapterPosition))
+                    asyncDiffer.currentList[bindingAdapterPosition].check = true
+                    _onClickAdapter?.invoke(bindingAdapterPosition, asyncDiffer.currentList[bindingAdapterPosition])
                     binding.imgCheck.setImageResource(R.drawable.ic_round_check_circle_24)
                 }
             }
@@ -31,7 +33,7 @@ class CategoryDialogAdapter : ListAdapter<GetCategoryResponseItem, RecyclerView.
 
         fun bind(item: GetCategoryResponseItem) {
             binding.txtName.text = item.name
-            if (getItem(bindingAdapterPosition).check == true) {
+            if (asyncDiffer.currentList[bindingAdapterPosition].check == true) {
                 binding.imgCheck.setImageResource(R.drawable.ic_round_check_circle_24)
             } else {
                 binding.imgCheck.setImageResource(R.drawable.ic_round_check_circle_outline_24)
@@ -52,7 +54,11 @@ class CategoryDialogAdapter : ListAdapter<GetCategoryResponseItem, RecyclerView.
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         holder as ViewHolder
-        holder.bind(getItem(position))
+        holder.bind(asyncDiffer.currentList[position])
+    }
+
+    override fun getItemCount(): Int {
+        return asyncDiffer.currentList.size
     }
 
     fun onClickAdapter(listener: (Int, GetCategoryResponseItem) -> Unit) {

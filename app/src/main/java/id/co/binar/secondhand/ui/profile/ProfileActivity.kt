@@ -1,5 +1,6 @@
 package id.co.binar.secondhand.ui.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -17,6 +18,7 @@ import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ActivityProfileBinding
 import id.co.binar.secondhand.model.auth.AddAuthRequest
 import id.co.binar.secondhand.model.auth.UpdateAuthByTokenRequest
+import id.co.binar.secondhand.ui.login.LoginActivity
 import id.co.binar.secondhand.util.*
 import io.github.anderscheow.validator.Validator
 import io.github.anderscheow.validator.constant.Mode
@@ -80,6 +82,12 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
     }
 
     private fun bindView() {
+        if (viewModel.getTokenId().isEmpty()) {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         if (intent.hasExtra(PASSING_FROM_ACCOUNT_TO_PROFILE)) {
             intent.extras?.getBoolean(PASSING_FROM_ACCOUNT_TO_PROFILE)?.let {
                 if (it) {

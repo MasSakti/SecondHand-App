@@ -16,7 +16,9 @@ import id.co.binar.secondhand.databinding.FragmentHomeBinding
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
 import id.co.binar.secondhand.ui.dashboard.home.dialog.HomeSearchFragment
 import id.co.binar.secondhand.ui.dashboard.home.dialog.TAG_SEARCH_HOME_DIALOG
-import id.co.binar.secondhand.util.*
+import id.co.binar.secondhand.util.Resource
+import id.co.binar.secondhand.util.castFromLocalToRemote
+import id.co.binar.secondhand.util.onSnackError
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -54,13 +56,13 @@ class HomeFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             itemAnimator = DefaultItemAnimator()
-            isNestedScrollingEnabled = false
+            isNestedScrollingEnabled = true
         }
 
         adapterCategory.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { i, getCategoryResponseItem ->
-                get(getCategoryResponseItem.id)
+            onClickAdapter { _, getCategoryResponseItem ->
+                getSecond(getCategoryResponseItem.id)
             }
         }
 
@@ -73,7 +75,7 @@ class HomeFragment : Fragment() {
 
         adapterProduct.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { i, getCategoryResponseItem ->  }
+            onClickAdapter { _, getCategoryResponseItem ->  }
         }
     }
 
@@ -86,7 +88,7 @@ class HomeFragment : Fragment() {
                 add(GetCategoryResponseItem(name = "Semua", id = null))
                 addAll(it.data.castFromLocalToRemote())
             }
-            adapterCategory.submitList(list)
+            adapterCategory.asyncDiffer.submitList(list)
             binding.rvCategory.adapter = adapterCategory
             when (it) {
                 is Resource.Success -> {}
@@ -101,7 +103,7 @@ class HomeFragment : Fragment() {
             when (it) {
                 is Resource.Success -> {
                     binding.progressBar.isVisible = false
-                    adapterProduct.submitList(it.data)
+                    adapterProduct.asyncDiffer.submitList(it.data ?: emptyList())
                     binding.rvProduct.adapter = adapterProduct
                 }
                 is Resource.Loading -> {
@@ -115,12 +117,17 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun get(int: Int? = null) {
+    private fun get() {
         MainScope().launch {
-            delay(200)
-            viewModel.getProduct(int)
+            viewModel.getProduct()
+        }
+    }
+
+    private fun getSecond(i: Int? = null) {
+        MainScope().launch {
+            viewModel.getProduct(i)
             delay(500)
-            viewModel.getProduct(int)
+            viewModel.getProduct(i)
         }
     }
 

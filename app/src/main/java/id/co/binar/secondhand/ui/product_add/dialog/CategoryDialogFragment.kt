@@ -44,13 +44,13 @@ class CategoryDialogFragment : BottomSheetDialogFragment() {
 
     private fun bindObserver() {
         viewModel.categoryProduct().observe(viewLifecycleOwner) {
-            adapter.submitList(it.data.castFromLocalToRemote())
+            adapter.asyncDiffer.submitList(it.data.castFromLocalToRemote())
             binding.list.adapter = adapter
             viewModel.list.observe(viewLifecycleOwner) {
                 chooseList = it
             }
             viewModel.lastList.observe(viewLifecycleOwner) {
-                adapter.submitList(it)
+                adapter.asyncDiffer.submitList(it)
             }
             when(it) {
                 is Resource.Success -> {}
@@ -79,7 +79,7 @@ class CategoryDialogFragment : BottomSheetDialogFragment() {
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         viewModel.list(chooseList)
-        viewModel.lastList(adapter.currentList)
+        viewModel.lastList(adapter.asyncDiffer.currentList)
     }
 
     override fun onDestroyView() {

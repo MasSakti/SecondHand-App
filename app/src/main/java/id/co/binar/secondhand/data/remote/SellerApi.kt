@@ -3,6 +3,7 @@ package id.co.binar.secondhand.data.remote
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
 import id.co.binar.secondhand.model.seller.product.AddProductResponse
 import id.co.binar.secondhand.model.seller.product.GetProductResponse
+import id.co.binar.secondhand.model.seller.product.GetProductResponseItem
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -20,4 +21,9 @@ interface SellerApi {
         @PartMap field: HashMap<String, RequestBody>,
         @Part image: MultipartBody.Part
     ) : Response<AddProductResponse>
+
+    @GET("seller/product")
+    suspend fun getProduct(
+        @Header("access_token") token: String
+    ) : Response<List<GetProductResponseItem>>
 }

@@ -75,7 +75,7 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
             when (it) {
                 is Resource.Success -> {
                     binding.progressBar.isVisible = false
-                    adapterProduct.submitList(it.data)
+                    adapterProduct.asyncDiffer.submitList(it.data ?: emptyList())
                     binding.rvList.adapter = adapterProduct
                 }
                 is Resource.Loading -> {

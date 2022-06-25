@@ -27,11 +27,10 @@ class BuyerRepository @Inject constructor(
             sellerApi.getCategory()
         },
         saveFetchResult = {
-            val response = it.body()
-            val list = response.castFromRemoteToLocal()
+            val response = it.body().castFromRemoteToLocal()
             db.withTransaction {
                 sellerDao.removeCategoryHome()
-                sellerDao.setCategoryHome(list)
+                sellerDao.setCategoryHome(response)
             }
         }
     )

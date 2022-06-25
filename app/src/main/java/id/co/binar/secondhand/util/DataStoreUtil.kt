@@ -6,10 +6,7 @@ import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.io.IOException
@@ -39,7 +36,7 @@ class DataStoreManager @Inject constructor(
 fun <T> DataStore<Preferences>.getValue(
     key: Preferences.Key<T>,
     defaultValue: T
-) = this.data
+): Flow<T> = this.data
     .catch { exception ->
         if (exception is IOException) {
             emit(emptyPreferences())
