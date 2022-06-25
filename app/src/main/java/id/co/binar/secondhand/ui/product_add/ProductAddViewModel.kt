@@ -10,6 +10,7 @@ import id.co.binar.secondhand.repository.SellerRepository
 import id.co.binar.secondhand.util.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
@@ -45,26 +46,8 @@ class ProductAddViewModel @Inject constructor(
     private val _addProduct = MutableLiveData<Resource<AddProductResponse>>()
     val addProduct: LiveData<Resource<AddProductResponse>> = _addProduct
     fun addProduct(field: AddProductRequest, image: MultipartBody.Part) = CoroutineScope(Dispatchers.IO).launch {
-        _addProduct.postValue(Resource.Loading())
-        try {
-            val response = sellerRepository.addProduct(field, image)
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    withContext(Dispatchers.Main) {
-                        _addProduct.postValue(Resource.Success(it))
-                    }
-                }
-            } else if (response.code() == 400) {
-                throw Exception("Bad Request")
-            } else if (response.code() == 403) {
-                throw Exception("Harus masuk akun terlebih dahulu")
-            } else {
-                throw Exception("Terjadi kesalahan")
-            }
-        } catch (ex: Exception) {
-            withContext(Dispatchers.Main) {
-                _addProduct.postValue(Resource.Error(ex))
-            }
+        sellerRepository.addProduct(field, image).collectLatest {
+            _addProduct.postValue(it)
         }
     }
 }

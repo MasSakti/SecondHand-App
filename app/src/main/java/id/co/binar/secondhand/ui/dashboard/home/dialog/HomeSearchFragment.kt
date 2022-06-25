@@ -50,7 +50,7 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
             txtSearch.doAfterTextChanged {
                 MainScope().launch {
                     delay(500)
-                    viewModel.querySearch(it.toString())
+                    viewModel.getSearch(it.toString())
                 }
             }
 
@@ -69,7 +69,7 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
     }
 
     private fun bindObserver() {
-        viewModel.getSearch(null)
+        viewModel.getSearch()
 
         viewModel.getSearch.observe(viewLifecycleOwner) {
             when (it) {
@@ -86,10 +86,6 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
                     requireContext().onSnackError(binding.root, it.error?.message.toString())
                 }
             }
-        }
-
-        viewModel.querySearch.observe(viewLifecycleOwner) {
-            viewModel.getSearch(it)
         }
     }
 

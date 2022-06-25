@@ -13,6 +13,7 @@ import id.co.binar.secondhand.util.DataStoreManager
 import id.co.binar.secondhand.util.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
@@ -38,50 +39,18 @@ class ProfileViewModel @Inject constructor(
     private val _register = MutableLiveData<Resource<AddAuthResponse>>()
     val register : LiveData<Resource<AddAuthResponse>> = _register
     fun register(field: AddAuthRequest, image: MultipartBody.Part) = CoroutineScope(Dispatchers.IO).launch {
-        _register.postValue(Resource.Loading())
-        try {
-            val response = authRepository.register(field, image)
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    withContext(Dispatchers.Main) {
-                        _register.postValue(Resource.Success(it))
-                    }
-                }
-            } else if (response.code() == 400) {
-                throw Exception("Email telah dibuat")
-            } else {
-                throw Exception("Terjadi kesalahan")
-            }
-        } catch (ex: Exception) {
-            withContext(Dispatchers.Main) {
-                _register.postValue(Resource.Error(ex))
-            }
+        authRepository.register(field, image).collectLatest {
+            _register.postValue(it)
         }
     }
 
     private val _updateAccount = MutableLiveData<Resource<UpdateAuthByTokenResponse>>()
     val updateAccount : LiveData<Resource<UpdateAuthByTokenResponse>> = _updateAccount
     fun updateAccount(field: UpdateAuthByTokenRequest, image: MultipartBody.Part) = CoroutineScope(Dispatchers.IO).launch {
-        _updateAccount.postValue(Resource.Loading())
-        try {
-            val response = authRepository.updateAccount(field, image)
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    withContext(Dispatchers.Main) {
-                        _updateAccount.postValue(Resource.Success(it))
-                    }
-                }
-            } else if (response.code() == 400) {
-                throw Exception("Email telah dibuat")
-            } else {
-                throw Exception("Terjadi kesalahan")
-            }
-        } catch (ex: Exception) {
-            withContext(Dispatchers.Main) {
-                _updateAccount.postValue(Resource.Error(ex))
-            }
+        authRepository.updateAccount(field, image).collectLatest {
+            _updateAccount.postValue(it)
         }
     }
 
-    fun getAccount() = authRepository.getAccount().asLiveData()
+    val getAccount = authRepository.getAccount().asLiveData()
 }

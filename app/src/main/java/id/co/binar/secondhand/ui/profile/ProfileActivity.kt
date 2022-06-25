@@ -21,7 +21,6 @@ import id.co.binar.secondhand.util.*
 import io.github.anderscheow.validator.Validator
 import io.github.anderscheow.validator.constant.Mode
 import io.github.anderscheow.validator.validator
-import java.util.*
 
 const val PASSING_FROM_REGISTER_TO_PROFILE = "PASSING_FROM_REGISTER_TO_PROFILE"
 const val PASSING_FROM_ACCOUNT_TO_PROFILE = "PASSING_FROM_ACCOUNT_TO_PROFILE"
@@ -86,7 +85,7 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                 if (it) {
                     binding.txtInputLayoutEmail.visibility = View.VISIBLE
                     binding.txtInputLayoutPassword.visibility = View.VISIBLE
-                    viewModel.getAccount().observe(this) {
+                    viewModel.getAccount.observe(this) {
                         binding.apply {
                             ivImageProfile.load(it.data?.imageUrl) {
                                 placeholder(R.drawable.ic_profile_image)

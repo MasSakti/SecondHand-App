@@ -45,8 +45,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun bindView() {
-        get()
-
         binding.etInputSearch.setOnClickListener {
             val dialog = HomeSearchFragment()
             dialog.show(parentFragmentManager, TAG_SEARCH_HOME_DIALOG)
@@ -62,7 +60,7 @@ class HomeFragment : Fragment() {
         adapterCategory.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             onClickAdapter { i, getCategoryResponseItem ->
-                viewModel.queryCategory(category = getCategoryResponseItem.id)
+                get(getCategoryResponseItem.id)
             }
         }
 
@@ -80,7 +78,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun bindObserver() {
-        viewModel.getCategory().observe(viewLifecycleOwner) {
+        get()
+
+        viewModel.getCategory.observe(viewLifecycleOwner) {
             val list = mutableListOf<GetCategoryResponseItem>()
             list.apply {
                 add(GetCategoryResponseItem(name = "Semua", id = null))
@@ -113,18 +113,14 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-
-        viewModel.queryCategory.observe(viewLifecycleOwner) {
-            get(it)
-        }
     }
 
-    private fun get(it: Int? = null) {
+    private fun get(int: Int? = null) {
         MainScope().launch {
             delay(200)
-            viewModel.getProduct(it)
+            viewModel.getProduct(int)
             delay(500)
-            viewModel.getProduct(it)
+            viewModel.getProduct(int)
         }
     }
 
