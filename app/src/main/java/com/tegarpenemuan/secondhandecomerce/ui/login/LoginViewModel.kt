@@ -14,14 +14,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-/**
- * com.tegarpenemuan.secondhandecomerce.ui.login
- *
- * Created by Tegar Penemuan on 15/06/2022.
- * https://github.com/tegarpenemuanr3
- *
- */
-
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val repository: AuthRepository

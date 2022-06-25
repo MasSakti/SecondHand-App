@@ -9,6 +9,8 @@ import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.register.request.SignUpRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.register.response.SuccessRegisterResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.updateUser.UpdateUserRequest
+import com.tegarpenemuan.secondhandecomerce.data.api.updateUser.UpdateUserResponse
 import com.tegarpenemuan.secondhandecomerce.data.local.UserDAO
 import com.tegarpenemuan.secondhandecomerce.data.local.UserEntity
 import com.tegarpenemuan.secondhandecomerce.datastore.AuthDatastoreManager
@@ -65,8 +67,12 @@ class AuthRepository @Inject constructor(
         return api.getProfile(access_token)
     }
 
-    suspend fun getProduct(status: String?,category_id: Int?,search: String?): Response<List<GetProductResponse>> {
-        return api.getProduct(status,category_id,search)
+    suspend fun getProduct(
+        status: String?,
+        category_id: Int?,
+        search: String?
+    ): Response<List<GetProductResponse>> {
+        return api.getProduct(status, category_id, search)
     }
 
     suspend fun getCategory(): Response<List<GetCategoryResponseItem>> {
@@ -75,6 +81,22 @@ class AuthRepository @Inject constructor(
 
     suspend fun getNotification(access_token: String): Response<List<GetNotifResponseItem>> {
         return api.getNotification(access_token)
+    }
+
+    suspend fun updateUser(
+        access_token: String,
+        request: UpdateUserRequest
+    ): Response<UpdateUserResponse> {
+        return api.updateUser(
+            access_token = access_token,
+            full_name = request.full_name,
+            email = request.email,
+            password = request.password,
+            phone_number = request.phone_number,
+            address = request.address,
+            image = request.image,
+            city = request.city
+        )
     }
 
     suspend fun insertUser(userEntity: UserEntity): Long {
@@ -87,5 +109,23 @@ class AuthRepository @Inject constructor(
 
     suspend fun deleteUser(userEntity: UserEntity): Int {
         return dao.deleteUser(userEntity)
+    }
+
+    suspend fun updateUser(
+        id: String,
+        full_name: String,
+        phone_number: String,
+        address: String,
+        image_url: String,
+        city: String
+    ) {
+        return dao.updateUser(
+            id = id,
+            full_name = full_name,
+            phone_number = phone_number,
+            address = address,
+            image_url = image_url,
+            city = city
+        )
     }
 }

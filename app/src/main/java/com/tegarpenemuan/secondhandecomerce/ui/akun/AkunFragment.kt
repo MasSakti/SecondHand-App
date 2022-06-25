@@ -29,7 +29,7 @@ class AkunFragment : Fragment() {
         _binding = FragmentAkunBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        viewModel.getUser()
+        viewModel.getProfile()
 
         bindview()
         bindviewModel()
@@ -40,11 +40,16 @@ class AkunFragment : Fragment() {
     private fun bindviewModel() {
         viewModel.shouldShowProfile.observe(viewLifecycleOwner) {
             Glide.with(requireContext())
-                .load(it.image_url)
+                .load(it)
                 .circleCrop()
                 .into(binding.ivProfile)
 
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getProfile()
     }
 
     private fun bindview() {

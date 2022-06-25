@@ -7,6 +7,7 @@ import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileRespon
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.register.response.SuccessRegisterResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.updateUser.UpdateUserResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -20,14 +21,14 @@ interface AuthApi {
         @Part("full_name") full_name: RequestBody? = null,
         @Part("email") email: RequestBody? = null,
         @Part("password") password: RequestBody? = null,
-        @Part("phone_number") phone_number : RequestBody? = null,
-        @Part("address") address  : RequestBody? = null,
-        @Part image : MultipartBody.Part? = null,
-        @Part("city") city  : RequestBody? = null,
+        @Part("phone_number") phone_number: RequestBody? = null,
+        @Part("address") address: RequestBody? = null,
+        @Part image: MultipartBody.Part? = null,
+        @Part("city") city: RequestBody? = null,
     ): Response<SuccessRegisterResponse>
 
     @POST("auth/login")
-    suspend fun login (@Body request: LoginRequest): Response<LoginResponse>
+    suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
 
     @GET("auth/user")
     suspend fun getProfile(
@@ -39,13 +40,26 @@ interface AuthApi {
         @Query("status") status: String?,
         @Query("category_id") category_id: Int?,
         @Query("search") search: String?,
-    ):Response<List<GetProductResponse>>
+    ): Response<List<GetProductResponse>>
 
     @GET("seller/category")
-    suspend fun getCategory():Response<List<GetCategoryResponseItem>>
+    suspend fun getCategory(): Response<List<GetCategoryResponseItem>>
 
     @GET("notification")
     suspend fun getNotification(
         @Header("access_token") access_token: String
-    ):Response<List<GetNotifResponseItem>>
+    ): Response<List<GetNotifResponseItem>>
+
+    @Multipart
+    @PUT("auth/user")
+    suspend fun updateUser(
+        @Header("access_token") access_token: String,
+        @Part("full_name") full_name: RequestBody? = null,
+        @Part("email") email: RequestBody? = null,
+        @Part("password") password: RequestBody? = null,
+        @Part("phone_number") phone_number: RequestBody? = null,
+        @Part("address") address: RequestBody? = null,
+        @Part image: MultipartBody.Part? = null,
+        @Part("city") city: RequestBody? = null
+    ): Response<UpdateUserResponse>
 }
