@@ -7,7 +7,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
+import coil.ImageLoader
 import coil.load
+import coil.request.ImageRequest
 import coil.size.ViewSizeResolver
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.vmadalin.easypermissions.EasyPermissions
@@ -95,12 +97,15 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                     binding.txtInputLayoutPassword.visibility = View.VISIBLE
                     viewModel.getAccount.observe(this) {
                         binding.apply {
-                            ivImageProfile.load(it.data?.imageUrl) {
-                                placeholder(R.drawable.ic_profile_image)
-                                error(R.drawable.ic_profile_image)
-                                size(ViewSizeResolver(binding.ivImageProfile))
-                            }
-                            viewModel.bitmap(binding.ivImageProfile.drawable.toBitmap())
+                            val loader = ImageLoader(this@ProfileActivity)
+                            val req = ImageRequest.Builder(this@ProfileActivity)
+                                .data(it.data?.imageUrl)
+                                .target {
+                                    val drawable = it.toBitmap()
+                                    viewModel.bitmap(drawable)
+                                }
+                                .build()
+                            loader.enqueue(req)
                             txtInputEmail.setText(it.data?.email)
                             txtInputLayoutNama.setText(it.data?.fullName)
                             txtInputLayoutKota.setText(it.data?.city)

@@ -6,8 +6,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doOnTextChanged
+import coil.ImageLoader
+import coil.request.ImageRequest
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
@@ -16,6 +16,7 @@ import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ActivityProductAddBinding
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
 import id.co.binar.secondhand.model.seller.product.AddProductRequest
+import id.co.binar.secondhand.model.seller.product.UpdateProductByIdRequest
 import id.co.binar.secondhand.ui.login.LoginActivity
 import id.co.binar.secondhand.ui.product_add.dialog.CategoryDialogFragment
 import id.co.binar.secondhand.ui.product_add.dialog.TAG_CATEGORY_DIALOG
@@ -23,6 +24,8 @@ import id.co.binar.secondhand.util.*
 import io.github.anderscheow.validator.Validator
 import io.github.anderscheow.validator.constant.Mode
 import io.github.anderscheow.validator.validator
+
+const val ARGS_PRODUCT_EDIT = "EDIT_PRODUCT"
 
 @AndroidEntryPoint
 class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
@@ -51,6 +54,66 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
     }
 
     private fun bindObserver() {
+        if (intent.hasExtra(ARGS_PRODUCT_EDIT)) {
+            viewModel.getIdProduct(intent.getIntExtra(ARGS_PRODUCT_EDIT, -1))
+        }
+
+        viewModel.editProduct.observe(this) {
+            when (it) {
+                is Resource.Success -> {
+                    this.onToast("${it.data?.name} berhasil diupdate")
+                    onBackPressed()
+                }
+                is Resource.Loading -> {
+                    this.onToast("Mohon menunggu...")
+                }
+                is Resource.Error -> {
+                    this.onSnackError(binding.root, it.error?.message.toString())
+                }
+            }
+        }
+
+        viewModel.getProductById.observe(this) {
+            when (it) {
+                is Resource.Success -> {
+                    it.data?.categories?.forEach {
+                        chooseList.add(
+                            GetCategoryResponseItem(
+                                name = it.name,
+                                id = it.id,
+                                check = true
+                            )
+                        )
+                    }
+                    viewModel.categoryProduct.observe(this) {
+                        val lastList = mutableListOf<GetCategoryResponseItem>()
+                        lastList.addAll(chooseList)
+                        lastList.addAll(it.data.castFromLocalToRemote())
+                        lastList.sortBy { it.id }
+                        viewModel.lastList(lastList.distinctBy { it.id }.toMutableList())
+                    }
+                    binding.apply {
+                        val loader = ImageLoader(this@ProductAddActivity)
+                        val req = ImageRequest.Builder(this@ProductAddActivity)
+                            .data(it.data?.imageUrl)
+                            .target {
+                                val drawable = it.toBitmap()
+                                viewModel.bitmap(drawable)
+                            }
+                            .build()
+                        loader.enqueue(req)
+                        txtInputLayoutTitle.setText(it.data?.name)
+                        txtInputLayoutPrice.setText(it.data?.basePrice.toString())
+                        txtInputLocation.setText(it.data?.location)
+                        txtInputLayoutDescription.setText(it.data?.description)
+                        txtInputLayoutCategory.setText(it.data?.categories?.toNameOnly())
+                    }
+                }
+                is Resource.Loading -> this.onToast("Mohon menunggu...")
+                is Resource.Error -> this.onSnackError(binding.root, it.error?.message.toString())
+            }
+        }
+
         viewModel.bitmap.observe(this) {
             it?.let { bmp ->
                 binding.imgView.setImageBitmap(bmp)
@@ -63,6 +126,7 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
         viewModel.addProduct.observe(this) {
             when (it) {
                 is Resource.Success -> {
+                    this.onToast("${it.data?.name} berhasil ditambahkan")
                     onBackPressed()
                 }
                 is Resource.Loading -> {
@@ -73,24 +137,6 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
                 }
             }
         }
-    }
-
-    private fun List<GetCategoryResponseItem>.toNameOnly(): String {
-        val str = mutableListOf<String>()
-        this.forEach {
-            str.add(it.name.toString())
-        }
-        return str.joinToString()
-    }
-
-    private fun List<GetCategoryResponseItem>.toIntOnly(): String {
-        val int = mutableListOf<Int>()
-        this.forEach {
-            it.id?.let { i ->
-                int.add(i)
-            }
-        }
-        return int.joinToString()
     }
 
     private fun bindView() {
@@ -171,16 +217,30 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
             if (bitmap == null) {
                 this@ProductAddActivity.onSnackError(binding.root, "File gambar tidak boleh kosong!")
             } else {
-                viewModel.addProduct(
-                    AddProductRequest(
-                        name = binding.txtInputLayoutTitle.text.toString(),
-                        basePrice = MoneyTextWatcher.parseCurrencyValue(binding.txtInputLayoutPrice.text.toString()).toLong(),
-                        categoryIds = chooseList.toIntOnly(),
-                        location = binding.txtInputLocation.text.toString(),
-                        description = binding.txtInputLayoutDescription.text.toString()
-                    ),
-                    this@ProductAddActivity.buildImageMultipart("image", bitmap)
-                )
+                if (intent.hasExtra(ARGS_PRODUCT_EDIT)) {
+                    viewModel.editProduct(
+                        intent.getIntExtra(ARGS_PRODUCT_EDIT, -1),
+                        UpdateProductByIdRequest(
+                            name = binding.txtInputLayoutTitle.text.toString(),
+                            basePrice = MoneyTextWatcher.parseCurrencyValue(binding.txtInputLayoutPrice.text.toString()).toLong(),
+                            categoryIds = chooseList.toIntOnly(),
+                            location = binding.txtInputLocation.text.toString(),
+                            description = binding.txtInputLayoutDescription.text.toString()
+                        ),
+                        this@ProductAddActivity.buildImageMultipart("image", bitmap)
+                    )
+                } else {
+                    viewModel.addProduct(
+                        AddProductRequest(
+                            name = binding.txtInputLayoutTitle.text.toString(),
+                            basePrice = MoneyTextWatcher.parseCurrencyValue(binding.txtInputLayoutPrice.text.toString()).toLong(),
+                            categoryIds = chooseList.toIntOnly(),
+                            location = binding.txtInputLocation.text.toString(),
+                            description = binding.txtInputLayoutDescription.text.toString()
+                        ),
+                        this@ProductAddActivity.buildImageMultipart("image", bitmap)
+                    )
+                }
             }
         }
 

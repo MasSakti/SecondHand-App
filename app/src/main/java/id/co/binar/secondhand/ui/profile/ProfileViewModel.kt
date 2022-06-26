@@ -32,7 +32,7 @@ class ProfileViewModel @Inject constructor(
         _field.postValue(field)
     }
 
-    private val _bitmap = state.getLiveData<Bitmap>("BITMAP")
+    private val _bitmap = MutableLiveData<Bitmap>()
     val bitmap: LiveData<Bitmap> = _bitmap
     fun bitmap(bitmap: Bitmap) {
         _bitmap.postValue(bitmap)

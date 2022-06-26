@@ -1,10 +1,12 @@
 package id.co.binar.secondhand.repository
 
 import androidx.room.withTransaction
+import com.google.gson.Gson
 import id.co.binar.secondhand.data.local.SellerDao
 import id.co.binar.secondhand.data.remote.BuyerApi
 import id.co.binar.secondhand.data.remote.SellerApi
 import id.co.binar.secondhand.database.RoomDatabase
+import id.co.binar.secondhand.model.ErrorResponse
 import id.co.binar.secondhand.model.buyer.product.GetProductResponseItem
 import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.castFromRemoteToLocal
@@ -47,7 +49,10 @@ class BuyerRepository @Inject constructor(
                     emit(Resource.Success(it))
                 }
             } else {
-                throw Exception("Terjadi kesalahan!")
+                response.errorBody()?.let {
+                    val error = Gson().fromJson(it.string(), ErrorResponse::class.java)
+                    throw Exception("${error.name} : ${error.message} - ${response.code()}")
+                }
             }
         } catch (ex: Exception) {
             emit(Resource.Error(ex))

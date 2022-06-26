@@ -4,8 +4,7 @@ import android.graphics.Bitmap
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
-import id.co.binar.secondhand.model.seller.product.AddProductRequest
-import id.co.binar.secondhand.model.seller.product.AddProductResponse
+import id.co.binar.secondhand.model.seller.product.*
 import id.co.binar.secondhand.repository.SellerRepository
 import id.co.binar.secondhand.util.Resource
 import kotlinx.coroutines.CoroutineScope
@@ -23,7 +22,7 @@ class ProductAddViewModel @Inject constructor(
 ) : ViewModel() {
     fun getTokenId() = sellerRepository.store().getTokenId()
 
-    private val _bitmap = state.getLiveData<Bitmap>("BITMAP")
+    private val _bitmap = MutableLiveData<Bitmap>()
     val bitmap: LiveData<Bitmap> = _bitmap
     fun bitmap(bitmap: Bitmap) {
         _bitmap.postValue(bitmap)
@@ -41,13 +40,30 @@ class ProductAddViewModel @Inject constructor(
         _lastList.postValue(list.distinctBy { it.id }.toMutableList())
     }
 
-    fun categoryProduct() = sellerRepository.getCategory().asLiveData()
+    val categoryProduct = sellerRepository.getCategory().asLiveData()
 
     private val _addProduct = MutableLiveData<Resource<AddProductResponse>>()
     val addProduct: LiveData<Resource<AddProductResponse>> = _addProduct
     fun addProduct(field: AddProductRequest, image: MultipartBody.Part) = CoroutineScope(Dispatchers.IO).launch {
         sellerRepository.addProduct(field, image).collectLatest {
             _addProduct.postValue(it)
+        }
+    }
+
+    private val _getIdProduct = state.getLiveData<Int>("ID_PRODUCT")
+    fun getIdProduct(id_product: Int) {
+        _getIdProduct.postValue(id_product)
+    }
+
+    val getProductById = _getIdProduct.switchMap {
+        sellerRepository.getProductById(it).asLiveData()
+    }
+
+    private val _editProduct = MutableLiveData<Resource<UpdateProductByIdResponse>>()
+    val editProduct: LiveData<Resource<UpdateProductByIdResponse>> = _editProduct
+    fun editProduct(id_product: Int, field: UpdateProductByIdRequest, image: MultipartBody.Part) = CoroutineScope(Dispatchers.IO).launch {
+        sellerRepository.editProduct(id_product, field, image).collectLatest {
+            _editProduct.postValue(it)
         }
     }
 }

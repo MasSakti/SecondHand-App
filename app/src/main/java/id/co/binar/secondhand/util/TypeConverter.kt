@@ -99,6 +99,33 @@ fun List<SellerProductLocal>?.castFromLocalToRemote(): List<GetProductResponseIt
     return list
 }
 
+fun List<GetCategoryResponseItem>.toNameOnly(): String {
+    val str = mutableListOf<String>()
+    this.forEach {
+        str.add(it.name.toString())
+    }
+    return str.joinToString()
+}
+
+@JvmName("toNameOnlyCategoriesItem")
+fun List<CategoriesItem>.toNameOnly(): String {
+    val str = mutableListOf<String>()
+    this.forEach {
+        str.add(it.name.toString())
+    }
+    return str.joinToString()
+}
+
+fun List<GetCategoryResponseItem>.toIntOnly(): String {
+    val int = mutableListOf<Int>()
+    this.forEach {
+        it.id?.let { i ->
+            int.add(i)
+        }
+    }
+    return int.joinToString()
+}
+
 fun Any.convertRupiah(): String {
     val localId = Locale("in", "ID")
     val formatter = NumberFormat.getCurrencyInstance(localId)

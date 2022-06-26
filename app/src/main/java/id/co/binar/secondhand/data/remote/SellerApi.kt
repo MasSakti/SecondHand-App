@@ -1,9 +1,7 @@
 package id.co.binar.secondhand.data.remote
 
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
-import id.co.binar.secondhand.model.seller.product.AddProductResponse
-import id.co.binar.secondhand.model.seller.product.GetProductResponse
-import id.co.binar.secondhand.model.seller.product.GetProductResponseItem
+import id.co.binar.secondhand.model.seller.product.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -22,8 +20,29 @@ interface SellerApi {
         @Part image: MultipartBody.Part
     ) : Response<AddProductResponse>
 
+    @Multipart
+    @PUT("seller/product/{id}")
+    suspend fun editProduct(
+        @Header("access_token") token: String,
+        @Path("id") id: Int,
+        @PartMap field: HashMap<String, RequestBody>,
+        @Part image: MultipartBody.Part
+    ) : Response<UpdateProductByIdResponse>
+
     @GET("seller/product")
     suspend fun getProduct(
         @Header("access_token") token: String
     ) : Response<List<GetProductResponseItem>>
+
+    @GET("seller/product/{id}")
+    suspend fun getProductById(
+        @Header("access_token") token: String,
+        @Path("id") id: Int
+    ) : Response<GetProductByIdResponse>
+
+    @DELETE("seller/product/{id}")
+    suspend fun deleteProduct(
+        @Header("access_token") token: String,
+        @Path("id") id: Int
+    ) : Response<DeleteProductByIdResponse>
 }

@@ -1,10 +1,12 @@
 package id.co.binar.secondhand.repository
 
 import androidx.room.withTransaction
+import com.google.gson.Gson
 import id.co.binar.secondhand.data.local.AuthDao
 import id.co.binar.secondhand.data.local.model.AuthLocal
 import id.co.binar.secondhand.data.remote.AuthApi
 import id.co.binar.secondhand.database.RoomDatabase
+import id.co.binar.secondhand.model.ErrorResponse
 import id.co.binar.secondhand.model.auth.*
 import id.co.binar.secondhand.util.DataStoreManager
 import id.co.binar.secondhand.util.Resource
@@ -42,10 +44,11 @@ class AuthRepository @Inject constructor(
                     store.setUsrId(it.id)
                     emit(Resource.Success(it))
                 }
-            } else if (response.code() == 401) {
-                throw Exception("Email atau Password tidak valid")
             } else {
-                throw Exception("Terjadi kesalahan")
+                response.errorBody()?.let {
+                    val error = Gson().fromJson(it.string(), ErrorResponse::class.java)
+                    throw Exception("${error.name} : ${error.message} - ${response.code()}")
+                }
             }
         } catch (ex: Exception) {
             emit(Resource.Error(ex))
@@ -70,10 +73,11 @@ class AuthRepository @Inject constructor(
                 response.body()?.let {
                     emit(Resource.Success(it))
                 }
-            } else if (response.code() == 400) {
-                throw Exception("Email telah dibuat")
             } else {
-                throw Exception("Terjadi kesalahan")
+                response.errorBody()?.let {
+                    val error = Gson().fromJson(it.string(), ErrorResponse::class.java)
+                    throw Exception("${error.name} : ${error.message} - ${response.code()}")
+                }
             }
         } catch (ex: Exception) {
             emit(Resource.Error(ex))
@@ -99,10 +103,11 @@ class AuthRepository @Inject constructor(
                 response.body()?.let {
                     emit(Resource.Success(it))
                 }
-            } else if (response.code() == 400) {
-                throw Exception("Email telah dibuat")
             } else {
-                throw Exception("Terjadi kesalahan")
+                response.errorBody()?.let {
+                    val error = Gson().fromJson(it.string(), ErrorResponse::class.java)
+                    throw Exception("${error.name} : ${error.message} - ${response.code()}")
+                }
             }
         } catch (ex: Exception) {
             emit(Resource.Error(ex))

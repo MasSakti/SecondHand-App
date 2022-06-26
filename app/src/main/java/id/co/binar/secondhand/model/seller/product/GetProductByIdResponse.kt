@@ -22,6 +22,9 @@ data class GetProductByIdResponse(
 	@SerializedName("name")
 	val name: String? = null,
 
+	@SerializedName("description")
+	val description: String? = null,
+
 	@SerializedName("base_price")
 	val basePrice: Int? = null,
 
@@ -34,16 +37,6 @@ data class GetProductByIdResponse(
 	@SerializedName("id")
 	val id: Int? = null,
 
-	@SerializedName("categories")
-	val categories: List<CategoriesItemById>? = null
-) : Parcelable
-
-@Parcelize
-data class CategoriesItemById(
-
-	@SerializedName("name")
-	val name: String? = null,
-
-	@SerializedName("id")
-	val id: Int? = null
+	@SerializedName("Categories")
+	val categories: List<CategoriesItem>? = null
 ) : Parcelable

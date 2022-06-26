@@ -43,7 +43,7 @@ class CategoryDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun bindObserver() {
-        viewModel.categoryProduct().observe(viewLifecycleOwner) {
+        viewModel.categoryProduct.observe(viewLifecycleOwner) {
             adapter.asyncDiffer.submitList(it.data.castFromLocalToRemote())
             binding.list.adapter = adapter
             viewModel.list.observe(viewLifecycleOwner) {
