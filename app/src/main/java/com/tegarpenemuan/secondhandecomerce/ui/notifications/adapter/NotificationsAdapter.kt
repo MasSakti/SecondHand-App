@@ -39,7 +39,7 @@ class NotificationsAdapter(private val listener: EventListener, private var list
             .into(holder.binding.ivImg)
         holder.binding.tvHarga.text = item.bid_price.toString()
         holder.binding.tvJenisNotif.text = item.status
-        holder.binding.tvTanggal.text = item.status
+        holder.binding.tvTanggal.text = item.transaction_date
 
         holder.itemView.setOnClickListener {
             listener.onClick(item)
