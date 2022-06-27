@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import binar.and3.kelompok1.secondhand.data.ErrorResponse
 import binar.and3.kelompok1.secondhand.data.api.auth.SignInRequest
 import binar.and3.kelompok1.secondhand.data.api.auth.SignUpRequest
-import binar.and3.kelompok1.secondhand.data.local.UserEntity
+import binar.and3.kelompok1.secondhand.data.local.auth.UserEntity
 import binar.and3.kelompok1.secondhand.repository.AuthRepository
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel

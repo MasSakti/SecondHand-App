@@ -1,4 +1,4 @@
-package binar.and3.kelompok1.secondhand.data.local
+package binar.and3.kelompok1.secondhand.data.local.auth
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

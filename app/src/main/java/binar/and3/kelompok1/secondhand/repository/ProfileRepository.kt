@@ -1,14 +1,10 @@
 package binar.and3.kelompok1.secondhand.repository
 
-import android.media.Image
 import binar.and3.kelompok1.secondhand.data.api.auth.AuthAPI
-import binar.and3.kelompok1.secondhand.data.api.auth.UpdateUserDataResponse
-import binar.and3.kelompok1.secondhand.data.local.UserDAO
-import binar.and3.kelompok1.secondhand.data.local.UserEntity
+import binar.and3.kelompok1.secondhand.data.local.auth.UserDAO
+import binar.and3.kelompok1.secondhand.data.local.auth.UserEntity
 import binar.and3.kelompok1.secondhand.model.ProfileModel
-import com.bumptech.glide.load.engine.Resource
 import okhttp3.MultipartBody
-import okhttp3.Response
 import javax.inject.Inject
 
 class ProfileRepository @Inject constructor(

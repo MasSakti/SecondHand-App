@@ -10,7 +10,9 @@ import binar.and3.kelompok1.secondhand.R
 import binar.and3.kelompok1.secondhand.databinding.ActivityLoginUiBinding
 import binar.and3.kelompok1.secondhand.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
