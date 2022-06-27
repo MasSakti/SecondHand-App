@@ -14,8 +14,7 @@ class AccountViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
     fun logout() = CoroutineScope(Dispatchers.IO).launch {
-        authRepository.store().clear()
-        authRepository.authDao().logout()
+        authRepository.logout()
     }
 
     fun getAccount() = authRepository.getAccount().asLiveData()

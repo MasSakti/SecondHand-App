@@ -18,6 +18,7 @@ import coil.transform.RoundedCornersTransformation
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
+import id.co.binar.secondhand.data.local.model.SellerProductLocal
 import id.co.binar.secondhand.databinding.FragmentListSellBinding
 import id.co.binar.secondhand.model.seller.product.GetProductResponseItem
 import id.co.binar.secondhand.ui.product_add.ARGS_PRODUCT_EDIT
@@ -27,7 +28,9 @@ import id.co.binar.secondhand.ui.profile.ProfileActivity
 import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.castFromLocalToRemote
 import id.co.binar.secondhand.util.onSnackError
-import id.co.binar.secondhand.util.onToast
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ListSellFragment : Fragment() {
@@ -54,7 +57,11 @@ class ListSellFragment : Fragment() {
 
     private fun bindView() {
         binding.swipeRefresh.setOnRefreshListener {
-            viewModel.getProduct()
+            MainScope().launch {
+                viewModel.getProduct()
+                delay(500)
+                viewModel.getProduct()
+            }
         }
 
         binding.button3.setOnClickListener {
@@ -86,8 +93,14 @@ class ListSellFragment : Fragment() {
 
         adapterProduct.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { _, getCategoryResponseItem ->
-                dialogChooseProduct(getCategoryResponseItem)
+            onClickAdapter { i, getCategoryResponseItem ->
+                when(i) {
+                    0 -> {
+                        val intent = Intent(requireContext(), ProductAddActivity::class.java)
+                        requireActivity().startActivity(intent)
+                    }
+                    else -> dialogChooseProduct(getCategoryResponseItem)
+                }
             }
         }
     }
@@ -107,7 +120,12 @@ class ListSellFragment : Fragment() {
         }
 
         viewModel.getProduct.observe(viewLifecycleOwner) {
-            adapterProduct.asyncDiffer.submitList(it.data.castFromLocalToRemote())
+            val list = mutableListOf<GetProductResponseItem>()
+            list.apply {
+                add(GetProductResponseItem())
+                addAll(it.data.castFromLocalToRemote())
+            }
+            adapterProduct.asyncDiffer.submitList(list)
             binding.rvList.adapter = adapterProduct
             when (it) {
                 is Resource.Success -> binding.swipeRefresh.isRefreshing = false

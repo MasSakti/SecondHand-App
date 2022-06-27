@@ -85,7 +85,7 @@ class HomeFragment : Fragment() {
         viewModel.getCategory.observe(viewLifecycleOwner) {
             val list = mutableListOf<GetCategoryResponseItem>()
             list.apply {
-                add(GetCategoryResponseItem(name = "Semua", id = null))
+                add(GetCategoryResponseItem(name = "Semua"))
                 addAll(it.data.castFromLocalToRemote())
             }
             adapterCategory.asyncDiffer.submitList(list)

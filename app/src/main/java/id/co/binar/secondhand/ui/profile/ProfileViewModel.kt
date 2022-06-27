@@ -24,7 +24,7 @@ class ProfileViewModel @Inject constructor(
     private val authRepository: AuthRepository,
     state: SavedStateHandle
 ) : ViewModel() {
-    fun getTokenId() = authRepository.store().getTokenId()
+    fun getTokenId() = authRepository.store.getTokenId()
 
     private val _field = state.getLiveData<AddAuthRequest>("FIELD")
     val field: LiveData<AddAuthRequest> = _field

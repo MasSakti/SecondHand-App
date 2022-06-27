@@ -6,7 +6,7 @@
     <string name="txt_not_min_length_8">Minimal 8 karakter</string>
     <string name="txt_not_lowercase_and_uppercase">Harus terdapat huruf besar dan huruf kecil</string>
     <string name="length_of_phone">Maksimal 16 digit angka</string>
-    <string name="length_of_price">Maksimal 11 digit angka</string>
+    <string name="length_of_price">Maksimal 9 digit angka</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

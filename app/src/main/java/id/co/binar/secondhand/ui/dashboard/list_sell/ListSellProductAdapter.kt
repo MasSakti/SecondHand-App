@@ -9,8 +9,8 @@ import coil.load
 import coil.size.ViewSizeResolver
 import coil.transform.RoundedCornersTransformation
 import id.co.binar.secondhand.R
+import id.co.binar.secondhand.databinding.ListItemProductAddHomeBinding
 import id.co.binar.secondhand.databinding.ListItemProductHomeBinding
-import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
 import id.co.binar.secondhand.model.seller.product.CategoriesItem
 import id.co.binar.secondhand.model.seller.product.GetProductResponseItem
 import id.co.binar.secondhand.util.convertRupiah
@@ -32,8 +32,15 @@ class ListSellProductAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return str.joinToString()
     }
 
-    inner class ViewHolder(val binding: ListItemProductHomeBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ProductAddViewHolder(val binding: ListItemProductAddHomeBinding) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            itemView.setOnClickListener {
+                _onClickAdapter?.invoke(bindingAdapterPosition, asyncDiffer.currentList[bindingAdapterPosition])
+            }
+        }
+    }
 
+    inner class ViewHolder(val binding: ListItemProductHomeBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             itemView.setOnClickListener {
                 _onClickAdapter?.invoke(bindingAdapterPosition, asyncDiffer.currentList[bindingAdapterPosition])
@@ -55,22 +62,41 @@ class ListSellProductAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ViewHolder(
-            ListItemProductHomeBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+        return when (viewType) {
+            R.layout.list_item_category_product_add -> ProductAddViewHolder(
+                ListItemProductAddHomeBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
             )
-        )
+            R.layout.list_item_category_home -> ViewHolder(
+                ListItemProductHomeBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            else -> throw IllegalArgumentException("Invalid ViewType Provided")
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        holder as ViewHolder
-        holder.bind(asyncDiffer.currentList[position])
+        when (holder) {
+            is ViewHolder -> holder.bind(asyncDiffer.currentList[position])
+            is ProductAddViewHolder -> {}
+        }
     }
 
     override fun getItemCount(): Int {
         return asyncDiffer.currentList.size
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (position) {
+            0 -> R.layout.list_item_category_product_add
+            else -> R.layout.list_item_category_home
+        }
     }
 }
 

@@ -48,7 +48,7 @@ fun priceValid(textInputLayout: TextInputLayout): Validation {
         rules {
             +notNull(R.string.txt_not_null)
             +notEmpty(R.string.txt_not_empty)
-            +maximumLength(15, R.string.length_of_price)
+            +maximumLength(13, R.string.length_of_price)
         }
     }
 }

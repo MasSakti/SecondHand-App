@@ -3,6 +3,7 @@ package id.co.binar.secondhand.repository
 import androidx.room.withTransaction
 import com.google.gson.Gson
 import id.co.binar.secondhand.data.local.AuthDao
+import id.co.binar.secondhand.data.local.SellerDao
 import id.co.binar.secondhand.data.local.model.AuthLocal
 import id.co.binar.secondhand.data.remote.AuthApi
 import id.co.binar.secondhand.database.RoomDatabase
@@ -11,8 +12,11 @@ import id.co.binar.secondhand.model.auth.*
 import id.co.binar.secondhand.util.DataStoreManager
 import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.networkBoundResource
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
@@ -20,11 +24,15 @@ import javax.inject.Inject
 class AuthRepository @Inject constructor(
     private val authApi: AuthApi,
     private val authDao: AuthDao,
-    private val store: DataStoreManager,
+    private val sellerDao: SellerDao,
+    val store: DataStoreManager,
     private val db: RoomDatabase
 ) {
-    fun authDao() = authDao
-    fun store() = store
+    suspend fun logout() {
+        store.clear()
+        authDao.logout()
+        sellerDao.removeProductHome()
+    }
 
     fun login(field: GetAuthRequest): Flow<Resource<GetAuthResponse>> = flow {
         emit(Resource.Loading())
