@@ -1,4 +1,4 @@
-package com.tegarpenemuan.secondhandecomerce.ui.jual.seller21
+package com.tegarpenemuan.secondhandecomerce.ui.seller21
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

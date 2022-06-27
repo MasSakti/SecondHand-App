@@ -7,8 +7,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_img"
-        android:layout_width="46dp"
-        android:layout_height="46dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="16dp"
@@ -69,6 +69,17 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_jenis_notif"
         tools:text="20 Apr, 14.04" />
+
+    <RelativeLayout
+        android:id="@+id/div_notif"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/bg_bulet"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/tv_tanggal"
+        app:layout_constraintStart_toEndOf="@id/tv_tanggal"
+        app:layout_constraintTop_toTopOf="@id/tv_tanggal" />
 
     <View
         android:id="@+id/iv_separator"

@@ -1,20 +1,12 @@
-package com.tegarpenemuan.secondhandecomerce.ui.jual.bottomsheet
+package com.tegarpenemuan.secondhandecomerce.ui.bottomsheet
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.inflate
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.graphics.drawable.DrawableCompat.inflate
-import com.tegarpenemuan.secondhandecomerce.R
-import com.tegarpenemuan.secondhandecomerce.databinding.ActivityLoginBinding.inflate
-import com.tegarpenemuan.secondhandecomerce.databinding.ActivityMainBinding.inflate
-import com.tegarpenemuan.secondhandecomerce.databinding.FragmentJualBinding
 import com.tegarpenemuan.secondhandecomerce.databinding.FragmentSeller30Binding
-import com.tegarpenemuan.secondhandecomerce.ui.register.Register
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

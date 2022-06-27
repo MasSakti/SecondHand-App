@@ -1,4 +1,4 @@
-package com.tegarpenemuan.secondhandecomerce.ui.jual.seller25
+package com.tegarpenemuan.secondhandecomerce.ui.seller25
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

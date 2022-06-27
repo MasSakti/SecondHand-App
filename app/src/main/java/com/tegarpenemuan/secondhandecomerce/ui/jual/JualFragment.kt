@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.tegarpenemuan.secondhandecomerce.databinding.FragmentJualBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class JualFragment : Fragment() {
 
     private var _binding: FragmentJualBinding? = null

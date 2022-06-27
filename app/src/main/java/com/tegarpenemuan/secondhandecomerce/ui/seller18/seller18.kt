@@ -1,4 +1,4 @@
-package com.tegarpenemuan.secondhandecomerce.ui.jual.seller18
+package com.tegarpenemuan.secondhandecomerce.ui.seller18
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
