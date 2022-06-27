@@ -50,6 +50,12 @@ interface AuthApi {
         @Header("access_token") access_token: String
     ): Response<List<GetNotifResponseItem>>
 
+//    @GET("notification/{id}")
+//    suspend fun getNotificationById(
+//        @Header("access_token") access_token: String,
+//        @Path("id") id: Int
+//    ): Response<List<GetNotifByIdResponseItem>>
+
     @Multipart
     @PUT("auth/user")
     suspend fun updateUser(

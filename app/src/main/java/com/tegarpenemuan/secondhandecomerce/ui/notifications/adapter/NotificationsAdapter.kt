@@ -38,8 +38,8 @@ class NotificationsAdapter(private val listener: EventListener, private var list
             .transform(RoundedCorners(20))
             .into(holder.binding.ivImg)
         holder.binding.tvHarga.text = item.bid_price.toString()
-
-
+        holder.binding.tvJenisNotif.text = item.status
+        holder.binding.tvTanggal.text = item.status
 
         holder.itemView.setOnClickListener {
             listener.onClick(item)

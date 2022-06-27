@@ -83,6 +83,10 @@ class AuthRepository @Inject constructor(
         return api.getNotification(access_token)
     }
 
+//    suspend fun getNotificationById(access_token: String, id: Int): Response<List<GetNotifByIdResponseItem>> {
+//        return api.getNotificationById(access_token, id)
+//    }
+
     suspend fun updateUser(
         access_token: String,
         request: UpdateUserRequest
