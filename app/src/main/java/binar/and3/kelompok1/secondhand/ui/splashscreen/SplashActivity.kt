@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.activity.viewModels
 import binar.and3.kelompok1.secondhand.databinding.ActivitySplashBinding
-import binar.and3.kelompok1.secondhand.ui.MainActivity
+import binar.and3.kelompok1.secondhand.ui.MenuActivity
 import binar.and3.kelompok1.secondhand.ui.signin.LoginUI
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,7 +44,7 @@ class SplashActivity : AppCompatActivity() {
 
         viewModel.shouldOpenMenuPage.observe(this) {
             if (it) {
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, MenuActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }

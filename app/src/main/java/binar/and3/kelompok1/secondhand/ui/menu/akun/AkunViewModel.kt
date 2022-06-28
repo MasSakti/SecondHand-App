@@ -10,8 +10,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.MultipartBody
-import retrofit2.http.Multipart
 import javax.inject.Inject
 
 @HiltViewModel

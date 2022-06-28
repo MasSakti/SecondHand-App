@@ -2,41 +2,36 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@id/homeFragment">
+    android:id="@+id/mobile_navigation2"
+    app:startDestination="@+id/navigation_home">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/navigation_home"
         android:name="binar.and3.kelompok1.secondhand.ui.menu.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_homeFragment_to_notifikasiFragment2"
-            app:destination="@id/notifikasiFragment2" />
-    </fragment>
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/notifikasiFragment2"
+        android:id="@+id/navigation_notifikasi"
         android:name="binar.and3.kelompok1.secondhand.ui.menu.notifikasi.NotifikasiFragment"
-        android:label="fragment_notifikasi"
-        tools:layout="@layout/fragment_notifikasi">
-        <action
-            android:id="@+id/action_notifikasiFragment2_to_daftarFragment2"
-            app:destination="@id/daftarFragment2" />
-    </fragment>
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifikasi" />
 
     <fragment
-        android:id="@+id/daftarFragment2"
-        android:name="binar.and3.kelompok1.secondhand.ui.menu.daftarjual.DaftarFragment"
-        android:label="fragment_daftar"
-        tools:layout="@layout/fragment_daftar" >
-        <action
-            android:id="@+id/action_daftarFragment2_to_akunFragment"
-            app:destination="@id/akunFragment" />
-    </fragment>
+        android:id="@+id/navigation_jual"
+        android:name="binar.and3.kelompok1.secondhand.ui.menu.jual.JualFragment"
+        android:label="@string/title_jual"
+        tools:layout="@layout/fragment_jual" />
+
     <fragment
-        android:id="@+id/akunFragment"
+        android:id="@+id/navigation_daftar_jual"
+        android:name="binar.and3.kelompok1.secondhand.ui.menu.daftarjual.DaftarJualFragment"
+        android:label="@string/title_jual"
+        tools:layout="@layout/fragment_daftar_jual" />
+
+    <fragment
+        android:id="@+id/navigation_akun"
         android:name="binar.and3.kelompok1.secondhand.ui.menu.akun.AkunFragment"
-        android:label="fragment_akun"
+        android:label="@string/title_akun"
         tools:layout="@layout/fragment_akun" />
 </navigation>

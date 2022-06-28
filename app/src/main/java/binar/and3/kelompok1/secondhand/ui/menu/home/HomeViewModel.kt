@@ -1,5 +1,6 @@
 package binar.and3.kelompok1.secondhand.ui.menu.home
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerProduct
@@ -16,12 +17,13 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val buyerProductRepository: ProductRepository
 ) : ViewModel() {
+
     val shouldShowBuyerProduct: MutableLiveData<BuyerProduct> = MutableLiveData()
 
     val shouldShowError: MutableLiveData<String> = MutableLiveData()
 
     fun onViewLoaded() {
-        // getBuyerProduct()
+        getBuyerProduct()
     }
 
     private fun getBuyerProduct() {

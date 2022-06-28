@@ -7,9 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
-import binar.and3.kelompok1.secondhand.R
 import binar.and3.kelompok1.secondhand.databinding.ActivityLoginUiBinding
-import binar.and3.kelompok1.secondhand.ui.MainActivity
+import binar.and3.kelompok1.secondhand.ui.MenuActivity
 import binar.and3.kelompok1.secondhand.ui.signup.RegisterUI
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,7 +55,7 @@ class LoginUI : AppCompatActivity() {
         }
 
         viewModel.shouldOpenMenuPage.observe(this) {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, MenuActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }

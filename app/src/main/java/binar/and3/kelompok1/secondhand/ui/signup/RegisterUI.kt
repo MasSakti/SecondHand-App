@@ -9,7 +9,7 @@ import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
 import binar.and3.kelompok1.secondhand.R
 import binar.and3.kelompok1.secondhand.databinding.ActivityRegisterUiBinding
-import binar.and3.kelompok1.secondhand.ui.MainActivity
+import binar.and3.kelompok1.secondhand.ui.MenuActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -59,7 +59,7 @@ class RegisterUI : AppCompatActivity() {
         }
         viewModel.shouldOpenUpdateProfile.observe(this) {
             if (it) {
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, MenuActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }
