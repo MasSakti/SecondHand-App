@@ -1,55 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="18dp"
-    android:layout_marginTop="13dp"
-    android:layout_marginEnd="5dp"
-    android:layout_marginBottom="13dp"
-    app:cardCornerRadius="16dp">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="156dp"
-        android:layout_height="206dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginBottom="12dp"
-        android:orientation="vertical">
+    <com.github.captain_miao.optroundcardview.OptRoundCardView
+        android:layout_width="160dp"
+        android:layout_height="230dp"
+        android:layout_margin="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:optRoundCardCornerRadius="15dp"
+        app:optRoundCardElevation="2dp">
 
-        <ImageView
-            android:id="@+id/iv_image_product"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true"
-            android:src="@color/purple_100" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_nama_product"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Jam Tangan Casio"
-            android:textSize="14sp"
-            android:layout_marginTop="10dp" />
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/iv_image_product"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:scaleType="centerCrop"
+                android:src="@color/purple_100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_corner_radius="15dp" />
 
-        <TextView
-            android:id="@+id/tv_jenis_product"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Aksesoris"
-            android:textSize="10sp"
-            android:textColor="#8A8A8A"
-            android:layout_marginTop="10dp" />
+            <TextView
+                android:id="@+id/tv_jenis_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:maxLines="1"
+                android:text="category"
+                android:textColor="#999999"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_image_product" />
 
-        <TextView
-            android:id="@+id/tv_harga_product"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rp 250.000"
-            android:layout_marginTop="10dp" />
+            <TextView
+                android:id="@+id/tv_nama_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="10dp"
+                android:maxLines="1"
+                android:text="Jam Casseo"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_jenis_product" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_harga_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="10dp"
+                android:maxLines="1"
+                android:text="Rp 250.000"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_nama_product" />
 
-</com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.github.captain_miao.optroundcardview.OptRoundCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

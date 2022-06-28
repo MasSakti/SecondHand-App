@@ -74,6 +74,10 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.40.5"
     kapt "com.google.dagger:hilt-android-compiler:2.40.5"
 
+    // Other Dependecies
+    implementation 'com.github.captain-miao:optroundcardview:1.0.0'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
     /** image picker */
     implementation 'com.github.Drjacky:ImagePicker:2.1.11'
 
