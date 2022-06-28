@@ -3,7 +3,7 @@ package id.co.binar.secondhand.ui.product_add
 import android.graphics.Bitmap
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
+import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import id.co.binar.secondhand.model.seller.product.*
 import id.co.binar.secondhand.repository.SellerRepository
 import id.co.binar.secondhand.util.Resource
@@ -28,15 +28,15 @@ class ProductAddViewModel @Inject constructor(
         _bitmap.postValue(bitmap)
     }
 
-    private val _list = state.getLiveData<MutableList<GetCategoryResponseItem>>("LIST_CATEGORY_PRODUCT")
-    val list: LiveData<MutableList<GetCategoryResponseItem>> = _list
-    fun list(list: MutableList<GetCategoryResponseItem>) {
+    private val _list = state.getLiveData<MutableList<GetCategoryResponse>>("LIST_CATEGORY_PRODUCT")
+    val list: LiveData<MutableList<GetCategoryResponse>> = _list
+    fun list(list: MutableList<GetCategoryResponse>) {
         _list.postValue(list.distinctBy { it.id }.toMutableList())
     }
 
-    private val _lastList = state.getLiveData<MutableList<GetCategoryResponseItem>>("LAST_LIST_CATEGORY_PRODUCT")
-    val lastList: LiveData<MutableList<GetCategoryResponseItem>> = _lastList
-    fun lastList(list: MutableList<GetCategoryResponseItem>) {
+    private val _lastList = state.getLiveData<MutableList<GetCategoryResponse>>("LAST_LIST_CATEGORY_PRODUCT")
+    val lastList: LiveData<MutableList<GetCategoryResponse>> = _lastList
+    fun lastList(list: MutableList<GetCategoryResponse>) {
         _lastList.postValue(list.distinctBy { it.id }.toMutableList())
     }
 

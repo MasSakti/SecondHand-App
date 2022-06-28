@@ -6,6 +6,7 @@ import id.co.binar.secondhand.data.local.SellerDao
 import id.co.binar.secondhand.data.remote.SellerApi
 import id.co.binar.secondhand.database.RoomDatabase
 import id.co.binar.secondhand.model.ErrorResponse
+import id.co.binar.secondhand.model.seller.order.GetOrderResponse
 import id.co.binar.secondhand.model.seller.product.*
 import id.co.binar.secondhand.util.DataStoreManager
 import id.co.binar.secondhand.util.Resource
@@ -25,22 +26,6 @@ class SellerRepository @Inject constructor(
 ) {
     fun store() = store
 
-    fun getProduct() = networkBoundResource(
-        query = {
-            sellerDao.getProductHome()
-        },
-        fetch = {
-            sellerApi.getProduct(store.getTokenId())
-        },
-        saveFetchResult = {
-            val response = it.body().castFromRemoteToLocal()
-            db.withTransaction {
-                sellerDao.removeProductHome()
-                sellerDao.setProductHome(response)
-            }
-        }
-    )
-
     fun getCategory() = networkBoundResource(
         query = {
             sellerDao.getCategoryHome()
@@ -53,6 +38,41 @@ class SellerRepository @Inject constructor(
             db.withTransaction {
                 sellerDao.removeCategoryHome()
                 sellerDao.setCategoryHome(response)
+            }
+        }
+    )
+
+    fun getOrder(): Flow<Resource<List<GetOrderResponse>>> = flow {
+        emit(Resource.Loading())
+        try {
+            val response = sellerApi.getOrder(store.getTokenId())
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    emit(Resource.Success(it))
+                }
+            } else {
+                response.errorBody()?.let {
+                    val error = Gson().fromJson(it.string(), ErrorResponse::class.java)
+                    throw Exception("${error.name} : ${error.message} - ${response.code()}")
+                }
+            }
+        } catch (ex: Exception) {
+            emit(Resource.Error(ex))
+        }
+    }
+
+    fun getProduct() = networkBoundResource(
+        query = {
+            sellerDao.getProductHome()
+        },
+        fetch = {
+            sellerApi.getProduct(store.getTokenId())
+        },
+        saveFetchResult = {
+            val response = it.body().castFromRemoteToLocal()
+            db.withTransaction {
+                sellerDao.removeProductHome()
+                sellerDao.setProductHome(response)
             }
         }
     )
@@ -72,9 +92,7 @@ class SellerRepository @Inject constructor(
                 image = image
             )
             if (response.isSuccessful) {
-                response.body()?.let {
-                    emit(Resource.Success(it))
-                }
+                response.body()?.let { emit(Resource.Success(it)) }
             } else {
                 response.errorBody()?.let {
                     val error = Gson().fromJson(it.string(), ErrorResponse::class.java)
@@ -102,9 +120,7 @@ class SellerRepository @Inject constructor(
                 image = image
             )
             if (response.isSuccessful) {
-                response.body()?.let {
-                    emit(Resource.Success(it))
-                }
+                response.body()?.let { emit(Resource.Success(it)) }
             } else {
                 response.errorBody()?.let {
                     val error = Gson().fromJson(it.string(), ErrorResponse::class.java)
@@ -121,9 +137,7 @@ class SellerRepository @Inject constructor(
         try {
             val response = sellerApi.getProductById(store.getTokenId(), id_product)
             if (response.isSuccessful) {
-                response.body()?.let {
-                    emit(Resource.Success(it))
-                }
+                response.body()?.let { emit(Resource.Success(it)) }
             } else {
                 response.errorBody()?.let {
                     val error = Gson().fromJson(it.string(), ErrorResponse::class.java)
@@ -140,9 +154,7 @@ class SellerRepository @Inject constructor(
         try {
             val response = sellerApi.deleteProduct(store.getTokenId(), id_product)
             if (response.isSuccessful) {
-                response.body()?.let {
-                    emit(Resource.Success(it))
-                }
+                response.body()?.let { emit(Resource.Success(it)) }
             } else {
                 response.errorBody()?.let {
                     val error = Gson().fromJson(it.string(), ErrorResponse::class.java)

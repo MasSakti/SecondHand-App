@@ -2,8 +2,8 @@ package id.co.binar.secondhand.ui.dashboard.home
 
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.co.binar.secondhand.model.buyer.product.GetProductResponseItem
-import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
+import id.co.binar.secondhand.model.buyer.product.GetProductResponse
+import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import id.co.binar.secondhand.repository.BuyerRepository
 import id.co.binar.secondhand.util.LiveEvent
 import id.co.binar.secondhand.util.Resource

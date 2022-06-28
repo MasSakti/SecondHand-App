@@ -14,7 +14,7 @@ import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ActivityProductAddBinding
-import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
+import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import id.co.binar.secondhand.model.seller.product.AddProductRequest
 import id.co.binar.secondhand.model.seller.product.UpdateProductByIdRequest
 import id.co.binar.secondhand.ui.login.LoginActivity
@@ -32,7 +32,7 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
 
     private lateinit var binding: ActivityProductAddBinding
     private val viewModel by viewModels<ProductAddViewModel>()
-    private var chooseList = mutableListOf<GetCategoryResponseItem>()
+    private var chooseList = mutableListOf<GetCategoryResponse>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,7 +78,7 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
                 is Resource.Success -> {
                     it.data?.categories?.forEach {
                         chooseList.add(
-                            GetCategoryResponseItem(
+                            GetCategoryResponse(
                                 name = it.name,
                                 id = it.id,
                                 check = true
@@ -86,7 +86,7 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
                         )
                     }
                     viewModel.categoryProduct.observe(this) {
-                        val lastList = mutableListOf<GetCategoryResponseItem>()
+                        val lastList = mutableListOf<GetCategoryResponse>()
                         lastList.addAll(chooseList)
                         lastList.addAll(it.data.castFromLocalToRemote())
                         lastList.sortBy { it.id }

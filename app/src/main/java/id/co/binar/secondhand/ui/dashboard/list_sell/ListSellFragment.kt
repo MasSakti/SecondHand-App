@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.data.local.model.SellerProductLocal
 import id.co.binar.secondhand.databinding.FragmentListSellBinding
-import id.co.binar.secondhand.model.seller.product.GetProductResponseItem
+import id.co.binar.secondhand.model.seller.product.GetProductResponse
 import id.co.binar.secondhand.ui.product_add.ARGS_PRODUCT_EDIT
 import id.co.binar.secondhand.ui.product_add.ProductAddActivity
 import id.co.binar.secondhand.ui.profile.PASSING_FROM_ACCOUNT_TO_PROFILE
@@ -59,8 +59,6 @@ class ListSellFragment : Fragment() {
         binding.swipeRefresh.setOnRefreshListener {
             MainScope().launch {
                 viewModel.getProduct()
-                delay(500)
-                viewModel.getProduct()
             }
         }
 
@@ -80,7 +78,7 @@ class ListSellFragment : Fragment() {
 
         adapterCategory.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { i, getCategoryResponseItem -> }
+            onClickAdapter { i, GetCategoryResponse -> }
         }
 
         binding.rvList.apply {
@@ -93,13 +91,13 @@ class ListSellFragment : Fragment() {
 
         adapterProduct.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { i, getCategoryResponseItem ->
+            onClickAdapter { i, GetCategoryResponse ->
                 when(i) {
                     0 -> {
                         val intent = Intent(requireContext(), ProductAddActivity::class.java)
                         requireActivity().startActivity(intent)
                     }
-                    else -> dialogChooseProduct(getCategoryResponseItem)
+                    else -> dialogChooseProduct(GetCategoryResponse)
                 }
             }
         }
@@ -120,9 +118,9 @@ class ListSellFragment : Fragment() {
         }
 
         viewModel.getProduct.observe(viewLifecycleOwner) {
-            val list = mutableListOf<GetProductResponseItem>()
+            val list = mutableListOf<GetProductResponse>()
             list.apply {
-                add(GetProductResponseItem())
+                add(GetProductResponse())
                 addAll(it.data.castFromLocalToRemote())
             }
             adapterProduct.asyncDiffer.submitList(list)
@@ -156,7 +154,7 @@ class ListSellFragment : Fragment() {
         }
     }
 
-    private fun dialogChooseProduct(item: GetProductResponseItem) {
+    private fun dialogChooseProduct(item: GetProductResponse) {
         val action = arrayOf("Edit Produk","Hapus Produk")
         val builder = MaterialAlertDialogBuilder(requireContext())
         builder.apply {
@@ -175,7 +173,7 @@ class ListSellFragment : Fragment() {
         }
     }
 
-    private fun dialogRemoveProduct(item: GetProductResponseItem) {
+    private fun dialogRemoveProduct(item: GetProductResponse) {
         val builder = MaterialAlertDialogBuilder(requireContext())
         builder.apply {
             setTitle("Hapus - ${item.name}")

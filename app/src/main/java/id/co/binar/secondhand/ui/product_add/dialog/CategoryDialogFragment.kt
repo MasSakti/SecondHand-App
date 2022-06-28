@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.BottomSheetCategoryProductAddBinding
-import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
+import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import id.co.binar.secondhand.ui.product_add.ProductAddViewModel
 import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.castFromLocalToRemote
@@ -24,7 +24,7 @@ const val TAG_CATEGORY_DIALOG = "CATEGORY_DIALOG"
 class CategoryDialogFragment : BottomSheetDialogFragment() {
 
     private var _binding: BottomSheetCategoryProductAddBinding? = null
-    private var chooseList = mutableListOf<GetCategoryResponseItem>()
+    private var chooseList = mutableListOf<GetCategoryResponse>()
     private val binding get() = _binding!!
     private val adapter = CategoryDialogAdapter()
     private val viewModel by activityViewModels<ProductAddViewModel>()
@@ -63,11 +63,11 @@ class CategoryDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun bindView() {
-        adapter.onClickAdapter { _, getCategoryResponseItem ->
-            if (getCategoryResponseItem.check == true) {
-                chooseList.add(getCategoryResponseItem)
+        adapter.onClickAdapter { _, GetCategoryResponse ->
+            if (GetCategoryResponse.check == true) {
+                chooseList.add(GetCategoryResponse)
             } else {
-                chooseList.remove(getCategoryResponseItem)
+                chooseList.remove(GetCategoryResponse)
             }
         }
         adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY

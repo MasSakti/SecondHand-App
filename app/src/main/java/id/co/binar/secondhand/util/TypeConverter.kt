@@ -8,9 +8,9 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import id.co.binar.secondhand.data.local.model.SellerCategoryLocal
 import id.co.binar.secondhand.data.local.model.SellerProductLocal
-import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
+import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import id.co.binar.secondhand.model.seller.product.CategoriesItem
-import id.co.binar.secondhand.model.seller.product.GetProductResponseItem
+import id.co.binar.secondhand.model.seller.product.GetProductResponse
 import java.lang.ref.WeakReference
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -20,18 +20,18 @@ import java.util.*
 
 class TypeConverter {
     @TypeConverter
-    fun fromListToString(list: List<CategoriesItem>?) : String? {
+    fun categoriesFromListToString(list: List<CategoriesItem>?) : String? {
         return Gson().toJson(list)
     }
 
     @TypeConverter
-    fun fromStringToList(string: String?) : List<CategoriesItem>? {
+    fun categoriesFromStringToList(string: String?) : List<CategoriesItem>? {
         val list = object : TypeToken<List<CategoriesItem>?>() {}.type
         return Gson().fromJson(string, list)
     }
 }
 
-fun List<GetCategoryResponseItem>?.castFromRemoteToLocal(): List<SellerCategoryLocal> {
+fun List<GetCategoryResponse>?.castFromRemoteToLocal(): List<SellerCategoryLocal> {
     val list = mutableListOf<SellerCategoryLocal>()
     this?.forEach {
         list.add(
@@ -44,11 +44,11 @@ fun List<GetCategoryResponseItem>?.castFromRemoteToLocal(): List<SellerCategoryL
     return list
 }
 
-fun List<SellerCategoryLocal>?.castFromLocalToRemote(): List<GetCategoryResponseItem> {
-    val list = mutableListOf<GetCategoryResponseItem>()
+fun List<SellerCategoryLocal>?.castFromLocalToRemote(): List<GetCategoryResponse> {
+    val list = mutableListOf<GetCategoryResponse>()
     this?.forEach {
         list.add(
-            GetCategoryResponseItem(
+            GetCategoryResponse(
                 name = it.name,
                 id = it.id
             )
@@ -57,8 +57,8 @@ fun List<SellerCategoryLocal>?.castFromLocalToRemote(): List<GetCategoryResponse
     return list
 }
 
-@JvmName("castFromRemoteToLocalGetProductResponseItem")
-fun List<GetProductResponseItem>?.castFromRemoteToLocal(): List<SellerProductLocal> {
+@JvmName("castFromRemoteToLocalGetProductResponse")
+fun List<GetProductResponse>?.castFromRemoteToLocal(): List<SellerProductLocal> {
     val list = mutableListOf<SellerProductLocal>()
     this?.forEach {
         list.add(
@@ -79,11 +79,11 @@ fun List<GetProductResponseItem>?.castFromRemoteToLocal(): List<SellerProductLoc
 }
 
 @JvmName("castFromLocalToRemoteSellerProductLocal")
-fun List<SellerProductLocal>?.castFromLocalToRemote(): List<GetProductResponseItem> {
-    val list = mutableListOf<GetProductResponseItem>()
+fun List<SellerProductLocal>?.castFromLocalToRemote(): List<GetProductResponse> {
+    val list = mutableListOf<GetProductResponse>()
     this?.forEach {
         list.add(
-            GetProductResponseItem(
+            GetProductResponse(
                 imageName = it.imageName,
                 userId = it.userId,
                 imageUrl = it.imageUrl,
@@ -99,7 +99,7 @@ fun List<SellerProductLocal>?.castFromLocalToRemote(): List<GetProductResponseIt
     return list
 }
 
-fun List<GetCategoryResponseItem>.toNameOnly(): String {
+fun List<GetCategoryResponse>.toNameOnly(): String {
     val str = mutableListOf<String>()
     this.forEach {
         str.add(it.name.toString())
@@ -116,7 +116,7 @@ fun List<CategoriesItem>.toNameOnly(): String {
     return str.joinToString()
 }
 
-fun List<GetCategoryResponseItem>.toIntOnly(): String {
+fun List<GetCategoryResponse>.toIntOnly(): String {
     val int = mutableListOf<Int>()
     this.forEach {
         it.id?.let { i ->

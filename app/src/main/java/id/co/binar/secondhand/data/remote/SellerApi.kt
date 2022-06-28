@@ -1,6 +1,7 @@
 package id.co.binar.secondhand.data.remote
 
-import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
+import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
+import id.co.binar.secondhand.model.seller.order.GetOrderResponse
 import id.co.binar.secondhand.model.seller.product.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -10,7 +11,12 @@ import retrofit2.http.*
 interface SellerApi {
 
     @GET("seller/category")
-    suspend fun getCategory() : Response<List<GetCategoryResponseItem>>
+    suspend fun getCategory() : Response<List<GetCategoryResponse>>
+
+    @GET("seller/order")
+    suspend fun getOrder(
+        @Header("access_token") token: String
+    ) : Response<List<GetOrderResponse>>
 
     @Multipart
     @POST("seller/product")
@@ -32,7 +38,7 @@ interface SellerApi {
     @GET("seller/product")
     suspend fun getProduct(
         @Header("access_token") token: String
-    ) : Response<List<GetProductResponseItem>>
+    ) : Response<List<GetProductResponse>>
 
     @GET("seller/product/{id}")
     suspend fun getProductById(

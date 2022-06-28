@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ListItemCategoryProductAddBinding
-import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
+import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 
 class CategoryDialogAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val asyncDiffer = AsyncListDiffer(this, diffUtilCallback)
-    private var _onClickAdapter: ((Int, GetCategoryResponseItem) -> Unit)? = null
+    private var _onClickAdapter: ((Int, GetCategoryResponse) -> Unit)? = null
 
     inner class ViewHolder(private val binding: ListItemCategoryProductAddBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -31,7 +31,7 @@ class CategoryDialogAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
         }
 
-        fun bind(item: GetCategoryResponseItem) {
+        fun bind(item: GetCategoryResponse) {
             binding.txtName.text = item.name
             if (asyncDiffer.currentList[bindingAdapterPosition].check == true) {
                 binding.imgCheck.setImageResource(R.drawable.ic_round_check_circle_24)
@@ -61,17 +61,17 @@ class CategoryDialogAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return asyncDiffer.currentList.size
     }
 
-    fun onClickAdapter(listener: (Int, GetCategoryResponseItem) -> Unit) {
+    fun onClickAdapter(listener: (Int, GetCategoryResponse) -> Unit) {
         _onClickAdapter = listener
     }
 }
 
-private val diffUtilCallback = object : DiffUtil.ItemCallback<GetCategoryResponseItem>() {
-    override fun areItemsTheSame(oldItem: GetCategoryResponseItem, newItem: GetCategoryResponseItem): Boolean {
+private val diffUtilCallback = object : DiffUtil.ItemCallback<GetCategoryResponse>() {
+    override fun areItemsTheSame(oldItem: GetCategoryResponse, newItem: GetCategoryResponse): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: GetCategoryResponseItem, newItem: GetCategoryResponseItem): Boolean {
+    override fun areContentsTheSame(oldItem: GetCategoryResponse, newItem: GetCategoryResponse): Boolean {
         return oldItem == newItem
     }
 }

@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ListItemCategoryHomeBinding
-import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
+import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 
 class HomeCategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val asyncDiffer = AsyncListDiffer(this, diffUtilCallback)
     private var setPosition: Int? = 0
-    private var _onClickAdapter: ((Int, GetCategoryResponseItem) -> Unit)? = null
+    private var _onClickAdapter: ((Int, GetCategoryResponse) -> Unit)? = null
 
     inner class ViewHolder(val binding: ListItemCategoryHomeBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -26,7 +26,7 @@ class HomeCategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
         }
 
-        fun bind(item: GetCategoryResponseItem) {
+        fun bind(item: GetCategoryResponse) {
             binding.txtCategory.text = item.name
         }
     }
@@ -61,17 +61,17 @@ class HomeCategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return asyncDiffer.currentList.size
     }
 
-    fun onClickAdapter(listener: (Int, GetCategoryResponseItem) -> Unit) {
+    fun onClickAdapter(listener: (Int, GetCategoryResponse) -> Unit) {
         _onClickAdapter = listener
     }
 }
 
-private val diffUtilCallback = object : DiffUtil.ItemCallback<GetCategoryResponseItem>() {
-    override fun areItemsTheSame(oldItem: GetCategoryResponseItem, newItem: GetCategoryResponseItem): Boolean {
+private val diffUtilCallback = object : DiffUtil.ItemCallback<GetCategoryResponse>() {
+    override fun areItemsTheSame(oldItem: GetCategoryResponse, newItem: GetCategoryResponse): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: GetCategoryResponseItem, newItem: GetCategoryResponseItem): Boolean {
+    override fun areContentsTheSame(oldItem: GetCategoryResponse, newItem: GetCategoryResponse): Boolean {
         return oldItem == newItem
     }
 }

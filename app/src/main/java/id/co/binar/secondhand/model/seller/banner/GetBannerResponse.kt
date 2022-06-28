@@ -5,13 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class GetBannerResponse(
-
-	val getBannerResponse: List<GetBannerResponseItem>? = null
-) : Parcelable
-
-@Parcelize
-data class GetBannerResponseItem(
+data class GetProductResponse(
 
 	@SerializedName("image_name")
 	val imageName: String? = null,

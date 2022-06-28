@@ -1,5 +1,6 @@
 package id.co.binar.secondhand.model.buyer.product
 
+import android.graphics.Bitmap
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
@@ -35,7 +36,10 @@ data class GetProductByIdResponse(
 	val id: Int? = null,
 
 	@SerializedName("categories")
-	val categories: List<CategoriesItemById>? = null
+	val categories: List<CategoriesItemById>? = null,
+
+	val photoProduct: Bitmap? = null,
+	val photoProfile: Bitmap? = null
 ) : Parcelable
 
 @Parcelize

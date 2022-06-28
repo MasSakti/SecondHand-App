@@ -64,7 +64,7 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
 
         adapterProduct.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { i, getCategoryResponseItem ->  }
+            onClickAdapter { i, GetCategoryResponse ->  }
         }
     }
 

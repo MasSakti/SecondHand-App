@@ -7,12 +7,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class GetProductResponse(
 
-	val getProductResponse: List<GetProductResponseItem>? = null
-) : Parcelable
-
-@Parcelize
-data class GetProductResponseItem(
-
 	@SerializedName("image_name")
 	val imageName: String? = null,
 

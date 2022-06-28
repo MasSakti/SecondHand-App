@@ -12,15 +12,15 @@ import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ListItemProductAddHomeBinding
 import id.co.binar.secondhand.databinding.ListItemProductHomeBinding
 import id.co.binar.secondhand.model.seller.product.CategoriesItem
-import id.co.binar.secondhand.model.seller.product.GetProductResponseItem
+import id.co.binar.secondhand.model.seller.product.GetProductResponse
 import id.co.binar.secondhand.util.convertRupiah
 
 class ListSellProductAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val asyncDiffer = AsyncListDiffer(this, diffUtilCallback)
-    private var _onClickAdapter: ((Int, GetProductResponseItem) -> Unit)? = null
+    private var _onClickAdapter: ((Int, GetProductResponse) -> Unit)? = null
 
-    fun onClickAdapter(listener: (Int, GetProductResponseItem) -> Unit) {
+    fun onClickAdapter(listener: (Int, GetProductResponse) -> Unit) {
         _onClickAdapter = listener
     }
 
@@ -47,7 +47,7 @@ class ListSellProductAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
         }
 
-        fun bind(item: GetProductResponseItem) {
+        fun bind(item: GetProductResponse) {
             binding.ivImageProduct.load(item.imageUrl) {
                 crossfade(true)
                 placeholder(R.color.purple_100)
@@ -100,12 +100,12 @@ class ListSellProductAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 }
 
-private val diffUtilCallback = object : DiffUtil.ItemCallback<GetProductResponseItem>() {
-    override fun areItemsTheSame(oldItem: GetProductResponseItem, newItem: GetProductResponseItem): Boolean {
+private val diffUtilCallback = object : DiffUtil.ItemCallback<GetProductResponse>() {
+    override fun areItemsTheSame(oldItem: GetProductResponse, newItem: GetProductResponse): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: GetProductResponseItem, newItem: GetProductResponseItem): Boolean {
+    override fun areContentsTheSame(oldItem: GetProductResponse, newItem: GetProductResponse): Boolean {
         return oldItem == newItem
     }
 }

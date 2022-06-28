@@ -1,5 +1,6 @@
 package id.co.binar.secondhand.ui.dashboard.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.FragmentHomeBinding
-import id.co.binar.secondhand.model.seller.category.GetCategoryResponseItem
+import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import id.co.binar.secondhand.ui.dashboard.home.dialog.HomeSearchFragment
 import id.co.binar.secondhand.ui.dashboard.home.dialog.TAG_SEARCH_HOME_DIALOG
+import id.co.binar.secondhand.ui.product.ARGS_PASSING_SEE_DETAIL
+import id.co.binar.secondhand.ui.product.ProductActivity
 import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.castFromLocalToRemote
 import id.co.binar.secondhand.util.onSnackError
@@ -61,8 +64,8 @@ class HomeFragment : Fragment() {
 
         adapterCategory.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { _, getCategoryResponseItem ->
-                getSecond(getCategoryResponseItem.id)
+            onClickAdapter { _, GetCategoryResponse ->
+                getSecond(GetCategoryResponse.id)
             }
         }
 
@@ -75,7 +78,11 @@ class HomeFragment : Fragment() {
 
         adapterProduct.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { _, getCategoryResponseItem ->  }
+            onClickAdapter { _, item ->
+                val intent = Intent(requireContext(), ProductActivity::class.java)
+                intent.putExtra(ARGS_PASSING_SEE_DETAIL, item.id)
+                requireActivity().startActivity(intent)
+            }
         }
     }
 
@@ -83,9 +90,9 @@ class HomeFragment : Fragment() {
         get()
 
         viewModel.getCategory.observe(viewLifecycleOwner) {
-            val list = mutableListOf<GetCategoryResponseItem>()
+            val list = mutableListOf<GetCategoryResponse>()
             list.apply {
-                add(GetCategoryResponseItem(name = "Semua"))
+                add(GetCategoryResponse(name = "Semua"))
                 addAll(it.data.castFromLocalToRemote())
             }
             adapterCategory.asyncDiffer.submitList(list)
