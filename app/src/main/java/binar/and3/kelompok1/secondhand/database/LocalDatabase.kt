@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import binar.and3.kelompok1.secondhand.data.local.UserDAO
-import binar.and3.kelompok1.secondhand.data.local.UserEntity
+import binar.and3.kelompok1.secondhand.data.local.auth.UserDAO
+import binar.and3.kelompok1.secondhand.data.local.auth.UserEntity
+import binar.and3.kelompok1.secondhand.data.local.buyer.BuyerDAO
+import binar.and3.kelompok1.secondhand.data.local.buyer.BuyerEntity
 
-@Database(entities = [UserEntity::class], version = 1)
+@Database(entities = [UserEntity::class, BuyerEntity::class], version = 2)
 abstract class LocalDatabase: RoomDatabase() {
     abstract fun userDAO(): UserDAO
+    abstract fun buyerDAO(): BuyerDAO
 
     companion object {
         private const val DB_NAME = "SecondHand.db"

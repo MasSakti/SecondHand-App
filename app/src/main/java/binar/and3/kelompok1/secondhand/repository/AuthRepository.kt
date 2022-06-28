@@ -1,8 +1,8 @@
 package binar.and3.kelompok1.secondhand.repository
 
 import binar.and3.kelompok1.secondhand.data.api.auth.*
-import binar.and3.kelompok1.secondhand.data.local.UserDAO
-import binar.and3.kelompok1.secondhand.data.local.UserEntity
+import binar.and3.kelompok1.secondhand.data.local.auth.UserDAO
+import binar.and3.kelompok1.secondhand.data.local.auth.UserEntity
 import binar.and3.kelompok1.secondhand.datastore.AuthDataStoreManager
 import kotlinx.coroutines.flow.firstOrNull
 import retrofit2.Response

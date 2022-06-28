@@ -1,7 +1,8 @@
 package binar.and3.kelompok1.secondhand.di
 
 import binar.and3.kelompok1.secondhand.data.api.auth.AuthAPI
-import binar.and3.kelompok1.secondhand.data.local.UserDAO
+import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerAPI
+import binar.and3.kelompok1.secondhand.data.local.auth.UserDAO
 import binar.and3.kelompok1.secondhand.datastore.AuthDataStoreManager
 import binar.and3.kelompok1.secondhand.repository.AuthRepository
 import binar.and3.kelompok1.secondhand.repository.ProfileRepository

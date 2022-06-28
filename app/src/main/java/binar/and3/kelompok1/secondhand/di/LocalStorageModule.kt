@@ -1,7 +1,8 @@
 package binar.and3.kelompok1.secondhand.di
 
 import android.content.Context
-import binar.and3.kelompok1.secondhand.data.local.UserDAO
+import binar.and3.kelompok1.secondhand.data.local.auth.UserDAO
+import binar.and3.kelompok1.secondhand.data.local.buyer.BuyerDAO
 import binar.and3.kelompok1.secondhand.database.LocalDatabase
 import binar.and3.kelompok1.secondhand.datastore.AuthDataStoreManager
 import dagger.Module
@@ -24,6 +25,12 @@ class LocalStorageModule {
     @Provides
     fun provideUserDao(db: LocalDatabase): UserDAO {
         return db.userDAO()
+    }
+
+    @Singleton
+    @Provides
+    fun provideBuyerProduct(db: LocalDatabase): BuyerDAO {
+        return db.buyerDAO()
     }
 
     @Singleton

@@ -10,7 +10,9 @@ import binar.and3.kelompok1.secondhand.ui.menu.daftarjual.DaftarFragment
 import binar.and3.kelompok1.secondhand.ui.menu.home.HomeFragment
 import binar.and3.kelompok1.secondhand.ui.menu.notifikasi.NotifikasiFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
