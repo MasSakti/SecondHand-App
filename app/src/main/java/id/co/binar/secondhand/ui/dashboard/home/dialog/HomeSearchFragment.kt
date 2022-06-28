@@ -59,6 +59,7 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
                 layoutManager = GridLayoutManager(requireContext(), 2)
                 itemAnimator = DefaultItemAnimator()
                 isNestedScrollingEnabled = true
+                adapter = adapterProduct
             }
         }
 
@@ -76,7 +77,6 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
                 is Resource.Success -> {
                     binding.progressBar.isVisible = false
                     adapterProduct.asyncDiffer.submitList(it.data ?: emptyList())
-                    binding.rvList.adapter = adapterProduct
                 }
                 is Resource.Loading -> {
                     binding.progressBar.isVisible = true

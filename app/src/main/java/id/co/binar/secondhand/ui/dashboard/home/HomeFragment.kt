@@ -74,6 +74,7 @@ class HomeFragment : Fragment() {
             layoutManager = GridLayoutManager(requireContext(), 2)
             itemAnimator = DefaultItemAnimator()
             isNestedScrollingEnabled = false
+            adapter = adapterProduct
         }
 
         adapterProduct.apply {
@@ -110,14 +111,29 @@ class HomeFragment : Fragment() {
             when (it) {
                 is Resource.Success -> {
                     binding.progressBar.isVisible = false
-                    adapterProduct.asyncDiffer.submitList(it.data ?: emptyList())
-                    binding.rvProduct.adapter = adapterProduct
+                    if (it.data.isNullOrEmpty()) {
+                        binding.layoutEmpty.isVisible = true
+                        binding.layoutError.isVisible = false
+                        binding.rvProduct.isVisible = false
+                    } else {
+                        binding.layoutEmpty.isVisible = false
+                        binding.layoutError.isVisible = false
+                        binding.rvProduct.isVisible = true
+                        adapterProduct.asyncDiffer.submitList(it.data)
+                    }
                 }
                 is Resource.Loading -> {
                     binding.progressBar.isVisible = true
+                    binding.layoutEmpty.isVisible = false
+                    binding.layoutError.isVisible = false
+                    binding.rvProduct.isVisible = false
                 }
                 is Resource.Error -> {
                     binding.progressBar.isVisible = false
+                    binding.layoutEmpty.isVisible = false
+                    binding.layoutError.isVisible = true
+                    binding.rvProduct.isVisible = false
+                    binding.textView8.text = it.error?.message.toString()
                     requireContext().onSnackError(binding.root, it.error?.message.toString())
                 }
             }

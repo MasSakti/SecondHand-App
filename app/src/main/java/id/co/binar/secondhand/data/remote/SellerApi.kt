@@ -1,5 +1,6 @@
 package id.co.binar.secondhand.data.remote
 
+import id.co.binar.secondhand.model.ErrorResponse
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import id.co.binar.secondhand.model.seller.order.GetOrderResponse
 import id.co.binar.secondhand.model.seller.product.*
@@ -44,11 +45,11 @@ interface SellerApi {
     suspend fun getProductById(
         @Header("access_token") token: String,
         @Path("id") id: Int
-    ) : Response<GetProductByIdResponse>
+    ) : Response<GetProductResponse>
 
     @DELETE("seller/product/{id}")
     suspend fun deleteProduct(
         @Header("access_token") token: String,
         @Path("id") id: Int
-    ) : Response<DeleteProductByIdResponse>
+    ) : Response<ErrorResponse>
 }

@@ -12,6 +12,7 @@ import coil.transform.RoundedCornersTransformation
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ListItemNotificationBinding
 import id.co.binar.secondhand.model.notification.GetNotifResponse
+import id.co.binar.secondhand.util.convertRupiah
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -44,7 +45,9 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val date = LocalDateTime.parse(item.transactionDate, inputFormatter)
             val formattedDate = outputFormatter.format(date)
             binding.tvNotifTime.text = formattedDate
-            binding.cardNotifikasi.isVisible = item.read != false
+            binding.bulletNotif.isVisible = item.read == false
+            binding.tvNamaProduct.text = item.buyerName
+            binding.tvNotifHarga.text = "Menawarkan harga ${item.bidPrice?.convertRupiah()}"
         }
     }
 

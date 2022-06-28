@@ -132,7 +132,7 @@ class SellerRepository @Inject constructor(
         }
     }
 
-    fun getProductById(id_product: Int): Flow<Resource<GetProductByIdResponse>> = flow {
+    fun getProductById(id_product: Int): Flow<Resource<GetProductResponse>> = flow {
         emit(Resource.Loading())
         try {
             val response = sellerApi.getProductById(store.getTokenId(), id_product)
@@ -149,7 +149,7 @@ class SellerRepository @Inject constructor(
         }
     }
 
-    fun deleteProduct(id_product: Int): Flow<Resource<DeleteProductByIdResponse>> = flow {
+    fun deleteProduct(id_product: Int): Flow<Resource<ErrorResponse>> = flow {
         emit(Resource.Loading())
         try {
             val response = sellerApi.deleteProduct(store.getTokenId(), id_product)

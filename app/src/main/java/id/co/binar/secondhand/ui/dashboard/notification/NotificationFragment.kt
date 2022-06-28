@@ -4,19 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.FragmentNotificationBinding
+import id.co.binar.secondhand.model.notification.GetNotifResponse
 import id.co.binar.secondhand.util.Resource
+import id.co.binar.secondhand.util.onSnackError
+import id.co.binar.secondhand.util.onToast
 
+@AndroidEntryPoint
 class NotificationFragment : Fragment() {
 
     private var _binding: FragmentNotificationBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<NotificationViewModel>()
+    private val adapterNotif = NotificationAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,22 +40,72 @@ class NotificationFragment : Fragment() {
     }
 
     private fun bindObserver() {
+        viewModel.updateNotif.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Success -> {
+                    val list = mutableListOf<GetNotifResponse>()
+                    it.data?.let {
+                        list.add(it)
+                        list.addAll(adapterNotif.asyncDiffer.currentList)
+                        adapterNotif.asyncDiffer.submitList(list.distinctBy { it.id }.sortedBy { it.id })
+                    }
+                }
+                is Resource.Loading -> {}
+                is Resource.Error -> requireContext().onSnackError(binding.root, it.error?.message.toString())
+            }
+        }
+
         viewModel.getNotif.observe(viewLifecycleOwner) {
             when (it) {
-                is Resource.Success -> {}
-                is Resource.Loading -> {}
-                is Resource.Error -> {}
+                is Resource.Success -> {
+                    binding.apply {
+                        progressBar.isVisible = false
+                        if (it.data.isNullOrEmpty()) {
+                            rvMovie.isVisible = false
+                            layoutEmpty.isVisible = true
+                            layoutError.isVisible = false
+                        } else {
+                            rvMovie.isVisible = true
+                            layoutError.isVisible = false
+                            layoutEmpty.isVisible = false
+                            adapterNotif.asyncDiffer.submitList(it.data)
+                        }
+                    }
+                }
+                is Resource.Loading -> {
+                    binding.apply {
+                        progressBar.isVisible = true
+                        rvMovie.isVisible = false
+                        layoutEmpty.isVisible = false
+                        layoutError.isVisible = false
+                    }
+                }
+                is Resource.Error -> {
+                    binding.apply {
+                        progressBar.isVisible = false
+                        rvMovie.isVisible = false
+                        layoutEmpty.isVisible = false
+                        layoutError.isVisible = true
+                        textView8.text = it.error?.message.toString()
+                        requireContext().onSnackError(root, it.error?.message.toString())
+                    }
+                }
             }
         }
     }
 
     private fun bindView() {
-        binding.apply {
-            rvMovie.apply {
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(requireContext())
-                itemAnimator = DefaultItemAnimator()
-                isNestedScrollingEnabled = true
+        binding.rvMovie.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            itemAnimator = DefaultItemAnimator()
+            adapter = adapterNotif
+        }
+
+        adapterNotif.apply {
+            stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+            onClickAdapter { _, getNotifResponse ->
+                getNotifResponse.id?.let { viewModel.updateNotif(it) }
             }
         }
     }

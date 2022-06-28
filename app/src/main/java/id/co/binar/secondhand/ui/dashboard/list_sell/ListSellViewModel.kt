@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.co.binar.secondhand.data.local.model.SellerProductLocal
-import id.co.binar.secondhand.model.seller.product.DeleteProductByIdResponse
+import id.co.binar.secondhand.model.ErrorResponse
 import id.co.binar.secondhand.repository.AuthRepository
 import id.co.binar.secondhand.repository.SellerRepository
 import id.co.binar.secondhand.util.Resource
@@ -23,8 +23,8 @@ class ListSellViewModel @Inject constructor(
 ) : ViewModel() {
     val getAccount = authRepository.getAccount().asLiveData()
 
-    private val _deleteProduct = MutableLiveData<Resource<DeleteProductByIdResponse>>()
-    val deleteProduct: LiveData<Resource<DeleteProductByIdResponse>> = _deleteProduct
+    private val _deleteProduct = MutableLiveData<Resource<ErrorResponse>>()
+    val deleteProduct: LiveData<Resource<ErrorResponse>> = _deleteProduct
     fun deleteProduct(id_product: Int) = CoroutineScope(Dispatchers.IO).launch {
         sellerRepository.deleteProduct(id_product).collectLatest {
             _deleteProduct.postValue(it)
