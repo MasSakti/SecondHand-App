@@ -13,4 +13,11 @@ object Constant {
 
     const val Pref_Name = "User"
     val TOKEN_KEY = stringPreferencesKey("TOKEN")
+
+    const val ProductName = "NAMA"
+    const val ImageUrl = "IMAGEURL"
+    const val BasePrice = "BASEPRICE"
+    const val Description = "DESCRIPTION"
+    const val Category = "KATEGORI"
+    const val Location  = "LOCATION"
 }

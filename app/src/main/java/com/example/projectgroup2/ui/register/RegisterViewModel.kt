@@ -105,8 +105,6 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
                         // mempersiapkan untuk simpan token
                         insertToken(it.access_token.orEmpty())
 
-                        it.name
-                        it.email
                         // mempersiapkan untuk insert ke database
 //                        val userEntity = UserEntity(
 //                            id = it.objectId.orEmpty(),
