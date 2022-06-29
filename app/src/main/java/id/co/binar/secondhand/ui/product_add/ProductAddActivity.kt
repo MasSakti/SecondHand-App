@@ -20,7 +20,6 @@ import id.co.binar.secondhand.model.seller.product.AddProductRequest
 import id.co.binar.secondhand.model.seller.product.UpdateProductByIdRequest
 import id.co.binar.secondhand.ui.login.LoginActivity
 import id.co.binar.secondhand.ui.product.ARGS_PASSING_PREVIEW
-import id.co.binar.secondhand.ui.product.ARGS_PASSING_PREVIEW_PHOTO
 import id.co.binar.secondhand.ui.product.ProductActivity
 import id.co.binar.secondhand.ui.product_add.dialog.CategoryDialogFragment
 import id.co.binar.secondhand.ui.product_add.dialog.TAG_CATEGORY_DIALOG
@@ -28,6 +27,7 @@ import id.co.binar.secondhand.util.*
 import io.github.anderscheow.validator.Validator
 import io.github.anderscheow.validator.constant.Mode
 import io.github.anderscheow.validator.validator
+import java.util.*
 
 const val ARGS_PRODUCT_EDIT = "EDIT_PRODUCT"
 
@@ -244,12 +244,11 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
                     basePrice = MoneyTextWatcher.parseCurrencyValue(binding.txtInputLayoutPrice.text.toString()).toLong(),
                     categories = chooseList,
                     location = binding.txtInputLocation.text.toString(),
-                    description = binding.txtInputLayoutDescription.text.toString()
+                    description = binding.txtInputLayoutDescription.text.toString(),
+                    imageUrl = Base64.getEncoder().encodeToString(convertBitmapLocalToByteArray(bitmap))
                 )
-                val byte = convertBitmapLocalToByteArray(bitmap)
                 val intent = Intent(this@ProductAddActivity, ProductActivity::class.java)
                 intent.putExtra(ARGS_PASSING_PREVIEW, item)
-                intent.putExtra(ARGS_PASSING_PREVIEW_PHOTO, byte)
                 startActivity(intent)
             }
         }

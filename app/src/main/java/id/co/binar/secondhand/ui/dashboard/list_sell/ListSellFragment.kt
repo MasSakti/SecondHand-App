@@ -25,6 +25,7 @@ import id.co.binar.secondhand.ui.product_add.ARGS_PRODUCT_EDIT
 import id.co.binar.secondhand.ui.product_add.ProductAddActivity
 import id.co.binar.secondhand.ui.profile.PASSING_FROM_ACCOUNT_TO_PROFILE
 import id.co.binar.secondhand.ui.profile.ProfileActivity
+import id.co.binar.secondhand.util.ItemDecoration
 import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.castFromLocalToRemote
 import id.co.binar.secondhand.util.onSnackError
@@ -85,8 +86,8 @@ class ListSellFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(requireContext(), 2)
             itemAnimator = DefaultItemAnimator()
+            addItemDecoration(ItemDecoration(requireContext(), 2, 16))
             isNestedScrollingEnabled = false
-            adapter = adapterProduct
         }
 
         adapterProduct.apply {

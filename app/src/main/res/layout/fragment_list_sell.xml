@@ -107,13 +107,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_list"
-            android:paddingEnd="14dp"
-            android:paddingBottom="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            tools:ignore="RtlSymmetry"
             tools:itemCount="1"
-            tools:listitem="@layout/list_item_product_home"
-            tools:ignore="RtlSymmetry" />
+            tools:listitem="@layout/list_item_product_home" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

@@ -1,10 +1,10 @@
 package id.co.binar.secondhand.data.remote
 
+import id.co.binar.secondhand.model.buyer.order.AddOrderRequest
+import id.co.binar.secondhand.model.buyer.order.GetOrderResponse
 import id.co.binar.secondhand.model.buyer.product.GetProductResponse
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface BuyerApi {
 
@@ -19,4 +19,10 @@ interface BuyerApi {
     suspend fun getProductById(
         @Path("id") id: Int
     ) : Response<GetProductResponse>
+
+    @POST("buyer/order")
+    suspend fun newOrder(
+        @Header("access_token") token: String,
+        @Body field: AddOrderRequest
+    ) : Response<GetOrderResponse>
 }

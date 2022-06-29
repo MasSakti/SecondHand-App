@@ -34,10 +34,12 @@ class SellerRepository @Inject constructor(
             sellerApi.getCategory()
         },
         saveFetchResult = {
-            val response = it.body().castFromRemoteToLocal()
-            db.withTransaction {
-                sellerDao.removeCategoryHome()
-                sellerDao.setCategoryHome(response)
+            if (it.isSuccessful) {
+                val response = it.body().castFromRemoteToLocal()
+                db.withTransaction {
+                    sellerDao.removeCategoryHome()
+                    sellerDao.setCategoryHome(response)
+                }
             }
         }
     )
@@ -69,10 +71,12 @@ class SellerRepository @Inject constructor(
             sellerApi.getProduct(store.getTokenId())
         },
         saveFetchResult = {
-            val response = it.body().castFromRemoteToLocal()
-            db.withTransaction {
-                sellerDao.removeProductHome()
-                sellerDao.setProductHome(response)
+            if (it.isSuccessful) {
+                val response = it.body().castFromRemoteToLocal()
+                db.withTransaction {
+                    sellerDao.removeProductHome()
+                    sellerDao.setProductHome(response)
+                }
             }
         }
     )

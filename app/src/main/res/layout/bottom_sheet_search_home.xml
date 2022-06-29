@@ -17,9 +17,9 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="48dp"
-        android:layout_marginEnd="21dp"
+        android:layout_marginEnd="32dp"
         android:text="Pencarian :"
         android:textSize="16sp"
         android:textStyle="bold" />
@@ -29,9 +29,9 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="32dp"
         app:boxCornerRadiusBottomEnd="16dp"
         app:boxCornerRadiusBottomStart="16dp"
         app:boxCornerRadiusTopEnd="16dp"
@@ -57,13 +57,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_list"
-        android:paddingEnd="14dp"
-        android:paddingBottom="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="8dp"
-        tools:listitem="@layout/list_item_product_home"
+        tools:ignore="RtlSymmetry"
         tools:itemCount="1"
-        tools:ignore="RtlSymmetry" />
+        tools:listitem="@layout/list_item_product_home" />
 
 </LinearLayout>

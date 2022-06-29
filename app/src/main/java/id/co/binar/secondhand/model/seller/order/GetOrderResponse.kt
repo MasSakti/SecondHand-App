@@ -51,7 +51,10 @@ data class User(
 	val phoneNumber: String? = null,
 
 	@SerializedName("email")
-	val email: String? = null
+	val email: String? = null,
+
+	@SerializedName("image_url")
+	val imageUrl: String? = null
 ) : Parcelable
 
 @Parcelize

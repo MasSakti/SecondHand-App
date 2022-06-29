@@ -3,6 +3,7 @@ package id.co.binar.secondhand.model.buyer.product
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
+import id.co.binar.secondhand.model.seller.order.User
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -37,6 +38,9 @@ data class GetProductResponse(
 
 	@SerializedName("id")
 	val id: Int? = null,
+
+	@SerializedName("User")
+	val user: User? = null,
 
 	@SerializedName("Categories")
 	val categories: List<GetCategoryResponse>? = null

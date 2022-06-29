@@ -1,10 +1,9 @@
 package id.co.binar.secondhand.ui.product
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import id.co.binar.secondhand.model.buyer.order.AddOrderRequest
+import id.co.binar.secondhand.model.buyer.order.GetOrderResponse
 import id.co.binar.secondhand.model.buyer.product.GetProductResponse
 import id.co.binar.secondhand.repository.AuthRepository
 import id.co.binar.secondhand.repository.BuyerRepository
@@ -18,15 +17,33 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductViewModel @Inject constructor(
     private val buyerRepository: BuyerRepository,
-    authRepository: AuthRepository
+    authRepository: AuthRepository,
+    state: SavedStateHandle
 ) : ViewModel() {
     val getAccount = authRepository.getAccount().asLiveData()
 
-    private val _getProductById = MutableLiveData<Resource<GetProductResponse>>()
-    val getProductById: LiveData<Resource<GetProductResponse>> = _getProductById
-    fun getProductById(product_id: Int) = CoroutineScope(Dispatchers.IO).launch {
-        buyerRepository.getProductById(product_id).collectLatest {
-            _getProductById.postValue(it)
+    private val _passToBiding = state.getLiveData<GetProductResponse>("STATE_PRODUCT")
+    val passToBiding: LiveData<GetProductResponse> = _passToBiding
+    fun passToBiding(item: GetProductResponse) {
+        _passToBiding.postValue(item)
+    }
+
+    private val _getProductById = state.getLiveData<Int>("STATE_ID_PRODUCT")
+    fun getProductById(product_id: Int) {
+        _getProductById.postValue(product_id)
+    }
+
+    val getProductById = _getProductById.switchMap {
+        buyerRepository.getProductById(it).asLiveData()
+    }
+
+    val getProductId: LiveData<Int> = _getProductById
+
+    private val _newOrder = MutableLiveData<Resource<GetOrderResponse>>()
+    val newOrder: LiveData<Resource<GetOrderResponse>> = _newOrder
+    fun newOrder(field: AddOrderRequest) = CoroutineScope(Dispatchers.IO).launch {
+        buyerRepository.newOrder(field).collectLatest {
+            _newOrder.postValue(it)
         }
     }
 }

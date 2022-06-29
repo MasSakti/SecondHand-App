@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.FragmentNotificationBinding
 import id.co.binar.secondhand.model.notification.GetNotifResponse
+import id.co.binar.secondhand.util.ItemDecoration
 import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.onSnackError
 import id.co.binar.secondhand.util.onToast
@@ -71,6 +72,7 @@ class NotificationFragment : Fragment() {
                             layoutError.isVisible = false
                             layoutEmpty.isVisible = false
                             adapterNotif.asyncDiffer.submitList(it.data)
+                            binding.rvMovie.adapter = adapterNotif
                         }
                     }
                 }
@@ -101,7 +103,7 @@ class NotificationFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             itemAnimator = DefaultItemAnimator()
-            adapter = adapterNotif
+            addItemDecoration(ItemDecoration(requireContext(),null,16))
         }
 
         adapterNotif.apply {

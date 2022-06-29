@@ -126,21 +126,23 @@ class AuthRepository @Inject constructor(
             authApi.getAccount(store.getTokenId())
         },
         saveFetchResult = {
-            val response = it.body()
-            db.withTransaction {
-                authDao.removeAccount(store.getTokenId(), store.getUsrId())
-                authDao.setAccount(
-                    AuthLocal(
-                        id = store.getUsrId(),
-                        fullName = response?.fullName,
-                        address = response?.address,
-                        city = response?.city,
-                        imageUrl = response?.imageUrl,
-                        token = store.getTokenId(),
-                        email = response?.email,
-                        phoneNumber = response?.phoneNumber
+            if (it.isSuccessful) {
+                val response = it.body()
+                db.withTransaction {
+                    authDao.removeAccount(store.getTokenId(), store.getUsrId())
+                    authDao.setAccount(
+                        AuthLocal(
+                            id = store.getUsrId(),
+                            fullName = response?.fullName,
+                            address = response?.address,
+                            city = response?.city,
+                            imageUrl = response?.imageUrl,
+                            token = store.getTokenId(),
+                            email = response?.email,
+                            phoneNumber = response?.phoneNumber
+                        )
                     )
-                )
+                }
             }
         }
     )

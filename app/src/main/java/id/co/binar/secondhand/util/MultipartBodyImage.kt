@@ -22,7 +22,7 @@ fun Context.convertBitmapToFile(fileName: String, bitmap: Bitmap): File {
 
     //Convert bitmap to byte array
     val bos = ByteArrayOutputStream()
-    bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos)
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 75, bos)
     val bitMapData = bos.toByteArray()
 
     //write the bytes in file
@@ -44,7 +44,7 @@ fun Context.convertBitmapToFile(fileName: String, bitmap: Bitmap): File {
 
 fun convertBitmapLocalToByteArray(bitmap: Bitmap): ByteArray {
     val bStream = ByteArrayOutputStream()
-    bitmap.compress(Bitmap.CompressFormat.PNG, 100, bStream)
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 75, bStream)
     return bStream.toByteArray()
 }
 

@@ -19,6 +19,7 @@ import id.co.binar.secondhand.ui.dashboard.home.dialog.HomeSearchFragment
 import id.co.binar.secondhand.ui.dashboard.home.dialog.TAG_SEARCH_HOME_DIALOG
 import id.co.binar.secondhand.ui.product.ARGS_PASSING_SEE_DETAIL
 import id.co.binar.secondhand.ui.product.ProductActivity
+import id.co.binar.secondhand.util.ItemDecoration
 import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.castFromLocalToRemote
 import id.co.binar.secondhand.util.onSnackError
@@ -73,8 +74,8 @@ class HomeFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(requireContext(), 2)
             itemAnimator = DefaultItemAnimator()
+            addItemDecoration(ItemDecoration(requireContext(), 2, 16))
             isNestedScrollingEnabled = false
-            adapter = adapterProduct
         }
 
         adapterProduct.apply {
@@ -120,6 +121,7 @@ class HomeFragment : Fragment() {
                         binding.layoutError.isVisible = false
                         binding.rvProduct.isVisible = true
                         adapterProduct.asyncDiffer.submitList(it.data)
+                        binding.rvProduct.adapter = adapterProduct
                     }
                 }
                 is Resource.Loading -> {

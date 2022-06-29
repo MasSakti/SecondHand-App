@@ -8,7 +8,10 @@ import id.co.binar.secondhand.data.remote.BuyerApi
 import id.co.binar.secondhand.data.remote.SellerApi
 import id.co.binar.secondhand.database.RoomDatabase
 import id.co.binar.secondhand.model.ErrorResponse
+import id.co.binar.secondhand.model.buyer.order.AddOrderRequest
+import id.co.binar.secondhand.model.buyer.order.GetOrderResponse
 import id.co.binar.secondhand.model.buyer.product.GetProductResponse
+import id.co.binar.secondhand.util.DataStoreManager
 import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.castFromRemoteToLocal
 import id.co.binar.secondhand.util.networkBoundResource
@@ -20,7 +23,7 @@ class BuyerRepository @Inject constructor(
     private val sellerApi: SellerApi,
     private val buyerApi: BuyerApi,
     private val sellerDao: SellerDao,
-    private val authDao: AuthDao,
+    private val store: DataStoreManager,
     private val db: RoomDatabase
 ) {
     fun getCategory() = networkBoundResource(
@@ -31,10 +34,12 @@ class BuyerRepository @Inject constructor(
             sellerApi.getCategory()
         },
         saveFetchResult = {
-            val response = it.body().castFromRemoteToLocal()
-            db.withTransaction {
-                sellerDao.removeCategoryHome()
-                sellerDao.setCategoryHome(response)
+            if (it.isSuccessful) {
+                val response = it.body().castFromRemoteToLocal()
+                db.withTransaction {
+                    sellerDao.removeCategoryHome()
+                    sellerDao.setCategoryHome(response)
+                }
             }
         }
     )
@@ -65,6 +70,23 @@ class BuyerRepository @Inject constructor(
         emit(Resource.Loading())
         try {
             val response = buyerApi.getProductById(id = product_id)
+            if (response.isSuccessful) {
+                response.body()?.let { emit(Resource.Success(it)) }
+            } else {
+                response.errorBody()?.let {
+                    val error = Gson().fromJson(it.string(), ErrorResponse::class.java)
+                    throw Exception("${error.name} : ${error.message} - ${response.code()}")
+                }
+            }
+        } catch (ex: Exception) {
+            emit(Resource.Error(ex))
+        }
+    }
+
+    fun newOrder(field: AddOrderRequest): Flow<Resource<GetOrderResponse>> = flow {
+        emit(Resource.Loading())
+        try {
+            val response = buyerApi.newOrder(store.getTokenId(), field)
             if (response.isSuccessful) {
                 response.body()?.let { emit(Resource.Success(it)) }
             } else {

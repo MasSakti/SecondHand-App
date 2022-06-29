@@ -1,5 +1,6 @@
 package id.co.binar.secondhand.ui.dashboard.home.dialog
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.BottomSheetSearchHomeBinding
 import id.co.binar.secondhand.ui.dashboard.home.HomeProductAdapter
 import id.co.binar.secondhand.ui.dashboard.home.HomeViewModel
+import id.co.binar.secondhand.ui.product.ARGS_PASSING_SEE_DETAIL
+import id.co.binar.secondhand.ui.product.ProductActivity
+import id.co.binar.secondhand.util.ItemDecoration
 import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.onSnackError
 import kotlinx.coroutines.MainScope
@@ -58,14 +62,18 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
                 setHasFixedSize(true)
                 layoutManager = GridLayoutManager(requireContext(), 2)
                 itemAnimator = DefaultItemAnimator()
+                addItemDecoration(ItemDecoration(requireContext(), 2, 16))
                 isNestedScrollingEnabled = true
-                adapter = adapterProduct
             }
         }
 
         adapterProduct.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { i, GetCategoryResponse ->  }
+            onClickAdapter { _, item ->
+                val intent = Intent(requireContext(), ProductActivity::class.java)
+                intent.putExtra(ARGS_PASSING_SEE_DETAIL, item.id)
+                requireActivity().startActivity(intent)
+            }
         }
     }
 
@@ -77,6 +85,7 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
                 is Resource.Success -> {
                     binding.progressBar.isVisible = false
                     adapterProduct.asyncDiffer.submitList(it.data ?: emptyList())
+                    binding.rvList.adapter = adapterProduct
                 }
                 is Resource.Loading -> {
                     binding.progressBar.isVisible = true
