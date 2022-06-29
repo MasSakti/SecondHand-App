@@ -10,5 +10,6 @@ class JualActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityJualBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
     }
 }

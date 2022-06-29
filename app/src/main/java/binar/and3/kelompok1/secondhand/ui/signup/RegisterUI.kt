@@ -23,6 +23,7 @@ class RegisterUI : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterUiBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
 
         bindView()
         bindViewModel()
