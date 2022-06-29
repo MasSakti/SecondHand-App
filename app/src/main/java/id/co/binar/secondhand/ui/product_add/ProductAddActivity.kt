@@ -244,8 +244,7 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
                     basePrice = MoneyTextWatcher.parseCurrencyValue(binding.txtInputLayoutPrice.text.toString()).toLong(),
                     categories = chooseList,
                     location = binding.txtInputLocation.text.toString(),
-                    description = binding.txtInputLayoutDescription.text.toString(),
-                    imageUrl = Base64.getEncoder().encodeToString(convertBitmapLocalToByteArray(bitmap))
+                    description = binding.txtInputLayoutDescription.text.toString()
                 )
                 val intent = Intent(this@ProductAddActivity, ProductActivity::class.java)
                 intent.putExtra(ARGS_PASSING_PREVIEW, item)

@@ -58,7 +58,7 @@ class ProductActivity : AppCompatActivity() {
             val item = intent.getParcelableExtra<GetProductResponse>(ARGS_PASSING_PREVIEW)
             viewModel.getAccount.observe(this) {
                 binding.apply {
-                    ivImageSeller18.setImageBitmap(convertFileLocalToBitmap(Base64.getDecoder().decode(item?.imageUrl)))
+                    this@ProductActivity.onToast("Untuk sementara detail product preview belum bisa menampilkan foto produk, dalam perbaikan")
 
                     tvProductSeller18.text = item?.name
                     tvKotaPenjual.text = item?.location
@@ -69,6 +69,10 @@ class ProductActivity : AppCompatActivity() {
                     imageView.load(it.data?.imageUrl)
                     tvNamaPenjual.text = it.data?.fullName
                     tvKotaPenjual.text = it.data?.city
+
+                    btnTerbitkan.setOnClickListener {
+                        this@ProductActivity.onSnackSuccess(root, "Dalam perbaikan")
+                    }
                 }
             }
         }
