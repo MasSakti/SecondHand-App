@@ -2,6 +2,7 @@ package id.co.binar.secondhand.model.seller.product
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -38,15 +39,5 @@ data class GetProductResponse(
 	val id: Int? = null,
 
 	@SerializedName("Categories")
-	val categories: List<CategoriesItem>? = null
-) : Parcelable
-
-@Parcelize
-data class CategoriesItem(
-
-	@SerializedName("name")
-	val name: String? = null,
-
-	@SerializedName("id")
-	val id: Int? = null
+	val categories: List<GetCategoryResponse>? = null
 ) : Parcelable

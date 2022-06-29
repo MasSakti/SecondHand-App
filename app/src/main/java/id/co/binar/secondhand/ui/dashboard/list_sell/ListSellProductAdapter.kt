@@ -11,7 +11,7 @@ import coil.transform.RoundedCornersTransformation
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ListItemProductAddHomeBinding
 import id.co.binar.secondhand.databinding.ListItemProductHomeBinding
-import id.co.binar.secondhand.model.seller.product.CategoriesItem
+import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import id.co.binar.secondhand.model.seller.product.GetProductResponse
 import id.co.binar.secondhand.util.convertRupiah
 
@@ -24,7 +24,7 @@ class ListSellProductAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         _onClickAdapter = listener
     }
 
-    private fun List<CategoriesItem>.toNameOnly(): String {
+    private fun List<GetCategoryResponse>.toNameOnly(): String {
         val str = mutableListOf<String>()
         this.forEach {
             str.add(it.name.toString())

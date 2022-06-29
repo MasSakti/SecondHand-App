@@ -40,6 +40,8 @@ class NotificationFragment : Fragment() {
     }
 
     private fun bindObserver() {
+        viewModel.getNotif()
+
         viewModel.updateNotif.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
@@ -107,6 +109,10 @@ class NotificationFragment : Fragment() {
             onClickAdapter { _, getNotifResponse ->
                 getNotifResponse.id?.let { viewModel.updateNotif(it) }
             }
+        }
+
+        binding.btnReload.setOnClickListener {
+            viewModel.getNotif()
         }
     }
 

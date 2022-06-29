@@ -9,7 +9,6 @@ import com.google.gson.reflect.TypeToken
 import id.co.binar.secondhand.data.local.model.SellerCategoryLocal
 import id.co.binar.secondhand.data.local.model.SellerProductLocal
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
-import id.co.binar.secondhand.model.seller.product.CategoriesItem
 import id.co.binar.secondhand.model.seller.product.GetProductResponse
 import java.lang.ref.WeakReference
 import java.math.BigDecimal
@@ -20,13 +19,13 @@ import java.util.*
 
 class TypeConverter {
     @TypeConverter
-    fun categoriesFromListToString(list: List<CategoriesItem>?) : String? {
+    fun categoriesFromListToString(list: List<GetCategoryResponse>?) : String? {
         return Gson().toJson(list)
     }
 
     @TypeConverter
-    fun categoriesFromStringToList(string: String?) : List<CategoriesItem>? {
-        val list = object : TypeToken<List<CategoriesItem>?>() {}.type
+    fun categoriesFromStringToList(string: String?) : List<GetCategoryResponse>? {
+        val list = object : TypeToken<List<GetCategoryResponse>?>() {}.type
         return Gson().fromJson(string, list)
     }
 }
@@ -100,15 +99,6 @@ fun List<SellerProductLocal>?.castFromLocalToRemote(): List<GetProductResponse> 
 }
 
 fun List<GetCategoryResponse>.toNameOnly(): String {
-    val str = mutableListOf<String>()
-    this.forEach {
-        str.add(it.name.toString())
-    }
-    return str.joinToString()
-}
-
-@JvmName("toNameOnlyCategoriesItem")
-fun List<CategoriesItem>.toNameOnly(): String {
     val str = mutableListOf<String>()
     this.forEach {
         str.add(it.name.toString())

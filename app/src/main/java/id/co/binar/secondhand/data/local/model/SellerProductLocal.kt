@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import id.co.binar.secondhand.model.seller.product.CategoriesItem
+import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -42,5 +42,5 @@ data class SellerProductLocal(
     val id: Int,
 
     @ColumnInfo(name = "Categories")
-    val categories: List<CategoriesItem>? = null
+    val categories: List<GetCategoryResponse>? = null
 ) : Parcelable

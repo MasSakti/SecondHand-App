@@ -14,10 +14,14 @@ import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ActivityProductAddBinding
+import id.co.binar.secondhand.model.buyer.product.GetProductResponse
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import id.co.binar.secondhand.model.seller.product.AddProductRequest
 import id.co.binar.secondhand.model.seller.product.UpdateProductByIdRequest
 import id.co.binar.secondhand.ui.login.LoginActivity
+import id.co.binar.secondhand.ui.product.ARGS_PASSING_PREVIEW
+import id.co.binar.secondhand.ui.product.ARGS_PASSING_PREVIEW_PHOTO
+import id.co.binar.secondhand.ui.product.ProductActivity
 import id.co.binar.secondhand.ui.product_add.dialog.CategoryDialogFragment
 import id.co.binar.secondhand.ui.product_add.dialog.TAG_CATEGORY_DIALOG
 import id.co.binar.secondhand.util.*
@@ -150,6 +154,10 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
             onValidate()
         }
 
+        binding.btnPreview.setOnClickListener {
+            onValidatePriview()
+        }
+
         binding.txtInputLayoutCategory.setOnClickListener {
             val dialog = CategoryDialogFragment()
             dialog.show(supportFragmentManager, TAG_CATEGORY_DIALOG)
@@ -209,6 +217,44 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
                 generalValid(binding.etDescription)
             )
         }
+    }
+
+    private fun onValidatePriview() {
+        validator(this) {
+            mode = Mode.SINGLE
+            listener = onProductPreview
+            validate(
+                generalValid(binding.etTitleProduct),
+                priceValid(binding.etPriceProduct),
+                generalValid(binding.etCategoriProduct),
+                generalValid(binding.etInputLayoutLocation),
+                generalValid(binding.etDescription)
+            )
+        }
+    }
+
+    private val onProductPreview = object : Validator.OnValidateListener {
+        override fun onValidateSuccess(values: List<String>) {
+            val bitmap = viewModel.bitmap.value
+            if (bitmap == null) {
+                this@ProductAddActivity.onSnackError(binding.root, "File gambar tidak boleh kosong!")
+            } else {
+                val item = GetProductResponse(
+                    name = binding.txtInputLayoutTitle.text.toString(),
+                    basePrice = MoneyTextWatcher.parseCurrencyValue(binding.txtInputLayoutPrice.text.toString()).toLong(),
+                    categories = chooseList,
+                    location = binding.txtInputLocation.text.toString(),
+                    description = binding.txtInputLayoutDescription.text.toString()
+                )
+                val byte = convertBitmapLocalToByteArray(bitmap)
+                val intent = Intent(this@ProductAddActivity, ProductActivity::class.java)
+                intent.putExtra(ARGS_PASSING_PREVIEW, item)
+                intent.putExtra(ARGS_PASSING_PREVIEW_PHOTO, byte)
+                startActivity(intent)
+            }
+        }
+
+        override fun onValidateFailed(errors: List<String>) {}
     }
 
     private val onProductSubmit = object : Validator.OnValidateListener {

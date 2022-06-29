@@ -1,6 +1,5 @@
 package id.co.binar.secondhand.data.remote
 
-import id.co.binar.secondhand.model.buyer.product.GetProductByIdResponse
 import id.co.binar.secondhand.model.buyer.product.GetProductResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -19,5 +18,5 @@ interface BuyerApi {
     @GET("buyer/product/{id}")
     suspend fun getProductById(
         @Path("id") id: Int
-    ) : Response<GetProductByIdResponse>
+    ) : Response<GetProductResponse>
 }

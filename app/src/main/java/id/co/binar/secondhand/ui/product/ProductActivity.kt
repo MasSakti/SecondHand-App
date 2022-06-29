@@ -3,14 +3,15 @@ package id.co.binar.secondhand.ui.product
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ActivityProductBinding
-import id.co.binar.secondhand.model.buyer.product.GetProductByIdResponse
-import id.co.binar.secondhand.util.Resource
-import id.co.binar.secondhand.util.convertRupiah
+import id.co.binar.secondhand.model.buyer.product.GetProductResponse
+import id.co.binar.secondhand.util.*
 
 const val ARGS_PASSING_PREVIEW = "PREVIEW"
+const val ARGS_PASSING_PREVIEW_PHOTO = "PREVIEW_PHOTO"
 const val ARGS_PASSING_SEE_DETAIL = "SEE_DETAIL"
 
 @AndroidEntryPoint
@@ -37,13 +38,22 @@ class ProductActivity : AppCompatActivity() {
             viewModel.getProductById(intent.getIntExtra(ARGS_PASSING_SEE_DETAIL, 0))
         }
         if (intent.hasExtra(ARGS_PASSING_PREVIEW)) {
-            val item = intent.getParcelableExtra<GetProductByIdResponse>(ARGS_PASSING_PREVIEW)
-            binding.apply {
-                ivImageSeller18.setImageBitmap(item?.photoProduct)
-                imageView.setImageBitmap(item?.photoProfile)
-                tvProductSeller18.text = item?.name
-                tvKotaPenjual.text = item?.location
-                tvHargaSeller18.text = item?.basePrice?.convertRupiah()
+            val item = intent.getParcelableExtra<GetProductResponse>(ARGS_PASSING_PREVIEW)
+            val photoProduct = intent.getByteArrayExtra(ARGS_PASSING_PREVIEW_PHOTO)
+            viewModel.getAccount.observe(this) {
+                binding.apply {
+                    ivImageSeller18.setImageBitmap(convertFileLocalToBitmap(photoProduct!!))
+
+                    tvProductSeller18.text = item?.name
+                    tvKotaPenjual.text = item?.location
+                    tvHargaSeller18.text = item?.basePrice?.convertRupiah()
+                    tvIsiDeskripsi.text = item?.description
+                    tvJenisSeller18.text = item?.categories?.toNameOnly()
+
+                    imageView.load(it.data?.imageUrl)
+                    tvNamaPenjual.text = it.data?.fullName
+                    tvKotaPenjual.text = it.data?.city
+                }
             }
         }
     }

@@ -2,12 +2,12 @@ package id.co.binar.secondhand.repository
 
 import androidx.room.withTransaction
 import com.google.gson.Gson
+import id.co.binar.secondhand.data.local.AuthDao
 import id.co.binar.secondhand.data.local.SellerDao
 import id.co.binar.secondhand.data.remote.BuyerApi
 import id.co.binar.secondhand.data.remote.SellerApi
 import id.co.binar.secondhand.database.RoomDatabase
 import id.co.binar.secondhand.model.ErrorResponse
-import id.co.binar.secondhand.model.buyer.product.GetProductByIdResponse
 import id.co.binar.secondhand.model.buyer.product.GetProductResponse
 import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.castFromRemoteToLocal
@@ -20,6 +20,7 @@ class BuyerRepository @Inject constructor(
     private val sellerApi: SellerApi,
     private val buyerApi: BuyerApi,
     private val sellerDao: SellerDao,
+    private val authDao: AuthDao,
     private val db: RoomDatabase
 ) {
     fun getCategory() = networkBoundResource(
@@ -60,7 +61,7 @@ class BuyerRepository @Inject constructor(
 
     fun getProductById(
         product_id: Int
-    ): Flow<Resource<GetProductByIdResponse>> = flow {
+    ): Flow<Resource<GetProductResponse>> = flow {
         emit(Resource.Loading())
         try {
             val response = buyerApi.getProductById(id = product_id)

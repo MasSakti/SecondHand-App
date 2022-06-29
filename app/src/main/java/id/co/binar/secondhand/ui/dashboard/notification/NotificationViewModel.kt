@@ -18,7 +18,13 @@ import javax.inject.Inject
 class NotificationViewModel @Inject constructor(
     private val notificationRepository: NotificationRepository
 ) : ViewModel() {
-    val getNotif = notificationRepository.getNotif().asLiveData()
+    private val _getNotif = MutableLiveData<Resource<List<GetNotifResponse>>>()
+    val getNotif: LiveData<Resource<List<GetNotifResponse>>> = _getNotif
+    fun getNotif() = CoroutineScope(Dispatchers.IO).launch {
+        notificationRepository.getNotif().collectLatest {
+            _getNotif.postValue(it)
+        }
+    }
 
     private val _updateNotif = MutableLiveData<Resource<GetNotifResponse>>()
     val updateNotif: LiveData<Resource<GetNotifResponse>> = _updateNotif
