@@ -1,5 +1,6 @@
 package com.tegarpenemuan.secondhandecomerce.ui.notifications
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.tegarpenemuan.secondhandecomerce.data.api.getNotifications.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.databinding.FragmentNotificationsBinding
+import com.tegarpenemuan.secondhandecomerce.ui.buyer6.Buyer6Activity
 import com.tegarpenemuan.secondhandecomerce.ui.home.HomeViewModel
 import com.tegarpenemuan.secondhandecomerce.ui.home.adapter.ProductAdapter
 import com.tegarpenemuan.secondhandecomerce.ui.notifications.adapter.NotificationsAdapter

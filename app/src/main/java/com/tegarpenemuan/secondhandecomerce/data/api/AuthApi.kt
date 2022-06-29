@@ -1,9 +1,12 @@
 package com.tegarpenemuan.secondhandecomerce.data.api
 
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
+import com.tegarpenemuan.secondhandecomerce.data.api.getCity.getCityResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getNotifications.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.getProductDetails.GetProductDetailsResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.getProvince.getProvinveResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.register.response.SuccessRegisterResponse
@@ -68,4 +71,24 @@ interface AuthApi {
         @Part image: MultipartBody.Part? = null,
         @Part("city") city: RequestBody? = null
     ): Response<UpdateUserResponse>
+
+    @GET("buyer/product/{id}")
+    suspend fun getProductDetails(
+        @Path("id") id: Int?,
+//        @Field("name") name: String?,
+//        @Field("category_id") category_id: Int?,
+//        @Field("base_price") base_price: Int?,
+//        @Field("image_url") image_url: String?,
+//        @Field("location") location: String?,
+//        @Field("description") description: String?,
+    ): Response<GetProductDetailsResponse>
+
+    @GET("https://dev.farizdotid.com/api/daerahindonesia/provinsi")
+    suspend fun  getProvince(): Response<getProvinveResponse>
+
+    @GET("https://dev.farizdotid.com/api/daerahindonesia/kota")
+    suspend fun getCity(
+        @Query ("id_provinsi") id_provinsi: Int
+    ): Response <getCityResponse>
+
 }

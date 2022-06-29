@@ -1,5 +1,6 @@
 package com.tegarpenemuan.secondhandecomerce.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.fragment.app.viewModels
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.databinding.FragmentHomeBinding
+import com.tegarpenemuan.secondhandecomerce.ui.buyer6.Buyer6Activity
 import com.tegarpenemuan.secondhandecomerce.ui.home.adapter.CategoryAdapter
 import com.tegarpenemuan.secondhandecomerce.ui.home.adapter.ProductAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,7 +61,10 @@ class HomeFragment : Fragment() {
         homeAdapter =
             ProductAdapter(listener = object : ProductAdapter.EventListener {
                 override fun onClick(item: GetProductResponse) {
-                    Toast.makeText(requireContext(),item.name,Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(requireContext(),item.name,Toast.LENGTH_SHORT).show()
+                    val intent = Intent(requireContext(), Buyer6Activity::class.java)
+                    intent.putExtra("id", item.id)
+                    startActivity(intent)
                 }
 
             }, emptyList())
@@ -71,6 +76,7 @@ class HomeFragment : Fragment() {
                     //Toast.makeText(requireContext(),item.name,Toast.LENGTH_SHORT).show()
                     //nanti masuk ke search
                     viewModel.getProduct(category_id = item.id)
+
                 }
             }, emptyList())
         binding.rvCategory.adapter = categoryAdapter

@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.tegarpenemuan.secondhandecomerce.common.ConvertToMultipart.toMultipartBody
+import com.tegarpenemuan.secondhandecomerce.data.api.getCity.getCityResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.getProvince.getProvinveResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.register.request.SignUpRequest
 import com.tegarpenemuan.secondhandecomerce.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,6 +17,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.Response
 import java.io.File
 import javax.inject.Inject
 
@@ -31,6 +34,8 @@ class RegisterViewModel @Inject constructor(
     private var city: String = ""
     private var fileImage: File? = null
 
+    val showCity: MutableLiveData<getCityResponse> = MutableLiveData()
+    val showProvince: MutableLiveData<getProvinveResponse> = MutableLiveData()
     val showResponseError: MutableLiveData<String> = MutableLiveData()
     val shouldShowLoading: MutableLiveData<Boolean> = MutableLiveData()
     val showResponseSuccess: MutableLiveData<String> = MutableLiveData()
@@ -116,6 +121,33 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
+    fun getProvince(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val Response = repository.getProvince()
+            withContext(Dispatchers.Main){
+                if (Response.isSuccessful){
+                    val province = Response.body()
+                    showProvince.postValue(province!!)
+                }else{
+                    //error
+                }
+            }
+        }
+    }
+
+    fun getCity(id_provinsi: Int){
+        CoroutineScope(Dispatchers.IO).launch {
+            val Response = repository.getCity(id_provinsi)
+            withContext(Dispatchers.Main){
+                if (Response.isSuccessful){
+                    val city = Response.body()
+                    showCity.postValue(city!!)
+                }else{
+                    //error
+                }
+            }
+        }
+    }
 //    @Suppress("UNCHECKED_CAST")
 //    class Factory(
 //        private val repository: AuthRepository

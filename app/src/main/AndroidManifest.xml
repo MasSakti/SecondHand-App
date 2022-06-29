@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SecondHandEcomerce">
         <activity
+            android:name=".ui.buyer6.Buyer6Activity"
+            android:exported="false" />
+        <activity
             android:name="com.tegarpenemuan.secondhandecomerce.ui.seller18.seller18"
             android:exported="false" />
         <activity
