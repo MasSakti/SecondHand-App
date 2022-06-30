@@ -23,6 +23,7 @@ class LoginUI : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginUiBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
 
         bindView()
         bindViewModel()
@@ -41,7 +42,7 @@ class LoginUI : AppCompatActivity() {
             viewModel.onClickSignIn()
         }
 
-        binding.llDaftar.setOnClickListener{
+        binding.tvDaftar.setOnClickListener{
             val intent = Intent(this, RegisterUI::class.java)
             startActivity(intent)
         }
