@@ -4,12 +4,15 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.RoundedCorner
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import binar.and3.kelompok1.secondhand.databinding.FragmentAkunBinding
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -30,6 +33,7 @@ class AkunFragment : Fragment() {
     ): View {
         _binding = FragmentAkunBinding.inflate(inflater, container, false)
 
+        viewModel.getProfile()
         bindViewModel()
 
         return binding.root
@@ -59,7 +63,7 @@ class AkunFragment : Fragment() {
         viewModel.shouldShowProfile.observe(viewLifecycleOwner) {
             Glide.with(requireContext())
                 .load(it.imageUrl)
-                .circleCrop()
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(12)))
                 .into(binding.ivImageAccount)
         }
     }

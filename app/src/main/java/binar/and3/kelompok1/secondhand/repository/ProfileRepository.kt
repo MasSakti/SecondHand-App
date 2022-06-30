@@ -1,6 +1,9 @@
 package binar.and3.kelompok1.secondhand.repository
 
+import binar.and3.kelompok1.secondhand.common.Resource
+import binar.and3.kelompok1.secondhand.common.Status
 import binar.and3.kelompok1.secondhand.data.api.auth.AuthAPI
+import binar.and3.kelompok1.secondhand.data.api.auth.UpdateUserDataResponse
 import binar.and3.kelompok1.secondhand.data.local.auth.UserDAO
 import binar.and3.kelompok1.secondhand.data.local.auth.UserEntity
 import binar.and3.kelompok1.secondhand.model.ProfileModel
@@ -26,12 +29,23 @@ class ProfileRepository @Inject constructor(
         }
     }
 
-    suspend fun uploadImage(token: String, image: MultipartBody.Part) {
+    suspend fun uploadImage(token: String, image: MultipartBody.Part): Resource<UpdateUserDataResponse> {
         authAPI.updateUser(
             token = token
         ).let {
             if (it.isSuccessful) {
                 updateImageProfile(image = it.body()?.imageUrl.orEmpty())
+                return Resource(
+                    status = Status.SUCCESS,
+                    data = it.body(),
+                    message = null
+                )
+            } else {
+                return Resource(
+                    status = Status.ERROR,
+                    data = null,
+                    message = it.errorBody().toString()
+                )
             }
         }
     }

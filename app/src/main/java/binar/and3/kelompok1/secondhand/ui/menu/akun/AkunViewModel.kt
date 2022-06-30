@@ -2,6 +2,7 @@ package binar.and3.kelompok1.secondhand.ui.menu.akun
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import binar.and3.kelompok1.secondhand.common.Status
 import binar.and3.kelompok1.secondhand.model.ProfileModel
 import binar.and3.kelompok1.secondhand.repository.AuthRepository
 import binar.and3.kelompok1.secondhand.repository.ProfileRepository
@@ -10,6 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,7 +28,7 @@ class AkunViewModel @Inject constructor(
 
     val shouldShowLogin: MutableLiveData<Boolean> = MutableLiveData()
 
-    private fun getProfile() {
+    fun getProfile() {
         CoroutineScope(Dispatchers.Main).launch {
             val result = profileRepository.getProfile()
             withContext(Dispatchers.Main) {
@@ -37,10 +39,15 @@ class AkunViewModel @Inject constructor(
         }
     }
 
-//    fun uploadImage(body: MultipartBody.Part) {
-//        shouldShowLoading.postValue(true)
-//        CoroutineScope(Dispatchers.IO).launch {
-//            val result =
-//        }
-//    }
+    fun uploadImage(body: MultipartBody.Part) {
+        shouldShowLoading.postValue(true)
+        CoroutineScope(Dispatchers.IO).launch {
+            val token = authRepository.getToken()
+            val result = profileRepository.uploadImage(image = body, token = token.toString())
+            withContext(Dispatchers.Main) {
+
+            }
+        }
+    }
+
 }

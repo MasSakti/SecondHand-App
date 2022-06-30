@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
 
         binding.rvItem.adapter = homeProductAdapter
 
-        viewModel.onViewLoaded()
+        // viewModel.onViewLoaded()
         bindViewModel()
 
         return root
