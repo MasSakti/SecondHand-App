@@ -11,11 +11,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ActivityProductBinding
 import id.co.binar.secondhand.model.buyer.product.GetProductResponse
+import id.co.binar.secondhand.model.seller.product.AddProductRequest
+import id.co.binar.secondhand.model.seller.product.UpdateProductByIdRequest
 import id.co.binar.secondhand.ui.product.dialog.ProductBidingFragment
 import id.co.binar.secondhand.ui.product.dialog.TAG_BIDING_PRODUCT_DIALOG
+import id.co.binar.secondhand.ui.product_add.ARGS_PRODUCT_EDIT
 import id.co.binar.secondhand.util.*
-import io.github.anderscheow.validator.constant.Mode
-import io.github.anderscheow.validator.validator
 import java.util.*
 
 const val ARGS_PASSING_PREVIEW = "PREVIEW"
@@ -58,7 +59,9 @@ class ProductActivity : AppCompatActivity() {
             val item = intent.getParcelableExtra<GetProductResponse>(ARGS_PASSING_PREVIEW)
             viewModel.getAccount.observe(this) {
                 binding.apply {
-                    this@ProductActivity.onToast("Untuk sementara detail product preview belum bisa menampilkan foto produk, dalam perbaikan")
+                    viewModel.getProductPreview().observe(this@ProductActivity) {
+                        ivImageSeller18.setImageBitmap(it.imageUrl)
+                    }
 
                     tvProductSeller18.text = item?.name
                     tvKotaPenjual.text = item?.location
@@ -71,7 +74,32 @@ class ProductActivity : AppCompatActivity() {
                     tvKotaPenjual.text = it.data?.city
 
                     btnTerbitkan.setOnClickListener {
-                        this@ProductActivity.onSnackSuccess(root, "Dalam perbaikan")
+                        viewModel.getProductPreview().observe(this@ProductActivity) {
+                            if (item?.id != null) {
+                                viewModel.editProduct(
+                                    item.id,
+                                    UpdateProductByIdRequest(
+                                        name = item.name,
+                                        basePrice = MoneyTextWatcher.parseCurrencyValue(item.basePrice.toString()).toLong(),
+                                        categoryIds = item.categories?.toIntOnly(),
+                                        location = item.location,
+                                        description = item.description
+                                    ),
+                                    this@ProductActivity.buildImageMultipart("image", it.imageUrl!!)
+                                )
+                            } else {
+                                viewModel.addProduct(
+                                    AddProductRequest(
+                                        name = item?.name,
+                                        basePrice = MoneyTextWatcher.parseCurrencyValue(item?.basePrice.toString()).toLong(),
+                                        categoryIds = item?.categories?.toIntOnly(),
+                                        location = item?.location,
+                                        description = item?.description
+                                    ),
+                                    this@ProductActivity.buildImageMultipart("image", it.imageUrl!!)
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -79,6 +107,36 @@ class ProductActivity : AppCompatActivity() {
     }
 
     private fun bindObserver() {
+        viewModel.editProduct.observe(this) {
+            when (it) {
+                is Resource.Success -> {
+                    this.onToast("${it.data?.name} berhasil diupdate")
+                    onBackPressed()
+                }
+                is Resource.Loading -> {
+                    this.onToast("Mohon menunggu...")
+                }
+                is Resource.Error -> {
+                    this.onSnackError(binding.root, it.error?.message.toString())
+                }
+            }
+        }
+
+        viewModel.addProduct.observe(this) {
+            when (it) {
+                is Resource.Success -> {
+                    this.onToast("${it.data?.name} berhasil ditambahkan")
+                    onBackPressed()
+                }
+                is Resource.Loading -> {
+                    this.onToast("Mohon menunggu...")
+                }
+                is Resource.Error -> {
+                    this.onSnackError(binding.root, it.error?.message.toString())
+                }
+            }
+        }
+
         viewModel.newOrder.observe(this) {
             when (it) {
                 is Resource.Success -> this.onSnackSuccess(binding.root, "Hore, arga tawaranmu berhasil dikirim ke penjual")

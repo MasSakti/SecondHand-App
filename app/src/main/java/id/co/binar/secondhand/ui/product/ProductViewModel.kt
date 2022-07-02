@@ -5,18 +5,25 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import id.co.binar.secondhand.model.buyer.order.AddOrderRequest
 import id.co.binar.secondhand.model.buyer.order.GetOrderResponse
 import id.co.binar.secondhand.model.buyer.product.GetProductResponse
+import id.co.binar.secondhand.model.seller.product.AddProductRequest
+import id.co.binar.secondhand.model.seller.product.AddProductResponse
+import id.co.binar.secondhand.model.seller.product.UpdateProductByIdRequest
+import id.co.binar.secondhand.model.seller.product.UpdateProductByIdResponse
 import id.co.binar.secondhand.repository.AuthRepository
 import id.co.binar.secondhand.repository.BuyerRepository
+import id.co.binar.secondhand.repository.SellerRepository
 import id.co.binar.secondhand.util.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
 class ProductViewModel @Inject constructor(
     private val buyerRepository: BuyerRepository,
+    private val sellerRepository: SellerRepository,
     authRepository: AuthRepository,
     state: SavedStateHandle
 ) : ViewModel() {
@@ -46,4 +53,22 @@ class ProductViewModel @Inject constructor(
             _newOrder.postValue(it)
         }
     }
+
+    private val _addProduct = MutableLiveData<Resource<AddProductResponse>>()
+    val addProduct: LiveData<Resource<AddProductResponse>> = _addProduct
+    fun addProduct(field: AddProductRequest, image: MultipartBody.Part) = CoroutineScope(Dispatchers.IO).launch {
+        sellerRepository.addProduct(field, image).collectLatest {
+            _addProduct.postValue(it)
+        }
+    }
+
+    private val _editProduct = MutableLiveData<Resource<UpdateProductByIdResponse>>()
+    val editProduct: LiveData<Resource<UpdateProductByIdResponse>> = _editProduct
+    fun editProduct(id_product: Int, field: UpdateProductByIdRequest, image: MultipartBody.Part) = CoroutineScope(Dispatchers.IO).launch {
+        sellerRepository.editProduct(id_product, field, image).collectLatest {
+            _editProduct.postValue(it)
+        }
+    }
+
+    fun getProductPreview() = sellerRepository.getProductPreview().asLiveData()
 }

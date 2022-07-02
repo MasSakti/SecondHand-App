@@ -184,10 +184,10 @@ class MoneyTextWatcher(editText: EditText?) : TextWatcher {
     }
 }
 
-suspend fun Context.bitmap(string: Any?): Bitmap {
+suspend fun Context.bitmap(data: Any?): Bitmap {
     val loader = ImageLoader(this)
     val req = ImageRequest.Builder(this)
-        .data(string)
+        .data(data)
         .build()
     val result = (loader.execute(req) as SuccessResult).drawable
     return result.toBitmap()

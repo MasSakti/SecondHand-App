@@ -3,6 +3,7 @@ package id.co.binar.secondhand.ui.product_add
 import android.graphics.Bitmap
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import id.co.binar.secondhand.data.local.model.SellerProductPreviewLocal
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import id.co.binar.secondhand.model.seller.product.*
 import id.co.binar.secondhand.repository.SellerRepository
@@ -64,5 +65,13 @@ class ProductAddViewModel @Inject constructor(
         sellerRepository.editProduct(id_product, field, image).collectLatest {
             _editProduct.postValue(it)
         }
+    }
+
+    fun setProductPreview(field: SellerProductPreviewLocal) = CoroutineScope(Dispatchers.IO).launch {
+        sellerRepository.setProductPreview(field)
+    }
+
+    fun deleteProductPreview() = CoroutineScope(Dispatchers.IO).launch {
+        sellerRepository.deleteProductPreview()
     }
 }

@@ -14,6 +14,7 @@ import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
+import id.co.binar.secondhand.data.local.model.SellerProductPreviewLocal
 import id.co.binar.secondhand.databinding.ActivityProductAddBinding
 import id.co.binar.secondhand.model.buyer.product.GetProductResponse
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
@@ -238,12 +239,18 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
                 this@ProductAddActivity.onSnackError(binding.root, "File gambar tidak boleh kosong!")
             } else {
                 val item = GetProductResponse(
+                    id = viewModel.getProductById.value?.data?.id,
                     name = binding.txtInputLayoutTitle.text.toString(),
                     basePrice = MoneyTextWatcher.parseCurrencyValue(binding.txtInputLayoutPrice.text.toString()).toLong(),
                     categories = chooseList,
                     location = binding.txtInputLocation.text.toString(),
                     description = binding.txtInputLayoutDescription.text.toString()
                 )
+                val itemPreview = SellerProductPreviewLocal(
+                    id = viewModel.getProductById.value?.data?.id,
+                    imageUrl = bitmap
+                )
+                viewModel.setProductPreview(itemPreview)
                 val intent = Intent(this@ProductAddActivity, ProductActivity::class.java)
                 intent.putExtra(ARGS_PASSING_PREVIEW, item)
                 startActivity(intent)
@@ -261,7 +268,7 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
             } else {
                 if (intent.hasExtra(ARGS_PRODUCT_EDIT)) {
                     viewModel.editProduct(
-                        intent.getIntExtra(ARGS_PRODUCT_EDIT, -1),
+                        viewModel.getProductById.value?.data?.id!!,
                         UpdateProductByIdRequest(
                             name = binding.txtInputLayoutTitle.text.toString(),
                             basePrice = MoneyTextWatcher.parseCurrencyValue(binding.txtInputLayoutPrice.text.toString()).toLong(),
@@ -287,6 +294,11 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
         }
 
         override fun onValidateFailed(errors: List<String>) {}
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        viewModel.deleteProductPreview()
     }
 
     override fun onSupportNavigateUp(): Boolean {

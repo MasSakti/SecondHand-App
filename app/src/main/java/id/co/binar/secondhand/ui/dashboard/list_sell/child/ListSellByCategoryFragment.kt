@@ -1,14 +1,12 @@
 package id.co.binar.secondhand.ui.dashboard.list_sell.child
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.FragmentListSellByCategoryBinding
 import id.co.binar.secondhand.ui.dashboard.list_sell.ListSellViewModel
 

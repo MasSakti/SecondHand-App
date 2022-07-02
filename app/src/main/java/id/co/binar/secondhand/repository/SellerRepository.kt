@@ -1,8 +1,10 @@
 package id.co.binar.secondhand.repository
 
+import android.graphics.Bitmap
 import androidx.room.withTransaction
 import com.google.gson.Gson
 import id.co.binar.secondhand.data.local.SellerDao
+import id.co.binar.secondhand.data.local.model.SellerProductPreviewLocal
 import id.co.binar.secondhand.data.remote.SellerApi
 import id.co.binar.secondhand.database.RoomDatabase
 import id.co.binar.secondhand.model.ErrorResponse
@@ -167,4 +169,12 @@ class SellerRepository @Inject constructor(
             emit(Resource.Error(ex))
         }
     }
+
+    fun getProductPreview() = sellerDao.getProductPreview(store.getUsrId())
+
+    suspend fun deleteProductPreview() = sellerDao.removeProductPreview()
+
+    suspend fun setProductPreview(field: SellerProductPreviewLocal) = sellerDao.setProductPreview(
+        SellerProductPreviewLocal(userId = store.getUsrId(), imageUrl = field.imageUrl, id = field.id)
+    )
 }

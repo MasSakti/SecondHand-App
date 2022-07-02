@@ -8,12 +8,14 @@ import id.co.binar.secondhand.data.local.SellerDao
 import id.co.binar.secondhand.data.local.model.AuthLocal
 import id.co.binar.secondhand.data.local.model.SellerCategoryLocal
 import id.co.binar.secondhand.data.local.model.SellerProductLocal
+import id.co.binar.secondhand.data.local.model.SellerProductPreviewLocal
 import id.co.binar.secondhand.util.TypeConverter
 
 @Database(entities = [
     AuthLocal::class,
     SellerCategoryLocal::class,
-    SellerProductLocal::class
+    SellerProductLocal::class,
+    SellerProductPreviewLocal::class
 ], version = 1, exportSchema = false)
 @TypeConverters(TypeConverter::class)
 abstract class RoomDatabase : RoomDatabase() {

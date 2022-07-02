@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import id.co.binar.secondhand.data.local.model.SellerCategoryLocal
 import id.co.binar.secondhand.data.local.model.SellerProductLocal
+import id.co.binar.secondhand.data.local.model.SellerProductPreviewLocal
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -33,4 +34,16 @@ interface SellerDao {
 
     @Query("DELETE FROM tbl_product")
     suspend fun removeProductHome()
+
+    /**
+     * tbl tbl tbl Takut Banget Loh : Product Preview
+     * */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun setProductPreview(field: SellerProductPreviewLocal)
+
+    @Query("SELECT * FROM tbl_product_preview WHERE user_id=:id")
+    fun getProductPreview(id: Int) : Flow<SellerProductPreviewLocal>
+
+    @Query("DELETE FROM tbl_product_preview")
+    suspend fun removeProductPreview()
 }
