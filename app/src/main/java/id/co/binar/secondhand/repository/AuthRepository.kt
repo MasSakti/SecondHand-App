@@ -25,7 +25,7 @@ class AuthRepository @Inject constructor(
     private val authApi: AuthApi,
     private val authDao: AuthDao,
     private val sellerDao: SellerDao,
-    val store: DataStoreManager,
+    private val store: DataStoreManager,
     private val db: RoomDatabase
 ) {
     suspend fun logout() {

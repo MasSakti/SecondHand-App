@@ -1,15 +1,24 @@
 package id.co.binar.secondhand.util
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import androidx.core.graphics.drawable.toBitmap
 import androidx.room.TypeConverter
+import coil.ImageLoader
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import id.co.binar.secondhand.data.local.model.SellerCategoryLocal
 import id.co.binar.secondhand.data.local.model.SellerProductLocal
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import id.co.binar.secondhand.model.seller.product.GetProductResponse
+import java.io.ByteArrayOutputStream
 import java.lang.ref.WeakReference
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -27,6 +36,18 @@ class TypeConverter {
     fun categoriesFromStringToList(string: String?) : List<GetCategoryResponse>? {
         val list = object : TypeToken<List<GetCategoryResponse>?>() {}.type
         return Gson().fromJson(string, list)
+    }
+
+    @TypeConverter
+    fun convertFromBitmapToByteArray(bitmap: Bitmap): ByteArray {
+        val bStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, bStream)
+        return bStream.toByteArray()
+    }
+
+    @TypeConverter
+    fun convertFromByteArrayToBitmap(byteArray: ByteArray): Bitmap? {
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
     }
 }
 
@@ -161,4 +182,13 @@ class MoneyTextWatcher(editText: EditText?) : TextWatcher {
         numberFormat.maximumFractionDigits = 0
         numberFormat.roundingMode = RoundingMode.FLOOR
     }
+}
+
+suspend fun Context.bitmap(string: Any?): Bitmap {
+    val loader = ImageLoader(this)
+    val req = ImageRequest.Builder(this)
+        .data(string)
+        .build()
+    val result = (loader.execute(req) as SuccessResult).drawable
+    return result.toBitmap()
 }

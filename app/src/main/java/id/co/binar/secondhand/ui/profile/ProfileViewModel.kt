@@ -24,8 +24,6 @@ class ProfileViewModel @Inject constructor(
     private val authRepository: AuthRepository,
     state: SavedStateHandle
 ) : ViewModel() {
-    fun getTokenId() = authRepository.store.getTokenId()
-
     private val _field = state.getLiveData<AddAuthRequest>("FIELD")
     val field: LiveData<AddAuthRequest> = _field
     fun field(field: AddAuthRequest) {
@@ -54,5 +52,11 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    val getAccount = authRepository.getAccount().asLiveData()
+    private val _getAccount = MutableLiveData<Resource<AuthLocal>>()
+    val getAccount : LiveData<Resource<AuthLocal>> = _getAccount
+    fun getAccount() = CoroutineScope(Dispatchers.IO).launch {
+        authRepository.getAccount().collectLatest {
+            _getAccount.postValue(it)
+        }
+    }
 }

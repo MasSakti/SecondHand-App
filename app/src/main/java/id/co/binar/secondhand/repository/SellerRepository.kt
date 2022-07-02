@@ -21,11 +21,9 @@ import javax.inject.Inject
 class SellerRepository @Inject constructor(
     private val sellerApi: SellerApi,
     private val sellerDao: SellerDao,
-    private val store: DataStoreManager,
+    val store: DataStoreManager,
     private val db: RoomDatabase
 ) {
-    fun store() = store
-
     fun getCategory() = networkBoundResource(
         query = {
             sellerDao.getCategoryHome()

@@ -6,6 +6,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
+import androidx.lifecycle.lifecycleScope
 import coil.ImageLoader
 import coil.request.ImageRequest
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -27,6 +28,7 @@ import id.co.binar.secondhand.util.*
 import io.github.anderscheow.validator.Validator
 import io.github.anderscheow.validator.constant.Mode
 import io.github.anderscheow.validator.validator
+import kotlinx.coroutines.launch
 import java.util.*
 
 const val ARGS_PRODUCT_EDIT = "EDIT_PRODUCT"
@@ -47,7 +49,7 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        if (viewModel.getTokenId().isEmpty()) {
+        if (viewModel.getTokenId.isEmpty()) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
@@ -97,15 +99,10 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
                         viewModel.lastList(lastList.distinctBy { it.id }.toMutableList())
                     }
                     binding.apply {
-                        val loader = ImageLoader(this@ProductAddActivity)
-                        val req = ImageRequest.Builder(this@ProductAddActivity)
-                            .data(it.data?.imageUrl)
-                            .target {
-                                val drawable = it.toBitmap()
-                                viewModel.bitmap(drawable)
-                            }
-                            .build()
-                        loader.enqueue(req)
+                        lifecycleScope.launch {
+                            val bitmap = this@ProductAddActivity.bitmap(it.data?.imageUrl)
+                            viewModel.bitmap(bitmap)
+                        }
                         txtInputLayoutTitle.setText(it.data?.name)
                         txtInputLayoutPrice.setText(it.data?.basePrice.toString())
                         txtInputLocation.setText(it.data?.location)
@@ -173,10 +170,11 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
         try {
             when (resultCode) {
                 RESULT_OK -> {
-                    data?.let { intent ->
-                        binding.imgView.setImageURI(intent.data)
-                        val drawable = binding.imgView.drawable.toBitmap()
-                        viewModel.bitmap(drawable)
+                    data?.let {
+                        lifecycleScope.launch {
+                            val bitmap = this@ProductAddActivity.bitmap(it.data)
+                            viewModel.bitmap(bitmap)
+                        }
                     }
                 }
                 ImagePicker.RESULT_ERROR -> {

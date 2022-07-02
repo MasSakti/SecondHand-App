@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "tbl_category")
-@Parcelize
 data class SellerCategoryLocal(
 
     @ColumnInfo(name = "createdAt")
@@ -21,4 +20,4 @@ data class SellerCategoryLocal(
 
     @ColumnInfo(name = "updatedAt")
     val updatedAt: String? = null
-) : Parcelable
+)

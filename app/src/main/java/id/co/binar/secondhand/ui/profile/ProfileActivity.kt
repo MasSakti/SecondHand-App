@@ -7,9 +7,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
+import androidx.lifecycle.lifecycleScope
 import coil.ImageLoader
 import coil.load
 import coil.request.ImageRequest
+import coil.request.SuccessResult
 import coil.size.ViewSizeResolver
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.vmadalin.easypermissions.EasyPermissions
@@ -25,6 +27,9 @@ import id.co.binar.secondhand.util.*
 import io.github.anderscheow.validator.Validator
 import io.github.anderscheow.validator.constant.Mode
 import io.github.anderscheow.validator.validator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 const val PASSING_FROM_REGISTER_TO_PROFILE = "PASSING_FROM_REGISTER_TO_PROFILE"
 const val PASSING_FROM_ACCOUNT_TO_PROFILE = "PASSING_FROM_ACCOUNT_TO_PROFILE"
@@ -48,6 +53,8 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
     }
 
     private fun bindObserver() {
+        viewModel.getAccount()
+
         viewModel.updateAccount.observe(this) {
             when(it) {
                 is Resource.Success -> {
@@ -84,12 +91,6 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
     }
 
     private fun bindView() {
-        if (viewModel.getTokenId().isEmpty()) {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
         if (intent.hasExtra(PASSING_FROM_ACCOUNT_TO_PROFILE)) {
             intent.extras?.getBoolean(PASSING_FROM_ACCOUNT_TO_PROFILE)?.let {
                 if (it) {
@@ -97,15 +98,10 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                     binding.txtInputLayoutPassword.visibility = View.VISIBLE
                     viewModel.getAccount.observe(this) {
                         binding.apply {
-                            val loader = ImageLoader(this@ProfileActivity)
-                            val req = ImageRequest.Builder(this@ProfileActivity)
-                                .data(it.data?.imageUrl)
-                                .target {
-                                    val drawable = it.toBitmap()
-                                    viewModel.bitmap(drawable)
-                                }
-                                .build()
-                            loader.enqueue(req)
+                            lifecycleScope.launch {
+                                val bitmap = this@ProfileActivity.bitmap(it.data?.imageUrl)
+                                viewModel.bitmap(bitmap)
+                            }
                             txtInputEmail.setText(it.data?.email)
                             txtInputLayoutNama.setText(it.data?.fullName)
                             txtInputLayoutKota.setText(it.data?.city)
@@ -144,10 +140,11 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
         try {
             when (resultCode) {
                 RESULT_OK -> {
-                    data?.let { intent ->
-                        binding.ivImageProfile.setImageURI(intent.data)
-                        val drawable = binding.ivImageProfile.drawable.toBitmap()
-                        viewModel.bitmap(drawable)
+                    data?.let {
+                        lifecycleScope.launch {
+                            val bitmap = this@ProfileActivity.bitmap(it.data)
+                            viewModel.bitmap(bitmap)
+                        }
                     }
                 }
                 ImagePicker.RESULT_ERROR -> {
@@ -235,6 +232,8 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
                         ),
                         this@ProfileActivity.buildImageMultipart("image", bitmap)
                     )
+                } else {
+                    this@ProfileActivity.onSnackError(binding.root, "Tidak valid untuk memasukan data")
                 }
             }
         }

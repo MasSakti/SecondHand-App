@@ -20,7 +20,8 @@ class ProductAddViewModel @Inject constructor(
     private val sellerRepository: SellerRepository,
     state: SavedStateHandle
 ) : ViewModel() {
-    fun getTokenId() = sellerRepository.store().getTokenId()
+    val getTokenId = sellerRepository.store.getTokenId()
+    val categoryProduct = sellerRepository.getCategory().asLiveData()
 
     private val _bitmap = MutableLiveData<Bitmap>()
     val bitmap: LiveData<Bitmap> = _bitmap
@@ -39,8 +40,6 @@ class ProductAddViewModel @Inject constructor(
     fun lastList(list: MutableList<GetCategoryResponse>) {
         _lastList.postValue(list.distinctBy { it.id }.toMutableList())
     }
-
-    val categoryProduct = sellerRepository.getCategory().asLiveData()
 
     private val _addProduct = MutableLiveData<Resource<AddProductResponse>>()
     val addProduct: LiveData<Resource<AddProductResponse>> = _addProduct

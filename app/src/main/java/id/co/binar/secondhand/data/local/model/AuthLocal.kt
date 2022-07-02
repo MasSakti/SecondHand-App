@@ -1,13 +1,10 @@
 package id.co.binar.secondhand.data.local.model
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "tbl_auth")
-@Parcelize
 data class AuthLocal(
 
     @ColumnInfo(name = "createdAt")
@@ -42,4 +39,4 @@ data class AuthLocal(
 
     @ColumnInfo(name = "updatedAt")
     val updatedAt: String? = null
-) : Parcelable
+)
