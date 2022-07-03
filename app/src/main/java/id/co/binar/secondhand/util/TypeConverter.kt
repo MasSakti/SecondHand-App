@@ -3,7 +3,6 @@ package id.co.binar.secondhand.util
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
@@ -140,8 +139,7 @@ fun List<GetCategoryResponse>.toIntOnly(): String {
 fun Any.convertRupiah(): String {
     val localId = Locale("in", "ID")
     val formatter = NumberFormat.getCurrencyInstance(localId)
-    val strFormat = formatter.format(this)
-    return strFormat
+    return formatter.format(this)
 }
 
 class MoneyTextWatcher(editText: EditText?) : TextWatcher {

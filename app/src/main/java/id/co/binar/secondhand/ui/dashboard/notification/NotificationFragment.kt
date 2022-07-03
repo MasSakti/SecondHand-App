@@ -62,7 +62,7 @@ class NotificationFragment : Fragment() {
             when (it) {
                 is Resource.Success -> {
                     binding.apply {
-                        progressBar.isVisible = false
+                        swipeRefresh.isRefreshing = false
                         if (it.data.isNullOrEmpty()) {
                             rvMovie.isVisible = false
                             layoutEmpty.isVisible = true
@@ -78,7 +78,7 @@ class NotificationFragment : Fragment() {
                 }
                 is Resource.Loading -> {
                     binding.apply {
-                        progressBar.isVisible = true
+                        swipeRefresh.isRefreshing = true
                         rvMovie.isVisible = false
                         layoutEmpty.isVisible = false
                         layoutError.isVisible = false
@@ -86,7 +86,7 @@ class NotificationFragment : Fragment() {
                 }
                 is Resource.Error -> {
                     binding.apply {
-                        progressBar.isVisible = false
+                        swipeRefresh.isRefreshing = false
                         rvMovie.isVisible = false
                         layoutEmpty.isVisible = false
                         layoutError.isVisible = true
@@ -114,6 +114,10 @@ class NotificationFragment : Fragment() {
         }
 
         binding.btnReload.setOnClickListener {
+            viewModel.getNotif()
+        }
+
+        binding.swipeRefresh.setOnRefreshListener {
             viewModel.getNotif()
         }
     }

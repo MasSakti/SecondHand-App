@@ -12,35 +12,81 @@ data class GetNotifResponse(
 	val transactionDate: String? = null,
 
 	@SerializedName("read")
-	var read: Boolean? = null,
-
-	@SerializedName("seller_name")
-	val sellerName: String? = null,
-
-	@SerializedName("updated_at")
-	val updatedAt: String? = null,
-
-	@SerializedName("receiver_id")
-	val receiverId: Int? = null,
+	val read: Boolean? = null,
 
 	@SerializedName("image_url")
 	val imageUrl: String? = null,
 
-	@SerializedName("product_id")
-	val productId: Int? = null,
+	@SerializedName("receiver_id")
+	val receiverId: Int? = null,
 
 	@SerializedName("buyer_name")
 	val buyerName: String? = null,
 
-	@SerializedName("created_at")
+	@SerializedName("Product")
+	val product: Product? = null,
+
+	@SerializedName("product_name")
+	val productName: String? = null,
+
+	@SerializedName("createdAt")
 	val createdAt: String? = null,
+
+	@SerializedName("seller_name")
+	val sellerName: String? = null,
+
+	@SerializedName("product_id")
+	val productId: Int? = null,
+
+	@SerializedName("base_price")
+	val basePrice: Long? = null,
 
 	@SerializedName("id")
 	val id: Int? = null,
 
 	@SerializedName("bid_price")
-	val bidPrice: Int? = null,
+	val bidPrice: Long? = null,
 
 	@SerializedName("status")
-	val status: String? = null
+	val status: String? = null,
+
+	@SerializedName("updatedAt")
+	val updatedAt: String? = null
+) : Parcelable
+
+@Parcelize
+data class Product(
+
+	@SerializedName("image_name")
+	val imageName: String? = null,
+
+	@SerializedName("createdAt")
+	val createdAt: String? = null,
+
+	@SerializedName("user_id")
+	val userId: Int? = null,
+
+	@SerializedName("image_url")
+	val imageUrl: String? = null,
+
+	@SerializedName("name")
+	val name: String? = null,
+
+	@SerializedName("base_price")
+	val basePrice: Int? = null,
+
+	@SerializedName("description")
+	val description: String? = null,
+
+	@SerializedName("location")
+	val location: String? = null,
+
+	@SerializedName("id")
+	val id: Int? = null,
+
+	@SerializedName("status")
+	val status: String? = null,
+
+	@SerializedName("updatedAt")
+	val updatedAt: String? = null
 ) : Parcelable

@@ -139,7 +139,7 @@ class ProductActivity : AppCompatActivity() {
 
         viewModel.newOrder.observe(this) {
             when (it) {
-                is Resource.Success -> this.onSnackSuccess(binding.root, "Hore, arga tawaranmu berhasil dikirim ke penjual")
+                is Resource.Success -> this.onSnackSuccess(binding.root, "Hore, harga tawaranmu berhasil dikirim ke penjual")
                 is Resource.Loading -> this.onToast("Mohon menunggu...")
                 is Resource.Error -> this.onSnackError(binding.root, it.error?.message.toString())
             }

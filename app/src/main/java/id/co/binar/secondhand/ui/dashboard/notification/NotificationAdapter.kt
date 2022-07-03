@@ -1,8 +1,8 @@
 package id.co.binar.secondhand.ui.dashboard.notification
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -15,7 +15,10 @@ import id.co.binar.secondhand.databinding.ListItemNotificationBinding
 import id.co.binar.secondhand.model.notification.GetNotifResponse
 import id.co.binar.secondhand.util.convertRupiah
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import java.util.*
 
 class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -41,14 +44,17 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 transformations(RoundedCornersTransformation(6F))
                 size(ViewSizeResolver(binding.imageView))
             }
-            val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
-            val outputFormatter = DateTimeFormatter.ofPattern("HH:mm, dd MMM yyy", Locale.ENGLISH)
-            val date = LocalDateTime.parse(item.transactionDate, inputFormatter)
-            val formattedDate = outputFormatter.format(date)
+            val formattedDate = item.transactionDate?.let {
+                val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
+                val outputFormatter = DateTimeFormatter.ofPattern("HH:mm, dd MMM yyy", Locale.ENGLISH)
+                val date = LocalDateTime.parse(item.transactionDate, inputFormatter)
+                outputFormatter.format(date)
+            }
             binding.tvNotifTime.text = formattedDate
             binding.bulletNotif.isVisible = item.read == false
-            binding.tvNamaProduct.text = item.buyerName
-            binding.tvNotifHarga.text = "Menawarkan harga ${item.bidPrice?.convertRupiah()}"
+            binding.tvNamaProduct.text = item.productName
+            binding.tvNotifHarga.text = item.basePrice?.convertRupiah()
+            binding.tvNotifTawar.text = "Ditawar ${item.bidPrice?.convertRupiah()}"
         }
     }
 

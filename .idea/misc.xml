@@ -8,6 +8,7 @@
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/drawable/ic_banner_home.xml" value="0.1855" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/drawable/ic_bg_empty.xml" value="0.1855" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/drawable/ic_bg_home.xml" value="0.1855" />
+        <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/drawable/ic_gift.xml" value="0.225" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/drawable/ic_photo_product.xml" value="0.1855" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/drawable/ic_profile_image.xml" value="0.1855" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/drawable/ic_rectangle_photo.xml" value="0.1855" />
@@ -42,6 +43,7 @@
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/fragment_seller_18.xml" value="0.2875" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_banner_home.xml" value="0.1" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_category_home.xml" value="0.2864583333333333" />
+        <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_category_info_bid.xml" value="0.2358974358974359" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_category_list_sell.xml" value="0.2875" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_category_product_add.xml" value="0.2864583333333333" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_notification.xml" value="0.33" />

@@ -79,7 +79,7 @@ class ListSellFragment : Fragment() {
 
         adapterCategory.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { i, GetCategoryResponse -> }
+            onClickAdapter { _, _ -> }
         }
 
         binding.rvList.apply {
