@@ -26,16 +26,16 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.7.2'
-      - uses: maierj/fastlane-action@v2.2.0
+      - uses: maierj/fastlane-action@v2.2.1
         with:
           lane: 'go'
       - name: Setup build apks
         uses: actions/upload-artifact@v3
         with:
-          name: build-apks
+          name: Build apks
           path: app/build/outputs/apk
       - name: Setup build reports
         uses: actions/upload-artifact@v3
         with:
-          name: build-report
+          name: Build reports
           path: app/build/reports
