@@ -3,6 +3,7 @@ package binar.and3.kelompok1.secondhand.di
 import binar.and3.kelompok1.secondhand.Constant
 import binar.and3.kelompok1.secondhand.data.api.auth.AuthAPI
 import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerAPI
+import binar.and3.kelompok1.secondhand.data.api.seller.SellerAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -64,9 +65,17 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideProductAPI(
+    fun provideBuyerProductAPI(
         @Named(Constant.Named.RETROFIT_SECONDHAND) retrofit: Retrofit
     ): BuyerAPI {
         return  retrofit.create(BuyerAPI::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSellerProductAPI(
+        @Named(Constant.Named.RETROFIT_SECONDHAND) retrofit: Retrofit
+    ): SellerAPI {
+        return  retrofit.create(SellerAPI::class.java)
     }
 }

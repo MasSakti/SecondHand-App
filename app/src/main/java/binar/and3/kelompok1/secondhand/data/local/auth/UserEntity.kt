@@ -11,7 +11,7 @@ data class UserEntity(
     @ColumnInfo(name = "full_name") var fullName: String? = null,
     @ColumnInfo(name = "email") var email: String? = null,
     @ColumnInfo(name = "password") var password: String? = null,
-    @ColumnInfo(name = "phone_number") var phoneNumber: String? = null,
+    @ColumnInfo(name = "phone_number") var phoneNumber: Int? = null,
     @ColumnInfo(name = "city") var city: String? = null,
     @ColumnInfo(name = "address") var address: String? = null,
     @ColumnInfo(name = "imageUrl") var imageUrl: String? = null

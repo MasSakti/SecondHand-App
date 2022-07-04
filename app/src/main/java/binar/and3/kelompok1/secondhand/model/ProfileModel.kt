@@ -5,7 +5,7 @@ data class ProfileModel(
     val full_name: String,
     val email: String,
     val password: String,
-    val phoneNumber: String,
+    val phoneNumber: Int,
     val city: String,
     val address: String,
     val imageUrl: String

@@ -9,7 +9,7 @@ import binar.and3.kelompok1.secondhand.data.local.auth.UserEntity
 import binar.and3.kelompok1.secondhand.data.local.buyer.BuyerDAO
 import binar.and3.kelompok1.secondhand.data.local.buyer.BuyerEntity
 
-@Database(entities = [UserEntity::class, BuyerEntity::class], version = 2)
+@Database(entities = [UserEntity::class, BuyerEntity::class], version = 4)
 abstract class LocalDatabase: RoomDatabase() {
     abstract fun userDAO(): UserDAO
     abstract fun buyerDAO(): BuyerDAO

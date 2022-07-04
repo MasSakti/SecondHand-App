@@ -46,7 +46,7 @@ class AuthRepository @Inject constructor(
         fullName: String,
         email: String,
         password: String,
-        phoneNumber: String,
+        phoneNumber: Long,
         address: String,
         imageUrl: String
     ) {

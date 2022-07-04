@@ -35,6 +35,7 @@ class AkunFragment : Fragment() {
 
         viewModel.getProfile()
         bindViewModel()
+        bindView()
 
         return binding.root
     }
@@ -53,9 +54,13 @@ class AkunFragment : Fragment() {
                     val requestBody: RequestBody = tempFile.asRequestBody(type?.toMediaType())
                     val body = MultipartBody.Part.createFormData("image", tempFile.name, requestBody)
 
-                    // viewModel
+                    viewModel.uploadImage(body)
                 }
             }
+
+        binding.ivImageAccount.setOnClickListener {
+            getContent.launch("image/*")
+        }
 
     }
 

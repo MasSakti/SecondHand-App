@@ -25,7 +25,7 @@ class SignUpViewModel @Inject constructor(
     private var fullName: String = ""
     private var email: String = ""
     private var password: String = ""
-    private var phoneNumber: Int = hashCode()
+    private var phoneNumber: Long = 0
     private var address: String = "Not yet added"
     private var city: String = "Not yet added"
     private var imageUrl: String? = null
@@ -118,7 +118,7 @@ class SignUpViewModel @Inject constructor(
                             fullName = it.fullName.orEmpty(),
                             email = it.email.orEmpty(),
                             password = it.password.orEmpty(),
-                            phoneNumber = it.phoneNumber.orEmpty(),
+                            phoneNumber = it.phoneNumber.hashCode(),
                             address = it.address.orEmpty(),
                             imageUrl = it.imageUrl.orEmpty()
                         )

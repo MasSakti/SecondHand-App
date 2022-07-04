@@ -93,7 +93,7 @@ class SignInViewModel @Inject constructor(
                             fullName = it.fullName.orEmpty(),
                             email = it.email.orEmpty(),
                             password = it.password.orEmpty(),
-                            phoneNumber = it.phoneNumber.orEmpty(),
+                            phoneNumber = it.phoneNumber.hashCode(),
                             address = it.address.orEmpty(),
                             imageUrl = it.imageUrl.orEmpty()
                         )

@@ -28,7 +28,7 @@ class HomeViewModel @Inject constructor(
 
     private fun getBuyerProduct() {
         CoroutineScope(Dispatchers.IO).launch {
-            val result = buyerProductRepository.getProduct()
+            val result = buyerProductRepository.getBuyerProduct()
             withContext(Dispatchers.Main) {
                 if (result.isSuccessful) {
                     val buyerProductResponse = result.body()

@@ -33,6 +33,7 @@ class LocalStorageModule {
         return db.buyerDAO()
     }
 
+
     @Singleton
     @Provides
     fun provideAuthDataStoreManager(@ApplicationContext context: Context)

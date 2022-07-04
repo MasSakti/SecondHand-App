@@ -21,7 +21,7 @@ class ProfileRepository @Inject constructor(
                 full_name = it?.fullName.toString(),
                 email = it?.email.toString(),
                 password = it?.password.toString(),
-                phoneNumber = it?.phoneNumber.toString(),
+                phoneNumber = it?.phoneNumber.hashCode(),
                 city = it?.city.toString(),
                 address = it?.address.toString(),
                 imageUrl = it?.imageUrl.toString()
@@ -50,7 +50,7 @@ class ProfileRepository @Inject constructor(
         }
     }
 
-    suspend fun updateImageProfile(image: String) {
+    suspend fun updateImageProfile(image: String): Long {
         val profile = dao.getUser()
         val updateProfile = UserEntity(
             id = profile?.id.hashCode(),
@@ -59,9 +59,10 @@ class ProfileRepository @Inject constructor(
             imageUrl = image,
             address = profile?.address.orEmpty(),
             city = profile?.city.orEmpty(),
-            phoneNumber = profile?.phoneNumber.orEmpty(),
+            phoneNumber = profile?.phoneNumber.hashCode(),
             password = profile?.password.orEmpty()
         )
+        return dao.insertUser(updateProfile)
     }
 
     suspend fun removeUser(): Int {
@@ -71,7 +72,7 @@ class ProfileRepository @Inject constructor(
             fullName = profile?.fullName.toString(),
             email = profile?.email.toString(),
             password = profile?.password.toString(),
-            phoneNumber = profile?.phoneNumber.toString(),
+            phoneNumber = profile?.phoneNumber.hashCode(),
             city = profile?.city.toString(),
             address = profile?.address.toString(),
             imageUrl = profile?.imageUrl.toString()
