@@ -11,9 +11,8 @@ import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ListItemCategoryHomeBinding
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 
-class ListSellCategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ListSellCategoryAdapter : ListAdapter<GetCategoryResponse, RecyclerView.ViewHolder>(diffUtilCallback) {
 
-    private val asyncDiffer = AsyncListDiffer(this, diffUtilCallback)
     private var setPosition: Int? = 0
     private var _onClickAdapter: ((Int, GetCategoryResponse) -> Unit)? = null
 
@@ -22,7 +21,7 @@ class ListSellCategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         init {
             itemView.setOnClickListener {
                 setPosition = bindingAdapterPosition
-                _onClickAdapter?.invoke(bindingAdapterPosition, asyncDiffer.currentList[bindingAdapterPosition])
+                _onClickAdapter?.invoke(bindingAdapterPosition, getItem(bindingAdapterPosition))
                 notifyDataSetChanged()
             }
         }
@@ -34,16 +33,10 @@ class ListSellCategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
-        asyncDiffer.submitList(listOf(
-            GetCategoryResponse(
-                name = "Produk", id = null, check = true
-            ),
-            GetCategoryResponse(
-                name = "Diminati", id = 1
-            ),
-            GetCategoryResponse(
-                name = "Terjual", id = 2
-            )
+        submitList(listOf(
+            GetCategoryResponse(name = "Produk", id = 0, check = true),
+            GetCategoryResponse(name = "Diminati", id = 1),
+            GetCategoryResponse(name = "Terjual", id = 2)
         ))
     }
 
@@ -59,22 +52,18 @@ class ListSellCategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         holder as ViewHolder
-        holder.bind(asyncDiffer.currentList[position])
+        holder.bind(getItem(position))
         if (setPosition == position) {
-            asyncDiffer.currentList[position].check = true
+            getItem(position).check = true
             holder.binding.root.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.purple_500))
             holder.binding.imgView.setImageResource(R.drawable.ic_round_search_white)
             holder.binding.txtCategory.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.white))
         } else {
-            asyncDiffer.currentList[position].check = false
+            getItem(position).check = false
             holder.binding.root.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.purple_100))
             holder.binding.imgView.setImageResource(R.drawable.ic_round_search_24)
             holder.binding.txtCategory.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.black))
         }
-    }
-
-    override fun getItemCount(): Int {
-        return asyncDiffer.currentList.size
     }
 
     fun onClickAdapter(listener: (Int, GetCategoryResponse) -> Unit) {

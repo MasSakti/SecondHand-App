@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import coil.load
 import coil.size.ViewSizeResolver
 import coil.transform.RoundedCornersTransformation
@@ -20,15 +21,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.data.local.model.SellerProductLocal
 import id.co.binar.secondhand.databinding.FragmentListSellBinding
+import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import id.co.binar.secondhand.model.seller.product.GetProductResponse
 import id.co.binar.secondhand.ui.product_add.ARGS_PRODUCT_EDIT
 import id.co.binar.secondhand.ui.product_add.ProductAddActivity
 import id.co.binar.secondhand.ui.profile.PASSING_FROM_ACCOUNT_TO_PROFILE
 import id.co.binar.secondhand.ui.profile.ProfileActivity
-import id.co.binar.secondhand.util.ItemDecoration
-import id.co.binar.secondhand.util.Resource
-import id.co.binar.secondhand.util.castFromLocalToRemote
-import id.co.binar.secondhand.util.onSnackError
+import id.co.binar.secondhand.util.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -40,7 +39,6 @@ class ListSellFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by viewModels<ListSellViewModel>()
     private val adapterCategory = ListSellCategoryAdapter()
-    private val adapterProduct = ListSellProductAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,85 +55,31 @@ class ListSellFragment : Fragment() {
     }
 
     private fun bindView() {
-        binding.swipeRefresh.setOnRefreshListener {
-            MainScope().launch {
-                viewModel.getProduct()
-            }
-        }
-
         binding.button3.setOnClickListener {
             val intent = Intent(requireContext(), ProfileActivity::class.java)
             intent.putExtra(PASSING_FROM_ACCOUNT_TO_PROFILE, true)
             startActivity(intent)
         }
 
+        val adapter = ListSellViewPagerAdapter(childFragmentManager, lifecycle)
+        binding.vpContent.adapter = adapter
+        binding.vpContent.isUserInputEnabled = false
+
         binding.rvCategory.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             itemAnimator = DefaultItemAnimator()
             isNestedScrollingEnabled = true
-            adapter = adapterCategory
+            this.adapter = adapterCategory
         }
 
         adapterCategory.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { _, _ -> }
-        }
-
-        binding.rvList.apply {
-            setHasFixedSize(true)
-            layoutManager = GridLayoutManager(requireContext(), 2)
-            itemAnimator = DefaultItemAnimator()
-            addItemDecoration(ItemDecoration(requireContext(), 2, 16))
-            isNestedScrollingEnabled = false
-        }
-
-        adapterProduct.apply {
-            stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { i, GetCategoryResponse ->
-                when(i) {
-                    0 -> {
-                        val intent = Intent(requireContext(), ProductAddActivity::class.java)
-                        requireActivity().startActivity(intent)
-                    }
-                    else -> dialogChooseProduct(GetCategoryResponse)
-                }
-            }
+            onClickAdapter { position, _ -> binding.vpContent.currentItem = position }
         }
     }
 
     private fun bindObserver() {
-        viewModel.getProduct()
-
-        viewModel.deleteProduct.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Success -> binding.swipeRefresh.isRefreshing = false
-                is Resource.Loading -> binding.swipeRefresh.isRefreshing = true
-                is Resource.Error -> {
-                    binding.swipeRefresh.isRefreshing = false
-                    requireContext().onSnackError(binding.root, it.error?.message.toString())
-                }
-            }
-        }
-
-        viewModel.getProduct.observe(viewLifecycleOwner) {
-            val list = mutableListOf<GetProductResponse>()
-            list.apply {
-                add(GetProductResponse())
-                addAll(it.data.castFromLocalToRemote())
-            }
-            adapterProduct.asyncDiffer.submitList(list)
-            binding.rvList.adapter = adapterProduct
-            when (it) {
-                is Resource.Success -> binding.swipeRefresh.isRefreshing = false
-                is Resource.Loading -> binding.swipeRefresh.isRefreshing = true
-                is Resource.Error -> {
-                    binding.swipeRefresh.isRefreshing = false
-                    requireContext().onSnackError(binding.root, it.error?.message.toString())
-                }
-            }
-        }
-
         viewModel.getAccount.observe(viewLifecycleOwner) {
             binding.textView3.text = it.data?.fullName
             binding.textView4.text = it.data?.city
@@ -152,43 +96,6 @@ class ListSellFragment : Fragment() {
                     requireContext().onSnackError(binding.root, it.error?.message.toString())
                 }
             }
-        }
-    }
-
-    private fun dialogChooseProduct(item: GetProductResponse) {
-        val action = arrayOf("Edit Produk","Hapus Produk")
-        val builder = MaterialAlertDialogBuilder(requireContext())
-        builder.apply {
-            setTitle("Pilih aksi untuk - ${item.name}")
-            setItems(action) { _, which ->
-                when (which) {
-                    0 -> {
-                        val intent = Intent(requireContext(), ProductAddActivity::class.java)
-                        intent.putExtra(ARGS_PRODUCT_EDIT, item.id)
-                        requireActivity().startActivity(intent)
-                    }
-                    1 -> dialogRemoveProduct(item)
-                }
-            }
-            show()
-        }
-    }
-
-    private fun dialogRemoveProduct(item: GetProductResponse) {
-        val builder = MaterialAlertDialogBuilder(requireContext())
-        builder.apply {
-            setTitle("Hapus - ${item.name}")
-            setMessage("Apakah anda yakin ingin menghapus product tersebut?")
-            setPositiveButton("Iya", null)
-            setNegativeButton("Tidak") { dialog, _ ->
-                dialog.dismiss()
-            }
-        }
-        val dialog = builder.show()
-        val btnPositif = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-        btnPositif.setOnClickListener {
-            item.id?.let { viewModel.deleteProduct(it) }
-            dialog.dismiss()
         }
     }
 

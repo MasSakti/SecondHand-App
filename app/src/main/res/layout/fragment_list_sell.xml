@@ -95,12 +95,12 @@
         tools:itemCount="1"
         tools:listitem="@layout/list_item_category_list_sell" />
 
-    <!--<androidx.viewpager2.widget.ViewPager2
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />-->
+        android:layout_height="match_parent" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    <!--<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -113,6 +113,6 @@
             tools:itemCount="1"
             tools:listitem="@layout/list_item_product_home" />
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 
 </LinearLayout>
