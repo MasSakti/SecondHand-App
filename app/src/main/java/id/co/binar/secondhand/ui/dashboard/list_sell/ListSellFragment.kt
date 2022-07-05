@@ -5,32 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import coil.load
 import coil.size.ViewSizeResolver
 import coil.transform.RoundedCornersTransformation
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
-import id.co.binar.secondhand.data.local.model.SellerProductLocal
 import id.co.binar.secondhand.databinding.FragmentListSellBinding
-import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
-import id.co.binar.secondhand.model.seller.product.GetProductResponse
-import id.co.binar.secondhand.ui.product_add.ARGS_PRODUCT_EDIT
-import id.co.binar.secondhand.ui.product_add.ProductAddActivity
 import id.co.binar.secondhand.ui.profile.PASSING_FROM_ACCOUNT_TO_PROFILE
 import id.co.binar.secondhand.ui.profile.ProfileActivity
-import id.co.binar.secondhand.util.*
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import id.co.binar.secondhand.util.Resource
+import id.co.binar.secondhand.util.onSnackError
 
 @AndroidEntryPoint
 class ListSellFragment : Fragment() {
@@ -75,11 +64,19 @@ class ListSellFragment : Fragment() {
 
         adapterCategory.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { position, _ -> binding.vpContent.currentItem = position }
+            onClickAdapter { position, _ ->
+                binding.vpContent.currentItem = position
+                viewModel.state(position)
+            }
         }
     }
 
     private fun bindObserver() {
+        viewModel.state.observe(viewLifecycleOwner) {
+            adapterCategory.setPosition = it
+            adapterCategory.notifyDataSetChanged()
+        }
+
         viewModel.getAccount.observe(viewLifecycleOwner) {
             binding.textView3.text = it.data?.fullName
             binding.textView4.text = it.data?.city

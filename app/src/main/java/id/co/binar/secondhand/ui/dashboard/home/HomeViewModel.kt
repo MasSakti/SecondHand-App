@@ -25,6 +25,12 @@ class HomeViewModel @Inject constructor(
         _getProduct.postValue(category)
     }
 
+    private val _state = state.getLiveData<Int>("STATE_CLICK_RECYCLER_HOME")
+    val state: LiveData<Int> = _state
+    fun state(position: Int) {
+        _state.postValue(position)
+    }
+
     private val _getSearch = state.getLiveData<String?>("QUERY_SEARCH")
     fun getSearch(search: String? = null) {
         _getSearch.postValue(search)

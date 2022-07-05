@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
@@ -33,7 +34,7 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
     private var _binding: BottomSheetSearchHomeBinding? = null
     private val binding get() = _binding!!
     private val adapterProduct = HomeProductAdapter()
-    private val viewModel by viewModels<HomeViewModel>()
+    private val viewModel by activityViewModels<HomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

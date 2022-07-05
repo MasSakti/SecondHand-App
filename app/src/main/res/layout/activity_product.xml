@@ -258,7 +258,7 @@
 
     <LinearLayout
         android:id="@+id/layout_error"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
@@ -271,6 +271,7 @@
             android:id="@+id/imageView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:src="@drawable/ic_bg_error" />
 
         <TextView

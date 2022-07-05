@@ -1,5 +1,6 @@
 package id.co.binar.secondhand.ui.dashboard.notification
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.FragmentNotificationBinding
 import id.co.binar.secondhand.model.notification.GetNotifResponse
+import id.co.binar.secondhand.ui.info_bid.InfoBidActivity
+import id.co.binar.secondhand.ui.product.ARGS_PASSING_SEE_DETAIL
+import id.co.binar.secondhand.ui.product.ProductActivity
 import id.co.binar.secondhand.util.ItemDecoration
 import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.onSnackError
@@ -50,7 +54,7 @@ class NotificationFragment : Fragment() {
                     it.data?.let {
                         list.add(it)
                         list.addAll(adapterNotif.asyncDiffer.currentList)
-                        adapterNotif.asyncDiffer.submitList(list.distinctBy { it.id }.sortedBy { it.id })
+                        adapterNotif.asyncDiffer.submitList(list.distinctBy { it.id }.sortedByDescending { it.id })
                     }
                 }
                 is Resource.Loading -> {}
@@ -108,8 +112,13 @@ class NotificationFragment : Fragment() {
 
         adapterNotif.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { _, getNotifResponse ->
-                getNotifResponse.id?.let { viewModel.updateNotif(it) }
+            onClickAdapter { _, item ->
+                item.id?.let { viewModel.updateNotif(it) }
+                if (item.status != "bid") {
+                    val intent = Intent(requireContext(), ProductActivity::class.java)
+                    intent.putExtra(ARGS_PASSING_SEE_DETAIL, item.productId)
+                    requireActivity().startActivity(intent)
+                }
             }
         }
 

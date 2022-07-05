@@ -65,9 +65,7 @@ class HomeFragment : Fragment() {
 
         adapterCategory.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { _, GetCategoryResponse ->
-                getSecond(GetCategoryResponse.id)
-            }
+            onClickAdapter { _, GetCategoryResponse -> getSecond(GetCategoryResponse.id) }
         }
 
         binding.rvProduct.apply {

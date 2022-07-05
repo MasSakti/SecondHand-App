@@ -1,5 +1,6 @@
 package id.co.binar.secondhand.ui.dashboard.notification
 
+import android.graphics.Paint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -50,11 +51,27 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 val date = LocalDateTime.parse(item.transactionDate, inputFormatter)
                 outputFormatter.format(date)
             }
+            val bidPrice = item.bidPrice?.let {
+                "Ditawar ${item.bidPrice.convertRupiah()}"
+            }
+            val status = if (item.status == "bid") {
+                if (item.status != "bid") {
+                    binding.tvNotifHarga.paintFlags = binding.tvNotifHarga.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    "Penawaran Product"
+                } else {
+                    "Penawaran Produk"
+                }
+            } else {
+                "Berhasil diterbitkan"
+            }
             binding.tvNotifTime.text = formattedDate
+            binding.tvNotifProduct.text = status
             binding.bulletNotif.isVisible = item.read == false
             binding.tvNamaProduct.text = item.productName
             binding.tvNotifHarga.text = item.basePrice?.convertRupiah()
-            binding.tvNotifTawar.text = "Ditawar ${item.bidPrice?.convertRupiah()}"
+            binding.tvNotifTawar.isVisible = item.bidPrice != null
+            binding.tvNotifTawar.text = bidPrice
+
         }
     }
 

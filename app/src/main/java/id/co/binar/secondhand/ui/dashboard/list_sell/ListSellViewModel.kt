@@ -16,7 +16,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ListSellViewModel @Inject constructor(
-    authRepository: AuthRepository
+    authRepository: AuthRepository,
+    state: SavedStateHandle
 ) : ViewModel() {
     val getAccount = authRepository.getAccount().asLiveData()
+
+    private val _state = state.getLiveData<Int>("STATE_CLICK_RECYCLER")
+    val state: LiveData<Int> = _state
+    fun state(position: Int) {
+        _state.postValue(position)
+    }
 }

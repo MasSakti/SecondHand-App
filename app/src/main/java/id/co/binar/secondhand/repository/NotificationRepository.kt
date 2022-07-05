@@ -19,7 +19,7 @@ class NotificationRepository @Inject constructor(
         try {
             val response = notificationApi.getNotif(store.getTokenId())
             if (response.isSuccessful) {
-                response.body()?.let { emit(Resource.Success(it)) }
+                response.body()?.let { emit(Resource.Success(it.sortedByDescending { it.id })) }
             } else {
                 response.errorBody()?.let {
                     val error = Gson().fromJson(it.string(), ErrorResponse::class.java)

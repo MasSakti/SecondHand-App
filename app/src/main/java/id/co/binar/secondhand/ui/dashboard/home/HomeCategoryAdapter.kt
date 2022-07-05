@@ -45,12 +45,10 @@ class HomeCategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         holder as ViewHolder
         holder.bind(asyncDiffer.currentList[position])
         if (setPosition == position) {
-            asyncDiffer.currentList[position].check = true
             holder.binding.root.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.purple_500))
             holder.binding.imgView.setImageResource(R.drawable.ic_round_search_white)
             holder.binding.txtCategory.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.white))
         } else {
-            asyncDiffer.currentList[position].check = false
             holder.binding.root.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.purple_100))
             holder.binding.imgView.setImageResource(R.drawable.ic_round_search_24)
             holder.binding.txtCategory.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.black))

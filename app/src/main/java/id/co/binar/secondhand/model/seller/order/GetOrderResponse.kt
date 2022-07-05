@@ -7,26 +7,38 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class GetOrderResponse(
 
-	@SerializedName("createdAt")
-	val createdAt: String? = null,
+	@SerializedName("transaction_date")
+	val transactionDate: String? = null,
 
 	@SerializedName("User")
 	val user: User? = null,
 
+	@SerializedName("Product")
+	val product: Product? = null,
+
+	@SerializedName("buyer_id")
+	val buyerId: Int? = null,
+
+	@SerializedName("product_name")
+	val productName: String? = null,
+
+	@SerializedName("createdAt")
+	val createdAt: String? = null,
+
 	@SerializedName("price")
-	val price: Int? = null,
+	val price: Long? = null,
 
 	@SerializedName("product_id")
 	val productId: Int? = null,
 
-	@SerializedName("Product")
-	val product: Product? = null,
+	@SerializedName("base_price")
+	val basePrice: Long? = null,
+
+	@SerializedName("image_product")
+	val imageProduct: String? = null,
 
 	@SerializedName("id")
 	val id: Int? = null,
-
-	@SerializedName("buyer_id")
-	val buyerId: Int? = null,
 
 	@SerializedName("status")
 	val status: String? = null,
@@ -48,7 +60,10 @@ data class User(
 	val city: String? = null,
 
 	@SerializedName("phone_number")
-	val phoneNumber: String? = null,
+	val phoneNumber: Long? = null,
+
+	@SerializedName("id")
+	val id: Int? = null,
 
 	@SerializedName("email")
 	val email: String? = null,
@@ -63,6 +78,9 @@ data class Product(
 	@SerializedName("image_name")
 	val imageName: String? = null,
 
+	@SerializedName("User")
+	val user: User? = null,
+
 	@SerializedName("user_id")
 	val userId: Int? = null,
 
@@ -73,7 +91,7 @@ data class Product(
 	val name: String? = null,
 
 	@SerializedName("base_price")
-	val basePrice: Int? = null,
+	val basePrice: Long? = null,
 
 	@SerializedName("description")
 	val description: String? = null,

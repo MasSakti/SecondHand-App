@@ -99,11 +99,11 @@
             android:text="Tolak"
             android:textAllCaps="false"
             android:textSize="16sp"
-            app:cornerRadius="16dp"
-            app:layout_constraintEnd_toStartOf="@id/btn_terima"
+            app:cornerRadius="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_terima"
             app:layout_constraintStart_toStartOf="@id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/tv_info_tawar"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_info_tawar" />
 
         <Button
             android:id="@+id/btn_terima"
@@ -116,7 +116,7 @@
             android:text="Terima"
             android:textAllCaps="false"
             android:textSize="16sp"
-            app:cornerRadius="16dp"
+            app:cornerRadius="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_tolak"

@@ -47,6 +47,9 @@ class ProductActivity : AppCompatActivity() {
         if (intent.hasExtra(ARGS_PASSING_SEE_DETAIL)) {
             viewModel.getProductById(intent.getIntExtra(ARGS_PASSING_SEE_DETAIL, 0))
             binding.apply {
+                btnReload.setOnClickListener {
+                    viewModel.getProductById(intent.getIntExtra(ARGS_PASSING_SEE_DETAIL, 0))
+                }
                 btnTerbitkan.text = "Di Nego Say"
                 btnTerbitkan.setOnClickListener {
                     viewModel.passToBiding(item)

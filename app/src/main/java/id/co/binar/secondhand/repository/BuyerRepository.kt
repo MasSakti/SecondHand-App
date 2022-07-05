@@ -71,7 +71,7 @@ class BuyerRepository @Inject constructor(
         try {
             val response = buyerApi.getProductById(id = product_id)
             if (response.isSuccessful) {
-                response.body()?.let { emit(Resource.Success(it)) }
+                response.body()?.let { emit(Resource.Success(it)) } ?: throw Exception("Product tidak ditemukan!")
             } else {
                 response.errorBody()?.let {
                     val error = Gson().fromJson(it.string(), ErrorResponse::class.java)

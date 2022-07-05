@@ -3,6 +3,7 @@ package id.co.binar.secondhand.data.remote
 import id.co.binar.secondhand.model.ErrorResponse
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import id.co.binar.secondhand.model.seller.order.GetOrderResponse
+import id.co.binar.secondhand.model.seller.order.UpdateOrderRequest
 import id.co.binar.secondhand.model.seller.product.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -18,6 +19,19 @@ interface SellerApi {
     suspend fun getOrder(
         @Header("access_token") token: String
     ) : Response<List<GetOrderResponse>>
+
+    @GET("seller/order/{id}")
+    suspend fun getOrderById(
+        @Header("access_token") token: String,
+        @Path("id") id: Int
+    ) : Response<GetOrderResponse>
+
+    @PATCH("seller/order/{id}")
+    suspend fun updateOrder(
+        @Header("access_token") token: String,
+        @Path("id") id: Int,
+        @Body field: UpdateOrderRequest
+    ) : Response<GetOrderResponse>
 
     @Multipart
     @POST("seller/product")

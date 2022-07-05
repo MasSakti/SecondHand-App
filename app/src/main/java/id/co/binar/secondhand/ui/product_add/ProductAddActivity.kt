@@ -5,10 +5,7 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.lifecycleScope
-import coil.ImageLoader
-import coil.request.ImageRequest
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
@@ -30,7 +27,6 @@ import io.github.anderscheow.validator.Validator
 import io.github.anderscheow.validator.constant.Mode
 import io.github.anderscheow.validator.validator
 import kotlinx.coroutines.launch
-import java.util.*
 
 const val ARGS_PRODUCT_EDIT = "EDIT_PRODUCT"
 

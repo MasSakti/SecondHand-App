@@ -27,17 +27,17 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_name_pembeli"
+        android:id="@+id/card_profile"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="21dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appbar">
+        app:layout_constraintTop_toBottomOf="@+id/appbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -50,13 +50,13 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:src="@color/purple_100"
+                android:src="@drawable/ic_profile_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_nama_pembeli"
+                android:id="@+id/textView3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -64,14 +64,14 @@
                 android:layout_marginEnd="16dp"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="Nama Pembeli"
-                app:layout_constraintBottom_toTopOf="@+id/tv_kota_pembeli"
+                android:text="Nama"
+                app:layout_constraintBottom_toTopOf="@+id/textView4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_kota_pembeli"
+                android:id="@+id/textView4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -86,7 +86,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/tv_nama_pembeli" />
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -99,17 +99,18 @@
         android:layout_marginTop="24dp"
         android:text="Daftar Produkmu yang Ditawar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/card_name_pembeli"
-        app:layout_constraintTop_toBottomOf="@id/card_name_pembeli" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_profile" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMovie"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_daftar_product"
         tools:itemCount="1"
-        tools:listitem="@layout/list_item_category_info_bid"/>
+        tools:listitem="@layout/list_item_info_bid" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

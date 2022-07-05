@@ -13,16 +13,14 @@ import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 
 class ListSellCategoryAdapter : ListAdapter<GetCategoryResponse, RecyclerView.ViewHolder>(diffUtilCallback) {
 
-    private var setPosition: Int? = 0
+    var setPosition: Int? = 0
     private var _onClickAdapter: ((Int, GetCategoryResponse) -> Unit)? = null
 
     inner class ViewHolder(val binding: ListItemCategoryHomeBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             itemView.setOnClickListener {
-                setPosition = bindingAdapterPosition
                 _onClickAdapter?.invoke(bindingAdapterPosition, getItem(bindingAdapterPosition))
-                notifyDataSetChanged()
             }
         }
 
@@ -34,7 +32,7 @@ class ListSellCategoryAdapter : ListAdapter<GetCategoryResponse, RecyclerView.Vi
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         submitList(listOf(
-            GetCategoryResponse(name = "Produk", id = 0, check = true),
+            GetCategoryResponse(name = "Produk", id = 0),
             GetCategoryResponse(name = "Diminati", id = 1),
             GetCategoryResponse(name = "Terjual", id = 2)
         ))
@@ -54,12 +52,10 @@ class ListSellCategoryAdapter : ListAdapter<GetCategoryResponse, RecyclerView.Vi
         holder as ViewHolder
         holder.bind(getItem(position))
         if (setPosition == position) {
-            getItem(position).check = true
             holder.binding.root.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.purple_500))
             holder.binding.imgView.setImageResource(R.drawable.ic_round_search_white)
             holder.binding.txtCategory.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.white))
         } else {
-            getItem(position).check = false
             holder.binding.root.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.purple_100))
             holder.binding.imgView.setImageResource(R.drawable.ic_round_search_24)
             holder.binding.txtCategory.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.black))

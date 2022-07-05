@@ -6,20 +6,38 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
+import id.co.binar.secondhand.databinding.FragmentListSellByTerjualBinding
 
+@AndroidEntryPoint
 class ListSellByTerjualFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ListSellByTerjualFragment()
-    }
-
-    private lateinit var viewModel: ListSellByTerjualViewModel
+    private var _binding : FragmentListSellByTerjualBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel by viewModels<ListSellByTerjualViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_list_sell_by_terjual, container, false)
+    ): View {
+        _binding = FragmentListSellByTerjualBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        bindObserver()
+        bindView()
+    }
+
+    private fun bindView() { }
+
+    private fun bindObserver() { }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

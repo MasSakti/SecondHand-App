@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="1"
             android:text="Aksesoris"
             android:textColor="#8A8A8A"
             android:textSize="12sp" />
