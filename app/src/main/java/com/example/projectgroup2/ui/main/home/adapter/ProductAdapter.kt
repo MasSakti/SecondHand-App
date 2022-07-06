@@ -1,17 +1,14 @@
 package com.example.projectgroup2.ui.main.home.adapter
 
 import android.annotation.SuppressLint
-import android.icu.number.Precision.currency
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.projectgroup2.utils.currency
 import com.example.projectgroup2.data.api.main.buyer.product.GetProductResponse
-import com.example.projectgroup2.data.api.main.buyer.product.ProductResponseItem
 import com.example.projectgroup2.databinding.ListProductHomeBinding
 
 class ProductAdapter(private val onClick: OnClickListener): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
@@ -34,6 +31,7 @@ class ProductAdapter(private val onClick: OnClickListener): RecyclerView.Adapter
 
     inner class ViewHolder(private val binding: ListProductHomeBinding): RecyclerView.ViewHolder(binding.root){
         @SuppressLint("SetTextI18n")
+        var listCategory = ""
         fun bind (data: GetProductResponse){
             Glide.with(binding.root)
                 .load(data.imageUrl)
@@ -41,20 +39,12 @@ class ProductAdapter(private val onClick: OnClickListener): RecyclerView.Adapter
             binding.tvProductName.text = data.name
 //            binding.tvProductCategory.text = data.categories.map { it.name }.toString()
             if (data.categories.isNotEmpty()) {
-                when {
-                    data.categories.size > 2 -> {
-                        binding.tvProductCategory.text =
-                            "${data.categories[0].name}, ${data.categories[1].name}, ${data.categories[2].name} "
-                    }
-                    data.categories.size > 1 -> {
-                        binding.tvProductCategory.text = "${data.categories[0].name}, ${data.categories[1].name}"
-                    }
-                    else -> {
-                        binding.tvProductCategory.text = "${data.categories[0].name}"
-                    }
+                for (data in data.categories){
+                    listCategory += ", ${data.name}"
                 }
+                binding.tvProductCategory.text = listCategory.drop(2)
             }
-            binding.tvProductPrice.text = com.example.projectgroup2.utils.currency(data.basePrice)
+            binding.tvProductPrice.text = currency(data.basePrice)
             binding.root.setOnClickListener {
                 onClick.onClickItem(data)
             }

@@ -15,35 +15,40 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel@Inject constructor(private val repo: ProductRepository): ViewModel() {
+class HomeViewModel @Inject constructor(private val repo: ProductRepository): ViewModel() {
     val showProductBuyer: MutableLiveData<List<GetProductResponse>> = MutableLiveData()
     val showCategory: MutableLiveData<List<CategoryResponse>> = MutableLiveData()
     val showLoading: MutableLiveData<Boolean> = MutableLiveData()
     val showEmpty: MutableLiveData<Boolean> = MutableLiveData()
-    val showShimmer: MutableLiveData<Boolean> = MutableLiveData()
+    val showShimmerProduct: MutableLiveData<Boolean> = MutableLiveData()
+    val showShimmerCategory: MutableLiveData<Boolean> = MutableLiveData()
+    val showRv: MutableLiveData<Boolean> = MutableLiveData()
     val showError: MutableLiveData<String> = MutableLiveData()
 
     @SuppressLint("NullSafeMutableLiveData")
     fun getProductBuyer(status: String, categoryId: String, search: String){
         CoroutineScope(Dispatchers.IO).launch {
             showEmpty.postValue(false)
-            showShimmer.postValue(true)
+            showShimmerProduct.postValue(true)
+            showRv.postValue(false)
             val result = repo.getProductBuyer(status, categoryId, search)
             withContext(Dispatchers.Main){
                 if (result.isSuccessful){
                     //show data
                     val data = result.body()
+                    showShimmerProduct.postValue(false)
                     if(data!!.isEmpty()){
                         showEmpty.postValue(true)
                     }
-                    showShimmer.postValue(true)
                     showProductBuyer.postValue(data)
+                    showRv.postValue(true)
                 }else{
                     //show error
                     val data = result.errorBody()
                     showError.postValue(data.toString())
-                    showShimmer.postValue(false)
+                    showShimmerProduct.postValue(false)
                     showEmpty.postValue(false)
+                    showRv.postValue(false)
                 }
             }
         }
@@ -52,16 +57,19 @@ class HomeViewModel@Inject constructor(private val repo: ProductRepository): Vie
     @SuppressLint("NullSafeMutableLiveData")
     fun getCategory(){
         CoroutineScope(Dispatchers.IO).launch {
+            showShimmerCategory.postValue(true)
             val result = repo.getCategory()
             withContext(Dispatchers.Main){
                 if (result.isSuccessful){
                     //show data
                     val data = result.body()
+                    showShimmerCategory.postValue(false)
                     showCategory.postValue(data)
                 }else{
                     //show error
                     val data = result.errorBody()
                     showError.postValue(data.toString())
+                    showShimmerCategory.postValue(false)
                 }
             }
         }

@@ -42,5 +42,33 @@
         android:id="@+id/homeFragment"
         android:name="com.example.projectgroup2.ui.main.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_jualFragment"
+            app:destination="@id/jualFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/akunFragment"
+        android:name="com.example.projectgroup2.ui.main.akun.AkunFragment"
+        android:label="fragment_akun"
+        tools:layout="@layout/fragment_akun" />
+    <fragment
+        android:id="@+id/jualFragment"
+        android:name="com.example.projectgroup2.ui.main.jual.JualFragment"
+        android:label="fragment_jual"
+        tools:layout="@layout/fragment_jual" >
+        <action
+            android:id="@+id/action_jualFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.projectgroup2.ui.login.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
+    <activity
+        android:id="@+id/registerActivity"
+        android:name="com.example.projectgroup2.ui.register.RegisterActivity"
+        android:label="activity_register"
+        tools:layout="@layout/activity_register" />
 </navigation>

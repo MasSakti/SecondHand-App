@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -34,7 +35,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindViewModel()
-        bindAdapter()
+        bindAdapterAndItem()
 
         val status = "available"
         val categoryId = ""
@@ -44,13 +45,40 @@ class HomeFragment : Fragment() {
     }
 
     private fun bindViewModel() {
-        viewModel.showEmpty.observe(viewLifecycleOwner){
+        viewModel.showShimmerProduct.observe(viewLifecycleOwner){
             if(it){
                 binding.shimerProduct.visibility = View.VISIBLE
             }else{
                 binding.shimerProduct.visibility = View.GONE
             }
         }
+
+        viewModel.showShimmerCategory.observe(viewLifecycleOwner){
+            if(it){
+                binding.shimerCategory.visibility = View.VISIBLE
+            }else{
+                binding.shimerCategory.visibility = View.GONE
+            }
+        }
+
+        viewModel.showEmpty.observe(viewLifecycleOwner){
+            if(it){
+                binding.lottieEmpty.visibility = View.VISIBLE
+                binding.tvEmpty.visibility = View.VISIBLE
+            }else{
+                binding.lottieEmpty.visibility = View.GONE
+                binding.tvEmpty.visibility = View.GONE
+            }
+        }
+
+        viewModel.showRv.observe(viewLifecycleOwner){
+            if(it){
+                binding.rvProductHome.visibility = View.VISIBLE
+            }else{
+                binding.rvProductHome.visibility = View.GONE
+            }
+        }
+
         viewModel.showProductBuyer.observe(viewLifecycleOwner){
             productAdapter.submitData(it)
         }
@@ -60,27 +88,11 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun bindAdapter(){
+    private fun bindAdapterAndItem(){
         productAdapter = ProductAdapter(object: ProductAdapter.OnClickListener{
             override fun onClickItem(data: GetProductResponse) {
                 Toast.makeText(requireContext(),"click", Toast.LENGTH_SHORT).show()
 
-//                if (data.categories.isNotEmpty()) {
-//                    when {
-//                        data.categories.size > 2 -> {
-//                            "${data.categories[0].name}, ${data.categories[1].name}, ${data.categories[2].name} "
-//                            productBundle.putString(KATEGORI, data.categories[0].name+data.categories[1].name+data.categories[2])
-//                        }
-//                        data.categories.size > 1 -> {
-//                            "${data.categories[0].name}, ${data.categories[1].name}"
-//                            productBundle.putString(KATEGORI, data.categories[0].name+data.categories[1].name)
-//                        }
-//                        else -> {
-//                            "${data.categories[0].name}"
-//                            productBundle.putString(KATEGORI, data.categories[0].name)
-//                        }
-//                    }
-//                }
             }
         })
         binding.rvProductHome.layoutManager =
@@ -97,6 +109,16 @@ class HomeFragment : Fragment() {
             }
         })
         binding.rvCategoryHome.adapter = categoryAdapter
+
+        binding.etSearchProduct.setOnEditorActionListener { textView, i, keyEvent ->
+            if(i == EditorInfo.IME_ACTION_SEARCH){
+                val onSearch = binding.etSearchProduct.text.toString()
+                viewModel.getProductBuyer(search = onSearch, status = "available", categoryId = "")
+                true
+            }else{
+                false
+            }
+        }
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.projectgroup2.ui.main.home.adapter
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -14,6 +15,7 @@ import com.example.projectgroup2.databinding.ListProductHomeBinding
 
 class CategoryAdapter(private val onClick: OnClickListener): RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
+    var rowIndex = -1
     private val diffCallBack = object: DiffUtil.ItemCallback<CategoryResponse>(){
         override fun areItemsTheSame(oldItem: CategoryResponse, newItem: CategoryResponse): Boolean {
             return oldItem.id == newItem.id
@@ -31,11 +33,20 @@ class CategoryAdapter(private val onClick: OnClickListener): RecyclerView.Adapte
     }
 
     inner class ViewHolder(private val binding: ListCategoryHomeBinding): RecyclerView.ViewHolder(binding.root){
-        @SuppressLint("SetTextI18n")
-        fun bind (data: CategoryResponse){
+        @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
+        fun bind (data: CategoryResponse, position: Int){
             binding.tvCategoryHome.text = data.name
             binding.root.setOnClickListener {
                 onClick.onClickItem(data)
+                rowIndex = position
+                notifyDataSetChanged()
+            }
+            if (rowIndex == position){
+                binding.cardCategory.setBackgroundColor(Color.parseColor("#999999"))
+                binding.tvCategoryHome.setTextColor(Color.parseColor("#FFFFFF"))
+            }else{
+                binding.cardCategory.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                binding.tvCategoryHome.setTextColor(Color.parseColor("#000000"))
             }
         }
     }
@@ -47,7 +58,7 @@ class CategoryAdapter(private val onClick: OnClickListener): RecyclerView.Adapte
     override fun onBindViewHolder(holder: CategoryAdapter.ViewHolder, position: Int) {
         val data = differ.currentList[position]
         data.let {
-            holder.bind(data)
+            holder.bind(data, position)
         }
     }
 
