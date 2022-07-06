@@ -4,6 +4,7 @@ import binar.and3.kelompok1.secondhand.data.api.auth.*
 import binar.and3.kelompok1.secondhand.data.local.auth.UserDAO
 import binar.and3.kelompok1.secondhand.data.local.auth.UserEntity
 import binar.and3.kelompok1.secondhand.datastore.AuthDataStoreManager
+import binar.and3.kelompok1.secondhand.data.api.getNotification.GetNotifResponseItem
 import kotlinx.coroutines.flow.firstOrNull
 import retrofit2.Response
 import javax.inject.Inject
@@ -39,6 +40,10 @@ class AuthRepository @Inject constructor(
 
     suspend fun insertUser(userEntity: UserEntity): Long {
         return dao.insertUser(userEntity)
+    }
+
+    suspend fun getNotification(access_token: String): Response<List<GetNotifResponseItem>> {
+        return api.getNotification(access_token)
     }
 
     suspend fun updateUser(
