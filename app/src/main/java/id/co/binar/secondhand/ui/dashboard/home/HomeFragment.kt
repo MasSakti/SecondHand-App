@@ -141,9 +141,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun get() {
-        MainScope().launch {
-            viewModel.getProduct()
-        }
+        viewModel.getProduct()
     }
 
     private fun getSecond(i: Int? = null) {
