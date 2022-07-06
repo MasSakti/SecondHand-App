@@ -14,13 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.FragmentNotificationBinding
 import id.co.binar.secondhand.model.notification.GetNotifResponse
-import id.co.binar.secondhand.ui.info_bid.InfoBidActivity
 import id.co.binar.secondhand.ui.product.ARGS_PASSING_SEE_DETAIL
 import id.co.binar.secondhand.ui.product.ProductActivity
 import id.co.binar.secondhand.util.ItemDecoration
 import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.onSnackError
-import id.co.binar.secondhand.util.onToast
 
 @AndroidEntryPoint
 class NotificationFragment : Fragment() {
@@ -76,7 +74,7 @@ class NotificationFragment : Fragment() {
                             layoutError.isVisible = false
                             layoutEmpty.isVisible = false
                             adapterNotif.asyncDiffer.submitList(it.data)
-                            binding.rvMovie.adapter = adapterNotif
+                            rvMovie.adapter = adapterNotif
                         }
                     }
                 }

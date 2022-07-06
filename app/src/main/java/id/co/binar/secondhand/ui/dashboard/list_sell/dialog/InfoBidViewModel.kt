@@ -1,8 +1,6 @@
-package id.co.binar.secondhand.ui.info_bid
+package id.co.binar.secondhand.ui.dashboard.list_sell.dialog
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.co.binar.secondhand.model.seller.order.GetOrderResponse
 import id.co.binar.secondhand.model.seller.order.UpdateOrderRequest
@@ -16,15 +14,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class InfoBidViewModel @Inject constructor(
-    private val sellerRepository: SellerRepository
+    private val sellerRepository: SellerRepository,
+    state: SavedStateHandle
 ) : ViewModel() {
     private val _response = MutableLiveData<Resource<GetOrderResponse>>()
     val response : LiveData<Resource<GetOrderResponse>> = _response
 
-    fun getOrderById(id: Int) = CoroutineScope(Dispatchers.IO).launch {
-        sellerRepository.getOrderById(id).collectLatest {
-            _response.postValue(it)
-        }
+    private val _args = state.getLiveData<Int>("ARGS_ID_ORDER")
+    fun args(value: Int) {
+        _args.postValue(value)
+    }
+
+    val getOrderById = _args.switchMap {
+        sellerRepository.getOrderById(it).asLiveData()
     }
 
     fun updateOrder(id: Int, field: UpdateOrderRequest) = CoroutineScope(Dispatchers.IO).launch {

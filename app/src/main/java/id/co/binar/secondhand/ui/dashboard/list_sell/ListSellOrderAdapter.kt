@@ -1,7 +1,6 @@
-package id.co.binar.secondhand.ui.dashboard.notification
+package id.co.binar.secondhand.ui.dashboard.list_sell
 
 import android.graphics.Paint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -14,31 +13,31 @@ import coil.transform.RoundedCornersTransformation
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ListItemNotificationBinding
 import id.co.binar.secondhand.model.notification.GetNotifResponse
+import id.co.binar.secondhand.model.seller.order.GetOrderResponse
+import id.co.binar.secondhand.model.seller.product.GetProductResponse
 import id.co.binar.secondhand.util.convertRupiah
 import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
 import java.util.*
 
-class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    val asyncDiffer = AsyncListDiffer(this, diffUtilCallback)
-    private var _onClickAdapter: ((Int, GetNotifResponse) -> Unit)? = null
+class ListSellOrderAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    fun onClickAdapter(listener: (Int, GetNotifResponse) -> Unit) {
+    val asyncDiffer = AsyncListDiffer(this, diffUtilCallback)
+    private var _onClickAdapter: ((Int, GetOrderResponse) -> Unit)? = null
+
+    fun onClickAdapter(listener: (Int, GetOrderResponse) -> Unit) {
         _onClickAdapter = listener
     }
 
-    inner class ViewHolder(val binding: ListItemNotificationBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ListItemNotificationBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             itemView.setOnClickListener {
                 _onClickAdapter?.invoke(bindingAdapterPosition, asyncDiffer.currentList[bindingAdapterPosition])
             }
         }
 
-        fun bind(item: GetNotifResponse) {
-            binding.imageView.load(item.imageUrl) {
+        fun bind(item: GetOrderResponse) {
+            binding.imageView.load(item.imageProduct) {
                 crossfade(true)
                 placeholder(R.color.purple_100)
                 error(R.color.purple_100)
@@ -51,8 +50,8 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 val date = LocalDateTime.parse(item.transactionDate, inputFormatter)
                 outputFormatter.format(date)
             }
-            val bidPrice = item.bidPrice?.let {
-                "Ditawar ${item.bidPrice.convertRupiah()}"
+            val bidPrice = item.price?.let {
+                "Ditawar ${item.price.convertRupiah()}"
             }
             val status = if (item.status == "bid") {
                 if (item.status != "bid") {
@@ -66,10 +65,9 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
             binding.tvNotifTime.text = formattedDate
             binding.tvNotifProduct.text = status
-            binding.bulletNotif.isVisible = item.read == false
             binding.tvNamaProduct.text = item.productName
             binding.tvNotifHarga.text = item.basePrice?.convertRupiah()
-            binding.tvNotifTawar.isVisible = item.bidPrice != null
+            binding.tvNotifTawar.isVisible = item.price != null
             binding.tvNotifTawar.text = bidPrice
         }
     }
@@ -94,12 +92,12 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 }
 
-private val diffUtilCallback = object : DiffUtil.ItemCallback<GetNotifResponse>() {
-    override fun areItemsTheSame(oldItem: GetNotifResponse, newItem: GetNotifResponse): Boolean {
+private val diffUtilCallback = object : DiffUtil.ItemCallback<GetOrderResponse>() {
+    override fun areItemsTheSame(oldItem: GetOrderResponse, newItem: GetOrderResponse): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: GetNotifResponse, newItem: GetNotifResponse): Boolean {
+    override fun areContentsTheSame(oldItem: GetOrderResponse, newItem: GetOrderResponse): Boolean {
         return oldItem == newItem
     }
 }
