@@ -2,6 +2,7 @@ package binar.and3.kelompok1.secondhand.data.api.auth
 
 import retrofit2.Response
 import retrofit2.http.*
+import binar.and3.kelompok1.secondhand.data.api.getNotification.GetNotifResponseItem
 
 interface AuthAPI {
     @POST("auth/login")
@@ -19,4 +20,9 @@ interface AuthAPI {
     suspend fun updateUser(
         @Header("access_token") token: String,
     ): Response<UpdateUserDataResponse>
+
+    @GET("notification")
+    suspend fun getNotification(
+        @Header("access_token") access_token: String
+    ): Response<List<GetNotifResponseItem>>
 }

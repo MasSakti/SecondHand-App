@@ -70,6 +70,17 @@
         app:layout_constraintTop_toTopOf="@id/tv_jenisnotif"
         tools:text="20 Apr, 14.04" />
 
+    <RelativeLayout
+        android:id="@+id/div_notif"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/bg_bulet"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/tv_tanggal"
+        app:layout_constraintStart_toEndOf="@id/tv_tanggal"
+        app:layout_constraintTop_toTopOf="@id/tv_tanggal" />
+
     <View
         android:id="@+id/iv_separator"
         android:layout_width="match_parent"
