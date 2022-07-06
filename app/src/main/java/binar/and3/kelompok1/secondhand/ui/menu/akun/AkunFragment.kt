@@ -1,5 +1,7 @@
 package binar.and3.kelompok1.secondhand.ui.menu.akun
 
+import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,6 +12,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import binar.and3.kelompok1.secondhand.databinding.FragmentAkunBinding
+import binar.and3.kelompok1.secondhand.ui.signin.LoginUI
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -26,6 +29,12 @@ class AkunFragment : Fragment() {
     private var _binding: FragmentAkunBinding? = null
     private val binding get() = _binding!!
     private val viewModel: AkunViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.window?.statusBarColor = Color.WHITE
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,7 +61,8 @@ class AkunFragment : Fragment() {
                     tempFile.outputStream().use { inputStream?.copyTo(it) }
 
                     val requestBody: RequestBody = tempFile.asRequestBody(type?.toMediaType())
-                    val body = MultipartBody.Part.createFormData("image", tempFile.name, requestBody)
+                    val body =
+                        MultipartBody.Part.createFormData("image", tempFile.name, requestBody)
 
                     viewModel.uploadImage(body)
                 }
@@ -60,6 +70,10 @@ class AkunFragment : Fragment() {
 
         binding.ivImageAccount.setOnClickListener {
             getContent.launch("image/*")
+        }
+
+        binding.llSignOut.setOnClickListener {
+            viewModel.signOut()
         }
 
     }
@@ -70,6 +84,13 @@ class AkunFragment : Fragment() {
                 .load(it.imageUrl)
                 .apply(RequestOptions.bitmapTransform(RoundedCorners(12)))
                 .into(binding.ivImageAccount)
+        }
+        viewModel.shouldShowLogin.observe(viewLifecycleOwner) {
+            if (it) {
+                val intent = Intent(requireContext(), LoginUI::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            }
         }
     }
 

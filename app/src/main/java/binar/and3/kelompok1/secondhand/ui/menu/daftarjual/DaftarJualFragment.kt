@@ -1,5 +1,6 @@
 package binar.and3.kelompok1.secondhand.ui.menu.daftarjual
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -22,6 +23,11 @@ class DaftarJualFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var daftarJualViewPagerAdapter: DaftarJualViewPagerAdapter
     private val viewModel: DaftarJualViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.window?.statusBarColor = Color.WHITE
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -65,7 +65,7 @@ class ProfileRepository @Inject constructor(
         return dao.insertUser(updateProfile)
     }
 
-    suspend fun removeUser(): Int {
+    suspend fun deleteUser(): Int {
         val profile = dao.getUser()
         val removeProfile = UserEntity(
             id = profile?.id.hashCode(),

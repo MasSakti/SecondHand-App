@@ -2,7 +2,7 @@ package binar.and3.kelompok1.secondhand.ui.menu.daftarjual.item
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import binar.and3.kelompok1.secondhand.data.api.seller.SellerProductResponse
+import binar.and3.kelompok1.secondhand.data.api.seller.GetProductResponse
 import binar.and3.kelompok1.secondhand.repository.AuthRepository
 import binar.and3.kelompok1.secondhand.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +18,7 @@ class DaftarJualItemViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    val shouldShowMyProduct: MutableLiveData<List<SellerProductResponse>> = MutableLiveData()
+    val shouldShowMyProduct: MutableLiveData<List<GetProductResponse>> = MutableLiveData()
     val shouldShowError: MutableLiveData<String> = MutableLiveData()
 
     fun onViewLoaded() {
@@ -32,7 +32,8 @@ class DaftarJualItemViewModel @Inject constructor(
             val result = productRepository.getSellerProduct(accessToken = accessToken)
             withContext(Dispatchers.Main) {
                 if (result.isSuccessful) {
-                    shouldShowMyProduct.postValue(result.body())
+                    val body = result.body()
+                    shouldShowMyProduct.postValue(body)
                 } else {
                     shouldShowError.postValue(result.errorBody().toString())
                 }

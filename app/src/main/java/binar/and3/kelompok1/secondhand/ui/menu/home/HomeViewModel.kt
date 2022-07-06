@@ -1,9 +1,8 @@
 package binar.and3.kelompok1.secondhand.ui.menu.home
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerProduct
+import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerProductResponse
 import binar.and3.kelompok1.secondhand.data.local.buyer.BuyerEntity
 import binar.and3.kelompok1.secondhand.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,12 +17,12 @@ class HomeViewModel @Inject constructor(
     private val buyerProductRepository: ProductRepository
 ) : ViewModel() {
 
-    val shouldShowBuyerProduct: MutableLiveData<BuyerProduct> = MutableLiveData()
+    val shouldShowBuyerProduct: MutableLiveData<BuyerProductResponse> = MutableLiveData()
 
     val shouldShowError: MutableLiveData<String> = MutableLiveData()
 
     fun onViewLoaded() {
-        getBuyerProduct()
+        // tempBuyerProduct()
     }
 
     private fun getBuyerProduct() {
@@ -32,7 +31,7 @@ class HomeViewModel @Inject constructor(
             withContext(Dispatchers.Main) {
                 if (result.isSuccessful) {
                     val buyerProductResponse = result.body()
-                    buyerProductResponse?.response?.map {
+                    buyerProductResponse?.let {
                         val product = BuyerEntity(
                             id = it.id.hashCode(),
                             name = it.name.orEmpty(),
@@ -50,7 +49,7 @@ class HomeViewModel @Inject constructor(
     }
     private fun insertHomeProduct(buyerEntity: BuyerEntity) {
         CoroutineScope(Dispatchers.IO).launch {
-            val result = buyerProductRepository.insertProduct(buyerEntity = buyerEntity)
+            val result = buyerProductRepository.insertProductToLocal(buyerEntity = buyerEntity)
             withContext(Dispatchers.Main) {
                 if (result != 0L) {
                     productFromDatabase()
@@ -62,6 +61,20 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun productFromDatabase() {
-
     }
+
+    // Sementara get dari online dulu
+    private fun tempBuyerProduct() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val result = buyerProductRepository.getBuyerProduct()
+            withContext(Dispatchers.Main) {
+                if (result.isSuccessful) {
+                    shouldShowBuyerProduct.postValue(result.body())
+                } else {
+                    shouldShowError.postValue(result.errorBody().toString())
+                }
+            }
+        }
+    }
+
 }

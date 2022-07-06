@@ -99,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Harga Produk"
+                android:text="Kategori"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -110,7 +110,8 @@
                 android:background="@drawable/shape_login"
                 android:hint="Kategori"
                 android:paddingHorizontal="16dp"
-                android:paddingVertical="14dp" />
+                android:paddingVertical="14dp">
+            </EditText>
 
         </LinearLayout>
 
@@ -155,6 +156,7 @@
                 android:textStyle="bold" />
 
             <ImageView
+                android:id="@+id/iv_foto_produk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_dash"
@@ -163,37 +165,37 @@
 
         </LinearLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_preview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/shape_button_secondary"
+                android:text="Prview"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/btn_terbitkan"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_terbitkan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/shape_button_primary"
+                android:text="Terbitkan"
+                android:textColor="@color/white"
+                app:layout_constraintLeft_toRightOf="@id/btn_preview"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="24dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_preview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/shape_button_secondary"
-            android:text="Prview"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/btn_terbitkan"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_terbitkan"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:background="@drawable/shape_button_primary"
-            android:text="Terbitkan"
-            android:textColor="@color/white"
-            app:layout_constraintLeft_toRightOf="@id/btn_preview"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

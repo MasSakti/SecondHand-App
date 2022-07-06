@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
     <color name="button_login">#7126B5</color>
+    <color name="home_primary">#FFE9C9</color>
 
 </resources>

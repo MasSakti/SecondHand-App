@@ -105,4 +105,14 @@ class AkunViewModel @Inject constructor(
             }
         }
     }
+
+    fun signOut() {
+        viewModelScope.launch {
+            authRepository.clearToken()
+            profileRepository.deleteUser()
+            withContext(Dispatchers.Main) {
+                shouldShowLogin.postValue(true)
+            }
+        }
+    }
 }

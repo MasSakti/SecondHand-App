@@ -10,5 +10,5 @@ interface BuyerAPI {
         @Query("status") status: String? = null,
         @Query("category_id") categoryId: Int? = null,
         @Query("search") search: String? = null
-    ): Response<BuyerProduct>
+    ): Response<BuyerProductResponse>
 }

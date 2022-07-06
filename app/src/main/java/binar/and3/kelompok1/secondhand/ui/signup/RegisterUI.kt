@@ -24,6 +24,7 @@ class RegisterUI : AppCompatActivity() {
         binding = ActivityRegisterUiBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+        window.statusBarColor = Color.WHITE
 
         bindView()
         bindViewModel()

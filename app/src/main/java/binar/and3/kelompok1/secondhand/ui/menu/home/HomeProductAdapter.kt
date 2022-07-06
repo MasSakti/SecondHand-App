@@ -4,20 +4,20 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerProduct
+import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerProductResponse
 import binar.and3.kelompok1.secondhand.databinding.ListItemHomeBinding
 import com.bumptech.glide.Glide
 
 class HomeProductAdapter(
     private val listener: EventListener,
-    private var buyerProduct: List<BuyerProduct.BuyerProductResponse>
+    private var buyerProduct: List<BuyerProductResponse>
 
 ) : RecyclerView.Adapter<HomeProductAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ListItemHomeBinding) : RecyclerView.ViewHolder(binding.root)
 
     @SuppressLint("NotifyDataChanged")
-    fun updateBuyerProduct(list: List<BuyerProduct.BuyerProductResponse>) {
+    fun updateBuyerProduct(list: List<BuyerProductResponse>) {
         this.buyerProduct = list
         notifyDataSetChanged()
     }
@@ -45,7 +45,7 @@ class HomeProductAdapter(
     }
 
     interface EventListener{
-        fun onClick(item: BuyerProduct.BuyerProductResponse)
+        fun onClick(item: BuyerProductResponse)
     }
 
 }

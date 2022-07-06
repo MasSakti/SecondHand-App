@@ -1,9 +1,9 @@
 package binar.and3.kelompok1.secondhand.ui.jualform
 
-import android.location.Location
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import binar.and3.kelompok1.secondhand.data.api.seller.SellerProductResponse
+import binar.and3.kelompok1.secondhand.data.api.seller.GetProductResponse
+import binar.and3.kelompok1.secondhand.data.api.seller.PostProductRequest
 import binar.and3.kelompok1.secondhand.repository.AuthRepository
 import binar.and3.kelompok1.secondhand.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,6 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,12 +22,13 @@ class JualFormViewModel @Inject constructor(
 
     private var name: String = ""
     private var description: String = ""
-    private var base_price: Long = 0
+    private var basePrice: Int = 0
     private var location: String = ""
     private var image: String = ""
-    private var category_ids: ArrayList<Int> = arrayListOf()
+    private var categoryIds: ArrayList<Int> = arrayListOf()
 
-    val shouldShowMyProduct: MutableLiveData<SellerProductResponse> = MutableLiveData()
+    val shouldOpenDaftarJual: MutableLiveData<Boolean> = MutableLiveData()
+    val shouldShowLoading: MutableLiveData<Boolean> = MutableLiveData()
     val shouldShowError: MutableLiveData<String> = MutableLiveData()
 
     fun onChangeName(name: String) {
@@ -37,8 +39,8 @@ class JualFormViewModel @Inject constructor(
         this.description = description
     }
 
-    fun onChangeBasePrice(basePrice: Long) {
-        this.base_price = basePrice
+    fun onChangeBasePrice(basePrice: Int) {
+        this.basePrice = basePrice
     }
 
     fun onChangeLocation(location: String) {
@@ -50,7 +52,51 @@ class JualFormViewModel @Inject constructor(
     }
 
     fun onChangeCategoryIds(categoryIds: ArrayList<Int>) {
-        this.category_ids = categoryIds
+        this.categoryIds = categoryIds
+    }
+
+    fun onValidate(body: MultipartBody.Part) {
+        if (name.isEmpty()) {
+            shouldShowError.postValue("Nama Barang harus diisi")
+        } else if (description.isEmpty()) {
+            shouldShowError.postValue("Deskripsi harus jelas")
+        } else if (basePrice.toString().isEmpty()) {
+            shouldShowError.postValue("Harga barang harus diisi")
+        } else if (location.isEmpty()) {
+            shouldShowError.postValue("Isi lokasimu")
+        } else if (image.isEmpty()) {
+            shouldShowError.postValue("Kamu harus mengisi bukti gambar dengan jelas")
+        } else if (categoryIds.isEmpty()) {
+            shouldShowError.postValue("Kategori harus diisi")
+        } else {
+            processToUploadProduct(body = body)
+        }
+    }
+
+    fun processToUploadProduct(body: MultipartBody.Part) {
+        CoroutineScope(Dispatchers.IO).launch {
+            shouldShowLoading.postValue(true)
+            val accessToken = authRepository.getToken().toString()
+            val request = PostProductRequest(
+                name = name,
+                description = description,
+                basePrice = basePrice,
+                categoryIds = categoryIds,
+                location = location,
+                image = image
+            )
+            val result =
+                productRepository.postSellerProduct(request = request, accessToken = accessToken)
+            withContext(Dispatchers.Main) {
+                if (result.isSuccessful) {
+                    shouldOpenDaftarJual.postValue(true)
+                } else {
+                    shouldShowError.postValue(
+                        "Gagal menambahkan barang. Error: " + result.errorBody().toString()
+                    )
+                }
+            }
+        }
     }
 
 

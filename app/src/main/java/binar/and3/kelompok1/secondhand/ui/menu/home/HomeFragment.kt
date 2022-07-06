@@ -1,12 +1,14 @@
 package binar.and3.kelompok1.secondhand.ui.menu.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerProduct
+import binar.and3.kelompok1.secondhand.R
+import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerProductResponse
 import binar.and3.kelompok1.secondhand.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +21,11 @@ class HomeFragment : Fragment() {
     lateinit var homeProductAdapter: HomeProductAdapter
     val viewModel: HomeViewModel by viewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.window?.statusBarColor = Color.WHITE
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,14 +37,14 @@ class HomeFragment : Fragment() {
 
         homeProductAdapter =
             HomeProductAdapter(listener = object : HomeProductAdapter.EventListener {
-                override fun onClick(item: BuyerProduct.BuyerProductResponse) {
+                override fun onClick(item: BuyerProductResponse) {
                     print("Hello")
                 }
             }, emptyList())
 
         binding.rvItem.adapter = homeProductAdapter
 
-        // viewModel.onViewLoaded()
+        viewModel.onViewLoaded()
         bindViewModel()
 
         return root
@@ -45,8 +52,7 @@ class HomeFragment : Fragment() {
 
     private fun bindViewModel() {
         viewModel.shouldShowBuyerProduct.observe(requireActivity()) {
-//            homeProductAdapter.updateBuyerProduct(it)
-//            homeProductAdapter.updateCategories(it.categories)
+//           homeProductAdapter.updateBuyerProduct(it)
         }
     }
 

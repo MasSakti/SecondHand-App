@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
 import binar.and3.kelompok1.secondhand.databinding.ActivityLoginUiBinding
@@ -24,6 +26,7 @@ class LoginUI : AppCompatActivity() {
         binding = ActivityLoginUiBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+        window.statusBarColor = Color.WHITE
 
         bindView()
         bindViewModel()
@@ -42,7 +45,7 @@ class LoginUI : AppCompatActivity() {
             viewModel.onClickSignIn()
         }
 
-        binding.tvDaftar.setOnClickListener{
+        binding.llDaftar.setOnClickListener{
             val intent = Intent(this, RegisterUI::class.java)
             startActivity(intent)
         }

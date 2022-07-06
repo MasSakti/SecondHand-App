@@ -2,10 +2,12 @@ package binar.and3.kelompok1.secondhand.ui.splashscreen
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.activity.viewModels
+import binar.and3.kelompok1.secondhand.R
 import binar.and3.kelompok1.secondhand.databinding.ActivitySplashBinding
 import binar.and3.kelompok1.secondhand.ui.MenuActivity
 import binar.and3.kelompok1.secondhand.ui.signin.LoginUI
@@ -21,6 +23,7 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+        window.statusBarColor = Color.WHITE
 
         val timer = object : CountDownTimer(3000, 1000) {
             override fun onTick(millisUntilFinished: Long) {}

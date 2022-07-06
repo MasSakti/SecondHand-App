@@ -12,5 +12,5 @@ data class BuyerEntity(
     @ColumnInfo(name = "image_url") val imageUrl: String,
     @ColumnInfo(name = "image_name") val imageName: String,
     @ColumnInfo(name = "location") var location: String,
-    @ColumnInfo(name = "user_id") var userId: Int,
+    @ColumnInfo(name = "user_id") var userId: Int
 )

@@ -1,5 +1,6 @@
 package binar.and3.kelompok1.secondhand.ui.menu.notifikasi
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,12 @@ class NotifikasiFragment : Fragment() {
     private var _binding: FragmentNotifikasiBinding? = null
     private val binding get() = _binding!!
     private val viewModel: NotifikasiViewModel by viewModels()
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.window?.statusBarColor = Color.WHITE
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
