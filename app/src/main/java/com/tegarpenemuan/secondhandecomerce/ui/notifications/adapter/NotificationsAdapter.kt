@@ -8,9 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.tegarpenemuan.secondhandecomerce.common.ChangeCurrency
-import com.tegarpenemuan.secondhandecomerce.data.api.getNotifications.GetNotifResponseItem
+import com.tegarpenemuan.secondhandecomerce.data.api.getNotification.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.databinding.ListItemNotificationsBinding
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -36,13 +35,27 @@ class NotificationsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
-        holder.binding.tvBarang.text = item.product_id.toString()
+        val jumlahdata = list.count()
+
+        holder.binding.tvBarang.text = item.product_name
         Glide.with(holder.binding.root.context)
             .load(item.image_url)
             .transform(RoundedCorners(20))
             .into(holder.binding.ivImg)
         holder.binding.tvHarga.text = ChangeCurrency.gantiRupiah(item.bid_price.toString())
-        holder.binding.tvJenisNotif.text = item.status
+
+        val status = item.status
+        for (item in 1..jumlahdata) {
+            if (status == "bid") {
+                holder.binding.tvJenisNotif.text = "Penawaran Produk"
+            } else if (status == "accepted") {
+                holder.binding.tvJenisNotif.text = "Penawaran Diterima"
+            } else if (status == "declined") {
+                holder.binding.tvJenisNotif.text = "Penawaran Ditolak"
+            } else {
+                holder.binding.tvJenisNotif.text = status
+            }
+        }
 
         val inputFormatter: DateTimeFormatter =
             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
@@ -53,7 +66,6 @@ class NotificationsAdapter(
         holder.binding.tvTanggal.text = formattedDate
 
         val data = item.read
-        val jumlahdata = list.count()
         for (item in 1..jumlahdata) {
             if (data) {
                 holder.binding.divNotif.visibility = View.GONE

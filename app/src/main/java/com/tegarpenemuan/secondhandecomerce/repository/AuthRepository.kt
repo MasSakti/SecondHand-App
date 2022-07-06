@@ -3,7 +3,7 @@ package com.tegarpenemuan.secondhandecomerce.repository
 import com.tegarpenemuan.secondhandecomerce.data.api.AuthApi
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getCity.getCityResponse
-import com.tegarpenemuan.secondhandecomerce.data.api.getNotifications.GetNotifResponseItem
+import com.tegarpenemuan.secondhandecomerce.data.api.getNotification.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProductDetails.GetProductDetailsResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
@@ -19,7 +19,6 @@ import com.tegarpenemuan.secondhandecomerce.data.local.UserEntity
 import com.tegarpenemuan.secondhandecomerce.datastore.AuthDatastoreManager
 import kotlinx.coroutines.flow.firstOrNull
 import retrofit2.Response
-import retrofit2.http.Query
 import javax.inject.Inject
 
 class AuthRepository @Inject constructor(
@@ -138,22 +137,10 @@ class AuthRepository @Inject constructor(
     }
 
     suspend fun getProductId(
-        id: Int,
-//        name: String,
-//        category_id: Int,
-//        base_price: Int,
-//        image_url: String,
-//        location: String,
-//        description: String
+        id: Int
     ): Response<GetProductDetailsResponse> {
         return api.getProductDetails(
-            id = id,
-//            name = name,
-//            category_id = category_id,
-//            base_price = base_price,
-//            image_url = image_url,
-//            location = location,
-//            description = description
+            id = id
         )
     }
     suspend fun getProvince():Response<getProvinveResponse>{

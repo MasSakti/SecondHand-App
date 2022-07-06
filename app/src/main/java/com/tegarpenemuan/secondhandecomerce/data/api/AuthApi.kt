@@ -2,7 +2,7 @@ package com.tegarpenemuan.secondhandecomerce.data.api
 
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getCity.getCityResponse
-import com.tegarpenemuan.secondhandecomerce.data.api.getNotifications.GetNotifResponseItem
+import com.tegarpenemuan.secondhandecomerce.data.api.getNotification.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProductDetails.GetProductDetailsResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
@@ -74,21 +74,27 @@ interface AuthApi {
 
     @GET("buyer/product/{id}")
     suspend fun getProductDetails(
-        @Path("id") id: Int?,
-//        @Field("name") name: String?,
-//        @Field("category_id") category_id: Int?,
-//        @Field("base_price") base_price: Int?,
-//        @Field("image_url") image_url: String?,
-//        @Field("location") location: String?,
-//        @Field("description") description: String?,
+        @Path("id") id: Int?
     ): Response<GetProductDetailsResponse>
 
+    @Multipart
+    @POST("seller/product")
+    suspend fun addProduct(
+        @Header("access_token") access_token: String,
+        @Part("name") name: RequestBody? = null,
+        @Part("description") description: RequestBody? = null,
+        @Part("base_price") base_price: RequestBody? = null,
+        @Part("category_ids") category_ids: RequestBody? = null,
+        @Part("location") location: RequestBody? = null,
+        @Part image: MultipartBody.Part? = null
+    )
+
     @GET("https://dev.farizdotid.com/api/daerahindonesia/provinsi")
-    suspend fun  getProvince(): Response<getProvinveResponse>
+    suspend fun getProvince(): Response<getProvinveResponse>
 
     @GET("https://dev.farizdotid.com/api/daerahindonesia/kota")
     suspend fun getCity(
-        @Query ("id_provinsi") id_provinsi: Int
-    ): Response <getCityResponse>
+        @Query("id_provinsi") id_provinsi: Int
+    ): Response<getCityResponse>
 
 }

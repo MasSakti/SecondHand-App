@@ -2,7 +2,7 @@ package com.tegarpenemuan.secondhandecomerce.ui.notifications
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.tegarpenemuan.secondhandecomerce.data.api.getNotifications.GetNotifResponseItem
+import com.tegarpenemuan.secondhandecomerce.data.api.getNotification.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope

@@ -1,22 +1,14 @@
 package com.tegarpenemuan.secondhandecomerce.ui.notifications
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import com.tegarpenemuan.secondhandecomerce.data.api.getNotifications.GetNotifResponseItem
-import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.getNotification.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.databinding.FragmentNotificationsBinding
-import com.tegarpenemuan.secondhandecomerce.ui.buyer6.Buyer6Activity
-import com.tegarpenemuan.secondhandecomerce.ui.home.HomeViewModel
-import com.tegarpenemuan.secondhandecomerce.ui.home.adapter.ProductAdapter
 import com.tegarpenemuan.secondhandecomerce.ui.notifications.adapter.NotificationsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
