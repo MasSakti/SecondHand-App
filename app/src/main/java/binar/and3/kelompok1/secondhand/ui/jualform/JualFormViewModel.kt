@@ -2,7 +2,6 @@ package binar.and3.kelompok1.secondhand.ui.jualform
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import binar.and3.kelompok1.secondhand.data.api.seller.GetProductResponse
 import binar.and3.kelompok1.secondhand.data.api.seller.PostProductRequest
 import binar.and3.kelompok1.secondhand.repository.AuthRepository
 import binar.and3.kelompok1.secondhand.repository.ProductRepository
@@ -55,7 +54,7 @@ class JualFormViewModel @Inject constructor(
         this.categoryIds = categoryIds
     }
 
-    fun onValidate(body: MultipartBody.Part) {
+    fun onValidate(image: MultipartBody.Part) {
         if (name.isEmpty()) {
             shouldShowError.postValue("Nama Barang harus diisi")
         } else if (description.isEmpty()) {
@@ -64,16 +63,16 @@ class JualFormViewModel @Inject constructor(
             shouldShowError.postValue("Harga barang harus diisi")
         } else if (location.isEmpty()) {
             shouldShowError.postValue("Isi lokasimu")
-        } else if (image.isEmpty()) {
+        } else if (image.toString().isEmpty()) {
             shouldShowError.postValue("Kamu harus mengisi bukti gambar dengan jelas")
         } else if (categoryIds.isEmpty()) {
             shouldShowError.postValue("Kategori harus diisi")
         } else {
-            processToUploadProduct(body = body)
+            processToUploadProduct(image = image)
         }
     }
 
-    fun processToUploadProduct(body: MultipartBody.Part) {
+    fun processToUploadProduct(image: MultipartBody.Part) {
         CoroutineScope(Dispatchers.IO).launch {
             shouldShowLoading.postValue(true)
             val accessToken = authRepository.getToken().toString()

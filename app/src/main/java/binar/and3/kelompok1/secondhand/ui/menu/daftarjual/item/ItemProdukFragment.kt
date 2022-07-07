@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import binar.and3.kelompok1.secondhand.data.api.seller.GetProductResponse
 import binar.and3.kelompok1.secondhand.databinding.FragmentItemProdukBinding
-import binar.and3.kelompok1.secondhand.ui.jualform.JualActivity
+import binar.and3.kelompok1.secondhand.ui.jualform.JualFormActivity
 import binar.and3.kelompok1.secondhand.ui.menu.daftarjual.item.adapter.ItemProdukAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,7 +29,7 @@ class ItemProdukFragment : Fragment() {
         val root: View = binding.root
 
         binding.floatingActionButton.setOnClickListener{
-            val intent = Intent(requireContext(), JualActivity::class.java)
+            val intent = Intent(requireContext(), JualFormActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }

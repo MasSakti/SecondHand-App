@@ -13,11 +13,11 @@ import binar.and3.kelompok1.secondhand.databinding.FragmentNotifikasiBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NotificationsFragment : Fragment() {
+class NotifikasiFragment : Fragment() {
 
     private var _binding: FragmentNotifikasiBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: NotificationsViewModel by viewModels()
+    private val viewModel: NotifikasiViewModel by viewModels()
 
     lateinit var notificationsAdapter: NotificationsAdapter
 

@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class NotificationsViewModel @Inject constructor(
+class NotifikasiViewModel @Inject constructor(
     private val repository: AuthRepository
 ) : ViewModel() {
 
