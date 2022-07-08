@@ -33,6 +33,7 @@
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/bottom_sheet_biding_product.xml" value="0.2358974358974359" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/bottom_sheet_category_product_add.xml" value="0.2734375" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/bottom_sheet_info_bid_seller.xml" value="0.2358974358974359" />
+        <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/bottom_sheet_info_bid_success_seller.xml" value="0.5" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/bottom_sheet_search_home.xml" value="0.33" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/fragment_account.xml" value="0.2875" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/fragment_home.xml" value="0.22" />
@@ -50,6 +51,7 @@
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_category_info_bid.xml" value="0.2358974358974359" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_category_list_sell.xml" value="0.2875" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_category_product_add.xml" value="0.2864583333333333" />
+        <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_info_bid.xml" value="0.2358974358974359" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_notification.xml" value="0.33" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_order_home.xml" value="0.23504273504273504" />
         <entry key="..\:/Documents/android-project/proyek-lain/#BinarAcademy/BinarAndroidFinalProject/app/src/main/res/layout/list_item_product_add_home.xml" value="0.25" />

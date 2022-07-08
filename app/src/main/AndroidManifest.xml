@@ -30,9 +30,6 @@
             android:name=".ui.product_add.ProductAddActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.info_bid.InfoBidActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.product.ProductActivity"
             android:exported="false" />
         <activity

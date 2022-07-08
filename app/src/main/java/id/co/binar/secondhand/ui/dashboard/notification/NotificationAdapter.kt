@@ -1,7 +1,6 @@
 package id.co.binar.secondhand.ui.dashboard.notification
 
 import android.graphics.Paint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -16,10 +15,7 @@ import id.co.binar.secondhand.databinding.ListItemNotificationBinding
 import id.co.binar.secondhand.model.notification.GetNotifResponse
 import id.co.binar.secondhand.util.convertRupiah
 import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
 import java.util.*
 
 class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -54,15 +50,23 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val bidPrice = item.bidPrice?.let {
                 "Ditawar ${item.bidPrice.convertRupiah()}"
             }
-            val status = if (item.status == "bid") {
-                if (item.status != "bid") {
-                    binding.tvNotifHarga.paintFlags = binding.tvNotifHarga.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                    "Penawaran Product"
-                } else {
-                    "Penawaran Produk"
+            val status = when (item.status) {
+                "created" -> {
+                    binding.tvNotifHarga.paintFlags = binding.tvNotifHarga.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                    "Berhasil diterbitkan"
                 }
-            } else {
-                "Berhasil diterbitkan"
+                "accepted" -> {
+                    binding.tvNotifHarga.paintFlags = binding.tvNotifHarga.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    "Penawaran telah diterima"
+                }
+                "declined" -> {
+                    binding.tvNotifHarga.paintFlags = binding.tvNotifHarga.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                    "Penawaran ditolak"
+                }
+                else -> {
+                    binding.tvNotifHarga.paintFlags = binding.tvNotifHarga.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                    "Penawaran produk"
+                }
             }
             binding.tvNotifTime.text = formattedDate
             binding.tvNotifProduct.text = status

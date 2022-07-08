@@ -37,7 +37,7 @@ class ListSellOrderAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         fun bind(item: GetOrderResponse) {
-            binding.imageView.load(item.imageProduct) {
+            binding.imageView.load(item.product?.imageUrl) {
                 crossfade(true)
                 placeholder(R.color.purple_100)
                 error(R.color.purple_100)
@@ -53,15 +53,19 @@ class ListSellOrderAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val bidPrice = item.price?.let {
                 "Ditawar ${item.price.convertRupiah()}"
             }
-            val status = if (item.status == "bid") {
-                if (item.status != "bid") {
+            val status = when (item.status) {
+                "accepted" -> {
                     binding.tvNotifHarga.paintFlags = binding.tvNotifHarga.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                    "Penawaran Product"
-                } else {
-                    "Penawaran Produk"
+                    "Penawaran telah diterima"
                 }
-            } else {
-                "Berhasil diterbitkan"
+                "declined" -> {
+                    binding.tvNotifHarga.paintFlags = binding.tvNotifHarga.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                    "Penawaran ditolak"
+                }
+                else -> {
+                    binding.tvNotifHarga.paintFlags = binding.tvNotifHarga.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                    "Penawaran produk"
+                }
             }
             binding.tvNotifTime.text = formattedDate
             binding.tvNotifProduct.text = status

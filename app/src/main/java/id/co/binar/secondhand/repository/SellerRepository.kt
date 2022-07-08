@@ -45,10 +45,10 @@ class SellerRepository @Inject constructor(
         }
     )
 
-    fun getOrder(): Flow<Resource<List<GetOrderResponse>>> = flow {
+    fun getOrder(status: String): Flow<Resource<List<GetOrderResponse>>> = flow {
         emit(Resource.Loading())
         try {
-            val response = sellerApi.getOrder(store.getTokenId())
+            val response = sellerApi.getOrder(store.getTokenId(), status)
             if (response.isSuccessful) {
                 response.body()?.let {
                     emit(Resource.Success(it.sortedByDescending { it.id }))
