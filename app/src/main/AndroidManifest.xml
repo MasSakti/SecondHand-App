@@ -17,6 +17,9 @@
         android:theme="@style/Theme.SecondHand"
         tools:targetApi="31">
         <activity
+            android:name=".PerbaruiStatusPenjualan"
+            android:exported="false" />
+        <activity
             android:name=".ProductPreviewActivity"
             android:exported="false" />
         <activity
