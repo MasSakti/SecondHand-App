@@ -2,6 +2,7 @@ package id.co.binar.secondhand.ui.dashboard.notification
 
 import android.graphics.Paint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -51,7 +52,7 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 "Ditawar ${item.bidPrice.convertRupiah()}"
             }
             val status = when (item.status) {
-                "created" -> {
+                "create" -> {
                     binding.tvNotifHarga.paintFlags = binding.tvNotifHarga.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
                     "Berhasil diterbitkan"
                 }
@@ -68,9 +69,19 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     "Penawaran produk"
                 }
             }
+            when (item.read) {
+                true -> {
+                    binding.bulletNotif.setImageResource(R.drawable.ic_circle_notif_read)
+                }
+                false -> {
+                    binding.bulletNotif.setImageResource(R.drawable.ic_circle_notif)
+                }
+                else -> {
+                    binding.bulletNotif.isVisible = false
+                }
+            }
             binding.tvNotifTime.text = formattedDate
             binding.tvNotifProduct.text = status
-            binding.bulletNotif.isVisible = item.read == false
             binding.tvNamaProduct.text = item.productName
             binding.tvNotifHarga.text = item.basePrice?.convertRupiah()
             binding.tvNotifTawar.isVisible = item.bidPrice != null

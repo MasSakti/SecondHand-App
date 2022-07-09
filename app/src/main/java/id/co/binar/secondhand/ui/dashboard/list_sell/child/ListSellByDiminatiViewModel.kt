@@ -17,8 +17,8 @@ class ListSellByDiminatiViewModel @Inject constructor(
 ) : ViewModel() {
     private val _getOrder = MutableLiveData<Resource<List<GetOrderResponse>>>()
     val getOrder : LiveData<Resource<List<GetOrderResponse>>> = _getOrder
-    fun getOrder(status: String? = "pending") = CoroutineScope(Dispatchers.IO).launch {
-        sellerRepository.getOrder(status!!).collectLatest {
+    fun getOrder(status: String? = null) = CoroutineScope(Dispatchers.IO).launch {
+        sellerRepository.getOrder(status).collectLatest {
             _getOrder.postValue(it)
         }
     }

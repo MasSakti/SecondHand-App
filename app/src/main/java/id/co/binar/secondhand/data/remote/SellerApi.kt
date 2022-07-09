@@ -18,7 +18,7 @@ interface SellerApi {
     @GET("seller/order")
     suspend fun getOrder(
         @Header("access_token") token: String,
-        @Query("status") status: String
+        @Query("status") status: String? = null
     ) : Response<List<GetOrderResponse>>
 
     @GET("seller/order/{id}")

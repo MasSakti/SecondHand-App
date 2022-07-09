@@ -67,6 +67,7 @@ class ListSellOrderAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     "Penawaran produk"
                 }
             }
+            binding.bulletNotif.isVisible = false
             binding.tvNotifTime.text = formattedDate
             binding.tvNotifProduct.text = status
             binding.tvNamaProduct.text = item.productName

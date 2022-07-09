@@ -1,6 +1,8 @@
 package id.co.binar.secondhand.ui.dashboard.list_sell.dialog
 
+import android.content.Intent
 import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +17,6 @@ import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.BottomSheetInfoBidSuccessSellerBinding
 import id.co.binar.secondhand.model.seller.order.GetOrderResponse
 import id.co.binar.secondhand.util.convertRupiah
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 const val TAG_INFO_BID_DIALOG_SUCCESS = "INFO_BID_DIALOG_SUCCESS"
@@ -89,7 +89,13 @@ class InfoBidSuccessFragment : BottomSheetDialogFragment() {
     }
 
     private fun bindView() {
-        TODO("Not yet implemented")
+        binding.apply {
+            btnWa.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse("https://wa.me/62${viewModel.args.value?.user?.phoneNumber}")
+                startActivity(intent)
+            }
+        }
     }
 
     override fun onDestroyView() {

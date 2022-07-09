@@ -45,7 +45,7 @@ class SellerRepository @Inject constructor(
         }
     )
 
-    fun getOrder(status: String): Flow<Resource<List<GetOrderResponse>>> = flow {
+    fun getOrder(status: String?): Flow<Resource<List<GetOrderResponse>>> = flow {
         emit(Resource.Loading())
         try {
             val response = sellerApi.getOrder(store.getTokenId(), status)

@@ -1,6 +1,8 @@
 package id.co.binar.secondhand.ui.dashboard.list_sell.dialog
 
+import android.content.Intent
 import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -63,10 +65,16 @@ class InfoBidFragment : BottomSheetDialogFragment() {
     private fun bindView() {
         binding.apply {
             btnTerima.setOnClickListener {
-                val id = viewModel.getOrderById.value?.data?.id
-                val field = UpdateOrderRequest(status = "accepted")
-                id?.let {
-                    viewModel.updateOrder(it, field)
+                if (viewModel.getOrderById.value?.data?.status == "accepted") {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse("https://wa.me/62${viewModel.getOrderById.value?.data?.user?.phoneNumber}")
+                    startActivity(intent)
+                } else {
+                    val id = viewModel.getOrderById.value?.data?.id
+                    val field = UpdateOrderRequest(status = "accepted")
+                    id?.let {
+                        viewModel.updateOrder(it, field)
+                    }
                 }
             }
 
@@ -88,8 +96,14 @@ class InfoBidFragment : BottomSheetDialogFragment() {
         viewModel.response.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
-                    this.dismiss()
-                    viewModel.getOrderById.value?.data?.let { InfoBidSuccessFragment.newInstance(it) }
+                    if (it.data?.status == "accepted") {
+                        viewModel.getOrderById.value?.data?.let {
+                            val dialog = InfoBidSuccessFragment.newInstance(it)
+                            dialog.show(childFragmentManager, TAG_INFO_BID_DIALOG_SUCCESS)
+                        }
+                    } else {
+                        requireContext().onToast("Produk ditolak")
+                    }
                 }
                 is Resource.Loading -> {
                     requireContext().onToast("Mohon Menunggu...")
@@ -118,7 +132,7 @@ class InfoBidFragment : BottomSheetDialogFragment() {
                             transformations(RoundedCornersTransformation(14F))
                             size(ViewSizeResolver(imageView))
                         }
-                        binding.imgProduct.load(it.data?.product?.imageUrl) {
+                        imgProduct.load(it.data?.product?.imageUrl) {
                             crossfade(true)
                             placeholder(R.color.purple_100)
                             error(R.color.purple_100)
@@ -136,23 +150,25 @@ class InfoBidFragment : BottomSheetDialogFragment() {
                         }
                         val status = when (it.data?.status) {
                             "accepted" -> {
-                                binding.tvInfoHarga.paintFlags = binding.tvInfoHarga.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                                tvInfoHarga.paintFlags = tvInfoHarga.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                                btnTerima.text = "Whatsapp"
                                 "Penawaran telah diterima"
                             }
                             "declined" -> {
-                                binding.tvInfoHarga.paintFlags = binding.tvInfoHarga.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                                tvInfoHarga.paintFlags = tvInfoHarga.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                                btnTolak.isEnabled = false
                                 "Penawaran ditolak"
                             }
                             else -> {
-                                binding.tvInfoHarga.paintFlags = binding.tvInfoHarga.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                                tvInfoHarga.paintFlags = tvInfoHarga.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
                                 "Penawaran produk"
                             }
                         }
-                        binding.tvNotifTime.text = formattedDate
-                        binding.tvNotifProduct.text = status
-                        binding.tvNamaProduct.text = it.data?.productName
-                        binding.tvInfoHarga.text = it.data?.basePrice?.convertRupiah()
-                        binding.tvInfoTawar.text = bidPrice
+                        tvNotifTime.text = formattedDate
+                        tvNotifProduct.text = status
+                        tvNamaProduct.text = it.data?.productName
+                        tvInfoHarga.text = it.data?.basePrice?.convertRupiah()
+                        tvInfoTawar.text = bidPrice
                     }
                 }
                 is Resource.Loading -> {
