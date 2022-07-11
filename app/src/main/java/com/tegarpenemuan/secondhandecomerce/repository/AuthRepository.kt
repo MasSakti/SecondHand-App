@@ -143,10 +143,16 @@ class AuthRepository @Inject constructor(
             id = id
         )
     }
+
+    suspend fun getProductSeller(access_token: String): Response<List<GetProductResponse>> {
+        return api.getProduct(access_token)
+    }
+
     suspend fun getProvince():Response<getProvinveResponse>{
         return api.getProvince(
         )
     }
+
     suspend fun getCity(id_provinsi: Int):Response<getCityResponse>{
         return api.getCity(id_provinsi)
     }

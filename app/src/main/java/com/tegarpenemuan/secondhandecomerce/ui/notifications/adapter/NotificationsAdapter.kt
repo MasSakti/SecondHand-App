@@ -1,9 +1,11 @@
 package com.tegarpenemuan.secondhandecomerce.ui.notifications.adapter
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -57,13 +59,13 @@ class NotificationsAdapter(
             }
         }
 
-        val inputFormatter: DateTimeFormatter =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
-        val outputFormatter: DateTimeFormatter =
-            DateTimeFormatter.ofPattern("HH:mm, dd MMM yyy", Locale.ENGLISH)
-        val date: LocalDateTime = LocalDateTime.parse(item.transaction_date, inputFormatter)
-        val formattedDate: String = outputFormatter.format(date)
-        holder.binding.tvTanggal.text = formattedDate
+//        val inputFormatter: DateTimeFormatter =
+//            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
+//        val outputFormatter: DateTimeFormatter =
+//            DateTimeFormatter.ofPattern("HH:mm, dd MMM yyy", Locale.ENGLISH)
+//        val date: LocalDateTime = LocalDateTime.parse(item.transaction_date, inputFormatter)
+//        val formattedDate: String = outputFormatter.format(date)
+//        holder.binding.tvTanggal.text = formattedDate
 
         val data = item.read
         for (item in 1..jumlahdata) {

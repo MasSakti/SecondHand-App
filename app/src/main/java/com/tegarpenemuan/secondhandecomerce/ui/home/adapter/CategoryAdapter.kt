@@ -12,14 +12,6 @@ import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductRespon
 import com.tegarpenemuan.secondhandecomerce.databinding.ListItemCategoryHomeBinding
 import com.tegarpenemuan.secondhandecomerce.databinding.ListItemProductHomeBinding
 
-/**
- * com.tegarpenemuan.secondhandecomerce.ui.home.adapter
- *
- * Created by Tegar Penemuan on 24/06/2022.
- * https://github.com/tegarpenemuanr3
- *
- */
-
 class CategoryAdapter(private val listener: EventListener, private var list: List<GetCategoryResponseItem>)
     : RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){
     inner class ViewHolder(val binding: ListItemCategoryHomeBinding)

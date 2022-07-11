@@ -27,7 +27,7 @@ class HomeViewModel @Inject constructor(
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     val getProductResponse = response.body()
-                    shouldShowGetProduct.postValue(getProductResponse)
+                    shouldShowGetProduct.postValue(getProductResponse!!)
                 } else {
                     //shouldShowError.postValue("Request get Profile Tidak Failed" + response.code())
                 }
@@ -41,7 +41,7 @@ class HomeViewModel @Inject constructor(
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     val getCategoryResponse = response.body()
-                    shouldShowGetCategory.postValue(getCategoryResponse)
+                    shouldShowGetCategory.postValue(getCategoryResponse!!)
                 } else {
                     //shouldShowError.postValue("Request get Profile Tidak Failed" + response.code())
                 }

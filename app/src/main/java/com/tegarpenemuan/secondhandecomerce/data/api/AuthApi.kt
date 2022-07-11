@@ -89,6 +89,11 @@ interface AuthApi {
         @Part image: MultipartBody.Part? = null
     )
 
+    @GET("seller/product")
+    suspend fun getProduct(
+        @Header("access_token") access_token: String
+    ): Response<List<GetProductResponse>>
+
     @GET("https://dev.farizdotid.com/api/daerahindonesia/provinsi")
     suspend fun getProvince(): Response<getProvinveResponse>
 
