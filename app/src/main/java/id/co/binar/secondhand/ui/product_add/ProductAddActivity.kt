@@ -1,5 +1,6 @@
 package id.co.binar.secondhand.ui.product_add
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,6 +24,7 @@ import id.co.binar.secondhand.ui.product.ProductActivity
 import id.co.binar.secondhand.ui.product_add.dialog.CategoryDialogFragment
 import id.co.binar.secondhand.ui.product_add.dialog.TAG_CATEGORY_DIALOG
 import id.co.binar.secondhand.util.*
+import id.co.binar.secondhand.util.Constant.ARRAY_PERMISSION
 import io.github.anderscheow.validator.Validator
 import io.github.anderscheow.validator.constant.Mode
 import io.github.anderscheow.validator.validator
@@ -31,7 +33,7 @@ import kotlinx.coroutines.launch
 const val ARGS_PRODUCT_EDIT = "EDIT_PRODUCT"
 
 @AndroidEntryPoint
-class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
+class ProductAddActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProductAddBinding
     private val viewModel by viewModels<ProductAddViewModel>()
@@ -141,7 +143,7 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
         binding.toolbar.setNavigationIcon(R.drawable.ic_round_arrow_back_24)
 
         binding.imgView.setOnClickListener {
-            requestCameraAndWriteExternalPermission(this)
+            requestPermission.launch(ARRAY_PERMISSION)
         }
 
         binding.btnSave.setOnClickListener {
@@ -180,6 +182,18 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
             }
         } catch (ex: Exception) {
             this@ProductAddActivity.onToast(ex.message.toString())
+        }
+    }
+
+    private val requestPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+        it.entries.forEach {
+            if (it.key == Manifest.permission.CAMERA) {
+                if (it.value) {
+                    choosePhotoPermission()
+                } else {
+                    SettingsDialog.Builder(this).build().show()
+                }
+            }
         }
     }
 
@@ -300,26 +314,5 @@ class ProductAddActivity : AppCompatActivity(), EasyPermissions.PermissionCallba
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
-    }
-
-    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, listOf(perms[0]))) {
-            SettingsDialog.Builder(this).build().show()
-        }
-    }
-
-    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
-        if (requestCode == PERMISSION_CAMERA_AND_WRITE_EXTERNAL) {
-            choosePhotoPermission()
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 }

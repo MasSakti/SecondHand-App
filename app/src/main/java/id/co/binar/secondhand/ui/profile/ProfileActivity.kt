@@ -1,5 +1,6 @@
 package id.co.binar.secondhand.ui.profile
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -24,6 +25,7 @@ import id.co.binar.secondhand.model.auth.AddAuthRequest
 import id.co.binar.secondhand.model.auth.UpdateAuthByTokenRequest
 import id.co.binar.secondhand.ui.login.LoginActivity
 import id.co.binar.secondhand.util.*
+import id.co.binar.secondhand.util.Constant.ARRAY_PERMISSION
 import io.github.anderscheow.validator.Validator
 import io.github.anderscheow.validator.constant.Mode
 import io.github.anderscheow.validator.validator
@@ -35,7 +37,7 @@ const val PASSING_FROM_REGISTER_TO_PROFILE = "PASSING_FROM_REGISTER_TO_PROFILE"
 const val PASSING_FROM_ACCOUNT_TO_PROFILE = "PASSING_FROM_ACCOUNT_TO_PROFILE"
 
 @AndroidEntryPoint
-class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
+class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
     private val viewModel by viewModels<ProfileViewModel>()
@@ -127,7 +129,7 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
 
         binding.toolbar.setNavigationIcon(R.drawable.ic_round_arrow_back_24)
         binding.ivImageProfile.setOnClickListener {
-            requestCameraAndWriteExternalPermission(this)
+            requestPermission.launch(ARRAY_PERMISSION)
         }
         binding.btnDaftar.setOnClickListener {
             onValidate()
@@ -153,6 +155,18 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
             }
         } catch (ex: Exception) {
             this@ProfileActivity.onToast(ex.message.toString())
+        }
+    }
+
+    private val requestPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+        it.entries.forEach {
+            if (it.key == Manifest.permission.CAMERA) {
+                if (it.value) {
+                    choosePhotoPermission()
+                } else {
+                    SettingsDialog.Builder(this).build().show()
+                }
+            }
         }
     }
 
@@ -244,26 +258,5 @@ class ProfileActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
-    }
-
-    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
-        if (somePermissionPermanentlyDenied(this, listOf(perms[0]))) {
-            SettingsDialog.Builder(this).build().show()
-        }
-    }
-
-    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
-        if (requestCode == PERMISSION_CAMERA_AND_WRITE_EXTERNAL) {
-            choosePhotoPermission()
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 }
