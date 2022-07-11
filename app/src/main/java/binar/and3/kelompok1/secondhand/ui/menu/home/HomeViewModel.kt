@@ -17,35 +17,35 @@ class HomeViewModel @Inject constructor(
     private val buyerProductRepository: ProductRepository
 ) : ViewModel() {
 
-    val shouldShowBuyerProduct: MutableLiveData<BuyerProductResponse> = MutableLiveData()
+    val shouldShowBuyerProduct: MutableLiveData<List<BuyerProductResponse>> = MutableLiveData()
 
     val shouldShowError: MutableLiveData<String> = MutableLiveData()
 
     fun onViewLoaded() {
-        // tempBuyerProduct()
+        tempBuyerProduct()
     }
 
     private fun getBuyerProduct() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val result = buyerProductRepository.getBuyerProduct()
-            withContext(Dispatchers.Main) {
-                if (result.isSuccessful) {
-                    val buyerProductResponse = result.body()
-                    buyerProductResponse?.let {
-                        val product = BuyerEntity(
-                            id = it.id.hashCode(),
-                            name = it.name.orEmpty(),
-                            base_price = it.basePrice.hashCode(),
-                            imageUrl = it.imageUrl.orEmpty(),
-                            imageName = it.imageName.orEmpty(),
-                            location = it.location.orEmpty(),
-                            userId = it.userId.hashCode()
-                        )
-                        insertHomeProduct(product)
-                    }
-                }
-            }
-        }
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val result = buyerProductRepository.getBuyerProduct()
+//            withContext(Dispatchers.Main) {
+//                if (result.isSuccessful) {
+//                    val buyerProductResponse = result.body()
+//                    buyerProductResponse?.let {
+//                        val product = BuyerEntity(
+//                            id = it.id.hashCode(),
+//                            name = it.name.orEmpty(),
+//                            base_price = it.basePrice.hashCode(),
+//                            imageUrl = it.imageUrl.orEmpty(),
+//                            imageName = it.imageName.orEmpty(),
+//                            location = it.location.orEmpty(),
+//                            userId = it.userId.hashCode()
+//                        )
+//                        insertHomeProduct(product)
+//                    }
+//                }
+//            }
+//        }
     }
     private fun insertHomeProduct(buyerEntity: BuyerEntity) {
         CoroutineScope(Dispatchers.IO).launch {

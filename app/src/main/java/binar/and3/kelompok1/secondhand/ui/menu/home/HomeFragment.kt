@@ -52,7 +52,7 @@ class HomeFragment : Fragment() {
 
     private fun bindViewModel() {
         viewModel.shouldShowBuyerProduct.observe(requireActivity()) {
-//           homeProductAdapter.updateBuyerProduct(it)
+           homeProductAdapter.updateBuyerProduct(it)
         }
     }
 

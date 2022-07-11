@@ -120,6 +120,7 @@ class SignUpViewModel @Inject constructor(
                             password = it.password.orEmpty(),
                             phoneNumber = it.phoneNumber.hashCode(),
                             address = it.address.orEmpty(),
+                            city = it.city.orEmpty(),
                             imageUrl = it.imageUrl.orEmpty()
                         )
                         insertProfile(userEntity)

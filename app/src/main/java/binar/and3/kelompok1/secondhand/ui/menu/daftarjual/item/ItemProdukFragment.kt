@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import binar.and3.kelompok1.secondhand.data.api.seller.GetProductByIdResponse
 import binar.and3.kelompok1.secondhand.data.api.seller.GetProductResponse
 import binar.and3.kelompok1.secondhand.databinding.FragmentItemProdukBinding
 import binar.and3.kelompok1.secondhand.ui.jualform.JualFormActivity
 import binar.and3.kelompok1.secondhand.ui.menu.daftarjual.item.adapter.ItemProdukAdapter
+import binar.and3.kelompok1.secondhand.ui.seller.ProductPreviewActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,9 +39,12 @@ class ItemProdukFragment : Fragment() {
         itemProdukAdapter =
             ItemProdukAdapter(listener = object : ItemProdukAdapter.EventListener {
                 override fun onClick(item: GetProductResponse) {
-                    println("Hello")
+                    val intent = Intent(activity, ProductPreviewActivity::class.java)
+                    val bundle = Bundle()
+                    item.id?.let { bundle.putInt("id", it) }
+                    intent.putExtras(bundle)
+                    startActivity(intent)
                 }
-
             }, emptyList())
 
         binding.rvDaftarJual.adapter = itemProdukAdapter

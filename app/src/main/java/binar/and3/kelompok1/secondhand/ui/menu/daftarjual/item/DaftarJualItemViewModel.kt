@@ -2,6 +2,7 @@ package binar.and3.kelompok1.secondhand.ui.menu.daftarjual.item
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import binar.and3.kelompok1.secondhand.data.api.seller.GetProductByIdResponse
 import binar.and3.kelompok1.secondhand.data.api.seller.GetProductResponse
 import binar.and3.kelompok1.secondhand.repository.AuthRepository
 import binar.and3.kelompok1.secondhand.repository.ProductRepository
@@ -28,7 +29,6 @@ class DaftarJualItemViewModel @Inject constructor(
     private fun getMyProduct() {
         CoroutineScope(Dispatchers.IO).launch {
             val accessToken = authRepository.getToken().toString()
-            println("Akses token: $accessToken")
             val result = productRepository.getSellerProduct(accessToken = accessToken)
             withContext(Dispatchers.Main) {
                 if (result.isSuccessful) {
