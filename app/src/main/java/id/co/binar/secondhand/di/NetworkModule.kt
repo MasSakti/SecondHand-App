@@ -20,6 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.net.CookieManager
 import java.util.*
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -28,13 +29,28 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideApi(
+    @Named("secondhand")
+    fun provideApiSecondHand(
         okHttpClient: OkHttpClient,
         gson: Gson
     ): Retrofit {
         return Retrofit.Builder().apply {
             client(okHttpClient)
             baseUrl(Constant.BASE_URL)
+            addConverterFactory(GsonConverterFactory.create(gson))
+        }.build()
+    }
+
+    @Singleton
+    @Provides
+    @Named("notification")
+    fun provideApiNotif(
+        okHttpClient: OkHttpClient,
+        gson: Gson
+    ): Retrofit {
+        return Retrofit.Builder().apply {
+            client(okHttpClient)
+            baseUrl(Constant.BASE_URL_NOTIF)
             addConverterFactory(GsonConverterFactory.create(gson))
         }.build()
     }

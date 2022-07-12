@@ -11,13 +11,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ActivityProductBinding
 import id.co.binar.secondhand.model.buyer.product.GetProductResponse
+import id.co.binar.secondhand.model.notification.NotificationUsers
+import id.co.binar.secondhand.model.notification.NotificationUsersField
 import id.co.binar.secondhand.model.seller.product.AddProductRequest
 import id.co.binar.secondhand.model.seller.product.UpdateProductByIdRequest
 import id.co.binar.secondhand.ui.product.dialog.ProductBidingFragment
 import id.co.binar.secondhand.ui.product.dialog.TAG_BIDING_PRODUCT_DIALOG
-import id.co.binar.secondhand.ui.product_add.ARGS_PRODUCT_EDIT
 import id.co.binar.secondhand.util.*
-import java.util.*
 
 const val ARGS_PASSING_PREVIEW = "PREVIEW"
 const val ARGS_PASSING_SEE_DETAIL = "SEE_DETAIL"
@@ -110,18 +110,22 @@ class ProductActivity : AppCompatActivity() {
     }
 
     private fun bindObserver() {
+        viewModel.sendNotif.observe(this) {
+            when (it) {
+                is Resource.Success -> { }
+                is Resource.Loading -> { }
+                is Resource.Error -> { }
+            }
+        }
+
         viewModel.editProduct.observe(this) {
             when (it) {
                 is Resource.Success -> {
                     this.onToast("${it.data?.name} berhasil diupdate")
                     onBackPressed()
                 }
-                is Resource.Loading -> {
-                    this.onToast("Mohon menunggu...")
-                }
-                is Resource.Error -> {
-                    this.onSnackError(binding.root, it.error?.message.toString())
-                }
+                is Resource.Loading -> this.onToast("Mohon menunggu...")
+                is Resource.Error -> this.onSnackError(binding.root, it.error?.message.toString())
             }
         }
 
@@ -131,18 +135,20 @@ class ProductActivity : AppCompatActivity() {
                     this.onToast("${it.data?.name} berhasil ditambahkan")
                     onBackPressed()
                 }
-                is Resource.Loading -> {
-                    this.onToast("Mohon menunggu...")
-                }
-                is Resource.Error -> {
-                    this.onSnackError(binding.root, it.error?.message.toString())
-                }
+                is Resource.Loading -> this.onToast("Mohon menunggu...")
+                is Resource.Error -> this.onSnackError(binding.root, it.error?.message.toString())
             }
         }
 
         viewModel.newOrder.observe(this) {
             when (it) {
-                is Resource.Success -> this.onSnackSuccess(binding.root, "Hore, harga tawaranmu berhasil dikirim ke penjual")
+                is Resource.Success -> {
+                    viewModel.sendNotif(item, it.data)
+                    this.onSnackSuccess(
+                        binding.root,
+                        "Hore, harga tawaranmu berhasil dikirim ke penjual"
+                    )
+                }
                 is Resource.Loading -> this.onToast("Mohon menunggu...")
                 is Resource.Error -> this.onSnackError(binding.root, it.error?.message.toString())
             }

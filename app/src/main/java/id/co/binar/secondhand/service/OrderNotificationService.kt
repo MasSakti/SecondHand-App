@@ -22,21 +22,13 @@ const val channelID = "notif_channel"
 const val channelReceiver = "id.co.binar.secondhand"
 
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
-@AndroidEntryPoint
 class OrderNotificationService : FirebaseMessagingService() {
-
-    @Inject lateinit var store: DataStoreManager
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-        if (message.notification != null) {
-            intentTo(message.notification!!.title.toString(), message.notification!!.body.toString())
+        if (message.data.isNotEmpty()) {
+            intentTo(message.data["title"].toString(), message.data["message"].toString())
         }
-    }
-
-    override fun onNewToken(token: String) {
-        super.onNewToken(token)
-        store.setTokenNotif(token)
     }
 
     private fun intentTo(title: String, message: String) {

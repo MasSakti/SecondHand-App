@@ -12,6 +12,7 @@ import id.co.binar.secondhand.data.remote.*
 import id.co.binar.secondhand.database.RoomDatabase
 import id.co.binar.secondhand.util.DataStoreManager
 import retrofit2.Retrofit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -30,32 +31,38 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideAuthApi(retrofit: Retrofit): AuthApi {
+    fun provideAuthApi(@Named("secondhand") retrofit: Retrofit): AuthApi {
         return retrofit.create(AuthApi::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideBuyerApi(retrofit: Retrofit): BuyerApi {
+    fun provideBuyerApi(@Named("secondhand") retrofit: Retrofit): BuyerApi {
         return retrofit.create(BuyerApi::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideHistoryApi(retrofit: Retrofit): HistoryApi {
+    fun provideHistoryApi(@Named("secondhand") retrofit: Retrofit): HistoryApi {
         return retrofit.create(HistoryApi::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideNotificationApi(retrofit: Retrofit): NotificationApi {
+    fun provideNotificationApi(@Named("secondhand") retrofit: Retrofit): NotificationApi {
         return retrofit.create(NotificationApi::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideSellerApi(retrofit: Retrofit): SellerApi {
+    fun provideSellerApi(@Named("secondhand") retrofit: Retrofit): SellerApi {
         return retrofit.create(SellerApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideNotificationFCMApi(@Named("notification") retrofit: Retrofit): NotificationFCMApi {
+        return retrofit.create(NotificationFCMApi::class.java)
     }
 
     @Singleton

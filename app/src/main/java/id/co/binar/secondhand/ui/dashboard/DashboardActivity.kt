@@ -2,7 +2,6 @@ package id.co.binar.secondhand.ui.dashboard
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -16,15 +15,10 @@ import id.co.binar.secondhand.ui.dashboard.home.HomeFragment
 import id.co.binar.secondhand.ui.dashboard.list_sell.ListSellFragment
 import id.co.binar.secondhand.ui.dashboard.notification.NotificationFragment
 import id.co.binar.secondhand.ui.product_add.ProductAddActivity
-import id.co.binar.secondhand.util.DataStoreManager
-import id.co.binar.secondhand.util.onSnackSuccess
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashboardActivity : AppCompatActivity(),
     NavigationBarView.OnItemSelectedListener {
-
-    @Inject lateinit var store: DataStoreManager
 
     private lateinit var sectionViewPager: DashboardViewPagerAdapter
     private lateinit var binding: ActivityDashboardBinding
@@ -36,8 +30,6 @@ class DashboardActivity : AppCompatActivity(),
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = ""
-
-        Log.d("TESTTT", store.getTokenNotif())
 
         val itemFragment = listOf(
             HomeFragment(),

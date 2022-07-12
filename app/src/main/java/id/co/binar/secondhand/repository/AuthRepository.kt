@@ -1,6 +1,8 @@
 package id.co.binar.secondhand.repository
 
 import androidx.room.withTransaction
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import id.co.binar.secondhand.data.local.AuthDao
 import id.co.binar.secondhand.data.local.SellerDao
@@ -8,6 +10,7 @@ import id.co.binar.secondhand.data.local.model.AuthLocal
 import id.co.binar.secondhand.data.remote.AuthApi
 import id.co.binar.secondhand.database.RoomDatabase
 import id.co.binar.secondhand.model.ErrorResponse
+import id.co.binar.secondhand.model.UsersFirestore
 import id.co.binar.secondhand.model.auth.*
 import id.co.binar.secondhand.util.DataStoreManager
 import id.co.binar.secondhand.util.Resource
@@ -16,6 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -29,9 +33,13 @@ class AuthRepository @Inject constructor(
     private val db: RoomDatabase
 ) {
     suspend fun logout() {
-        store.clear()
         authDao.logout()
         sellerDao.removeProductHome()
+        FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/${store.getUsrId()}")
+            .addOnSuccessListener {
+                store.setTokenId("")
+                store.setUsrId(-1)
+            }
     }
 
     fun login(field: GetAuthRequest): Flow<Resource<GetAuthResponse>> = flow {
@@ -50,6 +58,9 @@ class AuthRepository @Inject constructor(
                     )
                     store.setTokenId(it.accessToken.toString())
                     store.setUsrId(it.id)
+                    FirebaseMessaging.getInstance().subscribeToTopic("/topics/${it.id}").await()
+                    FirebaseFirestore.getInstance().collection("notification").document("${it.id}")
+                        .set(UsersFirestore(it.id, store.getTokenNotif())).await()
                     emit(Resource.Success(it))
                 }
             } else {

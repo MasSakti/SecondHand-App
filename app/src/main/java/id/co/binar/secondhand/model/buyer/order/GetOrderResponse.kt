@@ -16,7 +16,10 @@ data class GetOrderResponse(
     val user: User? = null,
 
     @SerializedName("price")
-    val price: Int? = null,
+    val price: Long? = null,
+
+    @SerializedName("base_price")
+    val basePrice: Long? = null,
 
     @SerializedName("product_id")
     val productId: Int? = null,

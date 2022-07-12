@@ -90,3 +90,13 @@ data class Product(
 	@SerializedName("updatedAt")
 	val updatedAt: String? = null
 ) : Parcelable
+
+data class NotificationUsers(
+	val to: String? = null,
+	val data: NotificationUsersField? = null
+)
+
+data class NotificationUsersField(
+	val title: String? = null,
+	val message: String? = null
+)
