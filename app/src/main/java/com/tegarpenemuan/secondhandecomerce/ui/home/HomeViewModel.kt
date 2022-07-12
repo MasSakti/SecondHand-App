@@ -2,6 +2,7 @@ package com.tegarpenemuan.secondhandecomerce.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.tegarpenemuan.secondhandecomerce.data.api.banner.BannerResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductResponse
@@ -19,6 +20,7 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     val shouldShowGetProduct: MutableLiveData<List<GetProductResponse>> = MutableLiveData()
+    val shouldShowBanner: MutableLiveData<List<BannerResponseItem>> = MutableLiveData()
     val shouldShowGetCategory: MutableLiveData<List<GetCategoryResponseItem>> = MutableLiveData()
 
     fun getProduct(status: String? = "", category_id: Int? = null, search: String? = "") {
@@ -42,6 +44,20 @@ class HomeViewModel @Inject constructor(
                 if (response.isSuccessful) {
                     val getCategoryResponse = response.body()
                     shouldShowGetCategory.postValue(getCategoryResponse!!)
+                } else {
+                    //shouldShowError.postValue("Request get Profile Tidak Failed" + response.code())
+                }
+            }
+        }
+    }
+
+    fun getBanner() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.getBanner()
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    val bannerResponse = response.body()
+                    shouldShowBanner.postValue(bannerResponse!!)
                 } else {
                     //shouldShowError.postValue("Request get Profile Tidak Failed" + response.code())
                 }

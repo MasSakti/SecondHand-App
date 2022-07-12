@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import javax.inject.Inject
 
@@ -68,10 +69,10 @@ class ProfileViewModel @Inject constructor(
 
     private fun updateProfile() {
         val file = fileImage.toMultipartBody("image")
-        val full_name = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), full_name)
-        val city = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), city)
-        val address = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), address)
-        val phone_number = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), phone_number)
+        val full_name = full_name.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val city = city.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val address = address.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val phone_number = phone_number.toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.updateUser(
@@ -145,7 +146,7 @@ class ProfileViewModel @Inject constructor(
                             full_name = it.full_name,
                             phone_number = it.phone_number,
                             address = it.address,
-                            image_url = it.image_url,
+                            image_url = it.image_url!!,
                             city = it.city.toString()
                         )
                     }

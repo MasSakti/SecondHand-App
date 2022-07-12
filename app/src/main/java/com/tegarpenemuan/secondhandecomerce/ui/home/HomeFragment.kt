@@ -2,19 +2,25 @@ package com.tegarpenemuan.secondhandecomerce.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.tegarpenemuan.secondhandecomerce.data.api.banner.BannerResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.databinding.FragmentHomeBinding
 import com.tegarpenemuan.secondhandecomerce.ui.buyer6.Buyer6Activity
 import com.tegarpenemuan.secondhandecomerce.ui.home.adapter.CategoryAdapter
+import com.tegarpenemuan.secondhandecomerce.ui.home.adapter.ImageSliderAdapter
 import com.tegarpenemuan.secondhandecomerce.ui.home.adapter.ProductAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +33,12 @@ class HomeFragment : Fragment() {
 
     lateinit var homeAdapter: ProductAdapter
     lateinit var categoryAdapter: CategoryAdapter
+    private lateinit var adapter: ImageSliderAdapter
+    private lateinit var dots: ArrayList<TextView>
+    private var size = 0
+
+    private lateinit var handler: Handler
+    private lateinit var runnable: Runnable
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,22 +50,46 @@ class HomeFragment : Fragment() {
 
         viewModel.getProduct()
         viewModel.getCategory()
+        viewModel.getBanner()
 
         bindview()
         bindviewModel()
+
+        handler = Handler(Looper.getMainLooper())
+        runnable = object : Runnable {
+            var index = 0
+            override fun run() {
+                if (index == size)
+                    index = 0
+                Log.e("Runnable,", "$index")
+                binding.vpBanner.currentItem = index
+                index++
+                handler.postDelayed(this, 5000)
+            }
+        }
 
         return root
     }
 
     private fun bindviewModel() {
+        binding.progressbar1.visibility = View.VISIBLE
         viewModel.shouldShowGetProduct.observe(viewLifecycleOwner) {
-            //Log.d("TAG", "product:$it")
+            binding.progressbar1.visibility = View.GONE
             homeAdapter.updateList(it)
         }
 
+        binding.progressbar.visibility = View.VISIBLE
         viewModel.shouldShowGetCategory.observe(viewLifecycleOwner) {
-            //Log.d("TAG", "category:$it")
+            binding.progressbar.visibility = View.GONE
             categoryAdapter.updateList(it)
+        }
+
+        viewModel.shouldShowBanner.observe(viewLifecycleOwner) {
+            adapter = ImageSliderAdapter(it)
+            size = it.size
+            binding.vpBanner.adapter = adapter
+            dots = ArrayList()
+            setIndicator()
         }
     }
 
@@ -95,5 +131,24 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setIndicator() {
+        for (i in 0 until size) {
+            dots.add(TextView(requireContext())) //tambahkan textview kosong
+            dots[i].text = HtmlCompat.fromHtml("&#9679", HtmlCompat.FROM_HTML_MODE_LEGACY)
+            dots[i].textSize = 14f
+            binding.dotsIndicator.addView(dots[i])
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        handler.post(runnable)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        handler.removeCallbacks(runnable)
     }
 }

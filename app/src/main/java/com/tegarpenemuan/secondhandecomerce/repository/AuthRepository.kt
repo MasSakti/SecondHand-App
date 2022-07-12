@@ -1,6 +1,8 @@
 package com.tegarpenemuan.secondhandecomerce.repository
 
 import com.tegarpenemuan.secondhandecomerce.data.api.AuthApi
+import com.tegarpenemuan.secondhandecomerce.data.api.banner.BannerResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.banner.BannerResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getCity.getCityResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getNotification.GetNotifResponseItem
@@ -155,5 +157,9 @@ class AuthRepository @Inject constructor(
 
     suspend fun getCity(id_provinsi: Int):Response<getCityResponse>{
         return api.getCity(id_provinsi)
+    }
+
+    suspend fun getBanner(): Response<List<BannerResponseItem>> {
+        return api.getBanner()
     }
 }
