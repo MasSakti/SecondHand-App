@@ -1,5 +1,8 @@
 package com.example.projectgroup2.di
 
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.example.projectgroup2.data.api.auth.AuthAPI
 import com.example.projectgroup2.data.api.image.ImageAPI
 import com.example.projectgroup2.data.api.main.ProductAPI
@@ -7,6 +10,7 @@ import com.example.projectgroup2.utils.Constant
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -25,6 +29,19 @@ class NetworkModule {
         return httpLoggingInterceptor.apply {
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         }
+    }
+
+    @Singleton
+    @Provides
+    fun provideChuckerInterceptor(
+        @ApplicationContext context: Context
+    ) : ChuckerInterceptor {
+        return ChuckerInterceptor.Builder(context)
+            .collector(ChuckerCollector(context))
+            .maxContentLength(250000L)
+            .redactHeaders(emptySet())
+            .alwaysReadResponseBody(false)
+            .build()
     }
 
     @Singleton

@@ -54,6 +54,8 @@ dependencies {
     implementation 'com.tbuonomo:dotsindicator:4.2'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
     implementation 'com.github.dhaval2404:imagepicker:2.1'
+    debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
 
     // Navigation Components
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'

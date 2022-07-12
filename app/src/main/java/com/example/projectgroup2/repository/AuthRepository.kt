@@ -6,10 +6,13 @@ import com.example.projectgroup2.data.api.auth.login.LoginRequest
 import com.example.projectgroup2.data.api.auth.login.LoginResponse
 import com.example.projectgroup2.data.api.auth.register.RegisterRequest
 import com.example.projectgroup2.data.api.auth.register.RegisterResponse
+import com.example.projectgroup2.data.api.auth.updateuser.UpdateUserResponse
 import com.example.projectgroup2.data.local.UserDAO
 import com.example.projectgroup2.data.local.UserEntity
 import com.example.projectgroup2.datastore.AuthDataStoreManager
 import kotlinx.coroutines.flow.firstOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -28,6 +31,17 @@ class AuthRepository @Inject constructor(
 
     suspend fun getUser(token: String): Response<GetUserResponse> {
         return api.getUser(token = token)
+    }
+
+    suspend fun updateUser(
+        token: String,
+        image: MultipartBody.Part?,
+        name: RequestBody?,
+        phoneNumber: RequestBody?,
+        address: RequestBody?,
+        city: RequestBody?
+    ): Response<UpdateUserResponse> {
+        return api.updateUser(token, image, name, phoneNumber, address, city)
     }
 
     suspend fun clearToken() {

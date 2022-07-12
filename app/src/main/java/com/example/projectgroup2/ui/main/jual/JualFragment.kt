@@ -41,15 +41,15 @@ class JualFragment : Fragment() {
 
     private var uri: String = ""
     companion object {
-        const val NAMA_PRODUK_KEY = "namaProduk"
-        const val HARGA_PRODUK_KEY = "hargaProduk"
-        const val DESKRIPSI_PRODUK_KEY = "deskripsiProduk"
-        const val KATEGORI_PRODUK_KEY = "kategoriProduk"
-        const val IMAGE_PRODUK_KEY = "imageProduk"
-        const val NAME_USER_KEY = "userName"
-        const val ADDRESS_USER_KEY = "userAlamat"
-        const val IMAGE_USER_KEY = "userImage"
-        const val TOKEN_USER_KEY = "userToken"
+        const val NAMA_PRODUCT_KEY = "namaProduk"
+        const val HARGA_PRODUCT_KEY = "hargaProduk"
+        const val DESKRIPSI_PRODUCT_KEY = "deskripsiProduk"
+        const val KATEGORI_PRODUCT_KEY = "kategoriProduk"
+        const val ALAMAT_PRODUCT_KEY = "alamatProduk"
+        const val IMAGE_PRODUCT_KEY = "imageProduk"
+//        const val NAME_USER_KEY = "userName"
+//        const val ADDRESS_USER_KEY = "userAlamat"
+//        const val IMAGE_USER_KEY = "userImage"
     }
 
     override fun onCreateView(
@@ -105,6 +105,33 @@ class JualFragment : Fragment() {
 
         binding.ivPhotoProduct.setOnClickListener {
             openImagePicker()
+        }
+
+        val bundle = Bundle()
+        binding.btnPreviewProduct.setOnClickListener {
+            resetError()
+            val namaProduk = binding.etNamaProduct.text.toString()
+            val hargaProduk = binding.etHargaProduct.text.toString()
+            val deskripsiProduk = binding.etDeskripsiProduct.text.toString()
+            val kategoriProduk = binding.etKategoriProduct.text.toString()
+            val alamatPenjual = binding.etLokasiProduct.text.toString()
+            val validation = validation(
+                namaProduk,
+                hargaProduk,
+                deskripsiProduk,
+                alamatPenjual,
+                uri,
+                listCategoryId
+            )
+            if (validation == "passed") {
+                bundle.putString(NAMA_PRODUCT_KEY, namaProduk)
+                bundle.putString(HARGA_PRODUCT_KEY, hargaProduk)
+                bundle.putString(DESKRIPSI_PRODUCT_KEY, deskripsiProduk)
+                bundle.putString(KATEGORI_PRODUCT_KEY, kategoriProduk)
+                bundle.putString(ALAMAT_PRODUCT_KEY, alamatPenjual)
+                bundle.putString(IMAGE_PRODUCT_KEY, uri)
+                findNavController().navigate(R.id.action_jualFragment_to_previewFragment, bundle)
+            }
         }
 
         binding.btnPostProduct.setOnClickListener {

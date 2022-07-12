@@ -54,7 +54,11 @@
         android:id="@+id/akunFragment"
         android:name="com.example.projectgroup2.ui.main.akun.AkunFragment"
         android:label="fragment_akun"
-        tools:layout="@layout/fragment_akun" />
+        tools:layout="@layout/fragment_akun" >
+        <action
+            android:id="@+id/action_akunFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/jualFragment"
         android:name="com.example.projectgroup2.ui.main.jual.JualFragment"
@@ -66,6 +70,9 @@
         <action
             android:id="@+id/action_jualFragment_to_daftarJualFragment"
             app:destination="@id/daftarJualFragment" />
+        <action
+            android:id="@+id/action_jualFragment_to_previewFragment"
+            app:destination="@id/previewFragment" />
     </fragment>
     <activity
         android:id="@+id/loginActivity"
@@ -104,5 +111,26 @@
         <action
             android:id="@+id/action_detailsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/previewFragment"
+        android:name="com.example.projectgroup2.ui.main.jual.preview.PreviewFragment"
+        android:label="fragment_preview"
+        tools:layout="@layout/fragment_preview" >
+        <action
+            android:id="@+id/action_previewFragment_to_jualFragment"
+            app:destination="@id/jualFragment" />
+        <action
+            android:id="@+id/action_previewFragment_to_daftarJualFragment"
+            app:destination="@id/daftarJualFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.projectgroup2.ui.main.akun.editprofile.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_akunFragment"
+            app:destination="@id/akunFragment" />
     </fragment>
 </navigation>

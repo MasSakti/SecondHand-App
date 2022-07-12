@@ -7,6 +7,7 @@ import com.example.projectgroup2.data.api.auth.profile.ProfileRequest
 import com.example.projectgroup2.data.api.auth.profile.ProfileResponse
 import com.example.projectgroup2.data.api.auth.register.RegisterRequest
 import com.example.projectgroup2.data.api.auth.register.RegisterResponse
+import com.example.projectgroup2.data.api.auth.updateuser.UpdateUserResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -22,9 +23,16 @@ interface AuthAPI {
     @GET("auth/user")
     suspend fun getUser(@Header("access_token") token: String): Response<GetUserResponse>
 
+    @Multipart
     @PUT("auth/user")
-    suspend fun putUser(
-        @Header ("access_token") access_token: String,
-        @Body request: ProfileRequest
-    ): Response<ProfileResponse>
+    suspend fun updateUser(
+        @Header("access_token") token: String,
+        @Part file: MultipartBody.Part? = null,
+        @Part("full_name") name: RequestBody?,
+        @Part("phone_number") phoneNumber: RequestBody?,
+        @Part("address") address: RequestBody?,
+        @Part("city") city: RequestBody?,
+        @Part("email") email: RequestBody? = null,
+        @Part("password") password: RequestBody? = null
+    ): Response<UpdateUserResponse>
 }

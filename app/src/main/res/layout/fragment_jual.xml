@@ -81,17 +81,27 @@
 
         <Button
             android:id="@+id/btn_postProduct"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:background="@drawable/bg_button"
             android:text="terbitkan"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="14sp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <Button
+            android:id="@+id/btn_previewProduct"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="preview"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_postProduct"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_postProduct" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
