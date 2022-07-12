@@ -77,7 +77,7 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
                 password = password,
                 phone_number = phone_number,
                 address = address,
-                city = city
+                city = city,
             )
             val result = repo.registerUser(request = request)
             withContext(Dispatchers.Main) {
@@ -103,7 +103,9 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
                     val signInResponse = response.body()
                     signInResponse?.let {
                         // mempersiapkan untuk simpan token
-                        insertToken(it.access_token.orEmpty())
+                        val token = it.access_token.orEmpty()
+                        insertToken(token = token)
+                        getUserData(token = token)
 
                         // mempersiapkan untuk insert ke database
 //                        val userEntity = UserEntity(
@@ -121,6 +123,31 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
                     shouldShowError.postValue("Maaf, Gagal insert ke dalam database")
 //                    showErrorMessage(response.errorBody())
                     shouldShowLoading.postValue(false)
+                }
+            }
+        }
+    }
+
+    private fun getUserData(token: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repo.getUser(token = token)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    val getUserResponse = response.body()
+                    getUserResponse?.let {
+                        val userEntity = UserEntity(
+                            id = it.id.hashCode(),
+                            full_name = it.fullName.orEmpty(),
+                            email = it.email.orEmpty(),
+                            password = it.password.orEmpty(),
+                            phone_number = it.phoneNumber.hashCode(),
+                            address = it.address.orEmpty(),
+                            image_url = it.imageUrl.orEmpty()
+                        )
+                        insertProfile(userEntity)
+                    }
+                } else {
+                    shouldShowError.postValue("Maaf, Gagal insert ke dalam database")
                 }
             }
         }

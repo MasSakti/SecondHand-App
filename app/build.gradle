@@ -53,6 +53,7 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.4.0'
     implementation 'com.tbuonomo:dotsindicator:4.2'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
 
     // Navigation Components
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'

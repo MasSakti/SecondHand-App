@@ -1,14 +1,22 @@
 package com.example.projectgroup2.ui.main.home
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.projectgroup2.R
 import com.example.projectgroup2.data.api.main.buyer.product.GetProductResponse
 import com.example.projectgroup2.data.api.main.buyer.product.ProductResponseItem
 import com.example.projectgroup2.data.api.main.category.CategoryResponse
@@ -19,7 +27,12 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
-    private lateinit var binding: FragmentHomeBinding
+    companion object {
+        var result = 0
+        const val PRODUCT_ID = "id"
+    }
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var productAdapter: ProductAdapter
     private lateinit var categoryAdapter: CategoryAdapter
@@ -28,7 +41,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHomeBinding.inflate(inflater,container,false)
+        _binding = FragmentHomeBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -36,6 +49,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         bindViewModel()
         bindAdapterAndItem()
+        changeToolbar()
 
         val status = "available"
         val categoryId = ""
@@ -91,8 +105,9 @@ class HomeFragment : Fragment() {
     private fun bindAdapterAndItem(){
         productAdapter = ProductAdapter(object: ProductAdapter.OnClickListener{
             override fun onClickItem(data: GetProductResponse) {
-                Toast.makeText(requireContext(),"click", Toast.LENGTH_SHORT).show()
-
+                val bundle = Bundle()
+                bundle.putInt(PRODUCT_ID, data.id)
+                findNavController().navigate(R.id.action_homeFragment_to_detailsFragment, bundle)
             }
         })
         binding.rvProductHome.layoutManager =
@@ -121,5 +136,50 @@ class HomeFragment : Fragment() {
         }
     }
 
+    @SuppressLint("ObsoleteSdkInt")
+    private fun changeToolbar() {
+        var toolbarColored = false
+        var toolbarTransparent = true
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            binding.scrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+                val bannerHeight =
+                    (binding.shimerBanner.height / 2) - result - binding.statusBar.height
+                val colored = ContextCompat.getColor(requireContext(), R.color.white)
+                val transparent =
+                    ContextCompat.getColor(requireContext(), android.R.color.transparent)
+
+                when {
+                    scrollY > bannerHeight -> {
+                        if (toolbarTransparent) {
+                            val colorAnimate =
+                                ValueAnimator.ofObject(ArgbEvaluator(), transparent, colored)
+                            colorAnimate.addUpdateListener {
+                                binding.statusBar.setBackgroundColor(it.animatedValue as Int)
+                                binding.toolbar.setBackgroundColor(it.animatedValue as Int)
+                            }
+                            colorAnimate.duration = 250
+                            colorAnimate.start()
+                            toolbarColored = true
+                            toolbarTransparent = false
+                        }
+                    }
+                    else -> {
+                        if (toolbarColored) {
+                            val colorAnimate =
+                                ValueAnimator.ofObject(ArgbEvaluator(), colored, transparent)
+                            colorAnimate.addUpdateListener {
+                                binding.statusBar.setBackgroundColor(it.animatedValue as Int)
+                                binding.toolbar.setBackgroundColor(it.animatedValue as Int)
+                            }
+                            colorAnimate.duration = 250
+                            colorAnimate.start()
+                            toolbarColored = false
+                            toolbarTransparent = true
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 }

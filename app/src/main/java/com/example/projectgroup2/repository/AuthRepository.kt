@@ -1,6 +1,7 @@
 package com.example.projectgroup2.repository
 
 import com.example.projectgroup2.data.api.auth.AuthAPI
+import com.example.projectgroup2.data.api.auth.getUser.GetUserResponse
 import com.example.projectgroup2.data.api.auth.login.LoginRequest
 import com.example.projectgroup2.data.api.auth.login.LoginResponse
 import com.example.projectgroup2.data.api.auth.register.RegisterRequest
@@ -23,6 +24,10 @@ class AuthRepository @Inject constructor(
 
     suspend fun loginUser(request: LoginRequest): Response<LoginResponse>{
         return api.postLogin(request)
+    }
+
+    suspend fun getUser(token: String): Response<GetUserResponse> {
+        return api.getUser(token = token)
     }
 
     suspend fun clearToken() {

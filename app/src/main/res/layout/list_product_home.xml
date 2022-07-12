@@ -6,18 +6,19 @@
 
     <com.github.captain_miao.optroundcardview.OptRoundCardView
         android:layout_width="170dp"
-        android:layout_height="240dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="5dp"
         app:optRoundCardBackgroundColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:optRoundCardCornerRadius="15dp"
-        app:optRoundCardElevation="0dp">
+        app:optRoundCardElevation="3dp"
+        app:optRoundCardMaxElevation="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,63 +27,63 @@
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/iv_productImg"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_height="175dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_seller"
+                android:src="@drawable/kena"
+                app:riv_corner_radius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:riv_corner_radius="15dp" />
-
-            <TextView
-                android:id="@+id/tv_productCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:fontFamily="@font/nunitosemibold"
-                android:maxLines="1"
-                android:text="category"
-                android:textColor="#999999"
-                android:textSize="13sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_productImg" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_productName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="3dp"
                 android:layout_marginEnd="10dp"
-                android:fontFamily="@font/nunitobold"
-                android:maxLines="1"
-                android:text="Jam Casseo"
+                android:fontFamily="@font/nunitoregular"
+                android:maxLines="2"
+                android:layout_marginTop="8dp"
+                android:text="Jam Casseo Jam Casseo Jam Casseo"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_productCategory" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_productImg" />
+
+            <TextView
+                android:id="@+id/tv_productCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/nunitoregular"
+                android:maxLines="1"
+                android:text="Elektronik, Pakaian Pria"
+                android:textColor="#999999"
+                android:textSize="12sp"
+                android:layout_marginTop="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_productName" />
 
             <TextView
                 android:id="@+id/tv_productPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="7dp"
                 android:layout_marginEnd="10dp"
-                android:fontFamily="@font/nunitosemibold"
+                android:fontFamily="@font/nunitobold"
                 android:maxLines="1"
                 android:text="Rp 250.000"
-                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_productName" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_productCategory" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

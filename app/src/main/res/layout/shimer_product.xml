@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,11 +22,11 @@
 
             <com.github.captain_miao.optroundcardview.OptRoundCardView
                 android:layout_width="170dp"
-                android:layout_height="240dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginEnd="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -41,28 +41,23 @@
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/iv_productShimer"
                         android:layout_width="match_parent"
-                        android:layout_height="130dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_height="175dp"
                         android:scaleType="centerCrop"
                         android:src="@color/shimer"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:riv_corner_radius="15dp" />
+                        app:riv_corner_radius="10dp" />
 
                     <TextView
                         android:id="@+id/tv_productShimerCat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="8dp"
                         android:background="@color/shimer"
                         android:fontFamily="@font/nunitosemibold"
                         android:maxLines="1"
-                        android:textSize="13sp"
+                        android:textSize="15sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/iv_productShimer" />
@@ -71,13 +66,11 @@
                         android:id="@+id/tv_productShimerName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="7dp"
                         android:background="@color/shimer"
                         android:fontFamily="@font/nunitobold"
                         android:maxLines="1"
-                        android:textSize="17sp"
+                        android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_productShimerCat" />
@@ -86,13 +79,13 @@
                         android:id="@+id/tv_productShimerPrice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
                         android:layout_marginTop="8dp"
-                        android:layout_marginEnd="10dp"
                         android:background="@color/shimer"
                         android:fontFamily="@font/nunitosemibold"
                         android:maxLines="1"
-                        android:textSize="14sp"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="12dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_productShimerName" />
@@ -103,11 +96,11 @@
 
             <com.github.captain_miao.optroundcardview.OptRoundCardView
                 android:layout_width="170dp"
-                android:layout_height="240dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginEnd="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -122,10 +115,7 @@
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/iv_productImg"
                         android:layout_width="match_parent"
-                        android:layout_height="130dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_height="175dp"
                         android:scaleType="centerCrop"
                         android:src="@color/shimer"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -134,49 +124,45 @@
                         app:riv_corner_radius="15dp" />
 
                     <TextView
-                        android:id="@+id/tv_productCategory"
+                        android:id="@+id/tv_productShimerCat2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="8dp"
                         android:background="@color/shimer"
                         android:fontFamily="@font/nunitosemibold"
                         android:maxLines="1"
-                        android:textSize="13sp"
+                        android:textSize="15sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/iv_productImg" />
 
                     <TextView
-                        android:id="@+id/tv_productName"
+                        android:id="@+id/tv_productShimerName2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="7dp"
                         android:background="@color/shimer"
                         android:fontFamily="@font/nunitobold"
                         android:maxLines="1"
-                        android:textSize="17sp"
+                        android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_productCategory" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_productShimerCat2" />
 
                     <TextView
-                        android:id="@+id/tv_productPrice"
+                        android:id="@+id/tv_productShimerPrice2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
                         android:layout_marginTop="8dp"
-                        android:layout_marginEnd="10dp"
                         android:background="@color/shimer"
                         android:fontFamily="@font/nunitosemibold"
                         android:maxLines="1"
-                        android:textSize="14sp"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="12dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_productName" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_productShimerName2" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

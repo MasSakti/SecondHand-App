@@ -53,7 +53,9 @@ class LoginViewModel @Inject constructor(private val repo: AuthRepository): View
                     val loginResponse = response.body()
                     loginResponse?.let {
                         // mempersiapkan untuk simpan token
-                        insertToken(it.access_token.orEmpty())
+                        val token = it.access_token.orEmpty()
+                        insertToken(token = token)
+                        getUserData(token = token)
 
 //                      mempersiapkan untuk insert ke database
 //                        val userEntity = UserEntity(
@@ -68,6 +70,31 @@ class LoginViewModel @Inject constructor(private val repo: AuthRepository): View
 //                    val error =
 //                        Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java)
 //                    shouldShowError.postValue(error.message.orEmpty() + " #${error.code}")
+                }
+            }
+        }
+    }
+
+    private fun getUserData(token: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repo.getUser(token = token)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    val getUserResponse = response.body()
+                    getUserResponse?.let {
+                        val userEntity = UserEntity(
+                            id = it.id.hashCode(),
+                            full_name = it.fullName.orEmpty(),
+                            email = it.email.orEmpty(),
+                            password = it.password.orEmpty(),
+                            phone_number = it.phoneNumber.hashCode(),
+                            address = it.address.orEmpty(),
+                            image_url = it.imageUrl.orEmpty()
+                        )
+                        insertProfile(userEntity)
+                    }
+                } else {
+                    shouldShowError.postValue("Maaf, Gagal insert ke dalam database")
                 }
             }
         }

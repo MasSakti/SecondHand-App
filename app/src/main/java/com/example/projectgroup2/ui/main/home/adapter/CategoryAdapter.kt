@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.projectgroup2.R
 import com.example.projectgroup2.data.api.main.buyer.product.ProductResponseItem
 import com.example.projectgroup2.data.api.main.category.CategoryResponse
 import com.example.projectgroup2.databinding.ListCategoryHomeBinding
@@ -42,11 +43,12 @@ class CategoryAdapter(private val onClick: OnClickListener): RecyclerView.Adapte
                 notifyDataSetChanged()
             }
             if (rowIndex == position){
-                binding.cardCategory.setBackgroundColor(Color.parseColor("#999999"))
+                binding.cardCategory.setBackgroundColor(Color.parseColor("#30313C"))
                 binding.tvCategoryHome.setTextColor(Color.parseColor("#FFFFFF"))
             }else{
                 binding.cardCategory.setBackgroundColor(Color.parseColor("#FFFFFF"))
                 binding.tvCategoryHome.setTextColor(Color.parseColor("#000000"))
+                binding.cardCategory.setBackgroundResource(R.drawable.bg_category_home)
             }
         }
     }
