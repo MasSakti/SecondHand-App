@@ -64,8 +64,8 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit"
                 android:background="@drawable/shape_button_secondary"
+                android:text="Edit"
                 app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@id/iv_avatar" />
@@ -80,8 +80,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_user">
+        app:layout_constraintTop_toBottomOf="@+id/card_user"
+        app:tabGravity="start"
+        app:tabIndicator="@drawable/tab_indicator"
+        app:tabIndicatorAnimationMode="elastic"
+        app:tabIndicatorGravity="stretch"
+        app:tabInlineLabel="true"
+        app:tabMode="scrollable"
+        app:tabIconTint="@color/tab_color"
+        app:tabTextColor="@color/tab_color">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

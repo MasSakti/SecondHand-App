@@ -45,25 +45,29 @@
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/drawable/shape_login.xml" value="0.1935" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/drawable/shape_rounded.xml" value="0.1935" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/drawable/shape_secondary_button.xml" value="0.2665" />
+        <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/drawable/tab_indicator.xml" value="0.3255" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/activity_jual.xml" value="0.33" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/activity_jual_form.xml" value="0.33" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/activity_login_ui.xml" value="0.25" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/activity_main.xml" value="0.18541666666666667" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/activity_menu.xml" value="0.18541666666666667" />
+        <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/activity_perbarui_status_penjualan.xml" value="0.33" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/activity_product_preview.xml" value="0.17823639774859287" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/activity_register_ui.xml" value="0.3625" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/activity_splash.xml" value="0.16" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/card_user_account.xml" value="0.25" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_akun.xml" value="0.33" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_daftar.xml" value="0.18541666666666667" />
-        <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.25" />
+        <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.33" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_dashboard.xml" value="0.3625" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_diminati_tab.xml" value="0.3625" />
-        <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_item_diminati.xml" value="0.3625" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_item_produk.xml" value="0.25" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_item_terjual.xml" value="0.3625" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_jual.xml" value="0.33" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_notifikasi.xml" value="0.18541666666666667" />
+        <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_product_by_category.xml" value="0.16" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_produk_screen.xml" value="0.3484375" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_produk_tab.xml" value="0.3625" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_terjual_tab.xml" value="0.3625" />

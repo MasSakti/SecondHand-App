@@ -7,14 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import binar.and3.kelompok1.secondhand.R
 import binar.and3.kelompok1.secondhand.databinding.FragmentDaftarJualBinding
-import binar.and3.kelompok1.secondhand.databinding.FragmentHomeBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class DaftarJualFragment : Fragment() {
@@ -42,9 +41,18 @@ class DaftarJualFragment : Fragment() {
 
             TabLayoutMediator(tabLayout, vp2DaftarJual) { tab, position ->
                 when(position) {
-                    0 -> tab.text = "Produk"
-                    1 -> tab.text = "Diminati"
-                    2 -> tab.text = "Terjual"
+                    0 -> {
+                        tab.text = "Produk"
+                        tab.setIcon(R.drawable.ic_fi_box)
+                    }
+                    1 -> {
+                        tab.text = "Diminati"
+                        tab.setIcon(R.drawable.ic_fi_heart)
+                    }
+                    2 -> {
+                        tab.text = "Terjual"
+                        tab.setIcon(R.drawable.ic_fi_dollar_sign)
+                    }
                 }
             }.attach()
         }

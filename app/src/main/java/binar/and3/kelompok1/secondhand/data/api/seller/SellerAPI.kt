@@ -20,4 +20,8 @@ interface SellerAPI {
         @Header("access_token") accessToken: String,
         @Body request: PostProductRequest
     ): Response<PostProductResponse>
+
+    // Seller Category
+    @GET("seller/category")
+    suspend fun getSellerCategory(): Response<List<GetSellerCategory>>
 }

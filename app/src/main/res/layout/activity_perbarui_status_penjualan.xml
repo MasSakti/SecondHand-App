@@ -9,20 +9,27 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_perbaruistatus"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp">
+
             <TextView
                 android:id="@+id/tv_perbarui"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="18sp"
                 android:layout_marginLeft="30dp"
-                android:text="Perbarui status penjualan produkmu"/>
+                android:text="Perbarui status penjualan produkmu"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <RadioButton
                 android:id="@+id/rb_berhasil"
@@ -30,17 +37,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_perbarui"/>
+                app:layout_constraintTop_toBottomOf="@+id/tv_perbarui" />
+
             <TextView
                 android:id="@+id/tv_terjual"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:text="Berhasil terjual"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginTop="12dp"
                 app:layout_constraintLeft_toRightOf="@+id/rb_berhasil"
-                app:layout_constraintTop_toBottomOf="@+id/tv_perbarui"/>
+                app:layout_constraintTop_toBottomOf="@+id/tv_perbarui" />
 
             <TextView
                 android:id="@+id/tv_sepakat"
@@ -57,17 +65,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_sepakat"/>
+                app:layout_constraintTop_toBottomOf="@+id/tv_sepakat" />
+
             <TextView
                 android:id="@+id/tv_batalkan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:text="Batalkan transaksi"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginTop="12dp"
                 app:layout_constraintLeft_toRightOf="@+id/rb_batalkan"
-                app:layout_constraintTop_toBottomOf="@+id/tv_sepakat"/>
+                app:layout_constraintTop_toBottomOf="@+id/tv_sepakat" />
 
             <TextView
                 android:id="@+id/tv_batalkanproduk"
@@ -89,9 +98,9 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_batalkanproduk"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_batalkanproduk" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -32,8 +32,7 @@ class DaftarJualItemViewModel @Inject constructor(
             val result = productRepository.getSellerProduct(accessToken = accessToken)
             withContext(Dispatchers.Main) {
                 if (result.isSuccessful) {
-                    val body = result.body()
-                    shouldShowMyProduct.postValue(body)
+                    shouldShowMyProduct.postValue(result.body())
                 } else {
                     shouldShowError.postValue(result.errorBody().toString())
                 }

@@ -3,6 +3,7 @@ package binar.and3.kelompok1.secondhand.ui.menu.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerProductResponse
+import binar.and3.kelompok1.secondhand.data.api.seller.GetSellerCategory
 import binar.and3.kelompok1.secondhand.data.local.buyer.BuyerEntity
 import binar.and3.kelompok1.secondhand.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,15 +15,31 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val buyerProductRepository: ProductRepository
+    private val buyerProductRepository: ProductRepository,
+    private val productRepository: ProductRepository
 ) : ViewModel() {
 
     val shouldShowBuyerProduct: MutableLiveData<List<BuyerProductResponse>> = MutableLiveData()
+    val tempShouldShowCategory: MutableLiveData<List<GetSellerCategory>> = MutableLiveData()
 
     val shouldShowError: MutableLiveData<String> = MutableLiveData()
 
     fun onViewLoaded() {
         tempBuyerProduct()
+        getSellerCategory()
+    }
+
+    private fun getSellerCategory() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val result = productRepository.getSellerCategory()
+            withContext(Dispatchers.Main) {
+                if (result.isSuccessful) {
+                    tempShouldShowCategory.postValue(result.body())
+                } else {
+                    shouldShowError.postValue(result.errorBody().toString())
+                }
+            }
+        }
     }
 
     private fun getBuyerProduct() {

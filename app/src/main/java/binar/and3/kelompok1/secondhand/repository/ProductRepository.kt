@@ -39,4 +39,9 @@ class ProductRepository @Inject constructor(
         return dao.insertProduct(buyerEntity)
     }
 
+    // Seller Category
+    suspend fun getSellerCategory(): Response<List<GetSellerCategory>> {
+        return sellerAPI.getSellerCategory()
+    }
+
 }

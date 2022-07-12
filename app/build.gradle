@@ -38,8 +38,9 @@ android {
     dataBinding {
         enabled = true
     }
-    lint {
-        baseline = file("lint-baseline.xml")
+    lintOptions {
+        checkReleaseBuilds false
+        disable 'NullSafeMutableLiveData'
     }
 }
 

@@ -57,7 +57,7 @@ class NotificationsAdapter(
             }
         }
 
-        val inputFormatter: DateTimeFormatter =
+        /*val inputFormatter: DateTimeFormatter =
             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
         val outputFormatter: DateTimeFormatter =
             DateTimeFormatter.ofPattern("HH:mm, dd MMM yyy", Locale.ENGLISH)
@@ -72,7 +72,7 @@ class NotificationsAdapter(
             } else {
                 holder.binding.divNotif.visibility = View.VISIBLE
             }
-        }
+        }*/
 
         holder.itemView.setOnClickListener {
             listener.onClick(item)

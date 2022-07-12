@@ -92,7 +92,7 @@ class JualFragment : Fragment() {
     }
 
     private fun bindViewModel() {
-        viewModel.shouldShowLoading.observe(this) {
+        viewModel.shouldShowLoading.observe(viewLifecycleOwner) {
             if (it) {
                 progressDialog.setMessage("Loading...")
                 progressDialog.show()
@@ -100,12 +100,12 @@ class JualFragment : Fragment() {
                 progressDialog.hide()
             }
         }
-        viewModel.shouldShowError.observe(this) {
+        viewModel.shouldShowError.observe(viewLifecycleOwner) {
             val snackbar = Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG)
             snackbar.view.setBackgroundColor(Color.RED)
             snackbar.show()
         }
-        viewModel.shouldOpenDaftarJual.observe(this) {
+        viewModel.shouldOpenDaftarJual.observe(viewLifecycleOwner) {
             if (it) {
                 val intent = Intent(requireContext(), DaftarJualFragment::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
