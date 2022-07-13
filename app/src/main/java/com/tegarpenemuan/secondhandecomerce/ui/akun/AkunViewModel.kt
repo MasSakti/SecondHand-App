@@ -2,6 +2,7 @@ package com.tegarpenemuan.secondhandecomerce.ui.akun
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
 import com.tegarpenemuan.secondhandecomerce.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,7 @@ import javax.inject.Inject
 class AkunViewModel @Inject constructor(
     private val repository: AuthRepository
 ) : ViewModel() {
-
+    val showLogin: MutableLiveData<Boolean> = MutableLiveData()
     val showResponseError: MutableLiveData<String> = MutableLiveData()
     val showResponseSuccess: MutableLiveData<String> = MutableLiveData()
     val shouldShowProfile: MutableLiveData<String> = MutableLiveData()
@@ -82,7 +83,7 @@ class AkunViewModel @Inject constructor(
         }
     }
 
-//    fun getUser() {
+    //    fun getUser() {
 //        CoroutineScope(Dispatchers.IO).launch {
 //            val result = repository.getUser()
 //            withContext(Dispatchers.Main) {
@@ -92,18 +93,26 @@ class AkunViewModel @Inject constructor(
 //            }
 //        }
 //    }
-
-    fun logout() {
-        CoroutineScope(Dispatchers.IO).launch {
+    fun clearCredential() {
+        viewModelScope.launch {
             repository.clearToken()
-            repository.clearID()
-            val getUser = repository.getUser()
-            val result = repository.deleteUser(getUser)
             withContext(Dispatchers.Main) {
-                result.let {
-                    //shouldShowProfile.postValue(it)
-                }
+                showLogin.postValue(true)
             }
         }
     }
+
+//    fun logout() {
+//        CoroutineScope(Dispatchers.IO).launch {
+//            repository.clearToken()
+//            repository.clearID()
+//            val getProfile = repository.getProfile(access_token = repository.getToken()!!)
+//            val result = repository.deleteUser()
+//            withContext(Dispatchers.Main) {
+//                result.let {
+//                    //shouldShowProfile.postValue(it)
+//                }
+//            }
+//        }
+//    }
 }

@@ -3,7 +3,7 @@ package com.tegarpenemuan.secondhandecomerce.data.api
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getCity.getCityResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getNotification.GetNotifResponseItem
-import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProductDetails.GetProductDetailsResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProvince.getProvinveResponse
@@ -15,6 +15,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
+import java.io.File
 
 interface AuthApi {
 
@@ -81,13 +82,13 @@ interface AuthApi {
     @POST("seller/product")
     suspend fun addProduct(
         @Header("access_token") access_token: String,
-        @Part("name") name: RequestBody? = null,
-        @Part("description") description: RequestBody? = null,
-        @Part("base_price") base_price: RequestBody? = null,
-        @Part("category_ids") category_ids: RequestBody? = null,
-        @Part("location") location: RequestBody? = null,
-        @Part image: MultipartBody.Part? = null
-    )
+        @Part file: MultipartBody.Part,
+        @Part("name") name: RequestBody?,
+        @Part("description") description: RequestBody?,
+        @Part("base_price") base_price: RequestBody?,
+        @Part("category_ids") categoryIds: List<Int>,
+        @Part("location") location: RequestBody?,
+    ):Response<GetProductResponse>
 
     @GET("seller/product")
     suspend fun getProduct(

@@ -22,7 +22,7 @@
             android:name=".ui.profile.Profile"
             android:exported="false" />
         <activity
-            android:name="com.tegarpenemuan.secondhandecomerce.ui.seller21.seller21"
+            android:name="com.tegarpenemuan.secondhandecomerce.ui.seller21.Seller21"
             android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"

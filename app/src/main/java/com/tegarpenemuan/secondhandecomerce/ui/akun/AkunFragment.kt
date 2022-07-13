@@ -54,7 +54,7 @@ class AkunFragment : Fragment() {
 
     private fun bindview() {
         binding.tvKeluar.setOnClickListener {
-            viewModel.logout()
+            viewModel.clearCredential()
             startActivity(Intent(requireContext(), Login::class.java))
         }
         binding.tvPengaturan.setOnClickListener {

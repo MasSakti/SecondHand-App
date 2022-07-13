@@ -2,9 +2,8 @@ package com.tegarpenemuan.secondhandecomerce.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
-import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope

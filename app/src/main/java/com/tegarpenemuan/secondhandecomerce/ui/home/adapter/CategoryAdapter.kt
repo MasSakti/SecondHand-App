@@ -4,13 +4,8 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
-import com.tegarpenemuan.secondhandecomerce.data.api.getProduct.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.databinding.ListItemCategoryHomeBinding
-import com.tegarpenemuan.secondhandecomerce.databinding.ListItemProductHomeBinding
 
 class CategoryAdapter(private val listener: EventListener, private var list: List<GetCategoryResponseItem>)
     : RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){

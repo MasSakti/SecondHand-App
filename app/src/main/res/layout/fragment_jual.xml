@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:text="Nama Produk"
+        android:text="Harga Produk"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etNama"
         app:layout_goneMarginTop="24dp" />
@@ -85,6 +85,31 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvHarga" />
 
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Location"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etHarga"
+        app:layout_goneMarginTop="24dp" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etLocation"
+        style="@style/GeneralEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="Rp 0,00"
+        android:inputType="text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLocation" />
+
+
     <TextView
         android:id="@+id/tvKategori"
         android:layout_width="wrap_content"
@@ -95,14 +120,14 @@
         android:textColor="@color/black"
         android:textSize="12dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etHarga" />
+        app:layout_constraintTop_toBottomOf="@+id/etLocation" />
 
-    <androidx.appcompat.widget.AppCompatSpinner
+    <EditText
         android:id="@+id/etKategori"
         style="@style/GeneralEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:entries="@array/kategori"
         android:hint="Pilih Kategori"
         android:inputType="text"
@@ -131,7 +156,7 @@
         android:hint="Contoh: Jalan Ikan Hiu 33"
         android:lines="10"
         android:maxLines="15"
-        android:minLines="5"
+        android:minLines="2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvDeskripsi" />
@@ -150,8 +175,8 @@
 
     <ImageView
         android:id="@+id/ivFoto"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
         android:src="@drawable/ic_add"
