@@ -61,13 +61,7 @@ class InfoBidSuccessFragment : BottomSheetDialogFragment() {
     }
 
     private fun bindObserver() {
-        viewModel.sendNotif.observe(this) {
-            when (it) {
-                is Resource.Success -> { }
-                is Resource.Loading -> { }
-                is Resource.Error -> { }
-            }
-        }
+        viewModel.sendNotif.observe(viewLifecycleOwner) { }
 
         viewModel.args.observe(viewLifecycleOwner) {
             viewModel.sendNotif(it.user?.id.toString(), "Selamat! Penawaran diterima", "Segera bayar produk kamu untuk memenuhi keinginanmu")

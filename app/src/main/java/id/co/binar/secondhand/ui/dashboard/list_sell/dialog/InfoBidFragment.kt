@@ -106,16 +106,29 @@ class InfoBidFragment : BottomSheetDialogFragment() {
     }
 
     private fun bindObserver() {
+        viewModel.sendNotif.observe(viewLifecycleOwner) { }
+
+        viewModel.response1.observe(viewLifecycleOwner) { }
+
         viewModel.response.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
-                    if (it.data?.status == "accepted") {
-                        viewModel.getOrderById.value?.data?.let {
-                            val dialog = InfoBidSuccessFragment.newInstance(it)
-                            dialog.show(childFragmentManager, TAG_INFO_BID_DIALOG_SUCCESS)
+                    when (it.data?.status) {
+                        ARRAY_STATUS[2] -> {
+                            requireContext().onToast("Produk dibatalkan")
                         }
-                    } else {
-                        requireContext().onToast("Produk ditolak")
+                        ARRAY_STATUS[3] -> {
+                            viewModel.getOrderById.value?.data?.let {
+                                val dialog = InfoBidSuccessFragment.newInstance(it)
+                                dialog.show(childFragmentManager, TAG_INFO_BID_DIALOG_SUCCESS)
+                            }
+                        }
+                        ARRAY_STATUS[4] -> {
+                            viewModel.getOrderById.value?.data?.let {
+                                viewModel.sendNotif(it.user?.id.toString(), "Penawaran ditolak! :(", "Maaf atas keinginanmu jangan kecewa coba cari produk yang cocok dengamu, semangat")
+                            }
+                            requireContext().onToast("Produk ditolak")
+                        }
                     }
                 }
                 is Resource.Loading -> {

@@ -5,6 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import id.co.binar.secondhand.model.seller.order.GetOrderResponse
 import id.co.binar.secondhand.model.seller.order.UpdateOrderRequest
 import id.co.binar.secondhand.model.seller.product.GetProductResponse
+import id.co.binar.secondhand.repository.NotificationRepository
 import id.co.binar.secondhand.repository.SellerRepository
 import id.co.binar.secondhand.util.Resource
 import kotlinx.coroutines.CoroutineScope
@@ -16,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class InfoBidViewModel @Inject constructor(
     private val sellerRepository: SellerRepository,
+    private val notificationRepository: NotificationRepository,
     state: SavedStateHandle
 ) : ViewModel() {
     private val _response = MutableLiveData<Resource<GetOrderResponse>>()
@@ -24,6 +26,9 @@ class InfoBidViewModel @Inject constructor(
     private val _response1 = MutableLiveData<Resource<GetProductResponse>>()
     val response1 : LiveData<Resource<GetProductResponse>> = _response1
 
+    private val _sendNotif = MutableLiveData<Resource<Boolean>>()
+    val sendNotif: LiveData<Resource<Boolean>> = _sendNotif
+
     private val _args = state.getLiveData<Int>("ARGS_ID_ORDER")
     fun args(value: Int) {
         _args.postValue(value)
@@ -31,6 +36,12 @@ class InfoBidViewModel @Inject constructor(
 
     val getOrderById = _args.switchMap {
         sellerRepository.getOrderById(it).asLiveData()
+    }
+
+    fun sendNotif(to: String?, title: String?, message: String?) = CoroutineScope(Dispatchers.IO).launch {
+        notificationRepository.sendNotifOrderSuccess(to, title, message).collectLatest {
+            _sendNotif.postValue(it)
+        }
     }
 
     fun updateOrder(id: Int, field: UpdateOrderRequest) = CoroutineScope(Dispatchers.IO).launch {
