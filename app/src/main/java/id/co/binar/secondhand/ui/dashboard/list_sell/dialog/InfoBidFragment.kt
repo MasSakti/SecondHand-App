@@ -72,24 +72,22 @@ class InfoBidFragment : BottomSheetDialogFragment() {
                     startActivity(intent)
                 } else {
                     val id = viewModel.getOrderById.value?.data?.id
+                    val id1 = viewModel.getOrderById.value?.data?.productId
                     val field = UpdateOrderRequest(status = ARRAY_STATUS[3])
                     val field1 = UpdateOrderRequest(status = ARRAY_STATUS[1])
-                    id?.let {
-                        viewModel.updateOrder(it, field)
-                        viewModel.updateProduct(it, field1)
-                    }
+                    viewModel.updateOrder(id ?: -1, field)
+                    viewModel.updateProduct(id1 ?: -1, field1)
                 }
             }
 
             btnTolak.setOnClickListener {
                 if (viewModel.getOrderById.value?.data?.status == ARRAY_STATUS[3]) {
                     val id = viewModel.getOrderById.value?.data?.id
+                    val id1 = viewModel.getOrderById.value?.data?.id
                     val field = UpdateOrderRequest(status = ARRAY_STATUS[2])
                     val field1 = UpdateOrderRequest(status = ARRAY_STATUS[0])
-                    id?.let {
-                        viewModel.updateOrder(it, field)
-                        viewModel.updateProduct(it, field1)
-                    }
+                    viewModel.updateOrder(id ?: -1, field)
+                    viewModel.updateProduct(id1 ?: -1, field1)
                 } else {
                     val id = viewModel.getOrderById.value?.data?.id
                     val field = UpdateOrderRequest(status = ARRAY_STATUS[4])
