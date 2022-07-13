@@ -9,4 +9,15 @@ object Constant {
         android.Manifest.permission.READ_EXTERNAL_STORAGE,
         android.Manifest.permission.CAMERA
     )
+    val ARRAY_STATUS = arrayOf(
+
+        /** status product */
+        "available", // 0
+        "seller", // 1
+
+        /** status order */
+        "pending", // 2
+        "accepted", // 3
+        "declined" // 4
+    )
 }

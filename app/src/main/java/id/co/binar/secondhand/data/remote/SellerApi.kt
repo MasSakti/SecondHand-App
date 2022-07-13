@@ -51,6 +51,13 @@ interface SellerApi {
         @Part image: MultipartBody.Part
     ) : Response<UpdateProductByIdResponse>
 
+    @PATCH("seller/product/{id}")
+    suspend fun editStatusProduct(
+        @Header("access_token") token: String,
+        @Path("id") id: Int,
+        @Body field: UpdateOrderRequest
+    ) : Response<GetProductResponse>
+
     @GET("seller/product")
     suspend fun getProduct(
         @Header("access_token") token: String

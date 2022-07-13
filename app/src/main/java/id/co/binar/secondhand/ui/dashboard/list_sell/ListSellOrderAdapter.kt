@@ -55,19 +55,21 @@ class ListSellOrderAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
             val status = when (item.status) {
                 "accepted" -> {
+                    binding.bulletNotif.setImageResource(R.drawable.ic_circle_notif_success)
                     binding.tvNotifHarga.paintFlags = binding.tvNotifHarga.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                     "Penawaran telah diterima"
                 }
                 "declined" -> {
+                    binding.bulletNotif.setImageResource(R.drawable.ic_circle_notif_read)
                     binding.tvNotifHarga.paintFlags = binding.tvNotifHarga.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
                     "Penawaran ditolak"
                 }
                 else -> {
+                    binding.bulletNotif.setImageResource(R.drawable.ic_circle_notif)
                     binding.tvNotifHarga.paintFlags = binding.tvNotifHarga.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
                     "Penawaran produk"
                 }
             }
-            binding.bulletNotif.isVisible = false
             binding.tvNotifTime.text = formattedDate
             binding.tvNotifProduct.text = status
             binding.tvNamaProduct.text = item.productName

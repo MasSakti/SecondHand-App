@@ -1,23 +1,22 @@
 package id.co.binar.secondhand.ui.register
 
-import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ActivityRegisterBinding
 import id.co.binar.secondhand.model.auth.AddAuthRequest
-import id.co.binar.secondhand.ui.profile.PASSING_FROM_REGISTER_TO_PROFILE
-import id.co.binar.secondhand.ui.profile.ProfileActivity
-import id.co.binar.secondhand.util.emailValid
-import id.co.binar.secondhand.util.generalValid
-import id.co.binar.secondhand.util.passwordValid
+import id.co.binar.secondhand.util.*
 import io.github.anderscheow.validator.Validator
 import io.github.anderscheow.validator.constant.Mode
 import io.github.anderscheow.validator.validator
 
+@AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
+    private val viewModel by viewModels<RegisterViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +26,25 @@ class RegisterActivity : AppCompatActivity() {
         supportActionBar?.title = ""
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+        bindObserver()
         bindView()
+    }
+
+    private fun bindObserver() {
+        viewModel.register.observe(this) {
+            when(it) {
+                is Resource.Success -> {
+                    this.onToast("Data berhasil disimpan")
+                    onBackPressed()
+                }
+                is Resource.Loading -> {
+                    this.onToast("Mohon menunggu...")
+                }
+                is Resource.Error -> {
+                    this.onSnackError(binding.root, it.error?.message.toString())
+                }
+            }
+        }
     }
 
     private fun bindView() {
@@ -54,15 +71,13 @@ class RegisterActivity : AppCompatActivity() {
 
     private val onSignUp= object : Validator.OnValidateListener {
         override fun onValidateSuccess(values: List<String>) {
-            val intent = Intent(this@RegisterActivity, ProfileActivity::class.java)
-            intent.putExtra(PASSING_FROM_REGISTER_TO_PROFILE,
-                    AddAuthRequest(
-                        fullName = binding.txtInputLayoutNama.text.toString(),
-                        email = binding.txtInputLayoutEmail.text.toString(),
-                        password = binding.txtInputLayoutPassword.text.toString()
-                    )
+            viewModel.register(
+                AddAuthRequest(
+                    fullName = binding.txtInputLayoutNama.text.toString(),
+                    email = binding.txtInputLayoutEmail.text.toString(),
+                    password = binding.txtInputLayoutPassword.text.toString()
                 )
-            startActivity(intent)
+            )
         }
 
         override fun onValidateFailed(errors: List<String>) {}

@@ -18,6 +18,7 @@ import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.BottomSheetInfoBidSellerBinding
 import id.co.binar.secondhand.model.seller.order.UpdateOrderRequest
 import id.co.binar.secondhand.util.*
+import id.co.binar.secondhand.util.Constant.ARRAY_STATUS
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -65,24 +66,36 @@ class InfoBidFragment : BottomSheetDialogFragment() {
     private fun bindView() {
         binding.apply {
             btnTerima.setOnClickListener {
-                if (viewModel.getOrderById.value?.data?.status == "accepted") {
+                if (viewModel.getOrderById.value?.data?.status == ARRAY_STATUS[3]) {
                     val intent = Intent(Intent.ACTION_VIEW)
                     intent.data = Uri.parse("https://wa.me/62${viewModel.getOrderById.value?.data?.user?.phoneNumber}")
                     startActivity(intent)
                 } else {
                     val id = viewModel.getOrderById.value?.data?.id
-                    val field = UpdateOrderRequest(status = "accepted")
+                    val field = UpdateOrderRequest(status = ARRAY_STATUS[3])
+                    val field1 = UpdateOrderRequest(status = ARRAY_STATUS[1])
                     id?.let {
                         viewModel.updateOrder(it, field)
+                        viewModel.updateProduct(it, field1)
                     }
                 }
             }
 
             btnTolak.setOnClickListener {
-                val id = viewModel.getOrderById.value?.data?.id
-                val field = UpdateOrderRequest(status = "declined")
-                id?.let {
-                    viewModel.updateOrder(it, field)
+                if (viewModel.getOrderById.value?.data?.status == ARRAY_STATUS[3]) {
+                    val id = viewModel.getOrderById.value?.data?.id
+                    val field = UpdateOrderRequest(status = ARRAY_STATUS[2])
+                    val field1 = UpdateOrderRequest(status = ARRAY_STATUS[0])
+                    id?.let {
+                        viewModel.updateOrder(it, field)
+                        viewModel.updateProduct(it, field1)
+                    }
+                } else {
+                    val id = viewModel.getOrderById.value?.data?.id
+                    val field = UpdateOrderRequest(status = ARRAY_STATUS[4])
+                    id?.let {
+                        viewModel.updateOrder(it, field)
+                    }
                 }
             }
 
@@ -152,6 +165,7 @@ class InfoBidFragment : BottomSheetDialogFragment() {
                             "accepted" -> {
                                 tvInfoHarga.paintFlags = tvInfoHarga.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                                 btnTerima.text = "Whatsapp"
+                                btnTolak.text = "Batal"
                                 "Penawaran telah diterima"
                             }
                             "declined" -> {

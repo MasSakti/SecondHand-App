@@ -13,15 +13,6 @@ data class AddAuthRequest(
     @SerializedName("full_name")
     val fullName: String? = null,
 
-    @SerializedName("phone_number")
-    val phoneNumber: Long? = null,
-
     @SerializedName("email")
-    val email: String? = null,
-
-    @SerializedName("address")
-    val address: String? = null,
-
-    @SerializedName("city")
-    val city: String? = null
+    val email: String? = null
 ) : Parcelable

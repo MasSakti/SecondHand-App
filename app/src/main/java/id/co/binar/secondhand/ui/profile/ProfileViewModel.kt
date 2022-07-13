@@ -24,6 +24,8 @@ class ProfileViewModel @Inject constructor(
     private val authRepository: AuthRepository,
     state: SavedStateHandle
 ) : ViewModel() {
+    val getTokenId = authRepository.store.getTokenId()
+
     private val _field = state.getLiveData<AddAuthRequest>("FIELD")
     val field: LiveData<AddAuthRequest> = _field
     fun field(field: AddAuthRequest) {
@@ -34,14 +36,6 @@ class ProfileViewModel @Inject constructor(
     val bitmap: LiveData<Bitmap> = _bitmap
     fun bitmap(bitmap: Bitmap) {
         _bitmap.postValue(bitmap)
-    }
-
-    private val _register = MutableLiveData<Resource<AddAuthResponse>>()
-    val register : LiveData<Resource<AddAuthResponse>> = _register
-    fun register(field: AddAuthRequest, image: MultipartBody.Part) = CoroutineScope(Dispatchers.IO).launch {
-        authRepository.register(field, image).collectLatest {
-            _register.postValue(it)
-        }
     }
 
     private val _updateAccount = MutableLiveData<Resource<UpdateAuthByTokenResponse>>()

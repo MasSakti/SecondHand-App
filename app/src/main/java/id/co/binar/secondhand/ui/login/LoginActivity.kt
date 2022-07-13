@@ -14,8 +14,6 @@ import io.github.anderscheow.validator.Validator
 import io.github.anderscheow.validator.constant.Mode
 import io.github.anderscheow.validator.validator
 
-const val PASSING_TO_SIGN_IN = "PASSING_TO_SIGN_IN"
-
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 

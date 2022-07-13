@@ -16,8 +16,7 @@ interface AuthApi {
     @Multipart
     @POST("auth/register")
     suspend fun register(
-        @PartMap field: HashMap<String, RequestBody>,
-        @Part image: MultipartBody.Part
+        @PartMap field: HashMap<String, RequestBody>
     ) : Response<AddAuthResponse>
 
     @GET("auth/user")

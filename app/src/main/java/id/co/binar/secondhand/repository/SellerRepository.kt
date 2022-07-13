@@ -102,6 +102,25 @@ class SellerRepository @Inject constructor(
         }
     }
 
+    fun editProduct(id: Int, field: UpdateOrderRequest): Flow<Resource<GetProductResponse>> = flow {
+        emit(Resource.Loading())
+        try {
+            val response = sellerApi.editStatusProduct(store.getTokenId(), id, field)
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    emit(Resource.Success(it))
+                }
+            } else {
+                response.errorBody()?.let {
+                    val error = Gson().fromJson(it.string(), ErrorResponse::class.java)
+                    throw Exception("${error.name} : ${error.message} - ${response.code()}")
+                }
+            }
+        } catch (ex: Exception) {
+            emit(Resource.Error(ex))
+        }
+    }
+
     fun getProduct() = networkBoundResource(
         query = {
             sellerDao.getProductHome()

@@ -39,6 +39,7 @@ class OrderNotificationService : FirebaseMessagingService() {
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val notification = NotificationCompat.Builder(this, channelID)
             .setContentTitle(title)
+            .setContentText(message)
             .setStyle(NotificationCompat.BigTextStyle()
                 .bigText(message))
             .setSmallIcon(R.mipmap.ic_launcher)

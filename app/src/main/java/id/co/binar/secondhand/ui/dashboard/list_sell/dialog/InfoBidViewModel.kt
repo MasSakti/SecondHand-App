@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.co.binar.secondhand.model.seller.order.GetOrderResponse
 import id.co.binar.secondhand.model.seller.order.UpdateOrderRequest
+import id.co.binar.secondhand.model.seller.product.GetProductResponse
 import id.co.binar.secondhand.repository.SellerRepository
 import id.co.binar.secondhand.util.Resource
 import kotlinx.coroutines.CoroutineScope
@@ -20,6 +21,9 @@ class InfoBidViewModel @Inject constructor(
     private val _response = MutableLiveData<Resource<GetOrderResponse>>()
     val response : LiveData<Resource<GetOrderResponse>> = _response
 
+    private val _response1 = MutableLiveData<Resource<GetProductResponse>>()
+    val response1 : LiveData<Resource<GetProductResponse>> = _response1
+
     private val _args = state.getLiveData<Int>("ARGS_ID_ORDER")
     fun args(value: Int) {
         _args.postValue(value)
@@ -32,6 +36,12 @@ class InfoBidViewModel @Inject constructor(
     fun updateOrder(id: Int, field: UpdateOrderRequest) = CoroutineScope(Dispatchers.IO).launch {
         sellerRepository.updateOrder(id, field).collectLatest {
             _response.postValue(it)
+        }
+    }
+
+    fun updateProduct(id: Int, field: UpdateOrderRequest) = CoroutineScope(Dispatchers.IO).launch {
+        sellerRepository.editProduct(id, field).collectLatest {
+            _response1.postValue(it)
         }
     }
 }

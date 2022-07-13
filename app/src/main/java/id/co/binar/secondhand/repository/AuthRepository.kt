@@ -24,7 +24,7 @@ class AuthRepository @Inject constructor(
     private val authApi: AuthApi,
     private val authDao: AuthDao,
     private val sellerDao: SellerDao,
-    private val store: DataStoreManager,
+    val store: DataStoreManager,
     private val db: RoomDatabase
 ) {
     suspend fun logout() {
@@ -66,19 +66,15 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    fun register(field: AddAuthRequest, image: MultipartBody.Part): Flow<Resource<AddAuthResponse>> = flow {
+    fun register(field: AddAuthRequest): Flow<Resource<AddAuthResponse>> = flow {
         emit(Resource.Loading())
         try {
             val response = authApi.register(
                 hashMapOf(
-                    "password" to field.password.toString().toRequestBody(MultipartBody.FORM),
                     "full_name" to field.fullName.toString().toRequestBody(MultipartBody.FORM),
-                    "phone_number" to field.phoneNumber.toString().toRequestBody(MultipartBody.FORM),
-                    "email" to field.email.toString().toRequestBody(MultipartBody.FORM),
-                    "address" to field.address.toString().toRequestBody(MultipartBody.FORM),
-                    "city" to field.city.toString().toRequestBody(MultipartBody.FORM)
-                ),
-                image = image
+                    "password" to field.password.toString().toRequestBody(MultipartBody.FORM),
+                    "email" to field.email.toString().toRequestBody(MultipartBody.FORM)
+                )
             )
             if (response.isSuccessful) {
                 response.body()?.let { emit(Resource.Success(it)) }
@@ -142,7 +138,7 @@ class AuthRepository @Inject constructor(
                             imageUrl = response?.imageUrl,
                             token = store.getTokenId(),
                             email = response?.email,
-                            phoneNumber = response?.phoneNumber
+                            phoneNumber = response?.phoneNumber ?: 0
                         )
                     )
                 }

@@ -112,7 +112,7 @@ class NotificationFragment : Fragment() {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             onClickAdapter { _, item ->
                 item.id?.let { viewModel.updateNotif(it) }
-                if (item.status != "bid") {
+                if (item.status == "create") {
                     val intent = Intent(requireContext(), ProductActivity::class.java)
                     intent.putExtra(ARGS_PASSING_SEE_DETAIL, item.productId)
                     requireActivity().startActivity(intent)
