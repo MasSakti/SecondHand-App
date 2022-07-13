@@ -5,8 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
-import com.tegarpenemuan.secondhandecomerce.data.local.UserEntity
-import com.tegarpenemuan.secondhandecomerce.repository.AuthRepository
+import com.tegarpenemuan.secondhandecomerce.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val repository: AuthRepository
+    private val repository: Repository
 ) : ViewModel() {
 
     private var email: String = ""

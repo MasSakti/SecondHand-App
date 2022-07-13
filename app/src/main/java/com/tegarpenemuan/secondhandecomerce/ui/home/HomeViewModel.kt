@@ -4,7 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
-import com.tegarpenemuan.secondhandecomerce.repository.AuthRepository
+import com.tegarpenemuan.secondhandecomerce.data.api.banner.BannerResponseItem
+import com.tegarpenemuan.secondhandecomerce.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,11 +15,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: AuthRepository
+    private val repository: Repository
 ) : ViewModel() {
 
     val shouldShowGetProduct: MutableLiveData<List<GetProductResponse>> = MutableLiveData()
     val shouldShowGetCategory: MutableLiveData<List<GetCategoryResponseItem>> = MutableLiveData()
+    val shouldShowBanner: MutableLiveData<List<BannerResponseItem>> = MutableLiveData()
 
     fun getProduct(status: String? = "", category_id: Int? = null, search: String? = "") {
         CoroutineScope(Dispatchers.IO).launch {
@@ -41,6 +43,20 @@ class HomeViewModel @Inject constructor(
                 if (response.isSuccessful) {
                     val getCategoryResponse = response.body()
                     shouldShowGetCategory.postValue(getCategoryResponse!!)
+                } else {
+                    //shouldShowError.postValue("Request get Profile Tidak Failed" + response.code())
+                }
+            }
+        }
+    }
+
+    fun getBanner() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.getBanner()
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    val bannerResponse = response.body()
+                    shouldShowBanner.postValue(bannerResponse!!)
                 } else {
                     //shouldShowError.postValue("Request get Profile Tidak Failed" + response.code())
                 }

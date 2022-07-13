@@ -1,6 +1,5 @@
 package com.tegarpenemuan.secondhandecomerce.data.api
 
-import com.tegarpenemuan.secondhandecomerce.data.api.banner.BannerResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.banner.BannerResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getCity.getCityResponse
@@ -17,9 +16,8 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
-import java.io.File
 
-interface AuthApi {
+interface Api {
 
     @Multipart
     @POST("auth/register")
@@ -41,27 +39,6 @@ interface AuthApi {
         @Header("access_token") access_token: String
     ): Response<GetProfileResponse>
 
-    @GET("buyer/product")
-    suspend fun getProduct(
-        @Query("status") status: String?,
-        @Query("category_id") category_id: Int?,
-        @Query("search") search: String?,
-    ): Response<List<GetProductResponse>>
-
-    @GET("seller/category")
-    suspend fun getCategory(): Response<List<GetCategoryResponseItem>>
-
-    @GET("notification")
-    suspend fun getNotification(
-        @Header("access_token") access_token: String
-    ): Response<List<GetNotifResponseItem>>
-
-//    @GET("notification/{id}")
-//    suspend fun getNotificationById(
-//        @Header("access_token") access_token: String,
-//        @Path("id") id: Int
-//    ): Response<List<GetNotifByIdResponseItem>>
-
     @Multipart
     @PUT("auth/user")
     suspend fun updateUser(
@@ -75,10 +52,22 @@ interface AuthApi {
         @Part("city") city: RequestBody? = null
     ): Response<UpdateUserResponse>
 
+    @GET("notification")
+    suspend fun getNotification(
+        @Header("access_token") access_token: String
+    ): Response<List<GetNotifResponseItem>>
+
     @GET("buyer/product/{id}")
     suspend fun getProductDetails(
         @Path("id") id: Int?
     ): Response<GetProductDetailsResponse>
+
+    @GET("buyer/product")
+    suspend fun getProduct(
+        @Query("status") status: String?,
+        @Query("category_id") category_id: Int?,
+        @Query("search") search: String?,
+    ): Response<List<GetProductResponse>>
 
     @Multipart
     @POST("seller/product")
@@ -92,10 +81,16 @@ interface AuthApi {
         @Part("location") location: RequestBody?,
     ):Response<GetProductResponse>
 
+    @GET("seller/category")
+    suspend fun getCategory(): Response<List<GetCategoryResponseItem>>
+
     @GET("seller/product")
     suspend fun getProduct(
         @Header("access_token") access_token: String
     ): Response<List<GetProductResponse>>
+
+    @GET("seller/banner")
+    suspend fun getBanner(): Response<List<BannerResponseItem>>
 
     @GET("https://dev.farizdotid.com/api/daerahindonesia/provinsi")
     suspend fun getProvince(): Response<getProvinveResponse>
@@ -104,8 +99,4 @@ interface AuthApi {
     suspend fun getCity(
         @Query("id_provinsi") id_provinsi: Int
     ): Response<getCityResponse>
-
-    @GET("seller/banner")
-    suspend fun getBanner(): Response<List<BannerResponseItem>>
-
 }

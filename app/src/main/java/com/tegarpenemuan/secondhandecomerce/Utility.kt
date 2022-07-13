@@ -1,4 +1,4 @@
-package com.tegarpenemuan.secondhandecomerce.utils
+package com.tegarpenemuan.secondhandecomerce
 
 import android.app.ActionBar
 import android.content.ContentResolver
@@ -16,7 +16,6 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import com.tegarpenemuan.secondhandecomerce.R
 import java.io.*
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols

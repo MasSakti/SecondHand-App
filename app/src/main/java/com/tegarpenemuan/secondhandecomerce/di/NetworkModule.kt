@@ -1,6 +1,6 @@
 package com.tegarpenemuan.secondhandecomerce.di
 
-import com.tegarpenemuan.secondhandecomerce.data.api.AuthApi
+import com.tegarpenemuan.secondhandecomerce.data.api.Api
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,7 +53,7 @@ class NetworkModule {
     //Instance
     @Singleton
     @Provides
-    fun provideCovidAPI(retrofit: Retrofit): AuthApi {
-        return retrofit.create(AuthApi::class.java)
+    fun provideCovidAPI(retrofit: Retrofit): Api {
+        return retrofit.create(Api::class.java)
     }
 }

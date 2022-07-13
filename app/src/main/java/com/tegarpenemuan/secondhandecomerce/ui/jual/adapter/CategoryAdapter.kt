@@ -6,10 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
 import com.tegarpenemuan.secondhandecomerce.databinding.ListProductCategoryBinding
-import com.tegarpenemuan.secondhandecomerce.utils.listCategory
+import com.tegarpenemuan.secondhandecomerce.listCategory
 
 
 class CategoryAdapter(
