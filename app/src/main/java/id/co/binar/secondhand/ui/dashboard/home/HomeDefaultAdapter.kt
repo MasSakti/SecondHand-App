@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.ViewSizeResolver
@@ -14,7 +15,7 @@ import id.co.binar.secondhand.model.buyer.product.GetProductResponse
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import id.co.binar.secondhand.util.convertRupiah
 
-class HomeProductAdapter : PagingDataAdapter<GetProductResponse, RecyclerView.ViewHolder>(diffUtilCallback) {
+class HomeDefaultAdapter : ListAdapter<GetProductResponse, RecyclerView.ViewHolder>(diffUtilCallback) {
 
     private var _onClickAdapter: ((Int, GetProductResponse) -> Unit)? = null
 

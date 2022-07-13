@@ -7,6 +7,19 @@ import id.co.binar.secondhand.model.seller.order.User
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+data class Items(
+
+	@SerializedName("page")
+	val page: Long? = null,
+
+	@SerializedName("per_page")
+	val per_page: Long? = null,
+
+	@SerializedName("data")
+	val data: List<GetProductResponse>? = null
+) : Parcelable
+
+@Parcelize
 data class GetProductResponse(
 
 	@SerializedName("image_name")

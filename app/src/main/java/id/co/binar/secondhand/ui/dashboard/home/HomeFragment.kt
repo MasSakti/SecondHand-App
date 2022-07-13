@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,7 +35,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by viewModels<HomeViewModel>()
     private val adapterCategory = HomeCategoryAdapter()
-    private val adapterProduct = HomeProductAdapter()
+    private val adapterProduct = HomeDefaultAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,7 +66,12 @@ class HomeFragment : Fragment() {
 
         adapterCategory.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { _, GetCategoryResponse -> getSecond(GetCategoryResponse.id) }
+            onClickAdapter { position, GetCategoryResponse ->
+                if (position != 0) {
+                    /*val dialog = HomeSearchFragment()
+                    dialog.show(parentFragmentManager, TAG_SEARCH_HOME_DIALOG)*/
+                }
+            }
         }
 
         binding.rvProduct.apply {
@@ -87,7 +93,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun bindObserver() {
-        get()
+        viewModel.getProduct()
 
         viewModel.getCategory.observe(viewLifecycleOwner) {
             val list = mutableListOf<GetCategoryResponse>()
@@ -110,7 +116,7 @@ class HomeFragment : Fragment() {
             when (it) {
                 is Resource.Success -> {
                     binding.progressBar.isVisible = false
-                    if (it.data.isNullOrEmpty()) {
+                    if (it.data?.data.isNullOrEmpty()) {
                         binding.layoutEmpty.isVisible = true
                         binding.layoutError.isVisible = false
                         binding.rvProduct.isVisible = false
@@ -118,7 +124,7 @@ class HomeFragment : Fragment() {
                         binding.layoutEmpty.isVisible = false
                         binding.layoutError.isVisible = false
                         binding.rvProduct.isVisible = true
-                        adapterProduct.asyncDiffer.submitList(it.data)
+                        adapterProduct.submitList(it.data?.data)
                         binding.rvProduct.adapter = adapterProduct
                     }
                 }
@@ -137,18 +143,6 @@ class HomeFragment : Fragment() {
                     requireContext().onSnackError(binding.root, it.error?.message.toString())
                 }
             }
-        }
-    }
-
-    private fun get() {
-        viewModel.getProduct()
-    }
-
-    private fun getSecond(i: Int? = null) {
-        MainScope().launch {
-            viewModel.getProduct(i)
-            delay(500)
-            viewModel.getProduct(i)
         }
     }
 

@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.BottomSheetSearchHomeBinding
 import id.co.binar.secondhand.ui.dashboard.home.HomeProductAdapter
+import id.co.binar.secondhand.ui.dashboard.home.HomeProductLoadStateAdapter
 import id.co.binar.secondhand.ui.dashboard.home.HomeViewModel
 import id.co.binar.secondhand.ui.product.ARGS_PASSING_SEE_DETAIL
 import id.co.binar.secondhand.ui.product.ProductActivity
@@ -34,6 +36,12 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
     private var _binding: BottomSheetSearchHomeBinding? = null
     private val binding get() = _binding!!
     private val adapterProduct = HomeProductAdapter()
+    private val loadStateHeader = HomeProductLoadStateAdapter { adapterProduct.retry() }
+    private val loadStateFooter = HomeProductLoadStateAdapter { adapterProduct.retry() }
+    private val concatAdapter = adapterProduct.withLoadStateHeaderAndFooter(
+        header = loadStateHeader,
+        footer = loadStateFooter
+    )
     private val viewModel by activityViewModels<HomeViewModel>()
 
     override fun onCreateView(
@@ -59,17 +67,26 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
                 }
             }
 
+            val gridLayout = GridLayoutManager(requireContext(), 2)
+            gridLayout.spanSizeLookup = gridLayoutSizeLookup()
             rvList.apply {
                 setHasFixedSize(true)
-                layoutManager = GridLayoutManager(requireContext(), 2)
+                layoutManager = gridLayout
                 itemAnimator = DefaultItemAnimator()
                 addItemDecoration(ItemDecoration(requireContext(), 2, 16))
                 isNestedScrollingEnabled = true
+                adapter = concatAdapter
             }
         }
 
         adapterProduct.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+            addLoadStateListener {
+                binding.progressBar.isVisible = it.source.refresh is LoadState.Loading
+                binding.rvList.isVisible = it.source.refresh is LoadState.NotLoading
+                binding.layoutError.isVisible = it.source.refresh is LoadState.Error
+                binding.textView8.text = (it.source.refresh as? LoadState.Error)?.error?.message.toString()
+            }
             onClickAdapter { _, item ->
                 val intent = Intent(requireContext(), ProductActivity::class.java)
                 intent.putExtra(ARGS_PASSING_SEE_DETAIL, item.id)
@@ -82,19 +99,18 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
         viewModel.getSearch()
 
         viewModel.getSearch.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Success -> {
-                    binding.progressBar.isVisible = false
-                    adapterProduct.asyncDiffer.submitList(it.data ?: emptyList())
-                    binding.rvList.adapter = adapterProduct
-                }
-                is Resource.Loading -> {
-                    binding.progressBar.isVisible = true
-                }
-                is Resource.Error -> {
-                    binding.progressBar.isVisible = false
-                    requireContext().onSnackError(binding.root, it.error?.message.toString())
-                }
+            adapterProduct.submitData(viewLifecycleOwner.lifecycle, it)
+        }
+    }
+
+    private fun gridLayoutSizeLookup() = object : GridLayoutManager.SpanSizeLookup() {
+        override fun getSpanSize(position: Int): Int {
+            return if (position == 0 && loadStateHeader.itemCount > 0) {
+                2
+            } else if (position == concatAdapter.itemCount - 1 && loadStateFooter.itemCount > 0) {
+                2
+            } else {
+                1
             }
         }
     }

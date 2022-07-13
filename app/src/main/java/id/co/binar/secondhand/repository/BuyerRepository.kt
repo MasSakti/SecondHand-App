@@ -1,5 +1,10 @@
 package id.co.binar.secondhand.repository
 
+import androidx.lifecycle.LiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import androidx.room.withTransaction
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
@@ -13,6 +18,7 @@ import id.co.binar.secondhand.model.ErrorResponse
 import id.co.binar.secondhand.model.buyer.order.AddOrderRequest
 import id.co.binar.secondhand.model.buyer.order.GetOrderResponse
 import id.co.binar.secondhand.model.buyer.product.GetProductResponse
+import id.co.binar.secondhand.model.buyer.product.Items
 import id.co.binar.secondhand.model.notification.NotificationUsers
 import id.co.binar.secondhand.util.DataStoreManager
 import id.co.binar.secondhand.util.Resource
@@ -48,13 +54,10 @@ class BuyerRepository @Inject constructor(
         }
     )
 
-    fun getProduct(
-        category: Int? = null,
-        search: String? = null
-    ): Flow<Resource<List<GetProductResponse>>> = flow {
+    fun getProduct(): Flow<Resource<Items>> = flow {
         emit(Resource.Loading())
         try {
-            val response = buyerApi.getProduct(category = category, search = search)
+            val response = buyerApi.getProduct(page = 1, per_page = 20)
             if (response.isSuccessful) {
                 response.body()?.let { emit(Resource.Success(it)) }
             } else {
@@ -67,6 +70,14 @@ class BuyerRepository @Inject constructor(
             emit(Resource.Error(ex))
         }
     }
+
+    fun getProduct(
+        category: Int? = null,
+        search: String? = null
+    ) = Pager(
+        config = PagingConfig(pageSize = 20, maxSize = 100, enablePlaceholders = false),
+        pagingSourceFactory = { ProductPagingSource(buyerApi, search, category) }
+    ).flow
 
     fun getProductById(
         product_id: Int

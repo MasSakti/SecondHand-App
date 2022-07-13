@@ -1,6 +1,7 @@
 package id.co.binar.secondhand.ui.dashboard.home
 
 import androidx.lifecycle.*
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.co.binar.secondhand.model.buyer.product.GetProductResponse
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
@@ -31,11 +32,11 @@ class HomeViewModel @Inject constructor(
     }
 
     val getProduct = _getProduct.switchMap {
-        buyerRepository.getProduct(category = it).asLiveData()
+        buyerRepository.getProduct().asLiveData()
     }
 
     val getSearch = _getSearch.switchMap {
-        buyerRepository.getProduct(search = it).asLiveData()
+        buyerRepository.getProduct(search = it).cachedIn(CoroutineScope(Dispatchers.IO)).asLiveData()
     }
 
     val getCategory = buyerRepository.getCategory().asLiveData()

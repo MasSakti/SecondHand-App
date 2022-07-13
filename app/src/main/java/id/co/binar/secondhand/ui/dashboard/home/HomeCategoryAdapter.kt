@@ -20,9 +20,7 @@ class HomeCategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         init {
             itemView.setOnClickListener {
-                setPosition = bindingAdapterPosition
                 _onClickAdapter?.invoke(bindingAdapterPosition, asyncDiffer.currentList[bindingAdapterPosition])
-                notifyDataSetChanged()
             }
         }
 
