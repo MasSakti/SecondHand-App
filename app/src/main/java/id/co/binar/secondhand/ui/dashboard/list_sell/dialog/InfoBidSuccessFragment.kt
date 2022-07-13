@@ -16,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.BottomSheetInfoBidSuccessSellerBinding
 import id.co.binar.secondhand.model.seller.order.GetOrderResponse
+import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.convertRupiah
 import java.util.*
 
@@ -60,7 +61,16 @@ class InfoBidSuccessFragment : BottomSheetDialogFragment() {
     }
 
     private fun bindObserver() {
+        viewModel.sendNotif.observe(this) {
+            when (it) {
+                is Resource.Success -> { }
+                is Resource.Loading -> { }
+                is Resource.Error -> { }
+            }
+        }
+
         viewModel.args.observe(viewLifecycleOwner) {
+            viewModel.sendNotif(it.user?.id.toString(), "Selamat! Penawaran diterima", "Segera bayar produk kamu untuk memenuhi keinginanmu")
             binding.apply {
                 textView3.text = it.user?.fullName
                 textView4.text = it.user?.city

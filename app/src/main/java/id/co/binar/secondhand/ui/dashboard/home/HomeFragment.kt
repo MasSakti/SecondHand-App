@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.FragmentHomeBinding
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
+import id.co.binar.secondhand.ui.dashboard.home.dialog.HomeCategoryFragment
 import id.co.binar.secondhand.ui.dashboard.home.dialog.HomeSearchFragment
+import id.co.binar.secondhand.ui.dashboard.home.dialog.TAG_CATEGORY_HOME_DIALOG
 import id.co.binar.secondhand.ui.dashboard.home.dialog.TAG_SEARCH_HOME_DIALOG
 import id.co.binar.secondhand.ui.product.ARGS_PASSING_SEE_DETAIL
 import id.co.binar.secondhand.ui.product.ProductActivity
@@ -66,10 +68,10 @@ class HomeFragment : Fragment() {
 
         adapterCategory.apply {
             stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            onClickAdapter { position, GetCategoryResponse ->
+            onClickAdapter { position, item ->
                 if (position != 0) {
-                    /*val dialog = HomeSearchFragment()
-                    dialog.show(parentFragmentManager, TAG_SEARCH_HOME_DIALOG)*/
+                    val dialog = HomeCategoryFragment.newInstance(item)
+                    dialog.show(parentFragmentManager, TAG_CATEGORY_HOME_DIALOG)
                 }
             }
         }

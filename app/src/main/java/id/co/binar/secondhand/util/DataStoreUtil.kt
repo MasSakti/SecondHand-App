@@ -15,7 +15,6 @@ import javax.inject.Inject
 const val DATASTORE_SETTINGS: String = "SETTINGS"
 val TOKEN_ID = stringPreferencesKey("USER_TOKEN")
 val USR_ID = intPreferencesKey("USER_ID")
-val TOKEN_NOTIF = stringPreferencesKey("USER_TOKEN_NOTIF")
 val Context.dataStore by preferencesDataStore(DATASTORE_SETTINGS)
 
 class DataStoreManager @Inject constructor(
@@ -29,13 +28,8 @@ class DataStoreManager @Inject constructor(
         context.dataStore.setValue(USR_ID, value)
     }
 
-    fun setTokenNotif(value: String) = CoroutineScope(Dispatchers.IO).launch {
-        context.dataStore.setValue(TOKEN_NOTIF, value)
-    }
-
     fun getTokenId() = runBlocking { context.dataStore.getValue(TOKEN_ID, "").first() }
     fun getUsrId() = runBlocking { context.dataStore.getValue(USR_ID, -1).first() }
-    fun getTokenNotif() = runBlocking { context.dataStore.getValue(TOKEN_NOTIF, "").first() }
     fun clear() = runBlocking { context.dataStore.clear() }
 }
 

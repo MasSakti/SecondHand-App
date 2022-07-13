@@ -25,11 +25,5 @@ class MyApplication : Application() {
         val firebaseAppCheck = FirebaseAppCheck.getInstance()
         firebaseAppCheck.installAppCheckProviderFactory(PlayIntegrityAppCheckProviderFactory.getInstance())
         firebaseAppCheck.installAppCheckProviderFactory(SafetyNetAppCheckProviderFactory.getInstance())
-
-        FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            store.setTokenNotif(it)
-        }.addOnFailureListener {
-            this.onToast(it.message.toString())
-        }
     }
 }

@@ -6,34 +6,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import id.co.binar.secondhand.databinding.BottomSheetSearchHomeBinding
+import id.co.binar.secondhand.databinding.BottomSheetCategoryHomeBinding
+import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
+import id.co.binar.secondhand.model.seller.order.GetOrderResponse
 import id.co.binar.secondhand.ui.dashboard.home.HomeProductAdapter
 import id.co.binar.secondhand.ui.dashboard.home.HomeProductLoadStateAdapter
 import id.co.binar.secondhand.ui.dashboard.home.HomeViewModel
+import id.co.binar.secondhand.ui.dashboard.list_sell.dialog.InfoBidSuccessFragment
 import id.co.binar.secondhand.ui.product.ARGS_PASSING_SEE_DETAIL
 import id.co.binar.secondhand.ui.product.ProductActivity
 import id.co.binar.secondhand.util.ItemDecoration
-import id.co.binar.secondhand.util.Resource
-import id.co.binar.secondhand.util.onSnackError
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
-const val TAG_SEARCH_HOME_DIALOG = "SEARCH_HOME_DIALOG"
+const val TAG_CATEGORY_HOME_DIALOG = "CATEGORY_HOME_DIALOG"
 
 @AndroidEntryPoint
-class HomeSearchFragment : BottomSheetDialogFragment() {
+class HomeCategoryFragment : BottomSheetDialogFragment() {
 
-    private var _binding: BottomSheetSearchHomeBinding? = null
+    private var _binding: BottomSheetCategoryHomeBinding? = null
     private val binding get() = _binding!!
     private val adapterProduct = HomeProductAdapter()
     private val loadStateHeader = HomeProductLoadStateAdapter { adapterProduct.retry() }
@@ -44,11 +40,28 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
     )
     private val viewModel by activityViewModels<HomeViewModel>()
 
+    companion object {
+        @JvmStatic
+        fun newInstance(item: GetCategoryResponse): HomeCategoryFragment {
+            return HomeCategoryFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(TAG_CATEGORY_HOME_DIALOG, item)
+                }
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.getProductByCategory(arguments?.getParcelable<GetCategoryResponse>(TAG_CATEGORY_HOME_DIALOG)?.id)
+        viewModel.getTitleCategory(arguments?.getParcelable<GetCategoryResponse>(TAG_CATEGORY_HOME_DIALOG)?.name)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = BottomSheetSearchHomeBinding.inflate(inflater, container, false)
+        _binding = BottomSheetCategoryHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -60,13 +73,6 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
 
     private fun bindView() {
         binding.apply {
-            txtSearch.doAfterTextChanged {
-                MainScope().launch {
-                    delay(500)
-                    viewModel.getProductBySearch(it.toString())
-                }
-            }
-
             val gridLayout = GridLayoutManager(requireContext(), 2)
             gridLayout.spanSizeLookup = gridLayoutSizeLookup()
             rvList.apply {
@@ -86,6 +92,18 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
                 binding.rvList.isVisible = it.source.refresh is LoadState.NotLoading
                 binding.layoutError.isVisible = it.source.refresh is LoadState.Error
                 binding.textView8.text = (it.source.refresh as? LoadState.Error)?.error?.message.toString()
+                if (it.source.refresh is LoadState.NotLoading &&
+                    it.append.endOfPaginationReached &&
+                    adapterProduct.itemCount < 1
+                ) {
+                    binding.rvList.isVisible = false
+                    binding.txtTitle.isVisible = false
+                    binding.layoutEmpty.isVisible = true
+                } else {
+                    binding.rvList.isVisible = true
+                    binding.txtTitle.isVisible = true
+                    binding.layoutEmpty.isVisible = false
+                }
             }
             onClickAdapter { _, item ->
                 val intent = Intent(requireContext(), ProductActivity::class.java)
@@ -96,9 +114,13 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
     }
 
     private fun bindObserver() {
-        viewModel.getProductBySearch()
+        viewModel.getTitleCategory.observe(viewLifecycleOwner) {
+            binding.apply {
+                txtTitle.text = it
+            }
+        }
 
-        viewModel.getProductBySearch.observe(viewLifecycleOwner) {
+        viewModel.getProductByCategory.observe(viewLifecycleOwner) {
             adapterProduct.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
