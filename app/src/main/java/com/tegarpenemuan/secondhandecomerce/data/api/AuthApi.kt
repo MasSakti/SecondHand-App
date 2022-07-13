@@ -1,5 +1,7 @@
 package com.tegarpenemuan.secondhandecomerce.data.api
 
+import com.tegarpenemuan.secondhandecomerce.data.api.banner.BannerResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.banner.BannerResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getCity.getCityResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getNotification.GetNotifResponseItem
@@ -102,5 +104,8 @@ interface AuthApi {
     suspend fun getCity(
         @Query("id_provinsi") id_provinsi: Int
     ): Response<getCityResponse>
+
+    @GET("seller/banner")
+    suspend fun getBanner(): Response<List<BannerResponseItem>>
 
 }

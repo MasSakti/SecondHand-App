@@ -28,27 +28,27 @@ class AkunViewModel @Inject constructor(
                 if (response.isSuccessful) {
                     val getProfileResponse = response.body()
                     getProfileResponse?.let {
-                        val getprofile = GetProfileResponse(
-                            address = it.address,
-                            city = it.city,
-                            createdAt = it.createdAt,
-                            email = it.email,
-                            full_name = it.full_name,
-                            id = it.id,
-                            image_url = it.image_url,
-                            password = it.password,
-                            phone_number = it.phone_number,
-                            updatedAt = it.updatedAt
-                        )
+//                        val getprofile = GetProfileResponse(
+//                            address = it.address,
+//                            city = it.city,
+//                            createdAt = it.createdAt,
+//                            email = it.email,
+//                            full_name = it.full_name,
+//                            id = it.id,
+//                            image_url = it.image_url,
+//                            password = it.password,
+//                            phone_number = it.phone_number,
+//                            updatedAt = it.updatedAt
+//                        )
                         //panggil get Room
-                        updateUser(
-                            id = repository.getId()!!,
-                            full_name = it.full_name,
-                            phone_number = it.phone_number,
-                            address = it.address,
-                            image_url = it.image_url,
-                            city = it.city.toString()
-                        )
+//                        updateUser(
+//                            id = repository.getId()!!,
+//                            full_name = it.full_name,
+//                            phone_number = it.phone_number,
+//                            address = it.address,
+//                            image_url = it.image_url!!,
+//                            city = it.city.toString()
+//                        )
                         shouldShowProfile.postValue(it.image_url)
                     }
                 } else {
@@ -58,30 +58,30 @@ class AkunViewModel @Inject constructor(
         }
     }
 
-    fun updateUser(
-        id: String,
-        full_name: String,
-        phone_number: String,
-        address: String,
-        image_url: String,
-        city: String
-    ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val result = repository.updateUser(
-                id = id,
-                full_name = full_name,
-                phone_number = phone_number,
-                address = address,
-                image_url = image_url,
-                city = city
-            )
-            withContext(Dispatchers.Main) {
-                result.let {
-                    //getUser()
-                }
-            }
-        }
-    }
+//    fun updateUser(
+//        id: String,
+//        full_name: String,
+//        phone_number: String,
+//        address: String,
+//        image_url: String,
+//        city: String
+//    ) {
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val result = repository.updateUser(
+//                id = id,
+//                full_name = full_name,
+//                phone_number = phone_number,
+//                address = address,
+//                image_url = image_url,
+//                city = city
+//            )
+//            withContext(Dispatchers.Main) {
+//                result.let {
+//                    //getUser()
+//                }
+//            }
+//        }
+//    }
 
     //    fun getUser() {
 //        CoroutineScope(Dispatchers.IO).launch {

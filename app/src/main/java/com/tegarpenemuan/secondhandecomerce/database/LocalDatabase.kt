@@ -20,7 +20,7 @@ abstract class LocalDatabase : RoomDatabase() {
     abstract fun userDAO(): UserDAO
 
     companion object {
-        private const val DB_NAME = "MyDatabase.db"
+        private const val DB_NAME = "MyDatabase"
 
         @Volatile
         private var INSTANCE: LocalDatabase? = null

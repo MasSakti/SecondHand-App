@@ -39,11 +39,12 @@ class AkunFragment : Fragment() {
 
     private fun bindviewModel() {
         viewModel.shouldShowProfile.observe(viewLifecycleOwner) {
-            Glide.with(requireContext())
-                .load(it)
-                .circleCrop()
-                .into(binding.ivProfile)
-
+            if(it != null) {
+                Glide.with(requireContext())
+                    .load(it)
+                    .circleCrop()
+                    .into(binding.ivProfile)
+            }
         }
     }
 
