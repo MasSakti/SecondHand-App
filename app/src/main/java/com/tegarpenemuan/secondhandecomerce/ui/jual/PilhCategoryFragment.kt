@@ -3,17 +3,15 @@ package com.tegarpenemuan.secondhandecomerce.ui.jual
 import android.app.ProgressDialog
 import android.os.Bundle
 import android.os.Handler
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.tegarpenemuan.secondhandecomerce.R
 import com.tegarpenemuan.secondhandecomerce.databinding.FragmentPilhCategoryBinding
 import com.tegarpenemuan.secondhandecomerce.ui.jual.adapter.CategoryAdapter
-import com.tegarpenemuan.secondhandecomerce.utils.listCategory
-import com.tegarpenemuan.secondhandecomerce.utils.listCategoryId
+import com.tegarpenemuan.secondhandecomerce.listCategory
+import com.tegarpenemuan.secondhandecomerce.listCategoryId
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,7 +25,6 @@ class PilihCategoryFragment(private val update: ()->Unit) : BottomSheetDialogFra
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentPilhCategoryBinding.inflate(inflater, container, false)
         return binding.root
     }

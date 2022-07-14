@@ -139,16 +139,16 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/white"
         android:indeterminate="true"
         android:indeterminateTint="#1a09d6"
         android:max="100"
         android:visibility="gone"
-        android:layout_marginHorizontal="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/titleKategori"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleKategori" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_category"
@@ -166,11 +166,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="8dp"
         android:text="Daftar Produk"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleKategori" />
@@ -180,24 +181,32 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/white"
         android:indeterminate="true"
         android:indeterminateTint="#1a09d6"
         android:max="100"
         android:visibility="gone"
-        android:layout_marginHorizontal="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/titleAllProduct"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleAllProduct" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_product"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/titleAllProduct"
-        app:spanCount="2"
-        tools:listitem="@layout/list_item_product_home" />
+        app:layout_constraintTop_toBottomOf="@id/titleAllProduct">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/titleAllProduct"
+            app:spanCount="2"
+            tools:listitem="@layout/list_item_product_home" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

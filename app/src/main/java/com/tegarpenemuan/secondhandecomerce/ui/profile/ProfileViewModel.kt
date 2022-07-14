@@ -6,21 +6,20 @@ import androidx.lifecycle.ViewModel
 import com.tegarpenemuan.secondhandecomerce.common.ConvertToMultipart.toMultipartBody
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.updateUser.UpdateUserRequest
-import com.tegarpenemuan.secondhandecomerce.repository.AuthRepository
+import com.tegarpenemuan.secondhandecomerce.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val repository: AuthRepository
+    private val repository: Repository
 ) : ViewModel() {
 
     private var full_name: String = ""

@@ -4,12 +4,11 @@ import android.net.Uri
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.tegarpenemuan.secondhandecomerce.common.ConvertToMultipart.toMultipartBody
 import com.tegarpenemuan.secondhandecomerce.data.api.getCity.getCityResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProvince.getProvinveResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.register.request.SignUpRequest
-import com.tegarpenemuan.secondhandecomerce.repository.AuthRepository
+import com.tegarpenemuan.secondhandecomerce.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,13 +16,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
-import okhttp3.Response
 import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val repository: AuthRepository
+    private val repository: Repository
 ) : ViewModel() {
 
     private var full_name: String = ""

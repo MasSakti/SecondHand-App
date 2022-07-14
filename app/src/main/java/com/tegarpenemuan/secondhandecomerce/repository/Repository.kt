@@ -1,11 +1,11 @@
 package com.tegarpenemuan.secondhandecomerce.repository
 
-import com.tegarpenemuan.secondhandecomerce.data.api.AuthApi
+import com.tegarpenemuan.secondhandecomerce.data.api.Api
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getCity.getCityResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getNotification.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
-import com.tegarpenemuan.secondhandecomerce.data.api.Product.ProductRequest
+import com.tegarpenemuan.secondhandecomerce.data.api.banner.BannerResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getProductDetails.GetProductDetailsResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProvince.getProvinveResponse
@@ -24,9 +24,9 @@ import okhttp3.RequestBody
 import retrofit2.Response
 import javax.inject.Inject
 
-class AuthRepository @Inject constructor(
+class Repository @Inject constructor(
     private val authDatastore: AuthDatastoreManager,
-    private val api: AuthApi,
+    private val api: Api,
     private val dao: UserDAO
 ) {
     suspend fun clearToken() {
@@ -88,10 +88,6 @@ class AuthRepository @Inject constructor(
     suspend fun getNotification(access_token: String): Response<List<GetNotifResponseItem>> {
         return api.getNotification(access_token)
     }
-
-//    suspend fun getNotificationById(access_token: String, id: Int): Response<List<GetNotifByIdResponseItem>> {
-//        return api.getNotificationById(access_token, id)
-//    }
 
     suspend fun updateUser(
         access_token: String,
@@ -160,17 +156,6 @@ class AuthRepository @Inject constructor(
         return api.getCity(id_provinsi)
     }
 
-//    suspend fun addProduct(access_token: String, request: ProductRequest) {
-//        return api.addProduct(
-//            access_token = access_token,
-//            name = request.name,
-//            base_price = request.basePrice,
-//            description = request.description,
-//            category_ids = request.categoryIds,
-//            location = request.location,
-//            image = request.image
-//        )
-//    }
     suspend fun uploadProductSeller(
         token: String,
         file : MultipartBody.Part,
@@ -181,5 +166,9 @@ class AuthRepository @Inject constructor(
         location: RequestBody,
     ): Response<GetProductResponse> {
         return api.addProduct(token, file, name, description, base_price, categoryIds, location)
+    }
+
+    suspend fun getBanner(): Response<List<BannerResponseItem>> {
+        return api.getBanner()
     }
 }

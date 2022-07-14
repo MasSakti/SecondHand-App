@@ -3,8 +3,7 @@ package com.tegarpenemuan.secondhandecomerce.ui.akun
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
-import com.tegarpenemuan.secondhandecomerce.repository.AuthRepository
+import com.tegarpenemuan.secondhandecomerce.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AkunViewModel @Inject constructor(
-    private val repository: AuthRepository
+    private val repository: Repository
 ) : ViewModel() {
     val showLogin: MutableLiveData<Boolean> = MutableLiveData()
     val showResponseError: MutableLiveData<String> = MutableLiveData()

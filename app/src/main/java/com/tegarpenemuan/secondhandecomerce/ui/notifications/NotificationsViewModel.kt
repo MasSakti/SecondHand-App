@@ -3,7 +3,7 @@ package com.tegarpenemuan.secondhandecomerce.ui.notifications
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tegarpenemuan.secondhandecomerce.data.api.getNotification.GetNotifResponseItem
-import com.tegarpenemuan.secondhandecomerce.repository.AuthRepository
+import com.tegarpenemuan.secondhandecomerce.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NotificationsViewModel @Inject constructor(
-    private val repository: AuthRepository
+    private val repository: Repository
 ) : ViewModel() {
 
     val shouldShowGetNotification: MutableLiveData<List<GetNotifResponseItem>> = MutableLiveData()

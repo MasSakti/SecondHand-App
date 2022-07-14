@@ -5,11 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
-import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
-import com.tegarpenemuan.secondhandecomerce.repository.AuthRepository
-import com.tegarpenemuan.secondhandecomerce.utils.reduceFileImage
+import com.tegarpenemuan.secondhandecomerce.repository.Repository
+import com.tegarpenemuan.secondhandecomerce.reduceFileImage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +24,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class JualViewModel @Inject constructor(private val repoAuth: AuthRepository): ViewModel() {
+class JualViewModel @Inject constructor(private val repoAuth: Repository): ViewModel() {
     val showCategory: MutableLiveData<List<GetCategoryResponseItem>> = MutableLiveData()
     val showError: MutableLiveData<String> = MutableLiveData()
     private var addCategory = MutableLiveData<List<String>>()
