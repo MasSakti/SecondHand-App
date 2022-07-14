@@ -15,6 +15,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -126,7 +127,7 @@ class JualFragment : Fragment() {
                 bundle.putString(KATEGORI_PRODUCT_KEY, kategoriProduk)
                 bundle.putString(ALAMAT_PRODUCT_KEY, alamatPenjual)
                 bundle.putString(IMAGE_PRODUCT_KEY, uri)
-//                findNavController().navigate(R.id.action_jualFragment_to_previewFragment, bundle)
+                findNavController().navigate(R.id.action_navigation_jual_to_previewFragment2, bundle)
             }
         }
 

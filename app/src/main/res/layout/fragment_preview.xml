@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.buyer6.Buyer6Activity">
+    tools:context=".ui.preview.PreviewFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_back"
@@ -195,7 +195,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnSignIn"
+        android:id="@+id/btn_terbitkan"
         style="@style/GeneralButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
