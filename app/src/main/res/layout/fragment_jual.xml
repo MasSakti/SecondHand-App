@@ -153,7 +153,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="top|left"
-        android:hint="Contoh: Jl.Ahmad Yani No.08"
+        android:hint="Contoh: Kondisi 100% mulus"
         android:lines="10"
         android:maxLines="15"
         android:minLines="2"
@@ -183,28 +183,36 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/TvFoto" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnPreview"
-        style="@style/ButtonPreview"
-        android:layout_width="156dp"
-        android:layout_height="48dp"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="30dp"
-        android:text="Preview"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/ivFoto"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivFoto" />
+        android:layout_marginHorizontal="16dp">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnTerbitkan"
-        style="@style/GeneralButton"
-        android:layout_width="156dp"
-        android:layout_height="48dp"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="30dp"
-        android:text="Terbitkan"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivFoto" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnPreview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            style="@style/ButtonPreview"
+            android:text="Preview"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btnTerbitkan"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnTerbitkan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            style="@style/GeneralButton"
+            android:text="Terbitkan"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toRightOf="@id/btnPreview"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

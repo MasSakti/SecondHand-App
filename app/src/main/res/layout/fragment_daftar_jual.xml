@@ -89,36 +89,54 @@
         </androidx.cardview.widget.CardView>
 
         <HorizontalScrollView
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
-            android:id="@+id/sckategori"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/cvProfile"
-            android:layout_width="0dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_height="wrap_content">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvcategory"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cvProfile">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cvProfile"
-                tools:itemCount="5"
-                tools:listitem="@layout/list_item_kategori" />
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
+                    android:text="product" />
+
+                <Button
+                    android:id="@+id/btn_diminati"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="diminati" />
+
+                <Button
+                    android:id="@+id/btn_terjual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="terjual"
+                    android:layout_marginEnd="30dp"/>
+            </LinearLayout>
         </HorizontalScrollView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/sckategori"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
             app:spanCount="2"
+            tools:layout_editor_absoluteX="0dp"
             tools:listitem="@layout/list_item_product_home" />
 
 
