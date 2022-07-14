@@ -63,7 +63,9 @@
                 app:boxCornerRadiusBottomEnd="16dp"
                 app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusTopEnd="16dp"
-                app:boxCornerRadiusTopStart="16dp">
+                app:boxCornerRadiusTopStart="16dp"
+                app:helperText="Jika setelah mengganti email diharuskan logout terlebih dahulu maka bisa login kembali guna untuk merefresh token id"
+                app:helperTextEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_input_email"
@@ -108,7 +110,8 @@
                 app:boxCornerRadiusBottomEnd="16dp"
                 app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusTopEnd="16dp"
-                app:boxCornerRadiusTopStart="16dp">
+                app:boxCornerRadiusTopStart="16dp"
+                app:helperTextEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_input_layout_nama"
