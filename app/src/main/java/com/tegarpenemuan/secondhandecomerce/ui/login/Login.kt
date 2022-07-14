@@ -50,11 +50,11 @@ class Login : AppCompatActivity() {
     }
 
     private fun bindview() {
-        binding.etEmail.doAfterTextChanged {
+        binding.txtInputLayoutEmail.doAfterTextChanged {
             viewModel.onChangeEmail(it.toString())
         }
 
-        binding.etPassword.doAfterTextChanged {
+        binding.txtInputLayoutPassword.doAfterTextChanged {
             viewModel.onChangePassword(it.toString())
         }
 
