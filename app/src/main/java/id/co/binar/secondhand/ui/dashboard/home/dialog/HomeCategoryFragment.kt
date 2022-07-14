@@ -15,11 +15,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.BottomSheetCategoryHomeBinding
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
-import id.co.binar.secondhand.model.seller.order.GetOrderResponse
-import id.co.binar.secondhand.ui.dashboard.home.HomeProductAdapter
-import id.co.binar.secondhand.ui.dashboard.home.HomeProductLoadStateAdapter
+import id.co.binar.secondhand.ui.dashboard.home.adapter.HomeProductAdapter
+import id.co.binar.secondhand.ui.dashboard.home.adapter.HomeProductLoadStateAdapter
 import id.co.binar.secondhand.ui.dashboard.home.HomeViewModel
-import id.co.binar.secondhand.ui.dashboard.list_sell.dialog.InfoBidSuccessFragment
 import id.co.binar.secondhand.ui.product.ARGS_PASSING_SEE_DETAIL
 import id.co.binar.secondhand.ui.product.ProductActivity
 import id.co.binar.secondhand.util.ItemDecoration

@@ -71,7 +71,6 @@ class AccountFragment : Fragment() {
             binding.ivImageAccount.load(it.data?.imageUrl.toString()) {
                 placeholder(R.drawable.ic_profile_image)
                 error(R.drawable.ic_profile_image)
-                transformations(RoundedCornersTransformation(14F))
                 size(ViewSizeResolver(binding.ivImageAccount))
             }
             when (it) {

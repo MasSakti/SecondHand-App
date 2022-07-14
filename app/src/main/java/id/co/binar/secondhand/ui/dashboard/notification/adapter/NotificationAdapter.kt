@@ -1,4 +1,4 @@
-package id.co.binar.secondhand.ui.dashboard.notification
+package id.co.binar.secondhand.ui.dashboard.notification.adapter
 
 import android.graphics.Paint
 import android.view.LayoutInflater
@@ -36,10 +36,8 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         fun bind(item: GetNotifResponse) {
             binding.imageView.load(item.imageUrl) {
-                crossfade(true)
                 placeholder(R.color.purple_100)
                 error(R.color.purple_100)
-                transformations(RoundedCornersTransformation(6F))
                 size(ViewSizeResolver(binding.imageView))
             }
             val formattedDate = item.transactionDate?.let {

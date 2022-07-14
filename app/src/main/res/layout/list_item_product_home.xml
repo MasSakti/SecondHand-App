@@ -16,12 +16,13 @@
         android:layout_marginBottom="8dp"
         android:orientation="vertical">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_image_product"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:scaleType="fitCenter"
-            android:src="@color/purple_100" />
+            android:scaleType="centerCrop"
+            android:src="@color/purple_100"
+            app:riv_corner_radius="8dp"/>
 
         <TextView
             android:id="@+id/tv_nama_product"

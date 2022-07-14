@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,15 +16,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.BottomSheetSearchHomeBinding
-import id.co.binar.secondhand.ui.dashboard.home.HomeProductAdapter
-import id.co.binar.secondhand.ui.dashboard.home.HomeProductLoadStateAdapter
+import id.co.binar.secondhand.ui.dashboard.home.adapter.HomeProductAdapter
+import id.co.binar.secondhand.ui.dashboard.home.adapter.HomeProductLoadStateAdapter
 import id.co.binar.secondhand.ui.dashboard.home.HomeViewModel
 import id.co.binar.secondhand.ui.product.ARGS_PASSING_SEE_DETAIL
 import id.co.binar.secondhand.ui.product.ProductActivity
 import id.co.binar.secondhand.util.ItemDecoration
-import id.co.binar.secondhand.util.Resource
-import id.co.binar.secondhand.util.onSnackError
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -61,8 +58,8 @@ class HomeSearchFragment : BottomSheetDialogFragment() {
     private fun bindView() {
         binding.apply {
             txtSearch.doAfterTextChanged {
-                MainScope().launch {
-                    delay(500)
+                lifecycleScope.launch {
+                    delay(700)
                     viewModel.getProductBySearch(it.toString())
                 }
             }

@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imageView"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
@@ -59,6 +59,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:src="@drawable/ic_profile_image"
+                app:riv_corner_radius="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -111,11 +112,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_content_2"
-        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/img_product"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -123,6 +123,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:src="@color/purple_100"
+            app:riv_corner_radius="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

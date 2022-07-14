@@ -2,20 +2,27 @@ package id.co.binar.secondhand.ui.dashboard.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.FragmentHomeBinding
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
+import id.co.binar.secondhand.ui.dashboard.home.adapter.HomeBannerAdapter
+import id.co.binar.secondhand.ui.dashboard.home.adapter.HomeCategoryAdapter
+import id.co.binar.secondhand.ui.dashboard.home.adapter.HomeDefaultAdapter
 import id.co.binar.secondhand.ui.dashboard.home.dialog.HomeCategoryFragment
 import id.co.binar.secondhand.ui.dashboard.home.dialog.HomeSearchFragment
 import id.co.binar.secondhand.ui.dashboard.home.dialog.TAG_CATEGORY_HOME_DIALOG
@@ -26,9 +33,7 @@ import id.co.binar.secondhand.util.ItemDecoration
 import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.castFromLocalToRemote
 import id.co.binar.secondhand.util.onSnackError
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlin.math.abs
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -38,6 +43,8 @@ class HomeFragment : Fragment() {
     private val viewModel by viewModels<HomeViewModel>()
     private val adapterCategory = HomeCategoryAdapter()
     private val adapterProduct = HomeDefaultAdapter()
+    private val adapterBanner = HomeBannerAdapter()
+    private val sliderHandler = Handler(Looper.getMainLooper())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +61,23 @@ class HomeFragment : Fragment() {
     }
 
     private fun bindView() {
+        binding.vpBanner.apply {
+            clipToPadding = false
+            clipChildren = false
+            offscreenPageLimit = 3
+            getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+
+            val compositeTransformer = CompositePageTransformer()
+            compositeTransformer.addTransformer(MarginPageTransformer(21))
+            compositeTransformer.addTransformer { page, position ->
+                val r = 1 - abs(position)
+                page.scaleY = 0.85f + r * 0.15f
+            }
+
+            setPageTransformer(compositeTransformer)
+            registerOnPageChangeCallback(registerOnPageChange)
+        }
+
         binding.etInputSearch.setOnClickListener {
             val dialog = HomeSearchFragment()
             dialog.show(parentFragmentManager, TAG_SEARCH_HOME_DIALOG)
@@ -96,6 +120,32 @@ class HomeFragment : Fragment() {
 
     private fun bindObserver() {
         viewModel.getProduct()
+
+        viewModel.getBanner.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Loading -> {
+                    binding.apply {
+                        progressBarBanner.isVisible = true
+                        vpBanner.visibility = View.INVISIBLE
+                    }
+                }
+                is Resource.Success -> {
+                    binding.apply {
+                        progressBarBanner.isVisible = false
+                        vpBanner.visibility = View.VISIBLE
+                        adapterBanner.submitList(it.data)
+                        vpBanner.adapter = adapterBanner
+                    }
+                }
+                is Resource.Error -> {
+                    binding.apply {
+                        progressBarBanner.isVisible = false
+                        vpBanner.visibility = View.VISIBLE
+                        requireContext().onSnackError(binding.root, it.error?.message.toString())
+                    }
+                }
+            }
+        }
 
         viewModel.getCategory.observe(viewLifecycleOwner) {
             val list = mutableListOf<GetCategoryResponse>()
@@ -146,6 +196,34 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private val sliderRunnable = Runnable {
+        binding.apply {
+            if (vpBanner.currentItem == adapterBanner.itemCount - 1) {
+                vpBanner.currentItem = 0
+            } else {
+                binding.vpBanner.currentItem = binding.vpBanner.currentItem + 1
+            }
+        }
+    }
+
+    private val registerOnPageChange = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+            sliderHandler.removeCallbacks(sliderRunnable)
+            sliderHandler.postDelayed(sliderRunnable, 4500)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sliderHandler.postDelayed(sliderRunnable, 4500)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sliderHandler.removeCallbacks(sliderRunnable)
     }
 
     override fun onDestroyView() {

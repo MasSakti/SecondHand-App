@@ -1,6 +1,7 @@
 package id.co.binar.secondhand.data.remote
 
 import id.co.binar.secondhand.model.ErrorResponse
+import id.co.binar.secondhand.model.seller.banner.GetBannerResponse
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import id.co.binar.secondhand.model.seller.order.GetOrderResponse
 import id.co.binar.secondhand.model.seller.order.UpdateOrderRequest
@@ -11,6 +12,9 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface SellerApi {
+
+    @GET("seller/banner")
+    suspend fun getBanner() : Response<List<GetBannerResponse>>
 
     @GET("seller/category")
     suspend fun getCategory() : Response<List<GetCategoryResponse>>

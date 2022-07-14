@@ -1,4 +1,4 @@
-package id.co.binar.secondhand.ui.dashboard.list_sell
+package id.co.binar.secondhand.ui.dashboard.list_sell.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.ViewSizeResolver
-import coil.transform.RoundedCornersTransformation
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ListItemProductAddHomeBinding
 import id.co.binar.secondhand.databinding.ListItemProductHomeBinding
@@ -49,10 +48,8 @@ class ListSellProductAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         fun bind(item: GetProductResponse) {
             binding.ivImageProduct.load(item.imageUrl) {
-                crossfade(true)
                 placeholder(R.color.purple_100)
                 error(R.color.purple_100)
-                transformations(RoundedCornersTransformation(6F))
                 size(ViewSizeResolver(binding.ivImageProduct))
             }
             binding.tvNamaProduct.text = item.name

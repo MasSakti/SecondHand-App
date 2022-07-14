@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.FragmentListSellByDiminatiBinding
-import id.co.binar.secondhand.ui.dashboard.list_sell.ListSellOrderAdapter
+import id.co.binar.secondhand.ui.dashboard.list_sell.adapter.ListSellOrderAdapter
 import id.co.binar.secondhand.ui.dashboard.list_sell.dialog.InfoBidFragment
 import id.co.binar.secondhand.ui.dashboard.list_sell.dialog.TAG_INFO_BID_DIALOG
 import id.co.binar.secondhand.util.ItemDecoration

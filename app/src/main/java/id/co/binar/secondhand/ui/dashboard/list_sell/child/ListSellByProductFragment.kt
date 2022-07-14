@@ -15,8 +15,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.FragmentListSellByProductBinding
 import id.co.binar.secondhand.model.seller.product.GetProductResponse
-import id.co.binar.secondhand.ui.dashboard.list_sell.ListSellProductAdapter
-import id.co.binar.secondhand.ui.dashboard.list_sell.ListSellViewModel
+import id.co.binar.secondhand.ui.dashboard.list_sell.adapter.ListSellProductAdapter
 import id.co.binar.secondhand.ui.product_add.ARGS_PRODUCT_EDIT
 import id.co.binar.secondhand.ui.product_add.ProductAddActivity
 import id.co.binar.secondhand.util.*

@@ -3,21 +3,16 @@ package id.co.binar.secondhand.ui.dashboard.home
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.co.binar.secondhand.model.buyer.product.GetProductResponse
-import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import id.co.binar.secondhand.repository.BuyerRepository
-import id.co.binar.secondhand.util.LiveEvent
-import id.co.binar.secondhand.util.Resource
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.mapLatest
+import id.co.binar.secondhand.repository.SellerRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val buyerRepository: BuyerRepository,
+    sellerRepository: SellerRepository,
     state: SavedStateHandle
 ) : ViewModel() {
 
@@ -55,4 +50,6 @@ class HomeViewModel @Inject constructor(
     }
 
     val getCategory = buyerRepository.getCategory().asLiveData()
+
+    val getBanner = sellerRepository.getBanner().asLiveData()
 }

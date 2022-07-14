@@ -1,20 +1,19 @@
-package id.co.binar.secondhand.ui.dashboard.home
+package id.co.binar.secondhand.ui.dashboard.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.ViewSizeResolver
-import coil.transform.RoundedCornersTransformation
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ListItemProductHomeBinding
 import id.co.binar.secondhand.model.buyer.product.GetProductResponse
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 import id.co.binar.secondhand.util.convertRupiah
 
-class HomeProductAdapter : PagingDataAdapter<GetProductResponse, RecyclerView.ViewHolder>(diffUtilCallback) {
+class HomeDefaultAdapter : ListAdapter<GetProductResponse, RecyclerView.ViewHolder>(diffUtilCallback) {
 
     private var _onClickAdapter: ((Int, GetProductResponse) -> Unit)? = null
 
@@ -42,10 +41,8 @@ class HomeProductAdapter : PagingDataAdapter<GetProductResponse, RecyclerView.Vi
 
         fun bind(item: GetProductResponse) {
             binding.ivImageProduct.load(item.imageUrl) {
-                crossfade(true)
                 placeholder(R.color.purple_100)
                 error(R.color.purple_100)
-                transformations(RoundedCornersTransformation(6F))
                 size(ViewSizeResolver(binding.ivImageProduct))
             }
             binding.tvNamaProduct.text = item.name

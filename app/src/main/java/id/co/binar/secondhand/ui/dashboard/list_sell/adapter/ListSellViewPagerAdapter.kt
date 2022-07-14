@@ -1,4 +1,4 @@
-package id.co.binar.secondhand.ui.dashboard.list_sell
+package id.co.binar.secondhand.ui.dashboard.list_sell.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

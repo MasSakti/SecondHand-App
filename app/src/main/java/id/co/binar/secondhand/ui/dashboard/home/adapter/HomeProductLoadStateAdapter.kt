@@ -1,4 +1,4 @@
-package id.co.binar.secondhand.ui.dashboard.home
+package id.co.binar.secondhand.ui.dashboard.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

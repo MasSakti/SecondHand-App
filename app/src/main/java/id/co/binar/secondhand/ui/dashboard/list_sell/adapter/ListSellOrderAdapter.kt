@@ -1,4 +1,4 @@
-package id.co.binar.secondhand.ui.dashboard.list_sell
+package id.co.binar.secondhand.ui.dashboard.list_sell.adapter
 
 import android.graphics.Paint
 import android.view.LayoutInflater
@@ -9,12 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.ViewSizeResolver
-import coil.transform.RoundedCornersTransformation
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ListItemNotificationBinding
-import id.co.binar.secondhand.model.notification.GetNotifResponse
 import id.co.binar.secondhand.model.seller.order.GetOrderResponse
-import id.co.binar.secondhand.model.seller.product.GetProductResponse
 import id.co.binar.secondhand.util.convertRupiah
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -38,10 +35,8 @@ class ListSellOrderAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         fun bind(item: GetOrderResponse) {
             binding.imageView.load(item.product?.imageUrl) {
-                crossfade(true)
                 placeholder(R.color.purple_100)
                 error(R.color.purple_100)
-                transformations(RoundedCornersTransformation(6F))
                 size(ViewSizeResolver(binding.imageView))
             }
             val formattedDate = item.transactionDate?.let {

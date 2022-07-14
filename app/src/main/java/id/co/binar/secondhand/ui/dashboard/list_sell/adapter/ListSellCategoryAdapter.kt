@@ -1,9 +1,8 @@
-package id.co.binar.secondhand.ui.dashboard.list_sell
+package id.co.binar.secondhand.ui.dashboard.list_sell.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +10,9 @@ import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ListItemCategoryHomeBinding
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
 
-class ListSellCategoryAdapter : ListAdapter<GetCategoryResponse, RecyclerView.ViewHolder>(diffUtilCallback) {
+class ListSellCategoryAdapter : ListAdapter<GetCategoryResponse, RecyclerView.ViewHolder>(
+    diffUtilCallback
+) {
 
     var setPosition: Int? = 0
     private var _onClickAdapter: ((Int, GetCategoryResponse) -> Unit)? = null

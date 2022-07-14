@@ -8,6 +8,7 @@ import id.co.binar.secondhand.data.local.model.SellerProductPreviewLocal
 import id.co.binar.secondhand.data.remote.SellerApi
 import id.co.binar.secondhand.database.RoomDatabase
 import id.co.binar.secondhand.model.ErrorResponse
+import id.co.binar.secondhand.model.seller.banner.GetBannerResponse
 import id.co.binar.secondhand.model.seller.order.GetOrderResponse
 import id.co.binar.secondhand.model.seller.order.UpdateOrderRequest
 import id.co.binar.secondhand.model.seller.product.*
@@ -27,6 +28,23 @@ class SellerRepository @Inject constructor(
     val store: DataStoreManager,
     private val db: RoomDatabase
 ) {
+    fun getBanner() : Flow<Resource<List<GetBannerResponse>>> = flow {
+        emit(Resource.Loading())
+        try {
+            val response = sellerApi.getBanner()
+            if (response.isSuccessful) {
+                emit(Resource.Success(response.body() ?: listOf()))
+            } else {
+                response.errorBody()?.let {
+                    val error = Gson().fromJson(it.string(), ErrorResponse::class.java)
+                    throw Exception("${error.name} : ${error.message} - ${response.code()}")
+                }
+            }
+        } catch (ex: Exception) {
+            emit(Resource.Error(ex))
+        }
+    }
+
     fun getCategory() = networkBoundResource(
         query = {
             sellerDao.getCategoryHome()

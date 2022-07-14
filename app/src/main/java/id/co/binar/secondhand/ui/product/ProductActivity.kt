@@ -173,16 +173,13 @@ class ProductActivity : AppCompatActivity() {
                         tvHargaSeller18.text = it.data?.basePrice?.convertRupiah()
                         tvIsiDeskripsi.text = it.data?.description
                         ivImageSeller18.load(it.data?.imageUrl) {
-                            crossfade(true)
                             placeholder(R.color.purple_100)
                             error(R.color.purple_100)
                             size(ViewSizeResolver(binding.ivImageSeller18))
                         }
                         imageView.load(it.data?.user?.imageUrl) {
-                            crossfade(true)
                             placeholder(R.color.purple_100)
                             error(R.color.purple_100)
-                            transformations(RoundedCornersTransformation(8F))
                             size(ViewSizeResolver(binding.imageView))
                         }
                         tvNamaPenjual.text = it.data?.user?.fullName

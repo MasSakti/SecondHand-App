@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.databinding.FragmentListSellByTerjualBinding
-import id.co.binar.secondhand.ui.dashboard.list_sell.ListSellOrderAdapter
+import id.co.binar.secondhand.ui.dashboard.list_sell.adapter.ListSellOrderAdapter
 import id.co.binar.secondhand.util.ItemDecoration
 import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.onSnackError

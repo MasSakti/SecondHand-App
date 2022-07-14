@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.ViewSizeResolver
-import coil.transform.RoundedCornersTransformation
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.FragmentListSellBinding
+import id.co.binar.secondhand.ui.dashboard.list_sell.adapter.ListSellCategoryAdapter
+import id.co.binar.secondhand.ui.dashboard.list_sell.adapter.ListSellViewPagerAdapter
 import id.co.binar.secondhand.ui.profile.PASSING_FROM_ACCOUNT_TO_PROFILE
 import id.co.binar.secondhand.ui.profile.ProfileActivity
 import id.co.binar.secondhand.util.Resource
@@ -83,7 +84,6 @@ class ListSellFragment : Fragment() {
             binding.imageView.load(it.data?.imageUrl.toString()) {
                 placeholder(R.drawable.ic_profile_image)
                 error(R.drawable.ic_profile_image)
-                transformations(RoundedCornersTransformation(14F))
                 size(ViewSizeResolver(binding.imageView))
             }
             when (it) {

@@ -153,14 +153,11 @@ class InfoBidFragment : BottomSheetDialogFragment() {
                         imageView.load(it.data?.user?.imageUrl) {
                             placeholder(R.drawable.ic_profile_image)
                             error(R.drawable.ic_profile_image)
-                            transformations(RoundedCornersTransformation(14F))
                             size(ViewSizeResolver(imageView))
                         }
                         imgProduct.load(it.data?.product?.imageUrl) {
-                            crossfade(true)
                             placeholder(R.color.purple_100)
                             error(R.color.purple_100)
-                            transformations(RoundedCornersTransformation(6F))
                             size(ViewSizeResolver(binding.imgProduct))
                         }
                         val formattedDate = it.data?.createdAt?.let {
