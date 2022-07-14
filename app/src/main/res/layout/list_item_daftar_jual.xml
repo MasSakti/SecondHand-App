@@ -39,7 +39,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:maxLines="1"
                 android:text="Jam Casseo"
@@ -47,13 +46,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_image_product" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_jenis_product" />
 
             <TextView
                 android:id="@+id/tv_jenis_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:maxLines="1"
                 android:text="category"
@@ -61,7 +61,7 @@
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_nama_product" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_image_product" />
 
 
             <TextView
@@ -75,8 +75,9 @@
                 android:text="Rp 250.000"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_jenis_product" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_nama_product" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
