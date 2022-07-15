@@ -20,15 +20,23 @@
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/font/poppins.xml" value="0.20462962962962963" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout-v28/fragment_notifikasi.xml" value="0.11197916666666667" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/activity_jual.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/activity_jual_form.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/activity_login_ui.xml" value="0.2" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/activity_main.xml" value="0.12" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/activity_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/activity_perbarui_status_penjualan.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/activity_product_preview.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/activity_register_ui.xml" value="0.11302083333333333" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/activity_splash.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/fragment_akun.xml" value="0.12360688956433637" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/fragment_daftar.xml" value="0.11302083333333333" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/fragment_item_diminati.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/fragment_item_produk.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/fragment_item_terjual.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/fragment_notifikasi.xml" value="0.264" />
+        <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/fragment_product_by_category.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/list_item_home.xml" value="0.4" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/layout/list_item_notifikasi.xml" value="0.4" />
         <entry key="..\:/AndroStudioProject/BinarAcademy/FinalProject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2076923076923077" />

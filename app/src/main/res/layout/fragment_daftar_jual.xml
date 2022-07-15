@@ -23,7 +23,9 @@
         android:id="@+id/card_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
         android:layout_marginTop="16dp"
+        app:cardCornerRadius="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_daftar_jual_title">
 
