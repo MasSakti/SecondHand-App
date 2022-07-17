@@ -2,7 +2,7 @@ package com.tegarpenemuan.secondhandecomerce.data.api.getProfile
 
 data class GetProfileResponse(
     val address: String,
-    val city: Any,
+    val city: String,
     val createdAt: String,
     val email: String,
     val full_name: String,

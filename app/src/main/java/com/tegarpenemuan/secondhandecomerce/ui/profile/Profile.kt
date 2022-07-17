@@ -11,6 +11,7 @@ import androidx.core.widget.doAfterTextChanged
 import com.bumptech.glide.Glide
 import com.github.drjacky.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
+import com.tegarpenemuan.secondhandecomerce.R
 import com.tegarpenemuan.secondhandecomerce.databinding.ActivityProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,36 +26,6 @@ class Profile : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        val languages = resources.getStringArray(R.array.daftar_kota)
-//
-//        // access the spinner
-//        val spinner = findViewById<Spinner>(R.id.et_pilih_kota)
-//        if (spinner != null) {
-//            val adapter = ArrayAdapter(
-//                this,
-//                android.R.layout.simple_spinner_item, languages
-//            )
-//            spinner.adapter = adapter
-//
-//            spinner.onItemSelectedListener = object :
-//                AdapterView.OnItemSelectedListener {
-//                override fun onItemSelected(
-//                    parent: AdapterView<*>,
-//                    view: View, position: Int, id: Long
-//                ) {
-//                    Toast.makeText(
-//                        this@Profile,
-//                        getString(R.string.selected_item) + " " +
-//                                "" + languages[position], Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//
-//                override fun onNothingSelected(parent: AdapterView<*>) {
-//                    // write code to perform some action
-//                }
-//            }
-//        }
-
         viewModel.getProfile()
 
         bindView()
@@ -66,6 +37,7 @@ class Profile : AppCompatActivity() {
             Glide.with(this)
                 .load(it.image_url)
                 .circleCrop()
+                .error(R.drawable.img_profile)
                 .into(binding.ivProfile)
             binding.etAlamat.setText(it.address)
             binding.etNama.setText(it.full_name)

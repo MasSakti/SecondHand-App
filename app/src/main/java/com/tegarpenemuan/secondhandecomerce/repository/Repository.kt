@@ -2,13 +2,11 @@ package com.tegarpenemuan.secondhandecomerce.repository
 
 import com.tegarpenemuan.secondhandecomerce.data.api.Api
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
-import com.tegarpenemuan.secondhandecomerce.data.api.getCity.getCityResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getNotification.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.banner.BannerResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getProductDetails.GetProductDetailsResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
-import com.tegarpenemuan.secondhandecomerce.data.api.getProvince.getProvinveResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.register.request.SignUpRequest
@@ -96,8 +94,6 @@ class Repository @Inject constructor(
         return api.updateUser(
             access_token = access_token,
             full_name = request.full_name,
-            email = request.email,
-            password = request.password,
             phone_number = request.phone_number,
             address = request.address,
             image = request.image,
@@ -113,8 +109,8 @@ class Repository @Inject constructor(
         return dao.getUser()!!
     }
 
-    suspend fun deleteUser(userEntity: UserEntity): Int {
-        return dao.deleteUser(userEntity)
+    suspend fun deleteAll(): Int {
+        return dao.deleteAll()
     }
 
     suspend fun updateUser(
@@ -145,15 +141,6 @@ class Repository @Inject constructor(
 
     suspend fun getProductSeller(access_token: String): Response<List<GetProductResponse>> {
         return api.getProduct(access_token)
-    }
-
-    suspend fun getProvince():Response<getProvinveResponse>{
-        return api.getProvince(
-        )
-    }
-
-    suspend fun getCity(id_provinsi: Int):Response<getCityResponse>{
-        return api.getCity(id_provinsi)
     }
 
     suspend fun uploadProductSeller(

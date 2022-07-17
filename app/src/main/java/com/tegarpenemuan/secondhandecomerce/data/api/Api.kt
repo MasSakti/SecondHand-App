@@ -91,12 +91,4 @@ interface Api {
 
     @GET("seller/banner")
     suspend fun getBanner(): Response<List<BannerResponseItem>>
-
-    @GET("https://dev.farizdotid.com/api/daerahindonesia/provinsi")
-    suspend fun getProvince(): Response<getProvinveResponse>
-
-    @GET("https://dev.farizdotid.com/api/daerahindonesia/kota")
-    suspend fun getCity(
-        @Query("id_provinsi") id_provinsi: Int
-    ): Response<getCityResponse>
 }

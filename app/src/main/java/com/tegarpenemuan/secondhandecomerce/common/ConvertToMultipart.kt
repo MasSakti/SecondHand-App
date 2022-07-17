@@ -17,7 +17,7 @@ import java.io.File
 object ConvertToMultipart {
     fun File?.toMultipartBody(name: String = "image"): MultipartBody.Part? {
         if (this == null) return null
-        val reqFile: RequestBody = this.asRequestBody("image/*".toMediaTypeOrNull())
+        val reqFile: RequestBody = this.asRequestBody("image/jpg".toMediaTypeOrNull())
         return MultipartBody.Part.createFormData(name, this.name, reqFile)
     }
 }

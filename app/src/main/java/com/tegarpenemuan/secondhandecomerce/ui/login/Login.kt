@@ -1,5 +1,6 @@
 package com.tegarpenemuan.secondhandecomerce.ui.login
 
+import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,6 +17,7 @@ class Login : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModels()
+    private val progressDialog: ProgressDialog by lazy { ProgressDialog(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,11 +31,20 @@ class Login : AppCompatActivity() {
     }
 
     private fun bindviewModel() {
+        viewModel.shouldShowLoading.observe(this) {
+            if (it) {
+                progressDialog.setMessage("Loading...")
+                progressDialog.setCancelable(false)
+                progressDialog.show()
+            } else {
+                progressDialog.hide()
+            }
+        }
         viewModel.shouldShowError.observe(this) {
             Toast.makeText(applicationContext,it,Toast.LENGTH_SHORT).show()
         }
         viewModel.shouldShowSuccess.observe(this){
-            if (it){
+            if (it == true){
                 startActivity(Intent(applicationContext,MainActivity::class.java))
             }
         }

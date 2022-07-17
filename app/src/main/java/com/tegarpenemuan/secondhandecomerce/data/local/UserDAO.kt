@@ -10,8 +10,8 @@ interface UserDAO {
     @Query("SELECT * FROM user LIMIT 1")
     suspend fun getUser(): UserEntity?
 
-    @Delete
-    suspend fun deleteUser(userEntity: UserEntity): Int
+    @Query("DELETE FROM User")
+    suspend fun deleteAll(): Int
 
     @Query("UPDATE user SET full_name = :full_name, phone_number = :phone_number,address = :address,image_url = :image_url,city = :city WHERE id = :id")
     suspend fun updateUser(
@@ -19,7 +19,7 @@ interface UserDAO {
         full_name: String,
         phone_number: String,
         address: String,
-        image_url: String,
+        image_url: String? = null,
         city: String
     )
 }

@@ -22,8 +22,8 @@ class ProfileViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    private var full_name: String = ""
-    private var phone_number: String = ""
+    private var fullName: String = ""
+    private var phoneNumber: String = ""
     private var address: String = ""
     private var city: String = ""
     private var fileImage: File? = null
@@ -33,7 +33,7 @@ class ProfileViewModel @Inject constructor(
     val shouldShowUser: MutableLiveData<GetProfileResponse> = MutableLiveData()
 
     fun onChangeName(full_name: String) {
-        this.full_name = full_name
+        this.fullName = full_name
     }
 
     fun onChangeKota(city: String) {
@@ -45,7 +45,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun onChangeNoHandphone(phone_number: String) {
-        this.phone_number = phone_number
+        this.phoneNumber = phone_number
     }
 
     fun getUriPath(uri: Uri) {
@@ -53,13 +53,13 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun onValidate() {
-        if (full_name.isEmpty() && full_name.length < 3) {
+        if (fullName.isEmpty() && fullName.length < 3) {
             showResponseError.postValue("Nama tidak boleh kosong")
         } else if (city.isEmpty()) {
             showResponseError.postValue("Kota tidak boleh kosong")
         } else if (address.isEmpty()) {
             showResponseError.postValue("Alamat tidak boleh kosong")
-        } else if (phone_number.isEmpty()) {
+        } else if (phoneNumber.isEmpty()) {
             showResponseError.postValue("No Telepon tidak boleh kosong")
         } else {
             updateProfile()
@@ -67,39 +67,48 @@ class ProfileViewModel @Inject constructor(
     }
 
     private fun updateProfile() {
-        val file = fileImage.toMultipartBody("image")
-        val full_name = full_name.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val file = fileImage.toMultipartBody()
+        val fullName = fullName.toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val city = city.toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val address = address.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val phone_number = phone_number.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val phoneNumber = phoneNumber.toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.updateUser(
                 access_token = repository.getToken()!!,
                 request = UpdateUserRequest(
-                    full_name = full_name,
-                    phone_number = phone_number,
+                    full_name = fullName,
+                    phone_number = phoneNumber,
                     address = address,
-                    image = file,
-                    city = city
+                    city = city,
+                    image = file
                 )
             )
             withContext(Dispatchers.Main) {
-                if (response!!.isSuccessful) {
+                if (response.isSuccessful) {
                     showResponseSuccess.postValue("Data Berhasil Di update")
+                    val data = response.body()
+                    updateUser(
+                        id = repository.getId()!!,
+                        full_name = data!!.full_name,
+                        phone_number = data.phone_number,
+                        address = data.address,
+                        image_url = data.image_url,
+                        city = data.city
+                    )
                 } else {
-                    showResponseError.postValue("Data gagal diupdate" + response.code())
+                    showResponseError.postValue("Data gagal diupdate")
                 }
             }
         }
     }
 
-    fun updateUser(
+    private fun updateUser(
         id: String,
         full_name: String,
         phone_number: String,
         address: String,
-        image_url: String,
+        image_url: String? = null,
         city: String
     ) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -108,7 +117,7 @@ class ProfileViewModel @Inject constructor(
                 full_name = full_name,
                 phone_number = phone_number,
                 address = address,
-                image_url = image_url,
+                image_url = image_url!!,
                 city = city
             )
             withContext(Dispatchers.Main) {
@@ -123,7 +132,7 @@ class ProfileViewModel @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.getProfile(repository.getToken()!!)
             withContext(Dispatchers.Main) {
-                if (response!!.isSuccessful) {
+                if (response.isSuccessful) {
                     val getProfileResponse = response.body()
                     getProfileResponse?.let {
                         val getprofile = GetProfileResponse(
@@ -139,15 +148,6 @@ class ProfileViewModel @Inject constructor(
                             updatedAt = it.updatedAt
                         )
                         shouldShowUser.postValue(getprofile)
-
-                        updateUser(
-                            id = repository.getId()!!,
-                            full_name = it.full_name,
-                            phone_number = it.phone_number,
-                            address = it.address,
-                            image_url = it.image_url!!,
-                            city = it.city.toString()
-                        )
                     }
                 } else {
                     showResponseError.postValue("Request get Profile Tidak Failed" + response.code())
