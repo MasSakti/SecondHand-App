@@ -25,8 +25,14 @@ Lorem ipsum dolor sit amet
 
 ### License :
 - Retrofit2 Apache License
-- ...
-- ...
+- Gson Apache License
+- Chucker Apache License
+- Firebase Apache License
+- Dagger-hilt Apache License
+- Paging3 MIT License
+- Coil Apache License
+- Datastore Apache License
+- Coroutines Apache License
 
 ### Screenshoot :
 
