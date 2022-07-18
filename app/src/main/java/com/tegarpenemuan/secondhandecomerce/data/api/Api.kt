@@ -1,13 +1,14 @@
 package com.tegarpenemuan.secondhandecomerce.data.api
 
+import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetDetail.GetDetailNotifResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetNotification.GetNotifResponseItem
+import com.tegarpenemuan.secondhandecomerce.data.api.Notification.updateRead.UpdateReadResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.banner.BannerResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
-import com.tegarpenemuan.secondhandecomerce.data.api.getCity.getCityResponse
-import com.tegarpenemuan.secondhandecomerce.data.api.getNotification.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.SellerOrder.SellerOrderResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProductDetails.GetProductDetailsResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
-import com.tegarpenemuan.secondhandecomerce.data.api.getProvince.getProvinveResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.register.response.SuccessRegisterResponse
@@ -57,6 +58,18 @@ interface Api {
         @Header("access_token") access_token: String
     ): Response<List<GetNotifResponseItem>>
 
+    @GET("notification/{id}")
+    suspend fun getDetailNotification(
+        @Path("id") id: Int,
+        @Header("access_token") access_token: String
+    ): Response<GetDetailNotifResponse>
+
+    @PATCH("notification/{id}")
+    suspend fun updateReadNotif(
+        @Path("id") id: Int,
+        @Header("access_token") access_token: String
+    ): Response<UpdateReadResponse>
+
     @GET("buyer/product/{id}")
     suspend fun getProductDetails(
         @Path("id") id: Int?
@@ -80,6 +93,12 @@ interface Api {
         @Part("category_ids") categoryIds: List<Int>,
         @Part("location") location: RequestBody?,
     ):Response<GetProductResponse>
+
+    @GET("seller/order")
+    suspend fun getOrder(
+        @Header("access_token") access_token: String,
+        @Query("status") status: String?
+    ): Response<List<SellerOrderResponse>>
 
     @GET("seller/category")
     suspend fun getCategory(): Response<List<GetCategoryResponseItem>>

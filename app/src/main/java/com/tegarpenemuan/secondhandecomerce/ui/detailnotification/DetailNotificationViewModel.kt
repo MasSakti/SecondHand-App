@@ -1,8 +1,8 @@
-package com.tegarpenemuan.secondhandecomerce.ui.notifications
+package com.tegarpenemuan.secondhandecomerce.ui.detailnotification
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetNotification.GetNotifResponseItem
+import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetDetail.GetDetailNotifResponse
 import com.tegarpenemuan.secondhandecomerce.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -12,19 +12,20 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class NotificationsViewModel @Inject constructor(
+class DetailNotificationViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    val shouldShowGetNotification: MutableLiveData<List<GetNotifResponseItem>> = MutableLiveData()
+    val shouldShowDetailNotif: MutableLiveData<GetDetailNotifResponse> = MutableLiveData()
 
-    fun getNotification(){
-        CoroutineScope(Dispatchers.IO).launch{
-            val response = repository.getNotification(repository.getToken()!!)
+    fun getNotification(id: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.getDetailNotification(id, repository.getToken()!!)
+            repository.updateReadNotif(id, repository.getToken()!!)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
-                    val getNotificationResponse = response.body()
-                    shouldShowGetNotification.postValue(getNotificationResponse!!)
+                    val getDetailNotif = response.body()
+                    shouldShowDetailNotif.postValue(getDetailNotif)
                 } else {
                     //shouldShowError.postValue("Request get Profile Tidak Failed" + response.code())
                 }

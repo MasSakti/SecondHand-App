@@ -1,4 +1,4 @@
-package com.tegarpenemuan.secondhandecomerce.data.api.getNotification
+package com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetDetail
 
 data class Product(
     val base_price: Int,

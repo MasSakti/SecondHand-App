@@ -1,8 +1,10 @@
 package com.tegarpenemuan.secondhandecomerce.repository
 
 import com.tegarpenemuan.secondhandecomerce.data.api.Api
+import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetDetail.GetDetailNotifResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetNotification.GetNotifResponseItem
+import com.tegarpenemuan.secondhandecomerce.data.api.Notification.updateRead.UpdateReadResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
-import com.tegarpenemuan.secondhandecomerce.data.api.getNotification.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.banner.BannerResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getProductDetails.GetProductDetailsResponse
@@ -79,12 +81,31 @@ class Repository @Inject constructor(
         return api.getProduct(status, category_id, search)
     }
 
+    suspend fun getOrder(
+        status: String?,
+        category_id: Int?,
+        search: String?
+    ): Response<List<GetProductResponse>> {
+        return api.getProduct(status, category_id, search)
+    }
+
     suspend fun getCategory(): Response<List<GetCategoryResponseItem>> {
         return api.getCategory()
     }
 
     suspend fun getNotification(access_token: String): Response<List<GetNotifResponseItem>> {
         return api.getNotification(access_token)
+    }
+
+    suspend fun getDetailNotification(
+        id: Int,
+        access_token: String
+    ): Response<GetDetailNotifResponse> {
+        return api.getDetailNotification(id, access_token)
+    }
+
+    suspend fun updateReadNotif(id: Int, access_token: String): Response<UpdateReadResponse> {
+        return api.updateReadNotif(id, access_token)
     }
 
     suspend fun updateUser(

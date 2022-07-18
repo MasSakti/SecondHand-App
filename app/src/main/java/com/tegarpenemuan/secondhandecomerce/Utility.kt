@@ -96,6 +96,7 @@ fun uriToFile(
 
 fun convertDate(date: String): String {
     var kotlin = date
+    var tahun = kotlin.take(4)
     kotlin = kotlin.drop(5)
     var bulan = kotlin.take(2)
     kotlin = kotlin.drop(3)
@@ -144,7 +145,7 @@ fun convertDate(date: String): String {
         }
     }
 
-    return "$tanggal $bulan, $jam:$menit"
+    return "$jam:$menit, $tanggal $bulan $tahun"
 
 
 }

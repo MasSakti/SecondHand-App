@@ -1,20 +1,17 @@
 package com.tegarpenemuan.secondhandecomerce.ui.notifications.adapter
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.tegarpenemuan.secondhandecomerce.common.ChangeCurrency
-import com.tegarpenemuan.secondhandecomerce.data.api.getNotification.GetNotifResponseItem
+import com.tegarpenemuan.secondhandecomerce.convertDate
+import com.tegarpenemuan.secondhandecomerce.currency
+import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetNotification.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.databinding.ListItemNotificationsBinding
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
+import com.tegarpenemuan.secondhandecomerce.striketroughtText
 
 class NotificationsAdapter(
     private val listener: EventListener,
@@ -25,7 +22,7 @@ class NotificationsAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(list: List<GetNotifResponseItem>) {
-        this.list = list
+        this.list = list.sortedByDescending { it.createdAt }
         notifyDataSetChanged()
     }
 
@@ -37,47 +34,50 @@ class NotificationsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
-        val jumlahdata = list.count()
 
         holder.binding.tvBarang.text = item.product_name
         Glide.with(holder.binding.root.context)
             .load(item.image_url)
             .transform(RoundedCorners(20))
             .into(holder.binding.ivImg)
-        holder.binding.tvHarga.text = ChangeCurrency.gantiRupiah(item.bid_price.toString())
+        holder.binding.tvTanggal.text = convertDate(item.createdAt)
 
         val status = item.status
-        for (item in 1..jumlahdata) {
-            if (status == "bid") {
-                holder.binding.tvJenisNotif.text = "Penawaran Produk"
-            } else if (status == "accepted") {
-                holder.binding.tvJenisNotif.text = "Penawaran Diterima"
-            } else if (status == "declined") {
-                holder.binding.tvJenisNotif.text = "Penawaran Ditolak"
-            } else {
-                holder.binding.tvJenisNotif.text = status
+        for (i in list) {
+            when(status) {
+                "bid" -> {
+                    holder.binding.tvJenisNotif.text = "Penawaran Produk"
+                    holder.binding.tvHarga.text = "Harga Asli ${currency(item.base_price.toInt())}"
+                    holder.binding.tvKeterangan.text = "Ditawar ${currency(item.bid_price)}"
+                }
+                "create" -> {
+                    holder.binding.tvJenisNotif.text = "Berhasil Diterbitkan"
+                    holder.binding.tvHarga.text = "Harga Asli ${currency(item.base_price.toInt())}"
+                    holder.itemView.setOnClickListener {
+                        listener.onClick(item)
+                    }
+                }
+                "accepted" -> {
+                    holder.binding.tvJenisNotif.text = "Penawaran Telah Diterima"
+                    striketroughtText(holder.binding.tvHarga,"Harga Asli ${currency(item.base_price.toInt())}")
+                    holder.binding.tvKeterangan.text = "Berhasil Ditawar ${currency(item.bid_price)}"
+                    holder.binding.tvDetail.text = "Kamu akan segera dihubungi penjual via Whatsapp"
+                }
+                "declined" -> {
+                    holder.binding.tvJenisNotif.text = "Penawaran Ditolak"
+                    holder.binding.tvHarga.text = "Harga Asli ${currency(item.base_price.toInt())}"
+                    holder.binding.tvKeterangan.text = "Tawaran Ditolak ${currency(item.bid_price)}"
+                }
+                else -> holder.binding.tvJenisNotif.text = status
             }
         }
-
-//        val inputFormatter: DateTimeFormatter =
-//            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
-//        val outputFormatter: DateTimeFormatter =
-//            DateTimeFormatter.ofPattern("HH:mm, dd MMM yyy", Locale.ENGLISH)
-//        val date: LocalDateTime = LocalDateTime.parse(item.transaction_date, inputFormatter)
-//        val formattedDate: String = outputFormatter.format(date)
-//        holder.binding.tvTanggal.text = formattedDate
 
         val data = item.read
-        for (item in 1..jumlahdata) {
-            if (data) {
-                holder.binding.divNotif.visibility = View.GONE
-            } else {
-                holder.binding.divNotif.visibility = View.VISIBLE
+        for (i in list) {
+            when(data) {
+                true -> holder.binding.divNotif.visibility = View.GONE
+                else -> holder.binding.divNotif.visibility = View.VISIBLE
             }
-        }
-
-        holder.itemView.setOnClickListener {
-            listener.onClick(item)
         }
     }
 

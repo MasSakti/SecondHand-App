@@ -15,15 +15,9 @@
         <activity
             android:name=".ui.buyer6.Buyer6Activity"
             android:exported="false" />
-<!--        <activity-->
-<!--            android:name="com.tegarpenemuan.secondhandecomerce.ui.seller18.seller18"-->
-<!--            android:exported="false" />-->
         <activity
             android:name=".ui.profile.Profile"
             android:exported="false" />
-<!--        <activity-->
-<!--            android:name="com.tegarpenemuan.secondhandecomerce.ui.seller21.Seller21"-->
-<!--            android:exported="false" />-->
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="false"
@@ -40,6 +34,7 @@
         <activity
             android:name=".ui.register.Register"
             android:exported="false" />
+        <activity android:name=".ui.detailnotification.DetailNotificationActivity" />
     </application>
 
 </manifest>

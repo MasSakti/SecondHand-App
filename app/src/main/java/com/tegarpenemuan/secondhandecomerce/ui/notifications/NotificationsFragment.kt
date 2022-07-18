@@ -1,14 +1,15 @@
 package com.tegarpenemuan.secondhandecomerce.ui.notifications
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.tegarpenemuan.secondhandecomerce.data.api.getNotification.GetNotifResponseItem
+import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetNotification.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.databinding.FragmentNotificationsBinding
+import com.tegarpenemuan.secondhandecomerce.ui.detailnotification.DetailNotificationActivity
 import com.tegarpenemuan.secondhandecomerce.ui.notifications.adapter.NotificationsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,7 +40,9 @@ class NotificationsFragment : Fragment() {
         notificationsAdapter =
             NotificationsAdapter(listener = object : NotificationsAdapter.EventListener {
                 override fun onClick(item: GetNotifResponseItem) {
-                    Toast.makeText(requireContext(),item.buyer_name, Toast.LENGTH_SHORT).show()
+                    val intent = Intent(context, DetailNotificationActivity::class.java)
+                    intent.putExtra("id", item.id.toString())
+                    startActivity(intent)
                 }
 
             }, emptyList())
