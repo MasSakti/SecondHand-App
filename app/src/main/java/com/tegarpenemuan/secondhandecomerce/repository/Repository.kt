@@ -6,6 +6,7 @@ import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetNotificatio
 import com.tegarpenemuan.secondhandecomerce.data.api.Notification.updateRead.UpdateReadResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.SellerOrder.SellerOrderResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.banner.BannerResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getProductDetails.GetProductDetailsResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
@@ -82,11 +83,10 @@ class Repository @Inject constructor(
     }
 
     suspend fun getOrder(
-        status: String?,
-        category_id: Int?,
-        search: String?
-    ): Response<List<GetProductResponse>> {
-        return api.getProduct(status, category_id, search)
+        access_token: String,
+        status: String?
+    ): Response<List<SellerOrderResponseItem>> {
+        return api.getOrder(access_token, status)
     }
 
     suspend fun getCategory(): Response<List<GetCategoryResponseItem>> {
@@ -126,7 +126,7 @@ class Repository @Inject constructor(
         return dao.insertUser(userEntity)
     }
 
-    suspend fun getUser(access_token: String): UserEntity {
+    suspend fun getUser(): UserEntity {
         return dao.getUser()!!
     }
 

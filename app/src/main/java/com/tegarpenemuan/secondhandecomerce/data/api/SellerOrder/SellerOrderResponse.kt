@@ -1,3 +1,3 @@
 package com.tegarpenemuan.secondhandecomerce.data.api.SellerOrder
 
-class SellerOrderResponse : ArrayList<SellerOrderResponseItem>()
+class SellerOrderResponse : ArrayList<SellerOrderResponseItem>() {}

@@ -6,7 +6,7 @@ import com.tegarpenemuan.secondhandecomerce.data.api.Notification.updateRead.Upd
 import com.tegarpenemuan.secondhandecomerce.data.api.banner.BannerResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
-import com.tegarpenemuan.secondhandecomerce.data.api.SellerOrder.SellerOrderResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.SellerOrder.SellerOrderResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.getProductDetails.GetProductDetailsResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
@@ -70,17 +70,17 @@ interface Api {
         @Header("access_token") access_token: String
     ): Response<UpdateReadResponse>
 
-    @GET("buyer/product/{id}")
-    suspend fun getProductDetails(
-        @Path("id") id: Int?
-    ): Response<GetProductDetailsResponse>
-
     @GET("buyer/product")
     suspend fun getProduct(
         @Query("status") status: String?,
         @Query("category_id") category_id: Int?,
         @Query("search") search: String?,
     ): Response<List<GetProductResponse>>
+
+    @GET("buyer/product/{id}")
+    suspend fun getProductDetails(
+        @Path("id") id: Int?
+    ): Response<GetProductDetailsResponse>
 
     @Multipart
     @POST("seller/product")
@@ -98,7 +98,7 @@ interface Api {
     suspend fun getOrder(
         @Header("access_token") access_token: String,
         @Query("status") status: String?
-    ): Response<List<SellerOrderResponse>>
+    ): Response<List<SellerOrderResponseItem>>
 
     @GET("seller/category")
     suspend fun getCategory(): Response<List<GetCategoryResponseItem>>

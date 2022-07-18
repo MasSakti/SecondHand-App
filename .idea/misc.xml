@@ -63,6 +63,10 @@
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/list_item_notifications.xml" value="0.184375" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/list_item_product_home.xml" value="0.1308876811594203" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/spinner_list.xml" value="0.1308876811594203" />
+        <entry key="..\:/project-android-secondhand/FinalProject-G3/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.127" />
+        <entry key="..\:/project-android-secondhand/FinalProject-G3/app/src/main/res/drawable/ic_favorite.xml" value="0.127" />
+        <entry key="..\:/project-android-secondhand/FinalProject-G3/app/src/main/res/drawable/ic_money.xml" value="0.127" />
+        <entry key="..\:/project-android-secondhand/FinalProject-G3/app/src/main/res/drawable/ic_outbox.xml" value="0.127" />
         <entry key="..\:/project-android-secondhand/FinalProject-G3/app/src/main/res/layout/activity_buyer6.xml" value="0.209375" />
         <entry key="..\:/project-android-secondhand/FinalProject-G3/app/src/main/res/layout/activity_login.xml" value="0.209375" />
         <entry key="..\:/project-android-secondhand/FinalProject-G3/app/src/main/res/layout/activity_main.xml" value="0.209375" />
@@ -80,6 +84,9 @@
         <entry key="..\:/project-android-secondhand/FinalProject-G3/app/src/main/res/layout/item_slide.xml" value="0.209375" />
         <entry key="..\:/project-android-secondhand/FinalProject-G3/app/src/main/res/layout/list_item_banner_home.xml" value="0.209375" />
         <entry key="..\:/project-android-secondhand/FinalProject-G3/app/src/main/res/layout/list_item_category_home.xml" value="0.209375" />
+        <entry key="..\:/project-android-secondhand/FinalProject-G3/app/src/main/res/layout/list_item_diminati.xml" value="0.209375" />
+        <entry key="..\:/project-android-secondhand/FinalProject-G3/app/src/main/res/layout/list_item_notifications.xml" value="0.209375" />
+        <entry key="..\:/project-android-secondhand/FinalProject-G3/app/src/main/res/layout/list_item_order.xml" value="0.209375" />
         <entry key="..\:/project-android/FinalProject-G3-OK/app/src/main/res/drawable/bg_bulet.xml" value="0.146" />
         <entry key="..\:/project-android/FinalProject-G3-OK/app/src/main/res/layout/activity_profile.xml" value="0.19814814814814816" />
         <entry key="..\:/project-android/FinalProject-G3-OK/app/src/main/res/layout/fragment_jual.xml" value="0.209375" />

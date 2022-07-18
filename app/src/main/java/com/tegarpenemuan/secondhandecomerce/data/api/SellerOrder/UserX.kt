@@ -6,5 +6,5 @@ data class UserX(
     val email: String,
     val full_name: String,
     val id: Int,
-    val phone_number: Long
+    val phone_number: String
 )
