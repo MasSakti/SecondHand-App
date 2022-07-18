@@ -52,8 +52,12 @@ class BuyerOrderViewModel @Inject constructor(
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     shouldShowResponsBid.postValue(response.body())
+                } else if(response.code() == 400){
+                    shouldShowResponsError.postValue("Produk Sudah Di Bid")
+                } else if(response.code() == 500){
+                    shouldShowResponsError.postValue("Server Sedang Error")
                 } else {
-                    shouldShowResponsError.postValue("Terjadi Kesalahan: " + response.code())
+                    shouldShowResponsError.postValue("Anda Belum Login")
                 }
             }
         }

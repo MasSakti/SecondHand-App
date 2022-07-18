@@ -65,9 +65,12 @@ class LoginViewModel @Inject constructor(
                         insertId(it.id)
                         getProfile(token!!)
                     }
+                } else if(response.code() == 500){
+                    shouldShowLoading.postValue(false)
+                    shouldShowError.postValue("Server Sedang Error")
                 } else {
                     shouldShowLoading.postValue(false)
-                    shouldShowError.postValue("Request login Tidak Failed")
+                    shouldShowError.postValue("Email atau Password Salah")
                 }
             }
         }
