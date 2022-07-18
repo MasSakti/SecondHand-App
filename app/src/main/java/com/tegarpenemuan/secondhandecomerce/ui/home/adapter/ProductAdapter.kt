@@ -9,18 +9,12 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.databinding.ListItemProductHomeBinding
 
-/**
- * com.tegarpenemuan.secondhandecomerce.ui.home.adapter
- *
- * Created by Tegar Penemuan on 24/06/2022.
- * https://github.com/tegarpenemuanr3
- *
- */
-
-class ProductAdapter(private val listener: EventListener, private var list: List<GetProductResponse>)
-    : RecyclerView.Adapter<ProductAdapter.ViewHolder>(){
-    inner class ViewHolder(val binding: ListItemProductHomeBinding)
-        : RecyclerView.ViewHolder(binding.root)
+class ProductAdapter(
+    private val listener: EventListener,
+    private var list: List<GetProductResponse>
+) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+    inner class ViewHolder(val binding: ListItemProductHomeBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(list: List<GetProductResponse>) {
@@ -29,7 +23,8 @@ class ProductAdapter(private val listener: EventListener, private var list: List
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ListItemProductHomeBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        val binding =
+            ListItemProductHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -41,7 +36,8 @@ class ProductAdapter(private val listener: EventListener, private var list: List
             .into(holder.binding.ivImageProduct)
         holder.binding.tvNamaProduct.text = item.name
         holder.binding.tvHargaProduct.text = item.base_price.toString()
-//        holder.binding.tvJenisProduct.text = item.Categories.joinToString{ it.name }
+        //holder.binding.tvJenisProduct.text = item.categories.joinToString{ it.name }
+        //holder.binding.tvJenisProduct.text = item.categories.map { it.name }.toString()
 
         holder.itemView.setOnClickListener {
             listener.onClick(item)

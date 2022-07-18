@@ -27,8 +27,6 @@ class CategoryAdapter(private val listener: EventListener, private var list: Lis
         val item = list[position]
         holder.binding.txtCategory.text = item.name
 
-
-
         holder.itemView.setOnClickListener {
             listener.onClick(item)
         }
