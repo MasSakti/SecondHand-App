@@ -1,4 +1,4 @@
-package com.tegarpenemuan.secondhandecomerce
+package com.tegarpenemuan.secondhandecomerce.common
 
 import androidx.datastore.preferences.core.stringPreferencesKey
 

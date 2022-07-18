@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SecondHandEcomerce">
         <activity
-            android:name=".ui.buyer6.Buyer6Activity"
+            android:name=".ui.buyerOrder.BuyerOrderActivity"
             android:exported="false" />
         <activity
             android:name=".ui.profile.Profile"

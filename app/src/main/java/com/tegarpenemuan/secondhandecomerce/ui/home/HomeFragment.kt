@@ -13,21 +13,17 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.databinding.FragmentHomeBinding
-import com.tegarpenemuan.secondhandecomerce.ui.buyer6.Buyer6Activity
+import com.tegarpenemuan.secondhandecomerce.ui.buyerOrder.BuyerOrderActivity
 import com.tegarpenemuan.secondhandecomerce.ui.home.adapter.CategoryAdapter
 import com.tegarpenemuan.secondhandecomerce.ui.home.adapter.ImageSliderAdapter
 import com.tegarpenemuan.secondhandecomerce.ui.home.adapter.ProductAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.getSystemService
-import com.tegarpenemuan.secondhandecomerce.common.ChangeCurrency
 
 
 @AndroidEntryPoint
@@ -117,7 +113,7 @@ class HomeFragment : Fragment() {
         homeAdapter =
             ProductAdapter(listener = object : ProductAdapter.EventListener {
                 override fun onClick(item: GetProductResponse) {
-                    val intent = Intent(requireContext(), Buyer6Activity::class.java)
+                    val intent = Intent(requireContext(), BuyerOrderActivity::class.java)
                     intent.putExtra("id", item.id)
                     startActivity(intent)
                 }

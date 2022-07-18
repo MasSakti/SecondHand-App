@@ -1,6 +1,8 @@
 package com.tegarpenemuan.secondhandecomerce.repository
 
 import com.tegarpenemuan.secondhandecomerce.data.api.Api
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.createOrderRequest
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.createOrderResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetDetail.GetDetailNotifResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetNotification.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.Notification.updateRead.UpdateReadResponse
@@ -106,6 +108,11 @@ class Repository @Inject constructor(
 
     suspend fun updateReadNotif(id: Int, access_token: String): Response<UpdateReadResponse> {
         return api.updateReadNotif(id, access_token)
+    }
+
+
+    suspend fun createOrder(access_token: String,request: createOrderRequest): Response<createOrderResponse> {
+        return api.createOrder(access_token,request)
     }
 
     suspend fun updateUser(

@@ -1,5 +1,7 @@
 package com.tegarpenemuan.secondhandecomerce.data.api
 
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.createOrderRequest
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.createOrderResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetDetail.GetDetailNotifResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetNotification.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.Notification.updateRead.UpdateReadResponse
@@ -81,6 +83,12 @@ interface Api {
     suspend fun getProductDetails(
         @Path("id") id: Int?
     ): Response<GetProductDetailsResponse>
+
+    @POST("buyer/order")
+    suspend fun createOrder(
+        @Header("access_token") access_token: String,
+        @Body request: createOrderRequest
+    ): Response<createOrderResponse>
 
     @Multipart
     @POST("seller/product")
