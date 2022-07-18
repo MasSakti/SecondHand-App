@@ -6,6 +6,10 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
+import android.view.WindowManager
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.activity.viewModels
 import binar.and3.kelompok1.secondhand.R
 import binar.and3.kelompok1.secondhand.databinding.ActivitySplashBinding
@@ -25,7 +29,12 @@ class SplashActivity : AppCompatActivity() {
         supportActionBar?.hide()
         window.statusBarColor = Color.WHITE
 
-        val timer = object : CountDownTimer(3000, 1000) {
+        // ImageView Animation
+        val backgroundImage: ImageView = findViewById(R.id.ivSplash)
+        val slideAnimation = AnimationUtils.loadAnimation(this, R.anim.side_slide)
+        backgroundImage.startAnimation(slideAnimation)
+
+        val timer = object : CountDownTimer(4000, 1000) {
             override fun onTick(millisUntilFinished: Long) {}
 
             override fun onFinish() {
