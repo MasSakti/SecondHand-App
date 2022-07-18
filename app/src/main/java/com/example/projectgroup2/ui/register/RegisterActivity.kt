@@ -73,7 +73,7 @@ class RegisterActivity : AppCompatActivity() {
             viewModel.onChangePassword(it.toString())
         }
         binding.etPhoneRegister.doAfterTextChanged {
-            viewModel.onChangePhoneNumber(it.hashCode())
+            viewModel.onChangePhoneNumber(it.toString())
         }
         binding.etAddressRegister.doAfterTextChanged {
             viewModel.onChangeAddress(it.toString())

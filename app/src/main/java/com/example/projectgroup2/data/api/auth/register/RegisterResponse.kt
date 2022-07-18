@@ -8,6 +8,6 @@ data class RegisterResponse(
     val id: Int,
     val image_url: Any,
     val password: String,
-    val phone_number: Int,
+    val phone_number: String,
     val updatedAt: String
 )

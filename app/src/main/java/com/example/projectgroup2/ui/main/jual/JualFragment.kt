@@ -16,6 +16,7 @@ import androidx.activity.addCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -47,9 +48,6 @@ class JualFragment : Fragment() {
         const val KATEGORI_PRODUCT_KEY = "kategoriProduk"
         const val ALAMAT_PRODUCT_KEY = "alamatProduk"
         const val IMAGE_PRODUCT_KEY = "imageProduk"
-//        const val NAME_USER_KEY = "userName"
-//        const val ADDRESS_USER_KEY = "userAlamat"
-//        const val IMAGE_USER_KEY = "userImage"
     }
 
     override fun onCreateView(
@@ -67,14 +65,6 @@ class JualFragment : Fragment() {
         bindViewModel()
         bindView()
 
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.action_jualFragment_to_homeFragment)
-            }
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
     }
 
     private fun bindViewModel(){
@@ -90,7 +80,8 @@ class JualFragment : Fragment() {
 
         viewModel.showSuccess.observe(viewLifecycleOwner){
             showToastSuccess()
-            findNavController().navigate(R.id.action_jualFragment_to_daftarJualFragment)
+            findNavController().navigate(R.id.action_jualFragment_to_homeFragment)
+            listCategoryId.clear()
         }
     }
 
@@ -251,7 +242,7 @@ class JualFragment : Fragment() {
 
     private fun showToastSuccess() {
         val snackBarView =
-            Snackbar.make(binding.root, "Produk berhasil di terbitkan.", Snackbar.LENGTH_LONG)
+            Snackbar.make(binding.root, "Product berhasil di terbitkan.", Snackbar.LENGTH_LONG)
         val layoutParams = ActionBar.LayoutParams(snackBarView.view.layoutParams)
         snackBarView.setAction(" ") {
             snackBarView.dismiss()
@@ -261,9 +252,9 @@ class JualFragment : Fragment() {
         textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_close_24, 0)
         textView.compoundDrawablePadding = 16
         layoutParams.gravity = Gravity.TOP
-        layoutParams.setMargins(32, 150, 32, 0)
-        snackBarView.view.setPadding(24, 16, 0, 16)
-        snackBarView.view.setBackgroundColor(resources.getColor(R.color.success))
+        layoutParams.setMargins(30, 150, 30, 0)
+        snackBarView.view.setPadding(20, 10, 0, 10)
+        snackBarView.view.setBackgroundResource(R.drawable.bg_snackbar)
         snackBarView.view.layoutParams = layoutParams
         snackBarView.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
         snackBarView.show()

@@ -3,111 +3,137 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.main.daftarjual.infopenawar.InfoPenawarFragment">
 
     <ImageView
-        android:id="@+id/iv_back_penawar"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/ic_back"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_info_penawar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Info Penawar"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/iv_gambarPenawar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/kena"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_Pembeli"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/tv_namaPenawar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="30dp"
-        app:cardCornerRadius="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_info_penawar">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/ivSellerImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/img_seller"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvSellerName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="21dp"
-                android:fontFamily="@font/poppinsmedium"
-                android:text="Nama Pembeli"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toRightOf="@id/ivSellerImage"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvSellerCity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="21dp"
-                android:fontFamily="@font/poppinsregular"
-                android:text="Kota"
-                android:textColor="#8A8A8A"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/ivSellerImage"
-                app:layout_constraintTop_toBottomOf="@id/tvSellerName" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
+        android:text="nama penjual"
+        app:layout_constraintStart_toEndOf="@+id/iv_gambarPenawar"
+        app:layout_constraintTop_toTopOf="@+id/iv_gambarPenawar" />
 
     <TextView
-        android:id="@+id/tv_daftar_tawar"
+        android:id="@+id/tv_kotaPenawar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="kota penjual"
+        app:layout_constraintStart_toEndOf="@+id/iv_gambarPenawar"
+        app:layout_constraintTop_toBottomOf="@+id/tv_namaPenawar" />
+
+    <TextView
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:text="Daftar Produkmu yang Ditawar"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:text="product yang ditawar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cv_Pembeli" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_gambarPenawar" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ImageView
+        android:id="@+id/iv_productImageTawar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/kena"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/tv_productNameTawar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:text="jam tangan casio"
+        app:layout_constraintStart_toEndOf="@+id/iv_productImageTawar"
+        app:layout_constraintTop_toTopOf="@+id/iv_productImageTawar" />
+
+    <TextView
+        android:id="@+id/tv_productPriceTawar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rp. 250.000"
+        app:layout_constraintStart_toEndOf="@+id/iv_productImageTawar"
+        app:layout_constraintTop_toBottomOf="@+id/tv_productNameTawar" />
+
+    <TextView
+        android:id="@+id/tv_productPriceDitawar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ditawar Rp 200.000"
+        app:layout_constraintStart_toEndOf="@+id/iv_productImageTawar"
+        app:layout_constraintTop_toBottomOf="@+id/tv_productPriceTawar" />
+
+    <TextView
+        android:id="@+id/tv_productDateTawar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tanggal"
+        android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintTop_toTopOf="@+id/tv_productNameTawar" />
+
+    <LinearLayout
+        android:id="@+id/group_btnTolakTerima"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_daftar_tawar"
-        tools:listitem="@layout/list_item_tawaran" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_productPriceDitawar">
+
+        <Button
+            android:id="@+id/btn_tolakTawar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tolak"
+            android:layout_marginStart="50dp"/>
+
+        <Button
+            android:id="@+id/btn_terimaTawar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Terima" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/group_btnStatusHubungi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_productPriceDitawar">
+
+        <Button
+            android:id="@+id/btn_StatusTawar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:layout_marginStart="50dp"/>
+
+        <Button
+            android:id="@+id/btn_HubungiTawar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hubungi" />
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

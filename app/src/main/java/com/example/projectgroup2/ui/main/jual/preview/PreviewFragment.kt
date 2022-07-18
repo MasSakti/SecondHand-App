@@ -53,7 +53,7 @@ class PreviewFragment : Fragment() {
     private fun bindViewModel(){
         viewModel.showSuccess.observe(viewLifecycleOwner){
             showToastSuccess()
-            findNavController().navigate(R.id.action_previewFragment_to_daftarJualFragment)
+            findNavController().navigate(R.id.action_previewFragment_to_homeFragment)
         }
     }
 
@@ -99,8 +99,7 @@ class PreviewFragment : Fragment() {
     }
 
     private fun showToastSuccess() {
-        val snackBarView =
-            Snackbar.make(binding.root, "Produk berhasil di terbitkan.", Snackbar.LENGTH_LONG)
+        val snackBarView = Snackbar.make(binding.root, "Produk berhasil di terbitkan.", Snackbar.LENGTH_LONG)
         val layoutParams = ActionBar.LayoutParams(snackBarView.view.layoutParams)
         snackBarView.setAction(" ") {
             snackBarView.dismiss()
@@ -110,9 +109,9 @@ class PreviewFragment : Fragment() {
         textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_close_24, 0)
         textView.compoundDrawablePadding = 16
         layoutParams.gravity = Gravity.TOP
-        layoutParams.setMargins(32, 150, 32, 0)
-        snackBarView.view.setPadding(24, 16, 0, 16)
-        snackBarView.view.setBackgroundColor(resources.getColor(R.color.success))
+        layoutParams.setMargins(30, 150, 30, 0)
+        snackBarView.view.setPadding(20, 10, 0, 10)
+        snackBarView.view.setBackgroundResource(R.drawable.bg_snackbar)
         snackBarView.view.layoutParams = layoutParams
         snackBarView.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
         snackBarView.show()

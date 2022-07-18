@@ -92,6 +92,12 @@
         <action
             android:id="@+id/action_daftarJualFragment_to_jualFragment"
             app:destination="@id/jualFragment" />
+        <action
+            android:id="@+id/action_daftarJualFragment_to_editProductFragment"
+            app:destination="@id/editProductFragment" />
+        <action
+            android:id="@+id/action_daftarJualFragment_to_infoPenawarFragment"
+            app:destination="@id/infoPenawarFragment" />
     </fragment>
     <fragment
         android:id="@+id/notifFragment"
@@ -123,6 +129,9 @@
         <action
             android:id="@+id/action_previewFragment_to_daftarJualFragment"
             app:destination="@id/daftarJualFragment" />
+        <action
+            android:id="@+id/action_previewFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
@@ -132,5 +141,23 @@
         <action
             android:id="@+id/action_editProfileFragment_to_akunFragment"
             app:destination="@id/akunFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProductFragment"
+        android:name="com.example.projectgroup2.ui.main.daftarjual.editproduct.EditProductFragment"
+        android:label="fragment_edit_product"
+        tools:layout="@layout/fragment_edit_product" >
+        <action
+            android:id="@+id/action_editProductFragment_to_daftarJualFragment"
+            app:destination="@id/daftarJualFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoPenawarFragment"
+        android:name="com.example.projectgroup2.ui.main.daftarjual.infopenawar.InfoPenawarFragment"
+        android:label="fragment_info_penawar"
+        tools:layout="@layout/fragment_info_penawar" >
+        <action
+            android:id="@+id/action_infoPenawarFragment_to_daftarJualFragment"
+            app:destination="@id/daftarJualFragment" />
     </fragment>
 </navigation>

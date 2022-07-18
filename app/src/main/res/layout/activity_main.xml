@@ -7,7 +7,7 @@
     android:background="@color/white"
     tools:context=".ui.main.MainActivity">
 
-    <androidx.fragment.app.FragmentContainerView
+    <fragment
         android:id="@+id/flfragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -29,6 +29,8 @@
         app:itemIconTint="@color/navbar_color"
         app:itemTextColor="@color/navbar_color"
         app:labelVisibilityMode="labeled"
+        android:layout_gravity="bottom"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

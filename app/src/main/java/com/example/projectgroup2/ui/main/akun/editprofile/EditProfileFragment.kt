@@ -1,6 +1,7 @@
 package com.example.projectgroup2.ui.main.akun.editprofile
 
 import android.app.Activity
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -26,6 +27,7 @@ import com.example.projectgroup2.ui.main.akun.AkunFragment.Companion.USER_NAME
 import com.example.projectgroup2.ui.main.akun.AkunFragment.Companion.USER_PHONE_NUMBER
 import com.example.projectgroup2.utils.uriToFile
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
@@ -56,18 +58,10 @@ class EditProfileFragment : Fragment() {
     private fun binView() {
         viewModel.showUser.observe(viewLifecycleOwner){
             binding.apply {
-                etNamaUser.setText(
-                    cekNull(it.fullName.toString())
-                )
-                etKotaUser.setText(
-                    cekNull(it.city.toString())
-                )
-                etAlamatUser.setText(
-                    cekNull(it.address.toString())
-                )
-                etNohpUser.setText(
-                    cekNull(it.phoneNumber.toString())
-                )
+                etNamaUser.setText(it.fullName.toString())
+                etKotaUser.setText(it.city.toString())
+                etAlamatUser.setText(it.address.toString())
+                etNohpUser.setText(it.phoneNumber.toString())
                 Glide.with(requireContext())
                     .load(it.imageUrl)
                     .transform(CenterCrop(), RoundedCorners(8))
@@ -80,7 +74,6 @@ class EditProfileFragment : Fragment() {
         }
 
         binding.btnSimpanEdit.setOnClickListener {
-            Log.d("cek path", fileImage?.path ?: "gada")
             resetErrors()
             val nama = binding.etNamaUser.text.toString()
             val kota = binding.etKotaUser.text.toString()
@@ -89,7 +82,7 @@ class EditProfileFragment : Fragment() {
             val isValid = validation(nama, kota, alamat, noHp)
             if (isValid) {
                     viewModel.updateUser(
-                        uriToFile(Uri.parse(uri), requireContext()),
+                        fileImage,
                         nama,
                         noHp,
                         alamat,
@@ -98,14 +91,20 @@ class EditProfileFragment : Fragment() {
                 Toast.makeText(requireContext(), "Berhasil Update Data!", Toast.LENGTH_SHORT).show()
             }
         }
+
+        viewModel.showError.observe(viewLifecycleOwner) {
+            val snackbar = Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG)
+            snackbar.view.setBackgroundColor(Color.RED)
+            snackbar.show()
+        }
     }
 
     private fun resetErrors() {
         binding.apply {
-            etNamaUser.error = ""
-            etKotaUser.error = ""
-            etAlamatUser.error = ""
-            etNohpUser.error = ""
+            etNamaUser.error = null
+            etKotaUser.error = null
+            etAlamatUser.error = null
+            etNohpUser.error = null
         }
     }
 
@@ -138,29 +137,6 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-    private fun cekNull(value: String): String {
-        return when (value) {
-            "no_image" -> {
-                ""
-            }
-            "no_city" -> {
-                ""
-            }
-            "no_address" -> {
-                ""
-            }
-            "no_number" -> {
-                ""
-            }
-            "null" -> {
-                ""
-            }
-            else -> {
-                value
-            }
-        }
-    }
-
     private fun loadImage(uri: Uri) {
         binding.apply {
             Glide.with(binding.root)
@@ -180,6 +156,7 @@ class EditProfileFragment : Fragment() {
                     val fileUri = data?.data
                     uri = fileUri.toString()
                     if (fileUri != null) {
+                        fileImage = uriToFile(fileUri, requireContext())
                         loadImage(fileUri)
                     }
                 }
@@ -211,4 +188,5 @@ class EditProfileFragment : Fragment() {
                 startForProfileImageResult.launch(intent)
             }
     }
+
 }

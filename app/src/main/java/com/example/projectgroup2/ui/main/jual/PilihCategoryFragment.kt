@@ -40,12 +40,9 @@ class PilihCategoryFragment(private val update: ()->Unit) : BottomSheetDialogFra
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val progressDialog = ProgressDialog(requireContext())
-        progressDialog.setMessage("Please Wait...")
         binding.btnKirimCategory.setOnClickListener {
             viewModel.addCategory(listCategory)
             Handler().postDelayed({
-                progressDialog.dismiss()
                 update.invoke()
                 dismiss()
             }, 1000)

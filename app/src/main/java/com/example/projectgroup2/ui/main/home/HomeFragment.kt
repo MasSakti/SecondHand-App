@@ -3,15 +3,18 @@ package com.example.projectgroup2.ui.main.home
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -23,6 +26,8 @@ import com.example.projectgroup2.data.api.main.category.CategoryResponse
 import com.example.projectgroup2.databinding.FragmentHomeBinding
 import com.example.projectgroup2.ui.main.home.adapter.CategoryAdapter
 import com.example.projectgroup2.ui.main.home.adapter.ProductAdapter
+import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -115,12 +120,12 @@ class HomeFragment : Fragment() {
         binding.rvProductHome.isNestedScrollingEnabled = false
         binding.rvProductHome.adapter = productAdapter
 
-
         categoryAdapter = CategoryAdapter(object: CategoryAdapter.OnClickListener{
             override fun onClickItem(data: CategoryResponse) {
                 val status = "available"
                 val search = ""
                 viewModel.getProductBuyer(categoryId = data.id.toString(), status = status, search = search)
+                binding.tvTesting.text = "${data.name}"
             }
         })
         binding.rvCategoryHome.adapter = categoryAdapter

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.projectgroup2.data.local.UserDAO
 import com.example.projectgroup2.data.local.UserEntity
 
-@Database(entities = [UserEntity::class], version = 2)
+@Database(entities = [UserEntity::class], version = 3)
 abstract class UserDatabase : RoomDatabase() {
     abstract fun userDAO(): UserDAO
 

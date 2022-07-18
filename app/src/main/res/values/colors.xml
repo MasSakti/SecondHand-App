@@ -11,4 +11,5 @@
     <color name="colorDividerView">#ECECEC</color>
     <color name="shimer">#DDDDDD</color>
     <color name="dark_grey">#dddddd</color>
+    <color name="error">#ff3333</color>
 </resources>

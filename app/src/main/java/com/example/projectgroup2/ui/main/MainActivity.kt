@@ -9,6 +9,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.projectgroup2.R
 import com.example.projectgroup2.databinding.ActivityMainBinding
@@ -19,6 +21,7 @@ import com.example.projectgroup2.ui.main.jual.JualFragment
 import com.example.projectgroup2.ui.main.notif.NotifFragment
 import com.example.projectgroup2.utils.lightStatusBar
 import com.example.projectgroup2.utils.setFullScreen
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,14 +43,14 @@ class MainActivity : AppCompatActivity() {
 //
 //        binding.bottomNavigationView.setOnItemSelectedListener {
 //            when(it.itemId){
-//                R.id.navbar_Home -> setCurrentFragment(homeFragment)
-//                R.id.navbar_Notifikasi -> setCurrentFragment(notifikasiFragment)
-//                R.id.navbar_Jual -> {
+//                R.id.navbar_akunFragment -> setCurrentFragment(homeFragment)
+//                R.id.navbar_notifFragment -> setCurrentFragment(notifikasiFragment)
+//                R.id.navbar_jualFragment -> {
 //                    setCurrentFragment(jualFragment)
 //                    binding.bottomNavigationView.visibility = View.GONE
 //                }
-//                R.id.navbar_DaftarJual -> setCurrentFragment(daftarjualFragment)
-//                R.id.navbar_Akun -> setCurrentFragment(akunFragment)
+//                R.id.navbar_daftarJualFragment -> setCurrentFragment(daftarjualFragment)
+//                R.id.navbar_akunFragment -> setCurrentFragment(akunFragment)
 //            }
 //            true
 //        }
@@ -80,6 +83,15 @@ class MainActivity : AppCompatActivity() {
                 R.id.thirdOnBoardingFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
+                R.id.detailsFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+                R.id.previewFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+                R.id.editProfileFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
                 else -> {
                     binding.bottomNavigationView.visibility = View.VISIBLE
                 }
@@ -87,9 +99,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
 //    private fun setCurrentFragment(fragment: Fragment) = supportFragmentManager.beginTransaction().apply {
-//        replace(R.id.flFragment,fragment)
+//        replace(R.id.flfragment,fragment)
 //        commit()
 //    }
 }

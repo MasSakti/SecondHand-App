@@ -23,7 +23,7 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
     private var full_name: String = ""
     private var email: String = ""
     private var password: String = ""
-    private var phone_number: Int = hashCode()
+    private var phone_number: String = ""
     private var address: String = ""
     private var city: String = ""
 
@@ -44,7 +44,7 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
         this.password = password
     }
 
-    fun onChangePhoneNumber(phone_number: Int) {
+    fun onChangePhoneNumber(phone_number: String) {
         this.phone_number = phone_number
     }
 
@@ -140,7 +140,7 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
                             full_name = it.fullName.orEmpty(),
                             email = it.email.orEmpty(),
                             password = it.password.orEmpty(),
-                            phone_number = it.phoneNumber.hashCode(),
+                            phone_number = it.phoneNumber.orEmpty(),
                             address = it.address.orEmpty(),
                             image_url = it.imageUrl.orEmpty()
                         )

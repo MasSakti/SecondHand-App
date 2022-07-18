@@ -10,7 +10,7 @@ data class UserEntity(
     @ColumnInfo(name = "full_name") val full_name: String,
     @ColumnInfo(name = "email") val email: String,
     @ColumnInfo(name = "password") val password: String,
-    @ColumnInfo(name = "phone_number") val phone_number: Int,
+    @ColumnInfo(name = "phone_number") val phone_number: String,
     @ColumnInfo(name = "address") val address: String,
     @ColumnInfo(name = "image_url") val image_url: String
 )

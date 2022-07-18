@@ -23,7 +23,7 @@ class ProductAdapter(private val onClick: OnClickListener): RecyclerView.Adapter
     }
 
     private val differ = AsyncListDiffer(this,diffCallBack)
-    fun submitData(value: List<GetProductResponse>) = differ.submitList(value)
+    fun submitData(value: List<GetProductResponse>?) = differ.submitList(value)
 
     interface OnClickListener {
         fun onClickItem (data: GetProductResponse)

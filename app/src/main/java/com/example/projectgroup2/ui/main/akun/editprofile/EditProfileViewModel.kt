@@ -2,9 +2,11 @@ package com.example.projectgroup2.ui.main.akun.editprofile
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.projectgroup2.data.api.ErrorResponse
 import com.example.projectgroup2.data.api.auth.getUser.GetUserResponse
 import com.example.projectgroup2.repository.AuthRepository
 import com.example.projectgroup2.utils.reduceFileImage
+import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +17,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.ResponseBody
 import java.io.File
 import javax.inject.Inject
 
@@ -25,14 +28,14 @@ class EditProfileViewModel @Inject constructor(private val repoAuth: AuthReposit
     val showUser: MutableLiveData<GetUserResponse> = MutableLiveData()
 
     fun updateUser(
-        image: File,
+        file: File?,
         name: String,
         city: String,
         address: String,
         phoneNumber: String
     ){
-        val requestFile = reduceFileImage(image).asRequestBody("image/jpg".toMediaTypeOrNull())
-        val profileUser = MultipartBody.Part.createFormData("image", image.name, requestFile)
+        val requestFile = file?.asRequestBody("image/jpg".toMediaTypeOrNull())
+        val image = requestFile?.let { MultipartBody.Part.createFormData("image", file.name, it) }
         val namaRequestBody = name.toRequestBody("text/plain".toMediaType())
         val kotaRequestBody = city.toRequestBody("text/plain".toMediaType())
         val alamatRequestBody = address.toRequestBody("text/plain".toMediaType())
@@ -41,7 +44,7 @@ class EditProfileViewModel @Inject constructor(private val repoAuth: AuthReposit
         CoroutineScope(Dispatchers.IO).launch {
             val result = repoAuth.updateUser(
                 token = repoAuth.getToken()!!,
-                profileUser,
+                image,
                 namaRequestBody,
                 kotaRequestBody,
                 alamatRequestBody,
@@ -53,8 +56,7 @@ class EditProfileViewModel @Inject constructor(private val repoAuth: AuthReposit
                     showEditProfile.postValue(true)
                 }else{
                     //show error
-                    val data = result.errorBody()
-                    showError.postValue(data.toString())
+                    showErrorMessage(result.errorBody())
                 }
             }
         }
@@ -75,5 +77,11 @@ class EditProfileViewModel @Inject constructor(private val repoAuth: AuthReposit
                 }
             }
         }
+    }
+
+    private fun showErrorMessage(response: ResponseBody?) {
+        val error =
+            Gson().fromJson(response?.string(), ErrorResponse::class.java)
+        showError.postValue(error.message.orEmpty() + " #${error.code}")
     }
 }
