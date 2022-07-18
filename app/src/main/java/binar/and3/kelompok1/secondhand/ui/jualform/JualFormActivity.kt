@@ -1,6 +1,5 @@
 package binar.and3.kelompok1.secondhand.ui.jualform
 
-import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
@@ -8,8 +7,8 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.registerForActivityResult
 import androidx.activity.viewModels
-import androidx.core.view.doOnAttach
 import androidx.core.widget.doAfterTextChanged
 import binar.and3.kelompok1.secondhand.databinding.ActivityJualFormBinding
 import binar.and3.kelompok1.secondhand.ui.menu.daftarjual.DaftarJualFragment
@@ -23,58 +22,54 @@ import java.io.File
 
 @AndroidEntryPoint
 class JualFormActivity : AppCompatActivity() {
-    lateinit var binding: ActivityJualFormBinding
+    private lateinit var binding: ActivityJualFormBinding
     private val viewModel: JualFormViewModel by viewModels()
     private val progressDialog: ProgressDialog by lazy { ProgressDialog(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityJualFormBinding.inflate(layoutInflater)
+        binding = ActivityJualFormBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
         window.statusBarColor = Color.WHITE
 
         bindView()
         bindViewModel()
-
     }
 
     private fun bindView() {
         val getContent =
             registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri ->
                 uri.let {
-                    val type = Activity().contentResolver.getType(it)
-
+                    val type = this.contentResolver.getType(it)
                     val tempFile = File.createTempFile("temp-", null, null)
-                    val inputStream = Activity().contentResolver.openInputStream(uri)
+                    val inputStream = this.contentResolver.openInputStream(uri)
 
                     tempFile.outputStream().use { inputStream?.copyTo(it) }
 
                     val requestBody: RequestBody = tempFile.asRequestBody(type?.toMediaType())
                     val body = MultipartBody.Part.createFormData("image", tempFile.name, requestBody)
 
-                    // lanjut tambah ViewModel untuk upload gambar
-                    viewModel.processToUploadProduct(body)
+                    // viewModel.onChangeImage(body)
                 }
             }
-
-        binding.ivFotoProduk.setOnClickListener {
-            getContent.launch("image/*")
-        }
-
         binding.etNamaProduk.doAfterTextChanged {
             viewModel.onChangeName(it.toString())
-        }
-        binding.etDeskripsi.doAfterTextChanged {
-            viewModel.onChangeDescription(it.toString())
         }
         binding.etHargaProduk.doAfterTextChanged {
             viewModel.onChangeBasePrice(it.hashCode())
         }
-        binding.etKategori.doAfterTextChanged {
-            viewModel.onChangeBasePrice(it.hashCode())
+        binding.etDeskripsi.doAfterTextChanged {
+            viewModel.onChangeDescription(it.toString())
         }
-        binding.ivFotoProduk.doOnAttach {
-            viewModel.onChangeImage(it.toString())
+        binding.etKategori.doAfterTextChanged {
+            it?.let { it1 -> viewModel.onChangeCategoryIds(it1.toList()) }
+        }
+        binding.ivFotoProduk.setOnClickListener {
+            getContent.launch("image/*")
+        }
+
+        binding.btnTerbitkan.setOnClickListener {
+            // viewModel.onValidate()
         }
     }
 

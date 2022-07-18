@@ -1,5 +1,6 @@
 package binar.and3.kelompok1.secondhand.ui.menu.home
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,18 +8,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import binar.and3.kelompok1.secondhand.R
 import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerProductResponse
+import binar.and3.kelompok1.secondhand.data.api.seller.GetSellerCategoryResponse
 import binar.and3.kelompok1.secondhand.databinding.FragmentHomeBinding
+import binar.and3.kelompok1.secondhand.ui.menu.home.adapter.HomeCategoryButtonAdapter
+import binar.and3.kelompok1.secondhand.ui.menu.home.adapter.product.HomeProductAdapter
+import binar.and3.kelompok1.secondhand.ui.seller.ProductPreviewActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
+    companion object {
+        var result = 0
+        const val PRODUCT_ID = "id"
+    }
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     lateinit var homeProductAdapter: HomeProductAdapter
+    lateinit var homeCategoryButtonAdapter: HomeCategoryButtonAdapter
+
     val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,11 +48,24 @@ class HomeFragment : Fragment() {
         homeProductAdapter =
             HomeProductAdapter(listener = object : HomeProductAdapter.EventListener {
                 override fun onClick(item: BuyerProductResponse) {
-                    print("Hello")
+                    val intent = Intent(activity, ProductPreviewActivity::class.java)
+                    val bundle = Bundle()
+                    item.id?.let { bundle.putInt(PRODUCT_ID, it) }
+                    intent.putExtras(bundle)
+                    startActivity(intent)
+                }
+            }, emptyList())
+
+        homeCategoryButtonAdapter =
+            HomeCategoryButtonAdapter(listener = object : HomeCategoryButtonAdapter.EventListener {
+                override fun onClick(item: GetSellerCategoryResponse) {
+                    item.id?.let { viewModel.getBuyerProductByCategory(categoryId = it) }
                 }
             }, emptyList())
 
         binding.rvItem.adapter = homeProductAdapter
+        binding.rvItem.isNestedScrollingEnabled = false
+        binding.rvCategories.adapter = homeCategoryButtonAdapter
 
         viewModel.onViewLoaded()
         bindViewModel()
@@ -51,8 +74,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun bindViewModel() {
-        viewModel.shouldShowBuyerProduct.observe(requireActivity()) {
-           homeProductAdapter.updateBuyerProduct(it)
+        viewModel.shouldShowBuyerProductByCategory.observe(viewLifecycleOwner) {
+            homeProductAdapter.submitData(it)
+        }
+        viewModel.tempShouldShowCategory.observe(viewLifecycleOwner) {
+            homeCategoryButtonAdapter.submitData(it)
         }
     }
 

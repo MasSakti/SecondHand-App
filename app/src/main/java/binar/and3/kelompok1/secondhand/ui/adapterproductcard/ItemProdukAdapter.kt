@@ -1,12 +1,14 @@
-package binar.and3.kelompok1.secondhand.ui.menu.daftarjual.item.adapter
+package binar.and3.kelompok1.secondhand.ui.adapterproductcard
 
 import android.annotation.SuppressLint
+import android.opengl.Visibility
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import binar.and3.kelompok1.secondhand.data.api.seller.GetProductByIdResponse
 import binar.and3.kelompok1.secondhand.data.api.seller.GetProductResponse
-import binar.and3.kelompok1.secondhand.databinding.ListItemHomeBinding
+import binar.and3.kelompok1.secondhand.databinding.ListItemCategoriesBinding
+import binar.and3.kelompok1.secondhand.databinding.ListItemProductCardBinding
 import com.bumptech.glide.Glide
 
 class ItemProdukAdapter(
@@ -15,7 +17,7 @@ class ItemProdukAdapter(
 ) : RecyclerView.Adapter<ItemProdukAdapter.ViewHolder>() {
 
     inner class ViewHolder(
-        val binding: ListItemHomeBinding
+        val binding: ListItemProductCardBinding
     ) : RecyclerView.ViewHolder(binding.root)
 
     @SuppressLint("NotifyDataChanged")
@@ -26,7 +28,7 @@ class ItemProdukAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            ListItemHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ListItemProductCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -43,6 +45,7 @@ class ItemProdukAdapter(
         holder.itemView.setOnClickListener {
             listener.onClick(item = sellerProduct)
         }
+        holder.binding.tvCategory.visibility = View.GONE
 
     }
 

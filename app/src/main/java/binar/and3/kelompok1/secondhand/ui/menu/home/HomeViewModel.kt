@@ -3,7 +3,7 @@ package binar.and3.kelompok1.secondhand.ui.menu.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerProductResponse
-import binar.and3.kelompok1.secondhand.data.api.seller.GetSellerCategory
+import binar.and3.kelompok1.secondhand.data.api.seller.GetSellerCategoryResponse
 import binar.and3.kelompok1.secondhand.data.local.buyer.BuyerEntity
 import binar.and3.kelompok1.secondhand.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,12 +20,13 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     val shouldShowBuyerProduct: MutableLiveData<List<BuyerProductResponse>> = MutableLiveData()
-    val tempShouldShowCategory: MutableLiveData<List<GetSellerCategory>> = MutableLiveData()
+    val shouldShowBuyerProductByCategory: MutableLiveData<List<BuyerProductResponse>> =
+        MutableLiveData()
+    val tempShouldShowCategory: MutableLiveData<List<GetSellerCategoryResponse>> = MutableLiveData()
 
     val shouldShowError: MutableLiveData<String> = MutableLiveData()
 
     fun onViewLoaded() {
-        tempBuyerProduct()
         getSellerCategory()
     }
 
@@ -42,51 +43,12 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun getBuyerProduct() {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            val result = buyerProductRepository.getBuyerProduct()
-//            withContext(Dispatchers.Main) {
-//                if (result.isSuccessful) {
-//                    val buyerProductResponse = result.body()
-//                    buyerProductResponse?.let {
-//                        val product = BuyerEntity(
-//                            id = it.id.hashCode(),
-//                            name = it.name.orEmpty(),
-//                            base_price = it.basePrice.hashCode(),
-//                            imageUrl = it.imageUrl.orEmpty(),
-//                            imageName = it.imageName.orEmpty(),
-//                            location = it.location.orEmpty(),
-//                            userId = it.userId.hashCode()
-//                        )
-//                        insertHomeProduct(product)
-//                    }
-//                }
-//            }
-//        }
-    }
-    private fun insertHomeProduct(buyerEntity: BuyerEntity) {
+    fun getBuyerProductByCategory(categoryId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            val result = buyerProductRepository.insertProductToLocal(buyerEntity = buyerEntity)
-            withContext(Dispatchers.Main) {
-                if (result != 0L) {
-                    productFromDatabase()
-                } else {
-                    shouldShowError.postValue("Gagal insert ke dalam database")
-                }
-            }
-        }
-    }
-
-    private fun productFromDatabase() {
-    }
-
-    // Sementara get dari online dulu
-    private fun tempBuyerProduct() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val result = buyerProductRepository.getBuyerProduct()
+            val result = productRepository.getBuyerProductByCategory(categoryId = categoryId)
             withContext(Dispatchers.Main) {
                 if (result.isSuccessful) {
-                    shouldShowBuyerProduct.postValue(result.body())
+                    shouldShowBuyerProductByCategory.postValue(result.body())
                 } else {
                     shouldShowError.postValue(result.errorBody().toString())
                 }

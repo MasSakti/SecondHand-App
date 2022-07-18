@@ -18,6 +18,10 @@ class ProductRepository @Inject constructor(
         return buyerAPI.getBuyerProduct(status = "available")
     }
 
+    suspend fun getBuyerProductByCategory(categoryId: Int): Response<List<BuyerProductResponse>> {
+        return buyerAPI.getBuyerProduct(categoryId = categoryId, status = "available")
+    }
+
     suspend fun getBuyerProductById(id: Int): Response<GetProductByIdResponse> {
         return buyerAPI.getBuyerProductById(id = id)
     }
@@ -40,7 +44,7 @@ class ProductRepository @Inject constructor(
     }
 
     // Seller Category
-    suspend fun getSellerCategory(): Response<List<GetSellerCategory>> {
+    suspend fun getSellerCategory(): Response<List<GetSellerCategoryResponse>> {
         return sellerAPI.getSellerCategory()
     }
 

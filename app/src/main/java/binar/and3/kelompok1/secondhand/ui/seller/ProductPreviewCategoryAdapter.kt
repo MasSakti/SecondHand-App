@@ -1,15 +1,21 @@
-package binar.and3.kelompok1.secondhand.ui.menu.daftarjual.item.adapter
+package binar.and3.kelompok1.secondhand.ui.seller
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import binar.and3.kelompok1.secondhand.data.api.seller.GetProductByIdResponse
-import binar.and3.kelompok1.secondhand.data.api.seller.GetProductResponse
 import binar.and3.kelompok1.secondhand.databinding.ListItemCategoriesBinding
 
-class ItemCategoryAdapter(
-    private val productCategory: List<GetProductResponse.Categories>
-) : RecyclerView.Adapter<ItemCategoryAdapter.ViewHolder>() {
+class ProductPreviewCategoryAdapter(
+    private var productPreviewCategory: List<GetProductByIdResponse.Categories>
+): RecyclerView.Adapter<ProductPreviewCategoryAdapter.ViewHolder>() {
+
+    @SuppressLint("NotifyDataChanged")
+    fun updateProductCategory(list: List<GetProductByIdResponse.Categories>) {
+        this.productPreviewCategory = list
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(val binding: ListItemCategoriesBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -21,11 +27,11 @@ class ItemCategoryAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val categoryProduct = productCategory[position]
+        val categoryProduct = productPreviewCategory[position]
         holder.binding.tvCategory.text = categoryProduct.name
     }
 
     override fun getItemCount(): Int {
-        return productCategory.size
+        return productPreviewCategory.size
     }
 }

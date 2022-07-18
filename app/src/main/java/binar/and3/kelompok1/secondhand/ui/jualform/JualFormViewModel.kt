@@ -2,6 +2,7 @@ package binar.and3.kelompok1.secondhand.ui.jualform
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import binar.and3.kelompok1.secondhand.data.api.seller.GetSellerCategoryResponse
 import binar.and3.kelompok1.secondhand.data.api.seller.PostProductRequest
 import binar.and3.kelompok1.secondhand.repository.AuthRepository
 import binar.and3.kelompok1.secondhand.repository.ProductRepository
@@ -20,14 +21,14 @@ class JualFormViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var name: String = ""
-    private var description: String = ""
     private var basePrice: Int = 0
-    private var location: String = ""
-    private var image: String = ""
-    private var categoryIds: ArrayList<Int> = arrayListOf()
+    private var categoryIds: List<Char> = emptyList()
+    private var description: String = ""
+    private var image: MultipartBody.Part? = null
 
-    val shouldOpenDaftarJual: MutableLiveData<Boolean> = MutableLiveData()
     val shouldShowLoading: MutableLiveData<Boolean> = MutableLiveData()
+    val shouldShowCategory: MutableLiveData<List<GetSellerCategoryResponse>> = MutableLiveData()
+    val shouldOpenDaftarJual: MutableLiveData<Boolean> = MutableLiveData()
     val shouldShowError: MutableLiveData<String> = MutableLiveData()
 
     fun onChangeName(name: String) {
@@ -42,15 +43,7 @@ class JualFormViewModel @Inject constructor(
         this.basePrice = basePrice
     }
 
-    fun onChangeLocation(location: String) {
-        this.location = location
-    }
-
-    fun onChangeImage(image: String) {
-        this.image = image
-    }
-
-    fun onChangeCategoryIds(categoryIds: ArrayList<Int>) {
+    fun onChangeCategoryIds(categoryIds: List<Char>) {
         this.categoryIds = categoryIds
     }
 
@@ -61,14 +54,23 @@ class JualFormViewModel @Inject constructor(
             shouldShowError.postValue("Deskripsi harus jelas")
         } else if (basePrice.toString().isEmpty()) {
             shouldShowError.postValue("Harga barang harus diisi")
-        } else if (location.isEmpty()) {
-            shouldShowError.postValue("Isi lokasimu")
-        } else if (image.toString().isEmpty()) {
-            shouldShowError.postValue("Kamu harus mengisi bukti gambar dengan jelas")
         } else if (categoryIds.isEmpty()) {
             shouldShowError.postValue("Kategori harus diisi")
         } else {
-            processToUploadProduct(image = image)
+            processToUploadProduct(image)
+        }
+    }
+
+    fun getSellerCategory() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val result = productRepository.getSellerCategory()
+            withContext(Dispatchers.Main) {
+                if (result.isSuccessful) {
+                    shouldShowCategory.postValue(result.body())
+                } else {
+                    shouldShowError.postValue(result.errorBody().toString())
+                }
+            }
         }
     }
 
@@ -81,9 +83,9 @@ class JualFormViewModel @Inject constructor(
                 description = description,
                 basePrice = basePrice,
                 categoryIds = categoryIds,
-                location = location,
                 image = image
             )
+            println(request)
             val result =
                 productRepository.postSellerProduct(request = request, accessToken = accessToken)
             withContext(Dispatchers.Main) {

@@ -23,5 +23,5 @@ interface SellerAPI {
 
     // Seller Category
     @GET("seller/category")
-    suspend fun getSellerCategory(): Response<List<GetSellerCategory>>
+    suspend fun getSellerCategory(): Response<List<GetSellerCategoryResponse>>
 }

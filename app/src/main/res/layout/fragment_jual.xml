@@ -149,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
                 android:background="@drawable/shape_button_secondary"
-                android:text="Prview"
+                android:text="Preview"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/btn_terbitkan"
                 app:layout_constraintTop_toTopOf="parent" />

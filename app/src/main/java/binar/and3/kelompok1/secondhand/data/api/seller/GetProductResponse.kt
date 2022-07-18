@@ -11,7 +11,7 @@ data class GetProductResponse(
     @SerializedName("image_name") var imageName: String? = null,
     @SerializedName("location") var location: String? = null,
     @SerializedName("user_id") var userId: Int? = null,
-    @SerializedName("categories") var categories: List<Categories> = emptyList(),
+    @SerializedName("Categories") var categories: List<Categories> = emptyList(),
 ) {
     data class Categories(
         @SerializedName("id") var id: Int? = null,

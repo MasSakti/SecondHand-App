@@ -1,14 +1,13 @@
-package binar.and3.kelompok1.secondhand.ui.menu.home
+package binar.and3.kelompok1.secondhand.ui.menu.home.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import binar.and3.kelompok1.secondhand.data.api.seller.GetSellerCategory
-import binar.and3.kelompok1.secondhand.databinding.FragmentProductByCategoryBinding
-import binar.and3.kelompok1.secondhand.model.ProductDetailModel
+import binar.and3.kelompok1.secondhand.data.api.seller.GetSellerCategoryResponse
+import binar.and3.kelompok1.secondhand.ui.menu.home.ProductByCategoryFragment
 
 class HomeTabLayoutAdapter(
     fragment: Fragment,
-    private val productCategory: List<GetSellerCategory>
+    private val productCategory: List<GetSellerCategoryResponse>
 ): FragmentStateAdapter(fragment) {
 
     override fun createFragment(position: Int): Fragment {

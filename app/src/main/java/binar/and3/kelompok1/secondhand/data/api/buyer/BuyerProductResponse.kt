@@ -10,7 +10,7 @@ data class BuyerProductResponse(
     @SerializedName("image_name") var imageName: String? = null,
     @SerializedName("location") var location: String? = null,
     @SerializedName("user_id") var userId: Int? = null,
-    @SerializedName("categories") var categories: List<Categories>
+    @SerializedName("Categories") var categories: List<Categories>
 ) {
     data class Categories(
         @SerializedName("id") var id: Int? = null,
