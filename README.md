@@ -21,9 +21,9 @@
 - Zulfan Ahmadi ✔
 
 ### Description :
-Lorem ipsum dolor sit amet
+Sebuah platform marketplace yang menyediakan berbagai macam barang bekas baru dan hingga langka untuk semua kebutuhan anda yang ingin mengoleksi barang ataupun produk makanan, dan juga menyediakan harga negosiasi antar pengguna 👍
 
-### License :
+### License (Thanks to) :
 - Retrofit2 Apache License
 - Gson Apache License
 - Chucker Apache License
@@ -33,6 +33,11 @@ Lorem ipsum dolor sit amet
 - Coil Apache License
 - Datastore Apache License
 - Coroutines Apache License
+- Dhaval Patel Image Picker Apache License
+- Vmadalin Easypermissions-ktx Apache License
+- Anders Cheow Validator MIT License
+- Makeramen Roundedimageview Apache License
+- Okhttp3 Apache License
 
 ### Screenshoot :
 
