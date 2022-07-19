@@ -3,6 +3,7 @@ package com.tegarpenemuan.secondhandecomerce.ui.daftarjual
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ import com.tegarpenemuan.secondhandecomerce.data.api.SellerOrder.SellerOrderResp
 import com.tegarpenemuan.secondhandecomerce.databinding.FragmentDaftarJualBinding
 import com.tegarpenemuan.secondhandecomerce.ui.daftarjual.adapter.DaftarJualAdapter
 import com.tegarpenemuan.secondhandecomerce.ui.daftarjual.adapter.SellerOrderAdapter
+import com.tegarpenemuan.secondhandecomerce.ui.profile.Profile
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,7 +37,7 @@ class DaftarJualFragment : Fragment() {
 
     lateinit var productSellerAdapter: DaftarJualAdapter
     lateinit var sellerOrderAdapter: SellerOrderAdapter
-    var idOrder = 0
+    var idOrder: Int = 0
 
     var nomorPembeli: String = ""
     var namaPembeli: String = ""
@@ -58,7 +60,16 @@ class DaftarJualFragment : Fragment() {
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getProductSeller()
+    }
+
     private fun bindview() {
+        binding.btnedit.setOnClickListener {
+            startActivity(Intent(requireContext(),Profile::class.java))
+        }
+
         productSellerAdapter =
             DaftarJualAdapter(listener = object : DaftarJualAdapter.EventListener {
                 override fun onClick(item: GetProductResponse) {
@@ -130,24 +141,39 @@ class DaftarJualFragment : Fragment() {
             binding.rvProduct.visibility = View.GONE
             binding.rvOrder.visibility = View.VISIBLE
             binding.tvTitle.text = "Produk Diminati"
+            onResume()
         }
         binding.btnDitolak.setOnClickListener {
             viewModel.getOrder("declined")
             binding.rvProduct.visibility = View.GONE
             binding.rvOrder.visibility = View.VISIBLE
             binding.tvTitle.text = "Produk Ditolak"
+            onResume()
         }
         binding.btnTerjual.setOnClickListener {
             hubungiAdapter()
             binding.rvProduct.visibility = View.GONE
             binding.rvOrder.visibility = View.VISIBLE
-            binding.tvTitle.text = "Produk Diterima"
+            binding.tvTitle.text = "Produk Terjual"
+            onResume()
         }
         binding.btnProduct.setOnClickListener {
             viewModel.getProductSeller()
             binding.rvProduct.visibility = View.VISIBLE
             binding.rvOrder.visibility = View.GONE
             binding.tvTitle.text = "Produk Saya"
+            onResume()
+        }
+
+        binding.swipe.setOnRefreshListener {
+            viewModel.getProductSeller()
+            binding.swipe.isRefreshing = false
+            binding.swipe2.isRefreshing = false
+        }
+
+        binding.swipe2.setOnRefreshListener {
+            viewModel.getDetailOrder(idOrder)
+            binding.swipe2.isRefreshing = false
         }
     }
 
@@ -191,6 +217,7 @@ class DaftarJualFragment : Fragment() {
                         val btnHubungi = view.findViewById<Button>(R.id.btnHubungi)
 
                         idOrder = item.id
+                        Log.d("TAG","data:${item.id}")
                         viewModel.getDetailOrder(idOrder)
 
                         viewModel.shouldShowDetailNotif.observe(viewLifecycleOwner) {

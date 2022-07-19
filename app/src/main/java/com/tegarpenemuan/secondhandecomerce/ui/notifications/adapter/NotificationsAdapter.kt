@@ -64,22 +64,27 @@ class NotificationsAdapter(
                     holder.binding.tvNotificationInfo.text = "Penawaran Telah Diterima"
                     striketroughtText(holder.binding.tvHargaInfo,"Harga Asli ${currency(item.base_price.toInt())}")
                     holder.binding.tvAktivitasInfo.text = "Berhasil Ditawar ${currency(item.bid_price)}"
-                    holder.binding.tvAktivitasInfo.text = "Kamu akan segera dihubungi penjual via Whatsapp"
+                    holder.binding.tvSpesifikAktivitasInfo.text = "Kamu akan segera dihubungi penjual via Whatsapp"
+                    holder.itemView.setOnClickListener {
+                        listener.onClickAcc(item)
+                    }
                 }
                 "declined" -> {
                     holder.binding.tvAktivitasInfo.text = "Penawaran Ditolak"
                     holder.binding.tvHargaInfo.text = "Harga Asli ${currency(item.base_price.toInt())}"
                     holder.binding.tvNotificationInfo.text = "Tawaran Ditolak ${currency(item.bid_price)}"
+                    holder.itemView.setOnClickListener {
+                        listener.onClickAcc(item)
+                    }
                 }
-                else -> holder.binding.tvSpesifikAktivitasInfo.text = status
             }
         }
 
         val data = item.read
         for (i in list) {
             when(data) {
-                true -> holder.binding.ivPembatas.visibility = View.GONE
-                else -> holder.binding.ivPembatas.visibility = View.VISIBLE
+                true -> holder.binding.ivNotification.visibility = View.GONE
+                else -> holder.binding.ivNotification.visibility = View.VISIBLE
             }
         }
     }

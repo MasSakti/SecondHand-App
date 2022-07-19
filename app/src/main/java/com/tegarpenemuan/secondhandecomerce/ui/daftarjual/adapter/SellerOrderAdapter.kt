@@ -20,7 +20,7 @@ class SellerOrderAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(list:  List<SellerOrderResponseItem>) {
-        this.list = list
+        this.list = list.sortedByDescending { it.createdAt }
         notifyDataSetChanged()
     }
 

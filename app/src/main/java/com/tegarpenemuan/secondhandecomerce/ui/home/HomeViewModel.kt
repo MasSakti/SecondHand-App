@@ -22,7 +22,7 @@ class HomeViewModel @Inject constructor(
     val shouldShowGetCategory: MutableLiveData<List<GetCategoryResponseItem>> = MutableLiveData()
     val shouldShowBanner: MutableLiveData<List<BannerResponseItem>> = MutableLiveData()
 
-    fun getProduct(status: String? = "", category_id: Int? = null, search: String? = "") {
+    fun getProduct(status: String? = "available", category_id: Int? = null, search: String? = "") {
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.getProduct(status, category_id, search)
             withContext(Dispatchers.Main) {

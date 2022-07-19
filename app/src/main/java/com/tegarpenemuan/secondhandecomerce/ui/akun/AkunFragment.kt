@@ -59,6 +59,10 @@ class AkunFragment : Fragment() {
     }
 
     private fun bindview() {
+        binding.ivProfile.setOnClickListener {
+            startActivity(Intent(requireContext(),Profile::class.java))
+        }
+
         binding.tvKeluar.setOnClickListener {
             val dialog = Dialog(requireContext())
             dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)

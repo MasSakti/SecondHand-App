@@ -4,6 +4,8 @@ import android.app.ActionBar
 import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +31,8 @@ import com.tegarpenemuan.secondhandecomerce.listCategoryId
 import com.tegarpenemuan.secondhandecomerce.uriToFile
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
+import java.text.NumberFormat
+import java.util.*
 
 @AndroidEntryPoint
 class JualFragment : Fragment() {

@@ -41,7 +41,17 @@ class NotificationsFragment : Fragment() {
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getNotification()
+    }
+
     private fun bindview() {
+        binding.swipe.setOnRefreshListener {
+            viewModel.getNotification()
+            binding.swipe.isRefreshing = false
+        }
+
         notificationsAdapter =
             NotificationsAdapter(listener = object : NotificationsAdapter.EventListener {
                 override fun onClick(item: GetNotifResponseItem) {
@@ -51,7 +61,9 @@ class NotificationsFragment : Fragment() {
                 }
 
                 override fun onClickAcc(item: GetNotifResponseItem) {
-                    //
+                    viewModel.updateReadNotif(item.id)
+                    viewModel.getNotification()
+                    onResume()
                 }
 
             }, emptyList())

@@ -21,7 +21,7 @@ class DetailNotificationViewModel @Inject constructor(
     fun getNotification(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.getDetailNotification(id, repository.getToken()!!)
-            repository.updateReadNotif(id, repository.getToken()!!)
+            updateReadNotif(id)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     val getDetailNotif = response.body()
@@ -30,6 +30,12 @@ class DetailNotificationViewModel @Inject constructor(
                     //shouldShowError.postValue("Request get Profile Tidak Failed" + response.code())
                 }
             }
+        }
+    }
+
+    fun updateReadNotif(id: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            repository.updateReadNotif(id, repository.getToken()!!)
         }
     }
 }

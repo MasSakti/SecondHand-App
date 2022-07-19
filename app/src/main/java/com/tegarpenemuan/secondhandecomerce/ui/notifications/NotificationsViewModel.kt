@@ -33,4 +33,10 @@ class NotificationsViewModel @Inject constructor(
         }
     }
 
+    fun updateReadNotif(id: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            repository.updateReadNotif(id, repository.getToken()!!)
+        }
+    }
+
 }

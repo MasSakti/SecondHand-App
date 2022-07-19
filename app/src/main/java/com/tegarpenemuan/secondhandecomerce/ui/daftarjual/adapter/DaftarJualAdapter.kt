@@ -19,7 +19,7 @@ class DaftarJualAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(list: List<GetProductResponse>) {
-        this.list = list
+        this.list = list.sortedBy { it.name }
         notifyDataSetChanged()
     }
 
