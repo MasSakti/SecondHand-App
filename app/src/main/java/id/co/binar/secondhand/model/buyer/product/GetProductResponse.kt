@@ -52,6 +52,9 @@ data class GetProductResponse(
 	@SerializedName("id")
 	val id: Int? = null,
 
+	@SerializedName("status")
+	val status: String? = null,
+
 	@SerializedName("User")
 	val user: User? = null,
 

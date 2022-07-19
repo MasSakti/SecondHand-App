@@ -2,6 +2,8 @@ package id.co.binar.secondhand.ui.dashboard.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +13,7 @@ import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ListItemProductHomeBinding
 import id.co.binar.secondhand.model.buyer.product.GetProductResponse
 import id.co.binar.secondhand.model.seller.category.GetCategoryResponse
+import id.co.binar.secondhand.util.Constant
 import id.co.binar.secondhand.util.convertRupiah
 
 class HomeProductAdapter : PagingDataAdapter<GetProductResponse, RecyclerView.ViewHolder>(
@@ -46,6 +49,13 @@ class HomeProductAdapter : PagingDataAdapter<GetProductResponse, RecyclerView.Vi
                 placeholder(R.color.purple_100)
                 error(R.color.purple_100)
                 size(ViewSizeResolver(binding.ivImageProduct))
+            }
+            if (item.status == Constant.ARRAY_STATUS[5]) {
+                binding.imgSold.isVisible = true
+                binding.root.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.neutral_2))
+            } else {
+                binding.imgSold.isVisible = false
+                binding.root.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.white))
             }
             binding.tvNamaProduct.text = item.name
             binding.tvHargaProduct.text = item.basePrice?.convertRupiah()

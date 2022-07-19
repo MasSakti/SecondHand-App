@@ -6,18 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import coil.load
 import coil.size.ViewSizeResolver
-import coil.transform.RoundedCornersTransformation
 import dagger.hilt.android.AndroidEntryPoint
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.ActivityProductBinding
 import id.co.binar.secondhand.model.buyer.product.GetProductResponse
-import id.co.binar.secondhand.model.notification.NotificationUsers
-import id.co.binar.secondhand.model.notification.NotificationUsersField
 import id.co.binar.secondhand.model.seller.product.AddProductRequest
 import id.co.binar.secondhand.model.seller.product.UpdateProductByIdRequest
 import id.co.binar.secondhand.ui.product.dialog.ProductBidingFragment
 import id.co.binar.secondhand.ui.product.dialog.TAG_BIDING_PRODUCT_DIALOG
 import id.co.binar.secondhand.util.*
+import id.co.binar.secondhand.util.Constant.ARRAY_STATUS
 
 const val ARGS_PASSING_PREVIEW = "PREVIEW"
 const val ARGS_PASSING_SEE_DETAIL = "SEE_DETAIL"
@@ -181,6 +179,12 @@ class ProductActivity : AppCompatActivity() {
                             placeholder(R.color.purple_100)
                             error(R.color.purple_100)
                             size(ViewSizeResolver(binding.imageView))
+                        }
+                        if (it.data?.status == ARRAY_STATUS[5]) {
+                            btnTerbitkan.text = "Sold Out"
+                            btnTerbitkan.isEnabled = false
+                        } else {
+                            btnTerbitkan.text = "Di Nego Say"
                         }
                         tvNamaPenjual.text = it.data?.user?.fullName
                         tvKotaPenjual.text = it.data?.user?.city

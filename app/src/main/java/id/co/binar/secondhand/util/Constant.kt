@@ -18,6 +18,9 @@ object Constant {
         /** status order */
         "pending", // 2
         "accepted", // 3
-        "declined" // 4
+        "declined", // 4
+
+        /** status product */
+        "sold" // 5
     )
 }
