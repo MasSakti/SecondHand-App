@@ -5,110 +5,77 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl"
+    <LinearLayout
+        android:id="@+id/Container"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:background="@drawable/bg_home"
-        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/purple_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/etSearch1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_rounded"
-            android:drawableEnd="@drawable/ic_search"
-            android:hint="Cari di Second Chance"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="10dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvDiskon"
+        <RelativeLayout
+            android:padding="10dp"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="32dp"
-            android:lineHeight="40dp"
-            android:text="Bulan Ramadhan \nBanyak diskon!"
-            android:textColor="#151515"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="@id/etSearch1"
-            app:layout_constraintTop_toBottomOf="@id/etSearch1" />
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginBottom="-9dp"
-            android:src="@drawable/gift"
-            app:layout_constraintBottom_toBottomOf="@id/tvAngkaDiskon"
-            app:layout_constraintEnd_toEndOf="@id/etSearch1"
-            app:layout_constraintTop_toTopOf="@id/tvDiskon" />
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:background="@drawable/bg_rounded"
+                android:drawableEnd="@drawable/ic_search"
+                android:hint="Cari di Second Chance"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:layout_toStartOf="@id/icn_chat"
+                android:maxLines="1"
+                android:paddingHorizontal="18dp"
+                android:paddingVertical="10dp" />
 
-        <TextView
-            android:id="@+id/tvDiskonHingga"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Diskon Hingga"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@id/tvDiskon"
-            app:layout_constraintTop_toBottomOf="@id/tvDiskon" />
+            <ImageView
+                android:layout_centerVertical="true"
+                android:id="@+id/icn_chat"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10dp"
+                android:visibility="gone"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:srcCompat="@drawable/ic_money"/>
 
-        <TextView
-            android:id="@+id/tvAngkaDiskon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="8dp"
-            android:text="60%"
-            android:textColor="#FA2C5A"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/tvDiskonHingga"
-            app:layout_constraintTop_toBottomOf="@id/tvDiskonHingga" />
+        </RelativeLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vp_banner"
+    <LinearLayout
+        android:id="@+id/Slider"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:background="@drawable/bg_home"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginVertical="16dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/Container">
 
-    <EditText
-        android:id="@+id/etSearch"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_rounded"
-        android:drawableEnd="@drawable/ic_search"
-        android:hint="Cari di Second Chance"
-        android:imeOptions="actionSearch"
-        android:inputType="text"
-        android:maxLines="1"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:cardCornerRadius="8dp">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_banner"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:background="@drawable/bg_home" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/dots_indicator"
@@ -116,7 +83,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/vp_banner"
+        app:layout_constraintBottom_toBottomOf="@id/Slider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -125,14 +92,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:text="Telusuri Kategori"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vp_banner" />
+        app:layout_constraintTop_toBottomOf="@+id/Slider" />
 
     <ProgressBar
         android:id="@+id/progressbar"

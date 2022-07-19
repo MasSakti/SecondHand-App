@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.tegarpenemuan.secondhandecomerce.R
+import com.tegarpenemuan.secondhandecomerce.currency
 import com.tegarpenemuan.secondhandecomerce.databinding.ActivityBuyerOrderBinding
 import com.tegarpenemuan.secondhandecomerce.ui.main.MainActivity
 
@@ -44,12 +45,30 @@ class BuyerOrderActivity : AppCompatActivity() {
 
             Glide.with(this)
                 .load(imageUrl)
+                .error(R.drawable.error)
+                .placeholder(R.drawable.loading)
                 .transform(RoundedCorners(20))
                 .into(binding.ivImageProduct)
             binding.tvNamaproduct.text = produk
-            binding.tvkota.text = it.location
+            binding.tvkota.text = it.User.city
+            binding.tvNama.text = it.User.full_name
             binding.tvDeskripsi.text = it.description
-            binding.tvHarga.text = harga
+            binding.tvHarga.text = currency(it.base_price)
+
+            Glide.with(this)
+                .load(it.User.image_url)
+                .error(R.drawable.error)
+                .placeholder(R.drawable.loading)
+                .transform(RoundedCorners(20))
+                .into(binding.ivakun)
+
+            var listCategory :String? = ""
+            if (it.Categories.isNotEmpty()) {
+                for (data in it.Categories){
+                    listCategory += ", ${data.name}"
+                }
+                binding.tvKategori.text = listCategory!!.drop(2)
+            }
         }
 
         viewModel.shouldShowResponsBid.observe(this) {

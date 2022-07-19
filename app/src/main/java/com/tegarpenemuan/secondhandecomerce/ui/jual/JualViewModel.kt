@@ -27,13 +27,13 @@ import javax.inject.Inject
 class JualViewModel @Inject constructor(private val repoAuth: Repository): ViewModel() {
     val showCategory: MutableLiveData<List<GetCategoryResponseItem>> = MutableLiveData()
     val showError: MutableLiveData<String> = MutableLiveData()
+    val showUser: MutableLiveData<GetProfileResponse> = MutableLiveData()
     private var addCategory = MutableLiveData<List<String>>()
     val categoryList : LiveData<List<String>> get() = addCategory
     private var showUploadProduct: MutableLiveData<List<GetProductResponse>> = MutableLiveData()
     val showSuccess: MutableLiveData<Boolean> = MutableLiveData()
     val showErrorPost: MutableLiveData<String> = MutableLiveData()
     val showBottomSheet: MutableLiveData<Boolean> = MutableLiveData()
-    val showUser: MutableLiveData<GetProfileResponse> = MutableLiveData()
 
     fun getToken(){
         viewModelScope.launch {

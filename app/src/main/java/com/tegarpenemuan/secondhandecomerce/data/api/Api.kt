@@ -11,8 +11,8 @@ import com.tegarpenemuan.secondhandecomerce.data.api.Notification.updateRead.Upd
 import com.tegarpenemuan.secondhandecomerce.data.api.banner.BannerResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.ProductDetail.GetProductDetailsResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.SellerOrder.SellerOrderResponseItem
-import com.tegarpenemuan.secondhandecomerce.data.api.getProductDetails.GetProductDetailsResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginResponse

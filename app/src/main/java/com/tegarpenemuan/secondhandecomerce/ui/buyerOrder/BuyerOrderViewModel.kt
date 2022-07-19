@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.CreateOrder.createOrderRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.CreateOrder.createOrderResponse
-import com.tegarpenemuan.secondhandecomerce.data.api.getProductDetails.GetProductDetailsResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.ProductDetail.GetProductDetailsResponse
 import com.tegarpenemuan.secondhandecomerce.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -53,7 +53,7 @@ class BuyerOrderViewModel @Inject constructor(
                 if (response.isSuccessful) {
                     shouldShowResponsBid.postValue(response.body())
                 } else if(response.code() == 400){
-                    shouldShowResponsError.postValue("Produk Sudah Di Bid")
+                    shouldShowResponsError.postValue("Produk Sudah Anda Bid/Sudah Terjual")
                 } else if(response.code() == 500){
                     shouldShowResponsError.postValue("Server Sedang Error")
                 } else {
@@ -62,6 +62,5 @@ class BuyerOrderViewModel @Inject constructor(
             }
         }
     }
-
 }
 

@@ -111,7 +111,7 @@ class HomeFragment : Fragment() {
         }
 
         homeAdapter =
-            ProductAdapter(listener = object : ProductAdapter.EventListener {
+            ProductAdapter(requireContext(),listener = object : ProductAdapter.EventListener {
                 override fun onClick(item: GetProductResponse) {
                     val intent = Intent(requireContext(), BuyerOrderActivity::class.java)
                     intent.putExtra("id", item.id)
@@ -127,7 +127,6 @@ class HomeFragment : Fragment() {
                     //Toast.makeText(requireContext(),item.name,Toast.LENGTH_SHORT).show()
                     //nanti masuk ke search
                     viewModel.getProduct(category_id = item.id)
-
                 }
             }, emptyList())
         binding.rvCategory.adapter = categoryAdapter
