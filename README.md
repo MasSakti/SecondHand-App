@@ -12,13 +12,13 @@
 - Arya Rezza Anantya (Leader) ✔
 - Siti Mhus Aisyah ✔
 - Ghudzamir Tahkta ✔
-- Zulfan Ahmadi ✖
+- Zulfan Ahmadi ✔
 
 ### Job Desk :
 - Arya Rezza Anantya (Android Developer) ✔
 - Siti Mhus Aisyah (SCRUM Master) ✔
 - Ghudzamir Tahkta (Android Developer) ✔
-- Zulfan Ahmadi ✖
+- Zulfan Ahmadi ✔
 
 ### Description :
 Lorem ipsum dolor sit amet
