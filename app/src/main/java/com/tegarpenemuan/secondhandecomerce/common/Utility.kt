@@ -3,6 +3,7 @@ package com.tegarpenemuan.secondhandecomerce
 import android.app.ActionBar
 import android.content.ContentResolver
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Paint
@@ -12,6 +13,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -23,8 +25,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-val listCategory : MutableList<String> = ArrayList()
-val listCategoryId : MutableList<Int> = ArrayList()
+val listCategory: MutableList<String> = ArrayList()
+val listCategoryId: MutableList<Int> = ArrayList()
 
 fun setFullScreen(window: Window) {
     WindowCompat.setDecorFitsSystemWindows(window, false)
