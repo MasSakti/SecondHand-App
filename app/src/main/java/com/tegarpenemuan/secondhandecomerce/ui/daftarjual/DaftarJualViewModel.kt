@@ -2,6 +2,9 @@ package com.tegarpenemuan.secondhandecomerce.ui.daftarjual
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.GetDetailOrder.GetDetailOrderResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.UpdateStatusOrder.UpdateStatusOrderRequest
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.UpdateStatusOrder.UpdateStatusOrderResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.SellerOrder.SellerOrderResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.local.UserEntity
@@ -21,6 +24,8 @@ class DaftarJualViewModel @Inject constructor(
     val shouldShowGetProductSeller: MutableLiveData<List<GetProductResponse>> = MutableLiveData()
     val shouldShowGetSellerOrder: MutableLiveData<List<SellerOrderResponseItem>> = MutableLiveData()
     val shouldShowUser: MutableLiveData<UserEntity> = MutableLiveData()
+    val shouldShowDetailNotif: MutableLiveData<GetDetailOrderResponse> = MutableLiveData()
+    val shouldShowUpdateStatusOrdoer: MutableLiveData<UpdateStatusOrderResponse> = MutableLiveData()
 
     fun getProductSeller(){
         CoroutineScope(Dispatchers.IO).launch{
@@ -65,6 +70,34 @@ class DaftarJualViewModel @Inject constructor(
                         city = result.city
                     )
                 )
+            }
+        }
+    }
+
+    fun getDetailOrder(id: Int){
+        CoroutineScope(Dispatchers.IO).launch{
+            val response = repository.getDetailOrder(repository.getToken()!!,id)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    val getNotificationResponse = response.body()
+                    shouldShowDetailNotif.postValue(getNotificationResponse!!)
+                } else {
+                    //shouldShowError.postValue("Request get Profile Tidak Failed" + response.code())
+                }
+            }
+        }
+    }
+
+    fun updateStatusOrder(id: Int,request: UpdateStatusOrderRequest){
+        CoroutineScope(Dispatchers.IO).launch{
+            val response = repository.updateStatusOrder(repository.getToken()!!,id,request)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    val updateStatusOrder = response.body()
+                    shouldShowUpdateStatusOrdoer.postValue(updateStatusOrder!!)
+                } else {
+                    //shouldShowError.postValue("Request get Profile Tidak Failed" + response.code())
+                }
             }
         }
     }

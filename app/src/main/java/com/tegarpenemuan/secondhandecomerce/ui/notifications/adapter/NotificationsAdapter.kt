@@ -49,6 +49,9 @@ class NotificationsAdapter(
                     holder.binding.tvJenisNotif.text = "Penawaran Produk"
                     holder.binding.tvHarga.text = "Harga Asli ${currency(item.base_price.toInt())}"
                     holder.binding.tvKeterangan.text = "Ditawar ${currency(item.bid_price)}"
+                    holder.itemView.setOnClickListener {
+                        listener.onClickAcc(item)
+                    }
                 }
                 "create" -> {
                     holder.binding.tvJenisNotif.text = "Berhasil Diterbitkan"
@@ -87,5 +90,6 @@ class NotificationsAdapter(
 
     interface EventListener {
         fun onClick(item: GetNotifResponseItem)
+        fun onClickAcc(item: GetNotifResponseItem)
     }
 }

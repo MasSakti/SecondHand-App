@@ -14,7 +14,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Daftar Jual Saya"
             android:textColor="@color/black"
@@ -125,25 +125,38 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="terjual"
-                    android:drawableLeft="@drawable/ic_money"/>
+                    android:drawableLeft="@drawable/ic_money"
+                    android:text="terjual" />
 
                 <Button
                     android:id="@+id/btn_ditolak"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="Ditolak"
+                    android:layout_marginEnd="30dp"
                     android:drawableLeft="@drawable/ic_baseline_close_24"
-                    android:layout_marginEnd="30dp"/>
+                    android:text="Ditolak" />
             </LinearLayout>
         </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_marginStart="16dp"
+            tools:text="Daftar Produk"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontalScrollView" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
             app:spanCount="2"
@@ -154,7 +167,7 @@
             android:id="@+id/rv_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"

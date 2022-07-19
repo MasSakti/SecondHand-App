@@ -2,6 +2,7 @@ package com.tegarpenemuan.secondhandecomerce.ui.notifications
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.GetDetailOrder.GetDetailOrderResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetNotification.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,4 +32,5 @@ class NotificationsViewModel @Inject constructor(
             }
         }
     }
+
 }

@@ -2,8 +2,8 @@ package com.tegarpenemuan.secondhandecomerce.ui.buyerOrder
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.createOrderRequest
-import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.createOrderResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.CreateOrder.createOrderRequest
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.CreateOrder.createOrderResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProductDetails.GetProductDetailsResponse
 import com.tegarpenemuan.secondhandecomerce.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel

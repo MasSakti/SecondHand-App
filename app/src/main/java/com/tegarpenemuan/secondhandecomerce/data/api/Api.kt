@@ -1,7 +1,10 @@
 package com.tegarpenemuan.secondhandecomerce.data.api
 
-import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.createOrderRequest
-import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.createOrderResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.UpdateStatusOrder.UpdateStatusOrderRequest
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.CreateOrder.createOrderRequest
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.CreateOrder.createOrderResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.GetDetailOrder.GetDetailOrderResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.UpdateStatusOrder.UpdateStatusOrderResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetDetail.GetDetailNotifResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetNotification.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.Notification.updateRead.UpdateReadResponse
@@ -107,6 +110,19 @@ interface Api {
         @Header("access_token") access_token: String,
         @Query("status") status: String?
     ): Response<List<SellerOrderResponseItem>>
+
+    @GET("seller/order/{id}")
+    suspend fun getDetailOrder(
+        @Header("access_token") access_token: String,
+        @Path("id") id: Int
+    ): Response<GetDetailOrderResponse>
+
+    @PATCH("seller/order/{id}")
+    suspend fun updateStatusOrder(
+        @Header("access_token") access_token: String,
+        @Path("id") id: Int,
+        @Body request: UpdateStatusOrderRequest
+    ): Response<UpdateStatusOrderResponse>
 
     @GET("seller/category")
     suspend fun getCategory(): Response<List<GetCategoryResponseItem>>

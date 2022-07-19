@@ -1,8 +1,11 @@
 package com.tegarpenemuan.secondhandecomerce.repository
 
 import com.tegarpenemuan.secondhandecomerce.data.api.Api
-import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.createOrderRequest
-import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.createOrderResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.CreateOrder.createOrderRequest
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.CreateOrder.createOrderResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.GetDetailOrder.GetDetailOrderResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.UpdateStatusOrder.UpdateStatusOrderRequest
+import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.UpdateStatusOrder.UpdateStatusOrderResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetDetail.GetDetailNotifResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.Notification.GetNotification.GetNotifResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.Notification.updateRead.UpdateReadResponse
@@ -91,6 +94,21 @@ class Repository @Inject constructor(
         return api.getOrder(access_token, status)
     }
 
+    suspend fun getDetailOrder(
+        access_token: String,
+        id: Int
+    ): Response<GetDetailOrderResponse> {
+        return api.getDetailOrder(access_token, id)
+    }
+
+    suspend fun updateStatusOrder(
+        access_token: String,
+        id: Int,
+        request: UpdateStatusOrderRequest
+    ): Response<UpdateStatusOrderResponse> {
+        return api.updateStatusOrder(access_token, id, request)
+    }
+
     suspend fun getCategory(): Response<List<GetCategoryResponseItem>> {
         return api.getCategory()
     }
@@ -111,8 +129,11 @@ class Repository @Inject constructor(
     }
 
 
-    suspend fun createOrder(access_token: String,request: createOrderRequest): Response<createOrderResponse> {
-        return api.createOrder(access_token,request)
+    suspend fun createOrder(
+        access_token: String,
+        request: createOrderRequest
+    ): Response<createOrderResponse> {
+        return api.createOrder(access_token, request)
     }
 
     suspend fun updateUser(
@@ -173,7 +194,7 @@ class Repository @Inject constructor(
 
     suspend fun uploadProductSeller(
         token: String,
-        file : MultipartBody.Part,
+        file: MultipartBody.Part,
         name: RequestBody,
         description: RequestBody,
         base_price: RequestBody,

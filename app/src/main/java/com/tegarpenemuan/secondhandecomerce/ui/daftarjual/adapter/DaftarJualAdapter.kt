@@ -31,7 +31,6 @@ class DaftarJualAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
-        val jumlahdata = list.count()
 
         holder.binding.tvNamaProduct.text = item.name
         Glide.with(holder.binding.root.context)

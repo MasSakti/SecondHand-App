@@ -36,7 +36,7 @@ class SellerOrderAdapter(
         holder.binding.tvBarang.text = item.product_name
         holder.binding.tvHarga.text = ChangeCurrency.gantiRupiah(item.base_price)
         Glide.with(holder.binding.root.context)
-            .load(item.image_product)
+            .load(item.Product.image_url)
             .error(R.drawable.ic_launcher_background)
             .transform(RoundedCorners(20))
             .into(holder.binding.ivImg)

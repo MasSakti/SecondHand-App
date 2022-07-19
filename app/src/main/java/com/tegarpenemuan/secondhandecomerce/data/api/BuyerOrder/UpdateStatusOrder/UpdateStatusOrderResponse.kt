@@ -1,6 +1,6 @@
-package com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder
+package com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.UpdateStatusOrder
 
-data class createOrderResponse(
+data class UpdateStatusOrderResponse(
     val base_price: Int,
     val buyer_id: Int,
     val createdAt: String,
@@ -10,6 +10,7 @@ data class createOrderResponse(
     val product_id: Int,
     val product_name: String,
     val status: String,
-    val transcaction_date: Any,
-    val updatedAt: String
+    val transcaction_date: String,
+    val updatedAt: String,
+    val user_id: Int
 )
