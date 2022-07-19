@@ -8,6 +8,13 @@
 # Second Hand App
 <img alt='Logo - Second Hand' width="180" height="180" src='https://user-images.githubusercontent.com/43742778/179236694-b1007e5b-2405-4038-b3c2-8cad56d3535b.png'/>
 
+### Description :
+Sebuah platform marketplace yang menyediakan berbagai macam barang bekas baru dan hingga langka untuk semua kebutuhan anda yang ingin mengoleksi barang ataupun produk makanan, dan juga menyediakan harga negosiasi antar pengguna 👍
+
+### Screenshoot :
+
+### Video Apps :
+
 ### Team Member :
 - Arya Rezza Anantya (Leader) ✔
 - Siti Mhus Aisyah ✔
@@ -19,9 +26,6 @@
 - Siti Mhus Aisyah (SCRUM Master) ✔
 - Ghudzamir Tahkta (Android Developer) ✔
 - Zulfan Ahmadi ✔
-
-### Description :
-Sebuah platform marketplace yang menyediakan berbagai macam barang bekas baru dan hingga langka untuk semua kebutuhan anda yang ingin mengoleksi barang ataupun produk makanan, dan juga menyediakan harga negosiasi antar pengguna 👍
 
 ### License (Thanks to) :
 - Retrofit2 Apache License
@@ -38,7 +42,3 @@ Sebuah platform marketplace yang menyediakan berbagai macam barang bekas baru da
 - Anders Cheow Validator MIT License
 - Makeramen Roundedimageview Apache License
 - Okhttp3 Apache License
-
-### Screenshoot :
-
-### Video Apps :
