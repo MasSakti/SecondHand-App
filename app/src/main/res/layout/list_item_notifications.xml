@@ -1,117 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="24dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_img"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/ivGambarProduk"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/img_product"
+        android:scaleType="centerCrop"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_menu_akun" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_jenis_notif"
+    <TextView
+        android:id="@+id/tvNotificationInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="16dp"
-        android:lineSpacingExtra="-1sp"
-        android:textColor="#7D8797"
-        android:textSize="12sp"
-        app:layout_constraintLeft_toRightOf="@id/iv_img"
-        app:layout_constraintTop_toTopOf="@id/iv_img"
-        tools:text="Penawaran Produk" />
+        android:layout_marginLeft="16dp"
+        android:text="Penawaran Produk"
+        android:textSize="10sp"
+        android:textColor="#8A8A8A"
+        app:layout_constraintTop_toTopOf="@id/ivGambarProduk"
+        app:layout_constraintLeft_toRightOf="@id/ivGambarProduk"
+        app:layout_constraintRight_toRightOf="@id/tvTanggalNotification"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_barang"
+    <TextView
+        android:id="@+id/tvProdukInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:lineSpacingExtra="-1sp"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="@id/tv_jenis_notif"
-        app:layout_constraintTop_toBottomOf="@id/tv_jenis_notif"
-        tools:text="Jam Tangan Casio" />
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="4dp"
+        android:text="Jam Tangan Casio"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvNotificationInfo"
+        app:layout_constraintLeft_toRightOf="@id/ivGambarProduk"
+        app:layout_constraintRight_toRightOf="parent"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_harga"
+    <TextView
+        android:id="@+id/tvHargaInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="70dp"
-        android:lineSpacingExtra="-1sp"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="@id/tv_barang"
-        app:layout_constraintTop_toBottomOf="@id/tv_barang"
-        tools:text="Rp. 250.000" />
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="4dp"
+        android:text="Rp 250.000"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvProdukInfo"
+        app:layout_constraintLeft_toRightOf="@id/ivGambarProduk"
+        app:layout_constraintRight_toRightOf="parent"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvKeterangan"
+    <TextView
+        android:id="@+id/tvAktivitasInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="70dp"
-        android:lineSpacingExtra="-1sp"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="@id/tv_barang"
-        app:layout_constraintTop_toBottomOf="@id/tv_harga"
-        tools:text="Berhasil Ditawar Rp 200.000" />
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="4dp"
+        android:text="Berhasil Ditawar Rp 200.000"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvHargaInfo"
+        app:layout_constraintLeft_toRightOf="@id/ivGambarProduk"
+        app:layout_constraintRight_toRightOf="parent"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvDetail"
+    <TextView
+        android:id="@+id/tvSpesifikAktivitasInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="15dp"
-        android:lineSpacingExtra="-1sp"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/tvKeterangan"
-        app:layout_constraintTop_toBottomOf="@id/tvKeterangan"
-        tools:text="Kamu akan segera dihubungi penjual via Whatsapp"
-        tools:ignore="SmallSp" />
+        android:layout_marginLeft="16dp"
+        android:text="Kamu akan segera dihubungi penjual via whatsapp"
+        android:textSize="10sp"
+        android:textColor="#8A8A8A"
+        app:layout_constraintTop_toBottomOf="@id/tvAktivitasInfo"
+        app:layout_constraintLeft_toRightOf="@id/ivGambarProduk"
+        app:layout_constraintRight_toRightOf="parent"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_tanggal"
-        android:layout_width="0dp"
+    <ImageView
+        android:id="@+id/ivNotification"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="18dp"
-        android:lineSpacingExtra="-1sp"
-        android:textColor="#7D8797"
-        android:textSize="12sp"
+        android:src="@drawable/ellipse"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_jenis_notif"
-        tools:text="20 Apr, 14.04" />
+        app:layout_constraintTop_toTopOf="@id/tvTanggalNotification"
+        app:layout_constraintBottom_toBottomOf="@id/tvTanggalNotification"/>
 
-    <RelativeLayout
-        android:id="@+id/div_notif"
-        android:layout_width="8dp"
-        android:layout_height="8dp"
-        android:layout_marginStart="5dp"
-        android:background="@drawable/bg_bulet"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/tv_tanggal"
-        app:layout_constraintStart_toEndOf="@id/tv_tanggal"
-        app:layout_constraintTop_toTopOf="@id/tv_tanggal" />
+    <TextView
+        android:id="@+id/tvTanggalNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:text="20 Apr, 14:04"
+        android:textSize="10sp"
+        android:textColor="#8A8A8A"
+        app:layout_constraintTop_toTopOf="@id/ivGambarProduk"
+        app:layout_constraintRight_toLeftOf="@id/ivNotification" />
 
-    <View
-        android:id="@+id/iv_separator"
+    <ImageView
+        android:id="@+id/ivPembatas"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#EEEEEE"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:background="#E5E5E5"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSpesifikAktivitasInfo"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

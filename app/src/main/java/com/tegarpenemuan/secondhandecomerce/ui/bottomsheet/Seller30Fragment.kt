@@ -13,11 +13,6 @@ import com.tegarpenemuan.secondhandecomerce.databinding.FragmentSeller30Binding
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Seller30.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Seller30 : Fragment() {
     private var _binding: FragmentSeller30Binding? = null
     private val binding get() = _binding!!

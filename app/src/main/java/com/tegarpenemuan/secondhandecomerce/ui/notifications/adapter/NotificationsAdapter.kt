@@ -35,51 +35,51 @@ class NotificationsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
 
-        holder.binding.tvBarang.text = item.product_name
+        holder.binding.tvProdukInfo.text = item.product_name
         Glide.with(holder.binding.root.context)
             .load(item.image_url)
             .transform(RoundedCorners(20))
-            .into(holder.binding.ivImg)
-        holder.binding.tvTanggal.text = convertDate(item.createdAt)
+            .into(holder.binding.ivGambarProduk)
+        holder.binding.tvTanggalNotification.text = convertDate(item.createdAt)
 
         val status = item.status
         for (i in list) {
             when(status) {
                 "bid" -> {
-                    holder.binding.tvJenisNotif.text = "Penawaran Produk"
-                    holder.binding.tvHarga.text = "Harga Asli ${currency(item.base_price.toInt())}"
-                    holder.binding.tvKeterangan.text = "Ditawar ${currency(item.bid_price)}"
+                    holder.binding.tvNotificationInfo.text = "Penawaran Produk"
+                    holder.binding.tvHargaInfo.text = "Harga Asli ${currency(item.base_price.toInt())}"
+                    holder.binding.tvAktivitasInfo.text = "Ditawar ${currency(item.bid_price)}"
                     holder.itemView.setOnClickListener {
                         listener.onClickAcc(item)
                     }
                 }
                 "create" -> {
-                    holder.binding.tvJenisNotif.text = "Berhasil Diterbitkan"
-                    holder.binding.tvHarga.text = "Harga Asli ${currency(item.base_price.toInt())}"
+                    holder.binding.tvNotificationInfo.text = "Berhasil Diterbitkan"
+                    holder.binding.tvHargaInfo.text = "Harga Asli ${currency(item.base_price.toInt())}"
                     holder.itemView.setOnClickListener {
                         listener.onClick(item)
                     }
                 }
                 "accepted" -> {
-                    holder.binding.tvJenisNotif.text = "Penawaran Telah Diterima"
-                    striketroughtText(holder.binding.tvHarga,"Harga Asli ${currency(item.base_price.toInt())}")
-                    holder.binding.tvKeterangan.text = "Berhasil Ditawar ${currency(item.bid_price)}"
-                    holder.binding.tvDetail.text = "Kamu akan segera dihubungi penjual via Whatsapp"
+                    holder.binding.tvNotificationInfo.text = "Penawaran Telah Diterima"
+                    striketroughtText(holder.binding.tvHargaInfo,"Harga Asli ${currency(item.base_price.toInt())}")
+                    holder.binding.tvAktivitasInfo.text = "Berhasil Ditawar ${currency(item.bid_price)}"
+                    holder.binding.tvAktivitasInfo.text = "Kamu akan segera dihubungi penjual via Whatsapp"
                 }
                 "declined" -> {
-                    holder.binding.tvJenisNotif.text = "Penawaran Ditolak"
-                    holder.binding.tvHarga.text = "Harga Asli ${currency(item.base_price.toInt())}"
-                    holder.binding.tvKeterangan.text = "Tawaran Ditolak ${currency(item.bid_price)}"
+                    holder.binding.tvAktivitasInfo.text = "Penawaran Ditolak"
+                    holder.binding.tvHargaInfo.text = "Harga Asli ${currency(item.base_price.toInt())}"
+                    holder.binding.tvNotificationInfo.text = "Tawaran Ditolak ${currency(item.bid_price)}"
                 }
-                else -> holder.binding.tvJenisNotif.text = status
+                else -> holder.binding.tvSpesifikAktivitasInfo.text = status
             }
         }
 
         val data = item.read
         for (i in list) {
             when(data) {
-                true -> holder.binding.divNotif.visibility = View.GONE
-                else -> holder.binding.divNotif.visibility = View.VISIBLE
+                true -> holder.binding.ivPembatas.visibility = View.GONE
+                else -> holder.binding.ivPembatas.visibility = View.VISIBLE
             }
         }
     }
