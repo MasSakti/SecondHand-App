@@ -67,6 +67,7 @@
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/activity_splash.xml" value="0.16" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/card_user_account.xml" value="0.25" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_akun.xml" value="0.33" />
+        <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_category_bottom_sheets.xml" value="0.25" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_daftar.xml" value="0.18541666666666667" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.33" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_dashboard.xml" value="0.3625" />
@@ -83,6 +84,7 @@
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/fragment_terjual_tab.xml" value="0.3625" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/list_item_categories.xml" value="1.0" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/list_item_category_buttons.xml" value="0.5" />
+        <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/list_item_check_category.xml" value="0.3614583333333333" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/list_item_home.xml" value="0.33" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/list_item_notifikasi.xml" value="0.18541666666666667" />
         <entry key="..\:/Semester 6/Android Developer/Final Project/SecondHand/app/src/main/res/layout/list_item_product_card.xml" value="0.67" />

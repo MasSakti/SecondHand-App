@@ -32,45 +32,7 @@ class JualFormActivity : AppCompatActivity() {
         supportActionBar?.hide()
         window.statusBarColor = Color.WHITE
 
-        bindView()
         bindViewModel()
-    }
-
-    private fun bindView() {
-        val getContent =
-            registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri ->
-                uri.let {
-                    val type = this.contentResolver.getType(it)
-                    val tempFile = File.createTempFile("temp-", null, null)
-                    val inputStream = this.contentResolver.openInputStream(uri)
-
-                    tempFile.outputStream().use { inputStream?.copyTo(it) }
-
-                    val requestBody: RequestBody = tempFile.asRequestBody(type?.toMediaType())
-                    val body = MultipartBody.Part.createFormData("image", tempFile.name, requestBody)
-
-                    // viewModel.onChangeImage(body)
-                }
-            }
-        binding.etNamaProduk.doAfterTextChanged {
-            viewModel.onChangeName(it.toString())
-        }
-        binding.etHargaProduk.doAfterTextChanged {
-            viewModel.onChangeBasePrice(it.hashCode())
-        }
-        binding.etDeskripsi.doAfterTextChanged {
-            viewModel.onChangeDescription(it.toString())
-        }
-        binding.etKategori.doAfterTextChanged {
-            it?.let { it1 -> viewModel.onChangeCategoryIds(it1.toList()) }
-        }
-        binding.ivFotoProduk.setOnClickListener {
-            getContent.launch("image/*")
-        }
-
-        binding.btnTerbitkan.setOnClickListener {
-            // viewModel.onValidate()
-        }
     }
 
     private fun bindViewModel() {

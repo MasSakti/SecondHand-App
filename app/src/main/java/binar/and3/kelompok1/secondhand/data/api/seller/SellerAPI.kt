@@ -1,5 +1,7 @@
 package binar.and3.kelompok1.secondhand.data.api.seller
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -15,10 +17,16 @@ interface SellerAPI {
         @Query("id") id: Int
     ): Response<List<GetProductByIdResponse>>
 
+    @Multipart
     @POST("seller/product")
     suspend fun postSellerProduct(
         @Header("access_token") accessToken: String,
-        @Body request: PostProductRequest
+        @Part file: MultipartBody.Part,
+        @Part("name") name: RequestBody?,
+        @Part("description") description: RequestBody?,
+        @Part("base_price") base_price: RequestBody?,
+        @Part("category_ids") categoryIds: List<Int>,
+        @Part("location") location: RequestBody?
     ): Response<PostProductResponse>
 
     // Seller Category

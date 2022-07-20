@@ -14,4 +14,13 @@ object Constant {
 
         const val RETROFIT_SECONDHAND = "RETROFIT_SECONDHAND"
     }
+
+    object JualForm {
+        const val NAMA_PRODUK = "NAMA_PRODUK"
+        const val BASE_PRICE = "BASE_PRICE"
+        const val DESCRIPTION = "DESCRIPTION"
+        const val CATEGORY = "CATEGORY"
+        const val ALAMAT = "ALAMAT"
+        const val IMAGE = "IMAGE"
+    }
 }

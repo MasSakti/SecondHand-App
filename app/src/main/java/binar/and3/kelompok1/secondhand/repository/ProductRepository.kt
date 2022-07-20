@@ -5,6 +5,8 @@ import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerProductResponse
 import binar.and3.kelompok1.secondhand.data.api.seller.*
 import binar.and3.kelompok1.secondhand.data.local.buyer.BuyerDAO
 import binar.and3.kelompok1.secondhand.data.local.buyer.BuyerEntity
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -35,8 +37,24 @@ class ProductRepository @Inject constructor(
         return sellerAPI.getSellerProduct(accessToken = accessToken)
     }
 
-    suspend fun postSellerProduct(request: PostProductRequest, accessToken: String): Response<PostProductResponse> {
-        return sellerAPI.postSellerProduct(accessToken = accessToken, request = request)
+    suspend fun postSellerProduct(
+        accessToken: String,
+        name: RequestBody,
+        description: RequestBody,
+        basePrice: RequestBody,
+        categoryIds: List<Int>,
+        image: MultipartBody.Part,
+        location: RequestBody
+    ): Response<PostProductResponse> {
+        return sellerAPI.postSellerProduct(
+            accessToken = accessToken,
+            name = name,
+            description = description,
+            base_price = basePrice,
+            categoryIds = categoryIds,
+            file = image,
+            location = location
+        )
     }
 
     suspend fun insertProductToLocal(buyerEntity: BuyerEntity): Long {

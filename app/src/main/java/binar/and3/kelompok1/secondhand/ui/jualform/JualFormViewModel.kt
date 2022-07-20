@@ -22,7 +22,7 @@ class JualFormViewModel @Inject constructor(
 
     private var name: String = ""
     private var basePrice: Int = 0
-    private var categoryIds: List<Char> = emptyList()
+    private var categoryIds: List<Int> = emptyList()
     private var description: String = ""
     private var image: MultipartBody.Part? = null
 
@@ -43,22 +43,8 @@ class JualFormViewModel @Inject constructor(
         this.basePrice = basePrice
     }
 
-    fun onChangeCategoryIds(categoryIds: List<Char>) {
+    fun onChangeCategoryIds(categoryIds: List<Int>) {
         this.categoryIds = categoryIds
-    }
-
-    fun onValidate(image: MultipartBody.Part) {
-        if (name.isEmpty()) {
-            shouldShowError.postValue("Nama Barang harus diisi")
-        } else if (description.isEmpty()) {
-            shouldShowError.postValue("Deskripsi harus jelas")
-        } else if (basePrice.toString().isEmpty()) {
-            shouldShowError.postValue("Harga barang harus diisi")
-        } else if (categoryIds.isEmpty()) {
-            shouldShowError.postValue("Kategori harus diisi")
-        } else {
-            processToUploadProduct(image)
-        }
     }
 
     fun getSellerCategory() {
@@ -73,32 +59,4 @@ class JualFormViewModel @Inject constructor(
             }
         }
     }
-
-    fun processToUploadProduct(image: MultipartBody.Part) {
-        CoroutineScope(Dispatchers.IO).launch {
-            shouldShowLoading.postValue(true)
-            val accessToken = authRepository.getToken().toString()
-            val request = PostProductRequest(
-                name = name,
-                description = description,
-                basePrice = basePrice,
-                categoryIds = categoryIds,
-                image = image
-            )
-            println(request)
-            val result =
-                productRepository.postSellerProduct(request = request, accessToken = accessToken)
-            withContext(Dispatchers.Main) {
-                if (result.isSuccessful) {
-                    shouldOpenDaftarJual.postValue(true)
-                } else {
-                    shouldShowError.postValue(
-                        "Gagal menambahkan barang. Error: " + result.errorBody().toString()
-                    )
-                }
-            }
-        }
-    }
-
-
 }
