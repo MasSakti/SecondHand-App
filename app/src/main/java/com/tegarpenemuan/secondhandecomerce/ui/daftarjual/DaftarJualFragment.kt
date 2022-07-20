@@ -3,7 +3,6 @@ package com.tegarpenemuan.secondhandecomerce.ui.daftarjual
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -67,7 +66,7 @@ class DaftarJualFragment : Fragment() {
 
     private fun bindview() {
         binding.btnedit.setOnClickListener {
-            startActivity(Intent(requireContext(),Profile::class.java))
+            startActivity(Intent(requireContext(), Profile::class.java))
         }
 
         productSellerAdapter =
@@ -79,61 +78,7 @@ class DaftarJualFragment : Fragment() {
             }, emptyList())
         binding.rvProduct.adapter = productSellerAdapter
 
-        sellerOrderAdapter =
-            SellerOrderAdapter(listener = object : SellerOrderAdapter.EventListener {
-                override fun onClick(item: SellerOrderResponseItem) {
-                    val dialog = BottomSheetDialog(requireContext())
-                    val view = layoutInflater.inflate(R.layout.bottom_sheet_acc_produk, null)
-
-                    val ivPembeli = view.findViewById<ImageView>(R.id.ivPembeli)
-                    val tvNamaPembeli = view.findViewById<TextView>(R.id.namaPembeli)
-                    val tvKotaPembeli = view.findViewById<TextView>(R.id.tvKotaPembeli)
-
-                    val ivProduk = view.findViewById<ImageView>(R.id.img_product)
-                    val tvNamaProduk = view.findViewById<TextView>(R.id.tv_nama_product)
-                    val tvHargaProduk = view.findViewById<TextView>(R.id.tv_info_harga)
-                    val tvPenawaran = view.findViewById<TextView>(R.id.tv_info_tawar)
-                    val tvTime = view.findViewById<TextView>(R.id.tv_notif_time)
-
-                    val btnTolak = view.findViewById<Button>(R.id.btnTolakProduct)
-                    val btnTerima = view.findViewById<Button>(R.id.btnTerimaProduct)
-
-                    idOrder = item.id
-                    viewModel.getDetailOrder(idOrder)
-
-                    viewModel.shouldShowDetailNotif.observe(viewLifecycleOwner) {
-
-                        Glide.with(requireContext())
-                            .load(it.User.image_url)
-                            .transform(RoundedCorners(20))
-                            .into(ivPembeli)
-                        tvNamaPembeli.text = it.User.full_name
-                        tvKotaPembeli.text = it.User.city
-
-
-                        Glide.with(requireContext())
-                            .load(it.Product.image_url)
-                            .transform(RoundedCorners(20))
-                            .into(ivProduk)
-                        tvNamaProduk.text = it.Product.name
-                        tvHargaProduk.text = currency(it.Product.base_price)
-                        tvPenawaran.text = "Ditawar ${currency(it.price)}"
-                        tvTime.text = convertDate(it.createdAt)
-                    }
-
-                    btnTerima.setOnClickListener {
-                        viewModel.updateStatusOrder(idOrder, UpdateStatusOrderRequest("accepted"))
-                        dialog.dismiss()
-                    }
-                    btnTolak.setOnClickListener {
-                        viewModel.updateStatusOrder(idOrder, UpdateStatusOrderRequest("declined"))
-                        dialog.dismiss()
-                    }
-                    dialog.setContentView(view)
-                    dialog.show()
-                }
-            }, emptyList())
-        binding.rvOrder.adapter = sellerOrderAdapter
+        setupSellerOrderAdapter()
         binding.tvTitle.text = "Produk Saya"
 
         binding.btnDiminati.setOnClickListener {
@@ -141,40 +86,179 @@ class DaftarJualFragment : Fragment() {
             binding.rvProduct.visibility = View.GONE
             binding.rvOrder.visibility = View.VISIBLE
             binding.tvTitle.text = "Produk Diminati"
-            onResume()
         }
         binding.btnDitolak.setOnClickListener {
             viewModel.getOrder("declined")
             binding.rvProduct.visibility = View.GONE
             binding.rvOrder.visibility = View.VISIBLE
             binding.tvTitle.text = "Produk Ditolak"
-            onResume()
         }
         binding.btnTerjual.setOnClickListener {
-            hubungiAdapter()
+//            hubungiAdapter()
+            viewModel.getOrder("accepted")
             binding.rvProduct.visibility = View.GONE
             binding.rvOrder.visibility = View.VISIBLE
             binding.tvTitle.text = "Produk Terjual"
-            onResume()
+
         }
         binding.btnProduct.setOnClickListener {
             viewModel.getProductSeller()
             binding.rvProduct.visibility = View.VISIBLE
             binding.rvOrder.visibility = View.GONE
             binding.tvTitle.text = "Produk Saya"
-            onResume()
         }
 
         binding.swipe.setOnRefreshListener {
-            viewModel.getProductSeller()
+            refreshData()
             binding.swipe.isRefreshing = false
-            binding.swipe2.isRefreshing = false
+        }
+    }
+
+    private fun setupSellerOrderAdapter() {
+        sellerOrderAdapter =
+            SellerOrderAdapter(listener = object : SellerOrderAdapter.EventListener {
+                override fun onClick(item: SellerOrderResponseItem) {
+                    idOrder = item.id
+                    when (item.status) {
+                        "accepted" -> bottomSheetHubPenjual()
+                        else -> bottomSheetAccOrder()
+                    }
+                }
+            }, emptyList())
+        binding.rvOrder.adapter = sellerOrderAdapter
+    }
+
+    private fun bottomSheetHubPenjual() {
+        val dialog = BottomSheetDialog(requireContext())
+        val view =
+            layoutInflater.inflate(R.layout.bottom_sheet_hubungi_penawar, null)
+
+        val ivPembeli = view.findViewById<ImageView>(R.id.iv_pembeli)
+        val tvNamaPembeli = view.findViewById<TextView>(R.id.tv_nama_pembeli)
+        val tvKotaPembeli = view.findViewById<TextView>(R.id.tv_Kota_pembeli)
+
+        val ivProduk = view.findViewById<ImageView>(R.id.iv_barang)
+        val tvNamaProduk = view.findViewById<TextView>(R.id.tv_nama_barang)
+        val tvHargaProduk = view.findViewById<TextView>(R.id.tv_harga_awal)
+        val tvPenawaran = view.findViewById<TextView>(R.id.tv_harga_tawar)
+        val tvTime = view.findViewById<TextView>(R.id.tv_notif_time)
+
+        val btnHubungi = view.findViewById<Button>(R.id.btnHubungi)
+
+        viewModel.getDetailOrder(idOrder)
+
+        viewModel.shouldShowDetailNotif.observe(viewLifecycleOwner) {
+
+            Glide.with(requireContext())
+                .load(it.User.image_url)
+                .transform(RoundedCorners(20))
+                .into(ivPembeli)
+            tvNamaPembeli.text = it.User.full_name
+            tvKotaPembeli.text = it.User.city
+            nomorPembeli = it.User.phone_number
+            namaPembeli = it.User.full_name
+            namaProduk = it.Product.name
+            hargaDitawarProduk = it.price
+
+            Glide.with(requireContext())
+                .load(it.Product.image_url)
+                .transform(RoundedCorners(20))
+                .into(ivProduk)
+            tvNamaProduk.text = it.Product.name
+            tvHargaProduk.text = currency(it.Product.base_price)
+            tvPenawaran.text = "Ditawar ${currency(it.price)}"
         }
 
-        binding.swipe2.setOnRefreshListener {
-            viewModel.getDetailOrder(idOrder)
-            binding.swipe2.isRefreshing = false
+        btnHubungi.setOnClickListener {
+            //viewModel.updateStatusOrder(idOrder, UpdateStatusOrderRequest("accepted"))
+            //dialog.dismiss()
+
+            val smilingFaceUnicode = 0x1F60A
+            val waveUnicode = 0x1F44B
+            val stringBuilder1 = StringBuilder()
+            val stringBuilder2 = StringBuilder()
+            val emoteSmile =
+                stringBuilder1.append(Character.toChars(smilingFaceUnicode))
+            val emoteWave = stringBuilder2.append(Character.toChars(waveUnicode))
+            val phonenumberPenawar = "+62$nomorPembeli"
+            val message =
+                "Halo ${namaPembeli}${emoteWave} Tawaranmu pada product *$namaProduk* telah disetujui oleh penjual dengan harga *${
+                    currency(hargaDitawarProduk)
+                }*. Penjual akan menghubungimu secepatnya$emoteSmile"
+
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(
+                        String.format(
+                            "https://api.whatsapp.com/send?phone=%s&text=%s",
+                            phonenumberPenawar,
+                            message
+                        )
+                    )
+                )
+            )
         }
+
+        dialog.setContentView(view)
+        dialog.show()
+    }
+
+    private fun bottomSheetAccOrder() {
+        val dialog = BottomSheetDialog(requireContext())
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_acc_produk, null)
+
+        val ivPembeli = view.findViewById<ImageView>(R.id.ivPembeli)
+        val tvNamaPembeli = view.findViewById<TextView>(R.id.namaPembeli)
+        val tvKotaPembeli = view.findViewById<TextView>(R.id.tvKotaPembeli)
+
+        val ivProduk = view.findViewById<ImageView>(R.id.img_product)
+        val tvNamaProduk = view.findViewById<TextView>(R.id.tv_nama_product)
+        val tvHargaProduk = view.findViewById<TextView>(R.id.tv_info_harga)
+        val tvPenawaran = view.findViewById<TextView>(R.id.tv_info_tawar)
+        val tvTime = view.findViewById<TextView>(R.id.tv_notif_time)
+
+        val btnTolak = view.findViewById<Button>(R.id.btnTolakProduct)
+        val btnTerima = view.findViewById<Button>(R.id.btnTerimaProduct)
+
+        viewModel.getDetailOrder(idOrder)
+
+        viewModel.shouldShowDetailNotif.observe(viewLifecycleOwner) {
+
+            Glide.with(requireContext())
+                .load(it.User.image_url)
+                .transform(RoundedCorners(20))
+                .into(ivPembeli)
+            tvNamaPembeli.text = it.User.full_name
+            tvKotaPembeli.text = it.User.city
+
+
+            Glide.with(requireContext())
+                .load(it.Product.image_url)
+                .transform(RoundedCorners(20))
+                .into(ivProduk)
+            tvNamaProduk.text = it.Product.name
+            tvHargaProduk.text = currency(it.Product.base_price)
+            tvPenawaran.text = "Ditawar ${currency(it.price)}"
+            tvTime.text = convertDate(it.createdAt)
+        }
+
+        btnTerima.setOnClickListener {
+            viewModel.updateStatusOrder(idOrder, UpdateStatusOrderRequest("accepted"))
+            refreshData()
+            onResume()
+            dialog.dismiss()
+            bottomSheetHubPenjual()
+        }
+        btnTolak.setOnClickListener {
+            viewModel.updateStatusOrder(idOrder, UpdateStatusOrderRequest("declined"))
+            refreshData()
+            onResume()
+            dialog.dismiss()
+
+        }
+        dialog.setContentView(view)
+        dialog.show()
     }
 
     private fun bindviewModel() {
@@ -195,83 +279,12 @@ class DaftarJualFragment : Fragment() {
         }
     }
 
-    private fun hubungiAdapter(){
-        viewModel.getOrder("accepted")
-        viewModel.shouldShowGetSellerOrder.observe(viewLifecycleOwner) {
-            val sellerOrderAdapter =
-                SellerOrderAdapter(listener = object : SellerOrderAdapter.EventListener {
-                    override fun onClick(item: SellerOrderResponseItem) {
-                        val dialog = BottomSheetDialog(requireContext())
-                        val view = layoutInflater.inflate(R.layout.bottom_sheet_hubungi_penawar, null)
-
-                        val ivPembeli = view.findViewById<ImageView>(R.id.iv_pembeli)
-                        val tvNamaPembeli = view.findViewById<TextView>(R.id.tv_nama_pembeli)
-                        val tvKotaPembeli = view.findViewById<TextView>(R.id.tv_Kota_pembeli)
-
-                        val ivProduk = view.findViewById<ImageView>(R.id.iv_barang)
-                        val tvNamaProduk = view.findViewById<TextView>(R.id.tv_nama_barang)
-                        val tvHargaProduk = view.findViewById<TextView>(R.id.tv_harga_awal)
-                        val tvPenawaran = view.findViewById<TextView>(R.id.tv_harga_tawar)
-                        val tvTime = view.findViewById<TextView>(R.id.tv_notif_time)
-
-                        val btnHubungi = view.findViewById<Button>(R.id.btnHubungi)
-
-                        idOrder = item.id
-                        Log.d("TAG","data:${item.id}")
-                        viewModel.getDetailOrder(idOrder)
-
-                        viewModel.shouldShowDetailNotif.observe(viewLifecycleOwner) {
-
-                            Glide.with(requireContext())
-                                .load(it.User.image_url)
-                                .transform(RoundedCorners(20))
-                                .into(ivPembeli)
-                            tvNamaPembeli.text = it.User.full_name
-                            tvKotaPembeli.text = it.User.city
-                            nomorPembeli = it.User.phone_number
-                            namaPembeli = it.User.full_name
-                            namaProduk = it.Product.name
-                            hargaDitawarProduk = it.price
-
-                            Glide.with(requireContext())
-                                .load(it.Product.image_url)
-                                .transform(RoundedCorners(20))
-                                .into(ivProduk)
-                            tvNamaProduk.text = it.Product.name
-                            tvHargaProduk.text = currency(it.Product.base_price)
-                            tvPenawaran.text = "Ditawar ${currency(it.price)}"
-                        }
-
-                        btnHubungi.setOnClickListener {
-                            //viewModel.updateStatusOrder(idOrder, UpdateStatusOrderRequest("accepted"))
-                            //dialog.dismiss()
-
-                            val smilingFaceUnicode = 0x1F60A
-                            val waveUnicode = 0x1F44B
-                            val stringBuilder1 = StringBuilder()
-                            val stringBuilder2 = StringBuilder()
-                            val emoteSmile = stringBuilder1.append(Character.toChars(smilingFaceUnicode))
-                            val emoteWave = stringBuilder2.append(Character.toChars(waveUnicode))
-                            val phonenumberPenawar = "+62$nomorPembeli"
-                            val message = "Halo ${namaPembeli}${emoteWave} Tawaranmu pada product *$namaProduk* telah disetujui oleh penjual dengan harga *${currency(hargaDitawarProduk)}*. Penjual akan menghubungimu secepatnya$emoteSmile"
-
-                            startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW, Uri.parse(
-                                    String.format("https://api.whatsapp.com/send?phone=%s&text=%s",
-                                        phonenumberPenawar,
-                                        message
-                                    ))
-                                )
-                            )
-                        }
-
-                        dialog.setContentView(view)
-                        dialog.show()
-                    }
-                }, emptyList())
-            sellerOrderAdapter.updateList(it)
-            binding.rvOrder.adapter = sellerOrderAdapter
+    private fun refreshData() {
+        when (binding.tvTitle.text.toString()) {
+            "Produk Ditolak" -> viewModel.getOrder("declined")
+            "Produk Terjual" -> viewModel.getOrder("accepted")
+            "Produk Saya" -> viewModel.getProductSeller()
+            "Produk Diminati" -> viewModel.getOrder("pending")
         }
     }
 
