@@ -12,6 +12,8 @@
 Sebuah platform marketplace yang menyediakan berbagai macam barang bekas baru dan hingga langka untuk semua kebutuhan anda yang ingin mengoleksi barang ataupun produk makanan, dan juga menyediakan harga negosiasi antar pengguna 👍
 
 ### Screenshoot :
+![Homepage](https://user-images.githubusercontent.com/78681642/179988996-dfa81cf0-2461-4c90-9dcc-4cdbfbe152f8.jpg)
+
 
 ### Video Apps :
 
