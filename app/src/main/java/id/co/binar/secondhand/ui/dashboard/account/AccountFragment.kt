@@ -1,6 +1,7 @@
 package id.co.binar.secondhand.ui.dashboard.account
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import coil.size.ViewSizeResolver
 import coil.transform.RoundedCornersTransformation
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import id.co.binar.secondhand.BuildConfig
 import id.co.binar.secondhand.R
 import id.co.binar.secondhand.databinding.FragmentAccountBinding
 import id.co.binar.secondhand.ui.login.LoginActivity
@@ -64,6 +66,8 @@ class AccountFragment : Fragment() {
             val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)
         }
+
+        binding.tvVersionAccount.text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
     }
 
     private fun bindObserver() {

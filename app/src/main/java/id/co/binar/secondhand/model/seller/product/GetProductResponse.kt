@@ -38,6 +38,9 @@ data class GetProductResponse(
 	@SerializedName("id")
 	val id: Int? = null,
 
+	@SerializedName("status")
+	val status: String? = null,
+
 	@SerializedName("Categories")
 	val categories: List<GetCategoryResponse>? = null
 ) : Parcelable

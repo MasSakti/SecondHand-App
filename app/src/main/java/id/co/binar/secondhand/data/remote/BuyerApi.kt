@@ -3,7 +3,6 @@ package id.co.binar.secondhand.data.remote
 import id.co.binar.secondhand.model.buyer.order.AddOrderRequest
 import id.co.binar.secondhand.model.buyer.order.GetOrderResponse
 import id.co.binar.secondhand.model.buyer.product.GetProductResponse
-import id.co.binar.secondhand.model.buyer.product.Items
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -16,7 +15,7 @@ interface BuyerApi {
         @Query("search") search: String? = null,
         @Query("page") page: Int? = null,
         @Query("per_page") per_page: Int? = 10
-    ) : Response<Items>
+    ) : Response<List<GetProductResponse>>
 
     @GET("buyer/product/{id}")
     suspend fun getProductById(

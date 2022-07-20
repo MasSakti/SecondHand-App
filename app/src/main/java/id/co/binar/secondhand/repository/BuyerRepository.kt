@@ -1,32 +1,23 @@
 package id.co.binar.secondhand.repository
 
-import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.liveData
 import androidx.room.withTransaction
-import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
-import id.co.binar.secondhand.data.local.AuthDao
 import id.co.binar.secondhand.data.local.SellerDao
 import id.co.binar.secondhand.data.remote.BuyerApi
-import id.co.binar.secondhand.data.remote.NotificationApi
 import id.co.binar.secondhand.data.remote.SellerApi
 import id.co.binar.secondhand.database.RoomDatabase
 import id.co.binar.secondhand.model.ErrorResponse
 import id.co.binar.secondhand.model.buyer.order.AddOrderRequest
 import id.co.binar.secondhand.model.buyer.order.GetOrderResponse
 import id.co.binar.secondhand.model.buyer.product.GetProductResponse
-import id.co.binar.secondhand.model.buyer.product.Items
-import id.co.binar.secondhand.model.notification.NotificationUsers
 import id.co.binar.secondhand.util.DataStoreManager
 import id.co.binar.secondhand.util.Resource
 import id.co.binar.secondhand.util.castFromRemoteToLocal
 import id.co.binar.secondhand.util.networkBoundResource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class BuyerRepository @Inject constructor(
@@ -54,7 +45,7 @@ class BuyerRepository @Inject constructor(
         }
     )
 
-    fun getProduct(): Flow<Resource<Items>> = flow {
+    fun getProduct(): Flow<Resource<List<GetProductResponse>>> = flow {
         emit(Resource.Loading())
         try {
             val response = buyerApi.getProduct(page = 1, per_page = 20)

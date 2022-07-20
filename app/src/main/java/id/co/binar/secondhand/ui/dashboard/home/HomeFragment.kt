@@ -168,7 +168,7 @@ class HomeFragment : Fragment() {
             when (it) {
                 is Resource.Success -> {
                     binding.progressBar.isVisible = false
-                    if (it.data?.data.isNullOrEmpty()) {
+                    if (it.data.isNullOrEmpty()) {
                         binding.layoutEmpty.isVisible = true
                         binding.layoutError.isVisible = false
                         binding.rvProduct.isVisible = false
@@ -176,7 +176,7 @@ class HomeFragment : Fragment() {
                         binding.layoutEmpty.isVisible = false
                         binding.layoutError.isVisible = false
                         binding.rvProduct.isVisible = true
-                        adapterProduct.submitList(it.data?.data)
+                        adapterProduct.submitList(it.data)
                         binding.rvProduct.adapter = adapterProduct
                     }
                 }

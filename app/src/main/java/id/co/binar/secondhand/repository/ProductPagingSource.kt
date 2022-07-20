@@ -23,7 +23,7 @@ class ProductPagingSource(
         val position = params.key ?: 1
         return try {
             val response = buyerApi.getProduct(search = search, category = category, page = position)
-            val items = response.body()?.data ?: listOf()
+            val items = response.body() ?: listOf()
             LoadResult.Page(
                 data = items,
                 prevKey = if (position == 1) null else position - 1,
