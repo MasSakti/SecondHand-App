@@ -13,7 +13,7 @@ Sebuah platform marketplace yang menyediakan berbagai macam barang bekas baru da
 
 ### Screenshoot :
 - Homepage
-- <img alt='Logo - Second Hand' width="180" height="180" src='https://user-images.githubusercontent.com/78681642/179988996-dfa81cf0-2461-4c90-9dcc-4cdbfbe152f8.jpg'/>
+- <img alt='Logo - Second Hand' width="300" height="400" src='https://user-images.githubusercontent.com/78681642/179988996-dfa81cf0-2461-4c90-9dcc-4cdbfbe152f8.jpg'/>
 - User Register
 ![Register](https://user-images.githubusercontent.com/78681642/179989612-d5de29fd-a982-4fe7-b236-155befcc81ee.jpg)
 - User Login
