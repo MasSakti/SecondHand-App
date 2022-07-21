@@ -41,21 +41,20 @@ class MainActivity : AppCompatActivity() {
 //
 //        setCurrentFragment(homeFragment)
 //
-//        binding.bottomNavigationView.setOnItemSelectedListener {
-//            when(it.itemId){
-//                R.id.navbar_akunFragment -> setCurrentFragment(homeFragment)
-//                R.id.navbar_notifFragment -> setCurrentFragment(notifikasiFragment)
-//                R.id.navbar_jualFragment -> {
+//        binding.bottomNavigationView.setOnItemSelectedListener { id ->
+//            when(id){
+//                R.id.homeFragment -> setCurrentFragment(homeFragment)
+//                R.id.notifFragment -> setCurrentFragment(notifikasiFragment)
+//                R.id.jualFragment -> {
 //                    setCurrentFragment(jualFragment)
 //                    binding.bottomNavigationView.visibility = View.GONE
 //                }
-//                R.id.navbar_daftarJualFragment -> setCurrentFragment(daftarjualFragment)
-//                R.id.navbar_akunFragment -> setCurrentFragment(akunFragment)
+//                R.id.daftarJualFragment -> setCurrentFragment(daftarjualFragment)
 //            }
-//            true
 //        }
 
-//        val navController = findNavController(R.id.flfragment)
+        binding.bottomNavigationView.itemIconTintList = null
+
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.flfragment) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)

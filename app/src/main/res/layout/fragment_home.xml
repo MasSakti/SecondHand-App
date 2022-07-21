@@ -21,22 +21,19 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimer_banner"
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/iv_banner"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="120dp"
+                android:src="@drawable/banner_home"
+                android:layout_marginTop="80dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:orientation="vertical"
-                android:layout_marginTop="80dp"
+                android:scaleType="centerCrop"
+                app:riv_corner_radius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="RtlSymmetry">
-
-                <include layout="@layout/shimer_banner" />
-
-            </com.facebook.shimmer.ShimmerFrameLayout>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:id="@+id/linearlayout"
@@ -46,7 +43,7 @@
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/shimer_banner">
+                app:layout_constraintTop_toBottomOf="@+id/iv_banner">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -114,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/nunitobold"
-                android:text="This category is empty"
+                android:text="Belum ada produk"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -182,36 +179,59 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/status_bar">
 
-        <EditText
-            android:id="@+id/et_searchProduct"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/bg_search"
-            android:drawableEnd="@drawable/ic_baseline_search_24"
-            android:fontFamily="@font/nunitosemibold"
-            android:hint="Search product"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:textSize="15sp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/et_searchProduct"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_search"
+                android:drawableEnd="@drawable/ic_baseline_search_24"
+                android:fontFamily="@font/nunitosemibold"
+                android:hint="Cari produk"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/riv_userImage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimer_imageHome"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/riv_userImage"
+                app:layout_constraintEnd_toEndOf="@+id/riv_userImage"
+                app:layout_constraintStart_toStartOf="@+id/riv_userImage"
+                app:layout_constraintTop_toTopOf="@+id/riv_userImage"
+                tools:ignore="RtlSymmetry">
+
+                <include layout="@layout/shimer_imagehome" />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/riv_userImage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerCrop"
+                app:riv_corner_radius="50dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/et_searchProduct"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/et_searchProduct" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>
-
-    <TextView
-        android:id="@+id/tv_testing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="testttttt"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

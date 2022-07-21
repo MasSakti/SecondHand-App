@@ -8,18 +8,20 @@ import android.os.Handler
 import androidx.activity.viewModels
 import com.example.projectgroup2.R
 import com.example.projectgroup2.databinding.ActivitySplashBinding
+import com.example.projectgroup2.databinding.FragmentHomeBinding
 import com.example.projectgroup2.ui.main.MainActivity
 import com.example.projectgroup2.ui.onboarding.OnBoardingActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySplashBinding
+    private var _binding: ActivitySplashBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySplashBinding.inflate(layoutInflater)
+        _binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val timer = object : CountDownTimer(5000, 1000) {
@@ -49,5 +51,10 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

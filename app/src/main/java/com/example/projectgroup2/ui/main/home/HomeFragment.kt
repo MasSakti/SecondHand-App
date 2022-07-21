@@ -3,7 +3,10 @@ package com.example.projectgroup2.ui.main.home
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.ContentValues.TAG
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -19,6 +22,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.avatarfirst.avatargenlib.AvatarConstants
+import com.avatarfirst.avatargenlib.AvatarGenerator
+import com.bumptech.glide.Glide
 import com.example.projectgroup2.R
 import com.example.projectgroup2.data.api.main.buyer.product.GetProductResponse
 import com.example.projectgroup2.data.api.main.buyer.product.ProductResponseItem
@@ -61,6 +67,7 @@ class HomeFragment : Fragment() {
         val search = ""
         viewModel.getProductBuyer(status = status, categoryId = categoryId, search = search)
         viewModel.getCategory()
+        viewModel.getUserData()
     }
 
     private fun bindViewModel() {
@@ -73,6 +80,14 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.showShimmerCategory.observe(viewLifecycleOwner){
+            if(it){
+                binding.shimerImageHome.visibility = View.VISIBLE
+            }else{
+                binding.shimerImageHome.visibility = View.GONE
+            }
+        }
+
+        viewModel.showShimmerUser.observe(viewLifecycleOwner){
             if(it){
                 binding.shimerCategory.visibility = View.VISIBLE
             }else{
@@ -105,6 +120,19 @@ class HomeFragment : Fragment() {
         viewModel.showCategory.observe(viewLifecycleOwner){
             categoryAdapter.submitData(it)
         }
+
+        viewModel.showUser.observe(viewLifecycleOwner){
+            Glide.with(requireContext())
+                .load(it.imageUrl.toString())
+                .placeholder(AvatarGenerator
+                    .AvatarBuilder(requireContext())
+                    .setTextSize(50)
+                    .setAvatarSize(200)
+                    .toSquare()
+                    .setLabel(it.fullName.toString())
+                    .build())
+                .into(binding.rivUserImage)
+        }
     }
 
     private fun bindAdapterAndItem(){
@@ -125,7 +153,6 @@ class HomeFragment : Fragment() {
                 val status = "available"
                 val search = ""
                 viewModel.getProductBuyer(categoryId = data.id.toString(), status = status, search = search)
-                binding.tvTesting.text = "${data.name}"
             }
         })
         binding.rvCategoryHome.adapter = categoryAdapter
@@ -139,6 +166,10 @@ class HomeFragment : Fragment() {
                 false
             }
         }
+
+        binding.rivUserImage.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_editProfileFragment)
+        }
     }
 
     @SuppressLint("ObsoleteSdkInt")
@@ -148,7 +179,7 @@ class HomeFragment : Fragment() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             binding.scrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
                 val bannerHeight =
-                    (binding.shimerBanner.height / 2) - result - binding.statusBar.height
+                    (binding.ivBanner.height / 2) - result - binding.statusBar.height
                 val colored = ContextCompat.getColor(requireContext(), R.color.white)
                 val transparent =
                     ContextCompat.getColor(requireContext(), android.R.color.transparent)
@@ -187,4 +218,8 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

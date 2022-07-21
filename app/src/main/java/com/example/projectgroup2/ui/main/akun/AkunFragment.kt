@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.avatarfirst.avatargenlib.AvatarConstants
+import com.avatarfirst.avatargenlib.AvatarGenerator
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -51,12 +53,22 @@ class AkunFragment : Fragment() {
 
     private fun bindViewModel() {
         viewModel.showLogin.observe(viewLifecycleOwner){
-            startActivity(Intent(activity, LoginActivity::class.java))
+            Intent(activity, LoginActivity::class.java).also {
+                it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(it)
+            }
         }
 
         viewModel.showUser.observe(viewLifecycleOwner){
             Glide.with(requireContext())
                 .load(it.imageUrl.toString())
+                .placeholder(AvatarGenerator
+                    .AvatarBuilder(requireContext())
+                    .setTextSize(20)
+                    .setAvatarSize(200)
+                    .toSquare()
+                    .setLabel(it.fullName.toString())
+                    .build())
                 .into(binding.ivProfileAcc)
             bundle.putString(USER_IMAGE, it.imageUrl)
         }

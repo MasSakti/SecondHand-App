@@ -55,9 +55,9 @@ class DaftarJualViewModel @Inject constructor(private val repoAuth: AuthReposito
         }
     }
 
-    fun getOrderSeller(){
+    fun getOrderSeller(status: String){
         CoroutineScope(Dispatchers.IO).launch {
-            val result = repo.getSellerOrder(token = repoAuth.getToken()!!)
+            val result = repo.getSellerOrder(token = repoAuth.getToken()!!, status)
             withContext(Dispatchers.Main){
                 if (result.isSuccessful){
                     //show data

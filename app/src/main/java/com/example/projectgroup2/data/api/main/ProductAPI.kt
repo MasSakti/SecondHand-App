@@ -67,6 +67,7 @@ interface ProductAPI {
 
     @GET("seller/order")
     suspend fun getSellerOrder(
+        @Query("status") status: String,
         @Header("access_token") token: String
     ): Response<List<SellerOrderResponse>>
 

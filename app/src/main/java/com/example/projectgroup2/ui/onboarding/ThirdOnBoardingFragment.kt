@@ -8,19 +8,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.projectgroup2.R
+import com.example.projectgroup2.databinding.FragmentSecondOnBoardingBinding
 import com.example.projectgroup2.databinding.FragmentThirdOnBoardingBinding
 import com.example.projectgroup2.ui.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ThirdOnBoardingFragment : Fragment() {
-    private lateinit var binding: FragmentThirdOnBoardingBinding
+    private var _binding: FragmentThirdOnBoardingBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentThirdOnBoardingBinding.inflate(inflater,container,false)
+        _binding = FragmentThirdOnBoardingBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -33,5 +35,10 @@ class ThirdOnBoardingFragment : Fragment() {
                 startActivity(it)
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

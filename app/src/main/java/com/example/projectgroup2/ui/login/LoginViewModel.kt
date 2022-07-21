@@ -22,6 +22,7 @@ class LoginViewModel @Inject constructor(private val repo: AuthRepository): View
 
     val shouldShowError: MutableLiveData<String> = MutableLiveData()
     val shouldOpenHomePage: MutableLiveData<Boolean> = MutableLiveData()
+    val showLoading: MutableLiveData<Boolean> = MutableLiveData()
 
     fun onChangeEmail(email: String) {
         this.email = email
@@ -48,6 +49,7 @@ class LoginViewModel @Inject constructor(private val repo: AuthRepository): View
                 password = password
             )
             val response = repo.loginUser(request)
+            showLoading.postValue(true)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     val loginResponse = response.body()
@@ -56,20 +58,12 @@ class LoginViewModel @Inject constructor(private val repo: AuthRepository): View
                         val token = it.access_token.orEmpty()
                         insertToken(token = token)
                         getUserData(token = token)
-
-//                      mempersiapkan untuk insert ke database
-//                        val userEntity = UserEntity(
-//                            id = it.id.hashCode(),
-//                            email = it.email.toString(),
-//                        )
-//                        insertProfile(userEntity)
                     }
+                    showLoading.postValue(false)
                     shouldOpenHomePage.postValue(true)
                 } else {
+                    showLoading.postValue(false)
                     shouldShowError.postValue("Maaf, Gagal insert ke dalam database")
-//                    val error =
-//                        Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java)
-//                    shouldShowError.postValue(error.message.orEmpty() + " #${error.code}")
                 }
             }
         }

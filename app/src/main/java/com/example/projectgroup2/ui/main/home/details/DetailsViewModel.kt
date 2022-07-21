@@ -25,6 +25,7 @@ class DetailsViewModel @Inject constructor(private val repo: ProductRepository, 
     val showGetBuyerOrder: MutableLiveData<List<GetBuyerOrderResponse>> = MutableLiveData()
     val showError: MutableLiveData<String> = MutableLiveData()
     val showToken: MutableLiveData<Boolean> = MutableLiveData()
+    val showShimerProduct: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getToken(){
         viewModelScope.launch {
@@ -36,16 +37,19 @@ class DetailsViewModel @Inject constructor(private val repo: ProductRepository, 
     }
 
     fun getProductById(id: Int){
+        showShimerProduct.postValue(true)
         CoroutineScope(Dispatchers.IO).launch {
             val result = repo.getProductById(id)
             withContext(Dispatchers.Main){
                 if (result.isSuccessful){
                     //show data
                     val data = result.body()
+                    showShimerProduct.postValue(false)
                     showProductDetails.postValue(data!!)
                 }else{
                     //show error
                     val data = result.errorBody()
+                    showShimerProduct.postValue(false)
                     showError.postValue(data.toString())
                 }
             }

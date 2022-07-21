@@ -43,7 +43,7 @@ class CategoryAdapter(private val onClick: OnClickListener): RecyclerView.Adapte
                 notifyDataSetChanged()
             }
             if (rowIndex == position){
-                binding.cardCategory.setBackgroundColor(Color.parseColor("#30313C"))
+                binding.cardCategory.setBackgroundColor(Color.parseColor("#39E1C1"))
                 binding.tvCategoryHome.setTextColor(Color.parseColor("#FFFFFF"))
             }else{
                 binding.cardCategory.setBackgroundColor(Color.parseColor("#FFFFFF"))

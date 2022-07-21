@@ -59,8 +59,8 @@ class ProductRepository @Inject constructor(private val api: ProductAPI) {
         return api.getSellerProduct(token = token)
     }
 
-    suspend fun getSellerOrder(token: String): Response<List<SellerOrderResponse>> {
-        return api.getSellerOrder(token = token)
+    suspend fun getSellerOrder(token: String, status: String): Response<List<SellerOrderResponse>> {
+        return api.getSellerOrder(token = token, status = status)
     }
 
     suspend fun updateProduct(

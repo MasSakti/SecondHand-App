@@ -13,13 +13,14 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SecondOnBoardingFragment : Fragment() {
-    private lateinit var binding: FragmentSecondOnBoardingBinding
+    private var _binding: FragmentSecondOnBoardingBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSecondOnBoardingBinding.inflate(inflater,container,false)
+        _binding = FragmentSecondOnBoardingBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -33,5 +34,10 @@ class SecondOnBoardingFragment : Fragment() {
         binding.skipSecond.setOnClickListener{
             viewPager?.currentItem = 2
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

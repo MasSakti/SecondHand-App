@@ -21,6 +21,7 @@ import com.example.projectgroup2.ui.main.home.HomeFragment
 import com.example.projectgroup2.ui.main.home.adapter.ProductAdapter
 import com.example.projectgroup2.utils.listCategory
 import com.example.projectgroup2.utils.listCategoryId
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -69,14 +70,6 @@ class DaftarJualFragment : Fragment() {
     }
 
     private fun bindViewModel(){
-//        viewModel.showProductSeller.observe(viewLifecycleOwner){
-//            sellerProductAdapter.submitData(it)
-//        }
-//
-//        viewModel.showOrderSeller.observe(viewLifecycleOwner){
-//            sellerOrderAdapter.submitData(it)
-//        }
-
         viewModel.showUser.observe(viewLifecycleOwner){
             binding.tvNamaPenjual.text = it.fullName
             binding.tvKotaPenjual.text = it.address
@@ -90,11 +83,29 @@ class DaftarJualFragment : Fragment() {
         binding.btnProduct.setOnClickListener {
             adapterProduct()
             binding.rvDiminatiDaftarJual.visibility = View.GONE
+            binding.rvDitolakDaftarJual.visibility = View.GONE
+            binding.rvDiterimaDaftarJual.visibility = View.GONE
         }
 
         binding.btnDiminati.setOnClickListener {
             adapterOrder()
             binding.rvProductDaftarJual.visibility = View.GONE
+            binding.rvDitolakDaftarJual.visibility = View.GONE
+            binding.rvDiterimaDaftarJual.visibility = View.GONE
+        }
+
+        binding.btnDitolak.setOnClickListener {
+            adapterOrderDitolak()
+            binding.rvProductDaftarJual.visibility = View.GONE
+            binding.rvDiminatiDaftarJual.visibility = View.GONE
+            binding.rvDiterimaDaftarJual.visibility = View.GONE
+        }
+
+        binding.btnDiterima.setOnClickListener {
+            adapterOrderDiterima()
+            binding.rvProductDaftarJual.visibility = View.GONE
+            binding.rvDiminatiDaftarJual.visibility = View.GONE
+            binding.rvDitolakDaftarJual.visibility = View.GONE
         }
     }
 
@@ -127,7 +138,8 @@ class DaftarJualFragment : Fragment() {
     }
 
     private fun adapterOrder(){
-        viewModel.getOrderSeller()
+        val statusPending = "pending"
+        viewModel.getOrderSeller(statusPending)
         viewModel.showOrderSeller.observe(viewLifecycleOwner){
             val sellerOrderAdapter = SellerOrderAdapter(object: SellerOrderAdapter.OnClickListener {
                 override fun onClickItem(data: SellerOrderResponse) {
@@ -149,6 +161,48 @@ class DaftarJualFragment : Fragment() {
             sellerOrderAdapter.submitData(it)
             binding.rvDiminatiDaftarJual.adapter = sellerOrderAdapter
             binding.rvDiminatiDaftarJual.visibility = View.VISIBLE
+        }
+    }
+
+    private fun adapterOrderDitolak(){
+        val statusDeclined = "declined"
+        viewModel.getOrderSeller(statusDeclined)
+        viewModel.showOrderSeller.observe(viewLifecycleOwner){
+            val sellerOrderAdapter = SellerOrderAdapter(object: SellerOrderAdapter.OnClickListener {
+                override fun onClickItem(data: SellerOrderResponse) {
+
+                }
+            })
+            sellerOrderAdapter.submitData(it)
+            binding.rvDitolakDaftarJual.adapter = sellerOrderAdapter
+            binding.rvDitolakDaftarJual.visibility = View.VISIBLE
+        }
+    }
+
+    private fun adapterOrderDiterima(){
+        val statusAccepted = "accepted"
+        viewModel.getOrderSeller(statusAccepted)
+        viewModel.showOrderSeller.observe(viewLifecycleOwner){
+            val sellerOrderAdapter = SellerOrderAdapter(object: SellerOrderAdapter.OnClickListener {
+                override fun onClickItem(data: SellerOrderResponse) {
+                    bundlePenawar.apply {
+                        putString(USER_NAME, data.buyerInformation.fullName)
+                        putString(USER_CITY, data.buyerInformation.address)
+                        putString(USER_PHONE_NUMBER, data.buyerInformation.phoneNumber)
+                        putInt(ORDER_ID, data.id)
+                        putString(ORDER_STATUS, data.status)
+                        putString(PRODUCT_NAME, data.product.name)
+                        putString(PRODUCT_PRICE, data.product.basePrice.toString())
+                        putString(PRODUCT_BID, data.price.toString())
+                        putString(PRODUCT_IMAGE, data.product.imageUrl)
+                        putString(PRODUCT_BID_DATE, data.createdAt)
+                    }
+                    findNavController().navigate(R.id.action_daftarJualFragment_to_infoPenawarFragment, bundlePenawar)
+                }
+            })
+            sellerOrderAdapter.submitData(it)
+            binding.rvDiterimaDaftarJual.adapter = sellerOrderAdapter
+            binding.rvDiterimaDaftarJual.visibility = View.VISIBLE
         }
     }
 }

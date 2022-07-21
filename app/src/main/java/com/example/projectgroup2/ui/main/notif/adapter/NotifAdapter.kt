@@ -134,7 +134,7 @@ class NotifAdapter(
                         .centerCrop()
                         .into(ivGambarProduk)
                 }
-                root.setOnClickListener{
+                root.setOnClickListener {
                     onItemClick.onClickItem(data)
                 }
             }

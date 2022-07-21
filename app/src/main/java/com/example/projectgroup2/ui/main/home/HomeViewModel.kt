@@ -3,9 +3,11 @@ package com.example.projectgroup2.ui.main.home
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.projectgroup2.data.api.auth.getUser.GetUserResponse
 import com.example.projectgroup2.data.api.main.buyer.product.GetProductResponse
 import com.example.projectgroup2.data.api.main.buyer.product.ProductResponse
 import com.example.projectgroup2.data.api.main.category.CategoryResponse
+import com.example.projectgroup2.repository.AuthRepository
 import com.example.projectgroup2.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -15,15 +17,17 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repo: ProductRepository): ViewModel() {
+class HomeViewModel @Inject constructor(private val repo: ProductRepository, private val repoAuth: AuthRepository): ViewModel() {
     val showProductBuyer: MutableLiveData<List<GetProductResponse>> = MutableLiveData()
     val showCategory: MutableLiveData<List<CategoryResponse>> = MutableLiveData()
     val showLoading: MutableLiveData<Boolean> = MutableLiveData()
     val showEmpty: MutableLiveData<Boolean> = MutableLiveData()
     val showShimmerProduct: MutableLiveData<Boolean> = MutableLiveData()
+    val showShimmerUser: MutableLiveData<Boolean> = MutableLiveData()
     val showShimmerCategory: MutableLiveData<Boolean> = MutableLiveData()
     val showRv: MutableLiveData<Boolean> = MutableLiveData()
     val showError: MutableLiveData<String> = MutableLiveData()
+    val showUser: MutableLiveData<GetUserResponse> = MutableLiveData()
 
     @SuppressLint("NullSafeMutableLiveData")
     fun getProductBuyer(status: String, categoryId: String, search: String){
@@ -70,6 +74,26 @@ class HomeViewModel @Inject constructor(private val repo: ProductRepository): Vi
                     val data = result.errorBody()
                     showError.postValue(data.toString())
                     showShimmerCategory.postValue(false)
+                }
+            }
+        }
+    }
+
+    fun getUserData(){
+        CoroutineScope(Dispatchers.IO).launch {
+            showShimmerUser.postValue(true)
+            val result = repoAuth.getUser(token = repoAuth.getToken()!!)
+            withContext(Dispatchers.Main){
+                if (result.isSuccessful){
+                    //show data
+                    val data = result.body()
+                    showShimmerUser.postValue(false)
+                    showUser.postValue(data!!)
+                }else{
+                    //show error
+                    val data = result.errorBody()
+                    showShimmerUser.postValue(false)
+                    showError.postValue(data.toString())
                 }
             }
         }

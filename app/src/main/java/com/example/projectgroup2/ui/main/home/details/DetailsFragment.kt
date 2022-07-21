@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.projectgroup2.R
 import com.example.projectgroup2.databinding.FragmentDetailsBinding
@@ -47,6 +48,14 @@ class DetailsFragment : Fragment() {
     }
 
     private fun bindViewModel(){
+        viewModel.showShimerProduct.observe(viewLifecycleOwner){
+            if(it){
+                binding.shimerDetailsProduct.visibility = View.VISIBLE
+            }else{
+                binding.shimerDetailsProduct.visibility = View.GONE
+            }
+        }
+
         viewModel.showProductDetails.observe(viewLifecycleOwner){
             if (it != null){
                 productName = it.name
@@ -92,6 +101,10 @@ class DetailsFragment : Fragment() {
                     }
                 )
                 bottomFragment.show(parentFragmentManager, "Tag")
+            }
+
+            binding.cardBack.setOnClickListener {
+                findNavController().popBackStack()
             }
         }
 

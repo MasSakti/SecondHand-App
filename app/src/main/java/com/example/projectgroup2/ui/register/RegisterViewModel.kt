@@ -31,6 +31,7 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
     val shouldShowLoading: MutableLiveData<Boolean> = MutableLiveData()
     val shouldOpenUpdateProfile: MutableLiveData<Boolean> = MutableLiveData()
     val shouldOpenLoginPage: MutableLiveData<Boolean> = MutableLiveData()
+    val showConfirmation: MutableLiveData<Boolean> = MutableLiveData()
 
     fun onChangeFullName(full_name: String) {
         this.full_name = full_name
@@ -58,17 +59,24 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
 
     fun onValidate() {
         if (full_name.isEmpty() && full_name.length < 3) {
-            shouldShowError.postValue("Nama tidak valid")
+            shouldShowError.postValue("Nama tidak boleh kosong")
         } else if (email.isEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             shouldShowError.postValue("Email tidak valid")
         } else if (password.isEmpty() && password.length < 8) {
             shouldShowError.postValue("Password tidak valid")
+        } else if (phone_number.isEmpty() && password.length < 11) {
+            shouldShowError.postValue("Nomor telepon tidak boleh kosong")
+        } else if (address.isEmpty() && address.length < 3) {
+            shouldShowError.postValue("Alamat tidak boleh kosong")
+        } else if (city.isEmpty() && city.length < 3) {
+            shouldShowError.postValue("Kota tidak boleh kosong")
         } else {
-            processToSignUp()
+            showConfirmation.postValue(true)
+//            processToSignUp()
         }
     }
 
-    private fun processToSignUp() {
+    fun processToSignUp() {
         CoroutineScope(Dispatchers.IO).launch {
             shouldShowLoading.postValue(true)
             val request = RegisterRequest(
@@ -91,7 +99,7 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
         }
     }
 
-    private fun processToSignIn() {
+    fun processToSignIn() {
         CoroutineScope(Dispatchers.IO).launch {
             val request = LoginRequest(
                 email = email,
@@ -106,16 +114,6 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
                         val token = it.access_token.orEmpty()
                         insertToken(token = token)
                         getUserData(token = token)
-
-                        // mempersiapkan untuk insert ke database
-//                        val userEntity = UserEntity(
-//                            id = it.objectId.orEmpty(),
-//                            name = it.name.orEmpty(),
-//                            email = it.email.orEmpty(),
-//                            job = it.job.orEmpty(),
-//                            image = it.image.orEmpty()
-//                        )
-//                        insertProfile(userEntity)
                     }
                     shouldOpenLoginPage.postValue(true)
                     shouldShowLoading.postValue(false)
@@ -128,7 +126,7 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
         }
     }
 
-    private fun getUserData(token: String) {
+    fun getUserData(token: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = repo.getUser(token = token)
             withContext(Dispatchers.Main) {
@@ -159,7 +157,7 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
 //        shouldShowError.postValue(error.message.orEmpty() + " #${error.code}")
 //    }
 
-    private fun insertToken(token: String) {
+    fun insertToken(token: String) {
         if (token.isNotEmpty()) {
             viewModelScope.launch {
                 repo.updateToken(token)
@@ -167,7 +165,7 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
         }
     }
 
-    private fun insertProfile(userEntity: UserEntity) {
+    fun insertProfile(userEntity: UserEntity) {
         CoroutineScope(Dispatchers.IO).launch {
             val result = repo.insertUser(userEntity)
             withContext(Dispatchers.Main) {

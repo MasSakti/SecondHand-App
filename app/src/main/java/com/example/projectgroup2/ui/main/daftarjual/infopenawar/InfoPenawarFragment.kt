@@ -128,6 +128,7 @@ class InfoPenawarFragment : Fragment() {
                     )
                     if (idOrder != null) {
                         viewModel.declineOrder(idOrder, body)
+                        findNavController().navigate(R.id.action_infoPenawarFragment_to_daftarJualFragment)
                         positive.dismiss()
                     }
                 }
@@ -148,6 +149,7 @@ class InfoPenawarFragment : Fragment() {
                     )
                     if (idOrder != null) {
                         viewModel.declineOrder(idOrder, body)
+                        findNavController().navigate(R.id.action_infoPenawarFragment_to_daftarJualFragment)
                         positive.dismiss()
                     }
                 }

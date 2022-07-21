@@ -1,5 +1,7 @@
 package com.example.projectgroup2.ui.main.home.details
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +9,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.example.projectgroup2.R
 import com.example.projectgroup2.data.api.main.buyerorder.BuyerOrderRequest
 import com.example.projectgroup2.databinding.FragmentTawarBinding
 import com.example.projectgroup2.utils.currency
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.StringBuilder
 
 @AndroidEntryPoint
 class TawarFragment(
@@ -42,6 +46,13 @@ class TawarFragment(
         bindViewModel()
         bindView()
 
+        val smilingFaceUnicode = 0x1F60A
+        val stringBuilder1 = StringBuilder()
+        val emoteSmile = stringBuilder1.append(Character.toChars(smilingFaceUnicode))
+
+        binding.textView10.text = "Masukan harga tawar anda$emoteSmile"
+
+        setStyle(STYLE_NORMAL, R.style.AppBottomSheetDialogTheme)
     }
 
     private fun bindViewModel(){

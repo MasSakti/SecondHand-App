@@ -7,18 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import com.example.projectgroup2.R
+import com.example.projectgroup2.databinding.ActivitySplashBinding
 import com.example.projectgroup2.databinding.FragmentFirstOnBoardingBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FirstOnBoardingFragment : Fragment() {
-    private lateinit var binding: FragmentFirstOnBoardingBinding
+    private var _binding: FragmentFirstOnBoardingBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentFirstOnBoardingBinding.inflate(inflater,container,false)
+        _binding = FragmentFirstOnBoardingBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -32,5 +34,10 @@ class FirstOnBoardingFragment : Fragment() {
         binding.skipFirst.setOnClickListener{
             viewPager?.currentItem = 2
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
