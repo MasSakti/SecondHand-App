@@ -1,116 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingHorizontal="16dp"
-    android:paddingTop="24dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/ivGambarProduk"
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_gambarProduct"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/rectangle"
         android:scaleType="centerCrop"
+        android:src="@drawable/kena"
+        app:riv_corner_radius="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvNotificationInfo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:text="Penawaran Produk"
-        android:textSize="10sp"
-        android:textColor="#8A8A8A"
-        android:fontFamily="@font/poppinsregular"
-        app:layout_constraintTop_toTopOf="@id/ivGambarProduk"
-        app:layout_constraintLeft_toRightOf="@id/ivGambarProduk"
-        app:layout_constraintRight_toRightOf="@id/tvTanggalNotification"/>
-
-    <TextView
-        android:id="@+id/tvProdukInfo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="4dp"
-        android:text="Jam Tangan Casio"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        android:fontFamily="@font/poppinsregular"
-        app:layout_constraintTop_toBottomOf="@id/tvNotificationInfo"
-        app:layout_constraintLeft_toRightOf="@id/ivGambarProduk"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-    <TextView
-        android:id="@+id/tvHargaInfo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="4dp"
-        android:text="Rp 250.000"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        android:fontFamily="@font/poppinsregular"
-        app:layout_constraintTop_toBottomOf="@id/tvProdukInfo"
-        app:layout_constraintLeft_toRightOf="@id/ivGambarProduk"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-    <TextView
-        android:id="@+id/tvAktivitasInfo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="4dp"
-        android:text="Berhasil Ditawar Rp 200.000"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        android:fontFamily="@font/poppinsregular"
-        app:layout_constraintTop_toBottomOf="@id/tvHargaInfo"
-        app:layout_constraintLeft_toRightOf="@id/ivGambarProduk"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-    <TextView
-        android:id="@+id/tvSpesifikAktivitasInfo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:text="Kamu akan segera dihubungi penjual via whatsapp"
-        android:textSize="10sp"
-        android:textColor="#8A8A8A"
-        android:fontFamily="@font/poppinsregular"
-        app:layout_constraintTop_toBottomOf="@id/tvAktivitasInfo"
-        app:layout_constraintLeft_toRightOf="@id/ivGambarProduk"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-    <ImageView
-        android:id="@+id/ivNotification"
+        android:id="@+id/tv_notifInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ellipse"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvTanggalNotification"
-        app:layout_constraintBottom_toBottomOf="@id/tvTanggalNotification"/>
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/nunitoregular"
+        android:text="Info"
+        android:layout_marginTop="13dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_gambarProduct"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvTanggalNotification"
+        android:id="@+id/tv_notifTanggal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:text="20 Apr, 14:04"
-        android:textSize="10sp"
-        android:textColor="#8A8A8A"
-        android:fontFamily="@font/poppinsregular"
-        app:layout_constraintTop_toTopOf="@id/ivGambarProduk"
-        app:layout_constraintRight_toLeftOf="@id/ivNotification" />
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/nunitoregular"
+        android:text="21 Jul, 05:37"
+        android:textSize="12sp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_notifInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_notifInfo" />
 
-    <ImageView
-        android:id="@+id/ivPembatas"
+    <TextView
+        android:id="@+id/tv_notifHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/nunitobold"
+        android:text="header"
+        android:textColor="@color/black"
+        android:layout_marginEnd="20dp"
+        android:textSize="16sp"
+        android:layout_marginTop="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_gambarProduct"
+        app:layout_constraintTop_toBottomOf="@+id/tv_notifInfo" />
+
+    <TextView
+        android:id="@+id/tv_notifBody"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/nunitoregular"
+        android:text="deskripsi"
+        android:textColor="@color/black"
+        android:layout_marginEnd="20dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_gambarProduct"
+        app:layout_constraintTop_toBottomOf="@+id/tv_notifHeader" />
+
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:background="#E5E5E5"
-        android:layout_marginTop="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSpesifikAktivitasInfo"/>
+        android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_notifBody" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

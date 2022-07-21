@@ -35,6 +35,7 @@ class JualViewModel @Inject constructor(private val repo: ProductRepository, pri
     val showErrorPost: MutableLiveData<String> = MutableLiveData()
     val showBottomSheet: MutableLiveData<Boolean> = MutableLiveData()
     val showUser: MutableLiveData<GetUserResponse> = MutableLiveData()
+    val showLoading: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getToken(){
         viewModelScope.launch {
@@ -96,6 +97,7 @@ class JualViewModel @Inject constructor(private val repo: ProductRepository, pri
         val alamatRequestBody = alamatPenjual.toRequestBody("text/plain".toMediaType())
 
         CoroutineScope(Dispatchers.IO).launch {
+            showLoading.postValue(true)
             val result = repo.uploadProductSeller(
                 token = repoAuth.getToken()!!,
                 gambarProduk,
@@ -108,12 +110,14 @@ class JualViewModel @Inject constructor(private val repo: ProductRepository, pri
             withContext(Dispatchers.Main){
                 if (result.isSuccessful){
                     //show data
+                    showLoading.postValue(false)
                     showSuccess.postValue(true)
 //                    val data = result.body()
 //                    showUploadProduct.postValue(listOf(data!!))
                 }else{
                     //show error
 //                    showErrorPost.postValue(true)
+                    showLoading.postValue(false)
                     val data = result.errorBody()
                     showError.postValue(data.toString())
                 }

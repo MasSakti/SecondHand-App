@@ -5,6 +5,7 @@ import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.projectgroup2.data.api.ErrorResponse
 import com.example.projectgroup2.data.api.auth.login.LoginRequest
 import com.example.projectgroup2.data.api.auth.register.RegisterRequest
 import com.example.projectgroup2.data.local.UserEntity
@@ -92,7 +93,7 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
                 if (result.isSuccessful) {
                     processToSignIn()
                 } else {
-//                    showErrorMessage(result.errorBody())
+                    showErrorMessage(result.errorBody())
                     shouldShowLoading.postValue(false)
                 }
             }
@@ -115,11 +116,9 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
                         insertToken(token = token)
                         getUserData(token = token)
                     }
-                    shouldOpenLoginPage.postValue(true)
                     shouldShowLoading.postValue(false)
                 } else {
-                    shouldShowError.postValue("Maaf, Gagal insert ke dalam database")
-//                    showErrorMessage(response.errorBody())
+                    showErrorMessage(response.errorBody())
                     shouldShowLoading.postValue(false)
                 }
             }
@@ -145,17 +144,11 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
                         insertProfile(userEntity)
                     }
                 } else {
-                    shouldShowError.postValue("Maaf, Gagal insert ke dalam database")
+                    showErrorMessage(response.errorBody())
                 }
             }
         }
     }
-
-//    private fun showErrorMessage(response: ResponseBody?) {
-//        val error =
-//            Gson().fromJson(response?.string(), ErrorResponse::class.java)
-//        shouldShowError.postValue(error.message.orEmpty() + " #${error.code}")
-//    }
 
     fun insertToken(token: String) {
         if (token.isNotEmpty()) {
@@ -170,11 +163,17 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepository): V
             val result = repo.insertUser(userEntity)
             withContext(Dispatchers.Main) {
                 if (result != 0L) {
-                    shouldOpenUpdateProfile.postValue(true)
+                    shouldOpenLoginPage.postValue(true)
                 } else {
                     shouldShowError.postValue("Maaf, Gagal insert ke dalam database")
                 }
             }
         }
+    }
+
+    private fun showErrorMessage(response: ResponseBody?) {
+        val error =
+            Gson().fromJson(response?.string(), ErrorResponse::class.java)
+        shouldShowError.postValue(error.message.orEmpty() + " #${error.code}")
     }
 }

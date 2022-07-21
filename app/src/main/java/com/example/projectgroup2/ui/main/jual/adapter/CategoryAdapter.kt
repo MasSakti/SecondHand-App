@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projectgroup2.R
 import com.example.projectgroup2.data.api.main.category.CategoryResponse
 import com.example.projectgroup2.databinding.ListProductCategoryBinding
 import com.example.projectgroup2.utils.listCategory
@@ -54,6 +55,7 @@ class CategoryAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(data: CategoryResponse){
             binding.apply {
+                cardCategoryJual.setBackgroundResource(R.drawable.bg_roundstroke)
                 cbCategory.text = data.name
                 cbCategory.isChecked = listCategory.contains(data.name)
                 cbCategory.setOnClickListener{

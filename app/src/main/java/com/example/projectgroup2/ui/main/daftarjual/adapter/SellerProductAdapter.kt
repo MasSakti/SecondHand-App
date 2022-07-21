@@ -1,13 +1,11 @@
 package com.example.projectgroup2.ui.main.daftarjual.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.projectgroup2.data.api.main.buyer.product.GetProductResponse
 import com.example.projectgroup2.data.api.main.sellerproduct.SellerProductResponse
 import com.example.projectgroup2.databinding.ListProductHomeBinding
 import com.example.projectgroup2.utils.currency

@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.github.captain_miao.optroundcardview.OptRoundCardView
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_categoryJual"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:optRoundCardBackgroundColor="#999999"
-        app:optRoundCardCornerRadius="10dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:elevation="0dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +23,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:paddingStart="5dp"
+            android:textSize="15sp"
+            android:fontFamily="@font/nunitosemibold"
             android:text="Category Dummy" />
 
-    </com.github.captain_miao.optroundcardview.OptRoundCardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

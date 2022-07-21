@@ -1,21 +1,13 @@
 package com.example.projectgroup2.ui.main.daftarjual.infopenawar
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.example.projectgroup2.R
 import com.example.projectgroup2.databinding.FragmentHubungiPenawarBinding
-import com.example.projectgroup2.ui.main.daftarjual.DaftarJualFragment
 import com.example.projectgroup2.utils.currency
 import com.example.projectgroup2.utils.striketroughtText
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

@@ -8,10 +8,12 @@
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/drawable/bg_bottomnav.xml" value="0.1345" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/drawable/bg_bottomsheet.xml" value="0.1355" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/drawable/bg_button.xml" value="0.1445" />
+        <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/drawable/bg_button2.xml" value="0.1355" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/drawable/bg_card.xml" value="0.132" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/drawable/bg_category_home.xml" value="0.1775" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/drawable/bg_fab_grey.xml" value="0.132" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/drawable/bg_fab_purple.xml" value="0.132" />
+        <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/drawable/bg_roundstroke.xml" value="0.1355" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/drawable/bg_search.xml" value="0.1385" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/drawable/bg_snackbar.xml" value="0.132" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/drawable/bg_snackbar_error.xml" value="0.132" />
@@ -33,7 +35,7 @@
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/activity_on_boarding.xml" value="0.264" />
-        <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/activity_register.xml" value="0.2" />
+        <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/activity_register.xml" value="0.264" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/activity_splash.xml" value="0.2" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/alert_confirmation_register.xml" value="0.2078804347826087" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/alert_loading.xml" value="0.2078804347826087" />
@@ -48,7 +50,7 @@
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/fragment_hubungi_penawar.xml" value="0.2" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/fragment_info_penawar.xml" value="0.264" />
-        <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/fragment_jual.xml" value="0.176" />
+        <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/fragment_jual.xml" value="0.264" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/fragment_login.xml" value="0.176" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/fragment_notif.xml" value="0.2" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/fragment_pilih_category.xml" value="0.2" />
@@ -62,9 +64,11 @@
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/list_category_home.xml" value="0.536" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/list_daftar_jual.xml" value="0.22056159420289856" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/list_item_diminati.xml" value="0.264" />
-        <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/list_item_notification.xml" value="0.49321266968325794" />
+        <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/list_item_notif.xml" value="0.21105072463768115" />
+        <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/list_item_notification.xml" value="0.2" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/list_item_tawaran.xml" value="0.21105072463768115" />
-        <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/list_product_category.xml" value="0.2" />
+        <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/list_notif.xml" value="0.264" />
+        <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/list_product_category.xml" value="0.264" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/list_product_home.xml" value="0.536" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/notification_allert.xml" value="0.264" />
         <entry key="..\:/Binar Academy x Kampus Merdeka/Project Final/FinalProjectGroup/app/src/main/res/layout/seller_22.xml" value="0.2164855072463768" />

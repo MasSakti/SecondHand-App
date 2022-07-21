@@ -24,6 +24,7 @@ class PreviewViewModel @Inject constructor(private val repo: ProductRepository, 
     val showSuccess: MutableLiveData<Boolean> = MutableLiveData()
     val showError: MutableLiveData<String> = MutableLiveData()
     val showUser: MutableLiveData<GetUserResponse> = MutableLiveData()
+    val showLoading: MutableLiveData<Boolean> = MutableLiveData()
 
     fun uploadProduct(
         namaProduk: String,
@@ -41,6 +42,7 @@ class PreviewViewModel @Inject constructor(private val repo: ProductRepository, 
         val alamatRequestBody = alamatPenjual.toRequestBody("text/plain".toMediaType())
 
         CoroutineScope(Dispatchers.IO).launch {
+            showLoading.postValue(true)
             val result = repo.uploadProductSeller(
                 token = repoAuth.getToken()!!,
                 gambarProduk,
@@ -54,11 +56,13 @@ class PreviewViewModel @Inject constructor(private val repo: ProductRepository, 
                 if (result.isSuccessful){
                     //show data
                     showSuccess.postValue(true)
+                    showLoading.postValue(false)
 //                    val data = result.body()
 //                    showUploadProduct.postValue(listOf(data!!))
                 }else{
                     //show error
 //                    showErrorPost.postValue(true)
+                    showLoading.postValue(false)
                     val data = result.errorBody()
                     showError.postValue(data.toString())
                 }

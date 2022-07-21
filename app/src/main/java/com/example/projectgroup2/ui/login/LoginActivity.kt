@@ -47,11 +47,11 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        val dialogCustom = Dialog(this)
+        dialogCustom.setContentView(R.layout.alert_loading)
+        dialogCustom.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialogCustom.setCancelable(false)
         viewModel.showLoading.observe(this) {
-            val dialogCustom = Dialog(this)
-            dialogCustom.setContentView(R.layout.alert_loading)
-            dialogCustom.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialogCustom.setCancelable(false)
             if (it) {
                 dialogCustom.show()
             } else {

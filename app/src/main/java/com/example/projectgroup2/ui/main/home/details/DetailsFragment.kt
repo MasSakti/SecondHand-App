@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.avatarfirst.avatargenlib.AvatarGenerator
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.projectgroup2.R
 import com.example.projectgroup2.databinding.FragmentDetailsBinding
-import com.example.projectgroup2.databinding.FragmentJualBinding
 import com.example.projectgroup2.ui.main.home.HomeFragment.Companion.PRODUCT_ID
-import com.example.projectgroup2.ui.main.home.HomeViewModel
-import com.example.projectgroup2.ui.main.jual.JualViewModel
 import com.example.projectgroup2.utils.currency
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -80,6 +80,15 @@ class DetailsFragment : Fragment() {
                 //image penjual
                 Glide.with(this@DetailsFragment)
                     .load(it.user.imageUrl)
+                    .placeholder(
+                        AvatarGenerator
+                        .AvatarBuilder(requireContext())
+                        .setTextSize(50)
+                        .setAvatarSize(200)
+                        .toSquare()
+                        .setLabel(it.user.fullName.toString())
+                        .build())
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(10)))
                     .into(binding.rivDetailPhotoPenjual)
                 //nama penjual & kota penjual
                 binding.tvDetailNamaPenjual.text = it.user.fullName

@@ -1,8 +1,9 @@
+@file:Suppress("SENSELESS_COMPARISON")
+
 package com.example.projectgroup2.ui.main.notif.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -12,7 +13,6 @@ import com.example.projectgroup2.data.api.main.notification.NotifResponse
 import com.example.projectgroup2.databinding.ListItemNotificationBinding
 import com.example.projectgroup2.utils.convertDate
 import com.example.projectgroup2.utils.currency
-import com.example.projectgroup2.utils.striketroughtText
 
 class NotifAdapter(
     private val onItemClick : OnClickListener
@@ -39,7 +39,7 @@ class NotifAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ViewHolder(ListItemNotificationBinding.inflate(inflater,parent,false))
+        return ViewHolder(ListItemNotificationBinding.inflate(inflater, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -58,62 +58,83 @@ class NotifAdapter(
             binding.apply {
                 when (data.status) {
                     "create" -> {
-                        tvNotificationInfo.text = "Berhasil membuat product"
-                        if (data.product != null){
-                            if (data.receiverId == data.product.userId){
-                                tvSpesifikAktivitasInfo.text = "Berhasil membuat product"
+                        tvNotifInfo.text = "Info"
+                        if (data.product != null) {
+                            if (data.receiverId == data.product.userId) {
+                                tvNotifHeader.text = "Produk anda berhasil dibuat"
+                                tvNotifBody.text =
+                                    "Produk anda ${data.productName} berhasil dibuat dengan harga "+ currency(data.basePrice.toInt())
                             } else {
-                                tvSpesifikAktivitasInfo.text = "Berhasil membuat product"
+                                tvNotifHeader.text = "Produk anda berhasil dibuat"
+                                tvNotifBody.text =
+                                    "Produk anda ${data.productName} berhasil dibuat dengan harga "+ currency(data.basePrice.toInt())
                             }
                         } else {
-                            tvSpesifikAktivitasInfo.text = "Produk Sudah di hapus"
+                            tvNotifHeader.text = "Produk Sudah di hapus"
+                            tvNotifBody.text = "Yahh produk ini sudah di hapus oleh penjual."
                         }
                     }
                     "bid" -> {
-                        if (data.product != null){
-                            if(data.receiverId == data.product.userId){
-                                tvSpesifikAktivitasInfo.text = "Ada yang tawar produkmu!"
+                        tvNotifInfo.text = "Tawar"
+                        if (data.product != null) {
+                            if (data.receiverId == data.product.userId) {
+                                tvNotifHeader.text = "Ada yang tawar produk anda!"
+                                tvNotifBody.text =
+                                    "Hey, ada yang menawar produk anda ${data.productName} dengan harga "+ currency(data.basePrice.toInt())+" ditawar sebesar "+ currency(data.bidPrice.toInt())
                             } else {
-                                tvSpesifikAktivitasInfo.text = "Tawaranmu belum diterima oleh penjual, sabar ya!"
+                                tvNotifHeader.text = "Tawaran anda belum diterima oleh penjual"
+                                tvNotifBody.text =
+                                    "Tawaran anda pada produk ${data.productName} dengan harga"+ currency(data.basePrice.toInt())+" ditawar sebesar "+ currency(data.bidPrice.toInt())+" belum diterima oleh penjual nih, sabar ya!"
                             }
                         } else {
-                            tvSpesifikAktivitasInfo.text = "Produk Sudah di hapus"
+                            tvNotifHeader.text = "Produk Sudah di hapus"
+                            tvNotifBody.text = "Yahh produk ini sudah di hapus oleh penjual."
                         }
                     }
                     "declined" -> {
-                        tvNotificationInfo.text = "Produk Ditolak"
-                        if (data.product != null){
-                            if (data.receiverId == data.product.userId){
-                                tvSpesifikAktivitasInfo.text = "Anda menolak Tawaran ini"
+                        tvNotifInfo.text = "Ditolak"
+                        if (data.product != null) {
+                            if (data.receiverId == data.product.userId) {
+                                tvNotifHeader.text = "Anda menolak tawaran ini"
+                                tvNotifBody.text =
+                                    "Anda menolak tawaran penawar pada produk ${data.productName} dengan harga "+ currency(data.basePrice.toInt())+" ditawar "+ currency(data.bidPrice.toInt())
                             } else {
-                                tvSpesifikAktivitasInfo.text = "Tawaran Anda ditolak oleh Penjual"
+                                tvNotifHeader.text = "Tawaran anda ditolak oleh penjual"
+                                tvNotifBody.text =
+                                    "Wah tampaknya tawaran anda pada produk ${data.productName} dengan harga "+ currency(data.basePrice.toInt())+" ditawar sebesar "+ currency(data.bidPrice.toInt())+" ditolak oleh penjual."
                             }
                         } else {
-                            tvSpesifikAktivitasInfo.text = "Produk Sudah di hapus"
+                            tvNotifHeader.text = "Produk Sudah di hapus"
+                            tvNotifBody.text = "Yahh produk ini sudah di hapus oleh penjual."
                         }
                     }
                     "accepted" -> {
-                        tvNotificationInfo.text = "Produk Diterima"
-                        if (data.product != null){
-                            if (data.receiverId == data.product.userId){
-                                tvSpesifikAktivitasInfo.text = "Anda menerima Tawaran ini"
+                        tvNotifInfo.text = "Diterima"
+                        if (data.product != null) {
+                            if (data.receiverId == data.product.userId) {
+                                tvNotifHeader.text = "Anda menerima tawaran ini"
+                                tvNotifBody.text =
+                                    "Anda menerima tawaran penawar pada produk ${data.productName} dengan harga "+ currency(data.basePrice.toInt())+" ditawar sebesar "+ currency(data.bidPrice.toInt())
                             } else {
-                                tvSpesifikAktivitasInfo.text = "Tawaran Anda diterima oleh Penjual"
+                                tvNotifHeader.text = "Tawaran anda diterima oleh penjual"
+                                tvNotifBody.text =
+                                    "Selamat! tawaran anda pada produk ${data.productName} dengan harga "+ currency(data.basePrice.toInt())+" ditawar "+ currency(data.bidPrice.toInt())+" diterima oleh penjual."
                             }
                         } else {
-                            tvSpesifikAktivitasInfo.text = "Produk Sudah di hapus"
+                            tvNotifHeader.text = "Produk Sudah di hapus"
+                            tvNotifBody.text = "Yahh produk ini sudah di hapus oleh penjual."
                         }
                     }
                     else -> {
-                        tvSpesifikAktivitasInfo.text = " "
+                        tvNotifInfo.text = " "
                     }
                 }
-                tvAktivitasInfo.text =
-                    when (data.status) {
-                        "declined" -> "Ditolak " + currency(data.bidPrice)
-                        "accepted" -> "Diterima " + currency(data.bidPrice)
-                        else -> "Ditawar " + currency(data.bidPrice)
-                    }
+//                tvNotifBody.text =
+//                    when (data.status) {
+//                        "declined" -> "Ditolak " + currency(data.bidPrice)
+//                        "accepted" -> "Diterima " + currency(data.bidPrice)
+//                        else -> "Ditawar " + currency(data.bidPrice)
+//                    }
 //                if(data.status == "declined"){
 //                    tvAktivitasInfo.text = "Ditolak " + currency(data.bidPrice)
 //                }else if(data.status == "accepted"){
@@ -123,16 +144,16 @@ class NotifAdapter(
 //                }else if(data.status == "bid"){
 //                    tvAktivitasInfo.text = "Ditawar " + currency(data.bidPrice)
 //                }
-                tvProdukInfo.text = data.productName
-                tvHargaInfo.apply {
-                    text = if(data.basePrice.isNotEmpty()) striketroughtText(this, currency(data.basePrice.toInt())) else "-"
-                }
-                tvTanggalNotification.text = convertDate(data.updatedAt)
+//                tvProdukInfo.text = data.productName
+//                tvHargaInfo.apply {
+//                    text = if(data.basePrice.isNotEmpty()) striketroughtText(this, currency(data.basePrice.toInt())) else "-"
+//                }
+                tvNotifTanggal.text = convertDate(data.updatedAt)
                 if (!data.read){
                     Glide.with(binding.root)
                         .load(data.imageUrl)
                         .centerCrop()
-                        .into(ivGambarProduk)
+                        .into(ivGambarProduct)
                 }
                 root.setOnClickListener {
                     onItemClick.onClickItem(data)

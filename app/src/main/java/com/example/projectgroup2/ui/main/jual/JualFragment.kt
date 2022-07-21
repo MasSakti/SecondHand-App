@@ -2,6 +2,9 @@ package com.example.projectgroup2.ui.main.jual
 
 import android.app.ActionBar
 import android.app.Activity
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
@@ -83,9 +86,25 @@ class JualFragment : Fragment() {
             findNavController().navigate(R.id.action_jualFragment_to_homeFragment)
             listCategoryId.clear()
         }
+
+        val dialogCustom = Dialog(requireContext())
+        dialogCustom.setContentView(R.layout.alert_loading)
+        dialogCustom.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialogCustom.setCancelable(false)
+        viewModel.showLoading.observe(viewLifecycleOwner) {
+            if (it) {
+                dialogCustom.show()
+            } else {
+                dialogCustom.dismiss()
+            }
+        }
     }
 
     private fun bindView(){
+        binding.cardBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         binding.etKategoriProduct.setOnClickListener {
             val bottomFragment = PilihCategoryFragment(
                 update = {
@@ -107,12 +126,12 @@ class JualFragment : Fragment() {
             val kategoriProduk = binding.etKategoriProduct.text.toString()
             val alamatPenjual = binding.etLokasiProduct.text.toString()
             val validation = validation(
+                listCategoryId,
                 namaProduk,
                 hargaProduk,
                 deskripsiProduk,
                 alamatPenjual,
-                uri,
-                listCategoryId
+                uri
             )
             if (validation == "passed") {
                 bundle.putString(NAMA_PRODUCT_KEY, namaProduk)
@@ -132,12 +151,12 @@ class JualFragment : Fragment() {
             val deskripsiProduk = binding.etDeskripsiProduct.text.toString()
             val alamatPenjual = binding.etLokasiProduct.text.toString()
             val validation = validation(
+                listCategoryId,
                 namaProduk,
                 hargaProduk,
                 deskripsiProduk,
                 alamatPenjual,
-                uri,
-                listCategoryId
+                uri
             )
             if (validation == "passed") {
                 viewModel.uploadProduct(
@@ -203,36 +222,35 @@ class JualFragment : Fragment() {
             }
     }
 
-    fun validation(namaProduk: String, hargaProduk: String, deskripsiProduk: String, alamatPenjual: String, uriFoto: String, listCategory: List<Int>): String {
+    fun validation(listCategory: List<Int>, namaProduk: String, hargaProduk: String, deskripsiProduk: String, alamatPenjual: String, uriFoto: String): String {
         when {
+            listCategory.isEmpty() -> {
+                binding.tilKategori.error = "Kategori produk tidak boleh kosong"
+                return "Kategori Produk Kosong!"
+            }
             namaProduk.isEmpty() -> {
-                binding.etNamaProduct.error = "Nama Produk tidak boleh kosong"
+                binding.tilNamaProduct.error = "Nama Produk tidak boleh kosong"
                 return "Nama Produk Kosong!"
             }
             hargaProduk.isEmpty() -> {
-                binding.etHargaProduct.error = "Harga Produk tidak boleh kosong"
+                binding.tilHargaProduct.error = "Harga Produk tidak boleh kosong"
                 return "Harga Produk Kosong!"
             }
             hargaProduk.toInt() > 2000000000 -> {
-                binding.etHargaProduct.error = "Harga Produk tidak boleh lebih dari 2M"
+                binding.tilHargaProduct.error = "Harga Produk tidak boleh lebih dari 2M"
                 return "Harga Produk Melebihi Batas!"
             }
             deskripsiProduk.isEmpty() -> {
-                binding.etDeskripsiProduct.error = "Nama Produk tidak boleh kosong"
+                binding.tilDeskripsiProduct.error = "Nama Produk tidak boleh kosong"
                 return "Deskripsi Produk Kosong!"
             }
             alamatPenjual.isEmpty() -> {
-                binding.etLokasiProduct.error = "alamat Produk tidak boleh kosong"
+                binding.tilLokasiProduct.error = "alamat Produk tidak boleh kosong"
                 return "Deskripsi Produk Kosong!"
             }
             uriFoto.isEmpty() -> {
                 Toast.makeText(requireContext(), "Foto Produk Kosong", Toast.LENGTH_SHORT).show()
                 return "Foto Produk Kosong!"
-            }
-            listCategory.isEmpty() -> {
-                binding.etKategoriProduct.error = "Kategori produk tidak boleh kosong"
-                Toast.makeText(requireContext(), "Kategori Produk Kosong", Toast.LENGTH_SHORT).show()
-                return "Kategori Produk Kosong!"
             }
             else -> {
                 return "passed"
@@ -261,10 +279,11 @@ class JualFragment : Fragment() {
     }
 
     fun resetError() {
-        binding.etNamaProduct.error = null
-        binding.etHargaProduct.error = null
-        binding.etKategoriProduct.error = null
-        binding.etDeskripsiProduct.error = null
+        binding.tilKategori.error = null
+        binding.tilNamaProduct.error = null
+        binding.tilHargaProduct.error = null
+        binding.tilDeskripsiProduct.error = null
+        binding.tilLokasiProduct.error = null
     }
 
     override fun onDestroy() {

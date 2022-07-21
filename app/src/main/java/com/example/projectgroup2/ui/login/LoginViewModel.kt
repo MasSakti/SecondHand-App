@@ -4,6 +4,7 @@ import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.projectgroup2.data.api.ErrorResponse
 import com.example.projectgroup2.data.api.auth.login.LoginRequest
 import com.example.projectgroup2.data.local.UserEntity
 import com.example.projectgroup2.repository.AuthRepository
@@ -60,10 +61,11 @@ class LoginViewModel @Inject constructor(private val repo: AuthRepository): View
                         getUserData(token = token)
                     }
                     showLoading.postValue(false)
-                    shouldOpenHomePage.postValue(true)
                 } else {
                     showLoading.postValue(false)
-                    shouldShowError.postValue("Maaf, Gagal insert ke dalam database")
+                    val error =
+                        Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java)
+                    shouldShowError.postValue(error.message.orEmpty() + " #${error.code}")
                 }
             }
         }
@@ -87,8 +89,12 @@ class LoginViewModel @Inject constructor(private val repo: AuthRepository): View
                         )
                         insertProfile(userEntity)
                     }
+                    showLoading.postValue(false)
                 } else {
-                    shouldShowError.postValue("Maaf, Gagal insert ke dalam database")
+                    showLoading.postValue(false)
+                    val error =
+                        Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java)
+                    shouldShowError.postValue(error.message.orEmpty() + " #${error.code}")
                 }
             }
         }
@@ -109,6 +115,7 @@ class LoginViewModel @Inject constructor(private val repo: AuthRepository): View
                 if (result != 0L) {
                     shouldOpenHomePage.postValue(true)
                 } else {
+                    showLoading.postValue(false)
                     shouldShowError.postValue("Maaf, Gagal insert ke dalam database")
                 }
             }
