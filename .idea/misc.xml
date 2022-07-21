@@ -74,8 +74,9 @@
         <entry key="..\:/lll/app/src/main/res/layout/activity_buyer_order.xml" value="0.17592592592592593" />
         <entry key="..\:/lll/app/src/main/res/layout/activity_detail_notification.xml" value="0.209375" />
         <entry key="..\:/lll/app/src/main/res/layout/activity_login.xml" value="0.209375" />
-        <entry key="..\:/lll/app/src/main/res/layout/activity_main.xml" value="0.209375" />
+        <entry key="..\:/lll/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/lll/app/src/main/res/layout/activity_profile.xml" value="0.209375" />
+        <entry key="..\:/lll/app/src/main/res/layout/activity_register.xml" value="0.209375" />
         <entry key="..\:/lll/app/src/main/res/layout/activity_update_product.xml" value="0.209375" />
         <entry key="..\:/lll/app/src/main/res/layout/bottom_sheet_acc_produk.xml" value="0.20615384615384616" />
         <entry key="..\:/lll/app/src/main/res/layout/bottom_sheet_click_product.xml" value="0.18518518518518517" />
@@ -83,9 +84,12 @@
         <entry key="..\:/lll/app/src/main/res/layout/bottom_sheet_hubungi_penawar.xml" value="0.22" />
         <entry key="..\:/lll/app/src/main/res/layout/fragment_akun.xml" value="0.209375" />
         <entry key="..\:/lll/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.18518518518518517" />
+        <entry key="..\:/lll/app/src/main/res/layout/fragment_edit_product.xml" value="0.209375" />
         <entry key="..\:/lll/app/src/main/res/layout/fragment_home.xml" value="0.209375" />
         <entry key="..\:/lll/app/src/main/res/layout/fragment_jual.xml" value="0.209375" />
         <entry key="..\:/lll/app/src/main/res/layout/fragment_notifications.xml" value="0.175" />
+        <entry key="..\:/lll/app/src/main/res/layout/fragment_pilh_category.xml" value="0.209375" />
+        <entry key="..\:/lll/app/src/main/res/layout/fragment_pilih_category.xml" value="0.209375" />
         <entry key="..\:/lll/app/src/main/res/layout/list_item_daftar_jual.xml" value="0.209375" />
         <entry key="..\:/project-android-secondhand/FinalProject-G3-fix/app/src/main/res/layout/activity_detail_notification.xml" value="0.209375" />
         <entry key="..\:/project-android-secondhand/FinalProject-G3-fix/app/src/main/res/layout/bottom_sheet_dialog_nego.xml" value="0.209375" />

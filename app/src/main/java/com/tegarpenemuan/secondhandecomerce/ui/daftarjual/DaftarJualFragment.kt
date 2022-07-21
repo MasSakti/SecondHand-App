@@ -15,13 +15,12 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.tegarpenemuan.secondhandecomerce.R
+import com.tegarpenemuan.secondhandecomerce.*
 import com.tegarpenemuan.secondhandecomerce.common.GetInisial.getInitial
-import com.tegarpenemuan.secondhandecomerce.convertDate
-import com.tegarpenemuan.secondhandecomerce.currency
 import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.UpdateStatusOrder.UpdateStatusOrderRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.SellerOrder.SellerOrderResponseItem
@@ -29,6 +28,7 @@ import com.tegarpenemuan.secondhandecomerce.databinding.FragmentDaftarJualBindin
 import com.tegarpenemuan.secondhandecomerce.ui.buyerOrder.BuyerOrderActivity
 import com.tegarpenemuan.secondhandecomerce.ui.daftarjual.adapter.DaftarJualAdapter
 import com.tegarpenemuan.secondhandecomerce.ui.daftarjual.adapter.SellerOrderAdapter
+import com.tegarpenemuan.secondhandecomerce.ui.editproduct.EditProductFragment
 import com.tegarpenemuan.secondhandecomerce.ui.profile.Profile
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,6 +38,7 @@ class DaftarJualFragment : Fragment() {
     private var _binding: FragmentDaftarJualBinding? = null
     private val binding get() = _binding!!
     private val viewModel: DaftarJualViewModel by viewModels()
+    private val bundleEdit = Bundle()
 
     lateinit var productSellerAdapter: DaftarJualAdapter
     lateinit var sellerOrderAdapter: SellerOrderAdapter
@@ -151,18 +152,33 @@ class DaftarJualFragment : Fragment() {
             .transform(RoundedCorners(20))
             .into(ivProduk)
 
-        var listCategory :String? = ""
+        var listCategoryy :String? = ""
         if (item.Categories.isNotEmpty()) {
             for (data in item.Categories){
-                listCategory += ", ${data.name}"
+                listCategoryy += ", ${data.name}"
             }
-            tvCategory.text = listCategory!!.drop(2)
+            tvCategory.text = listCategoryy!!.drop(2)
         }
         tvNamaProduk.text = item.name
         tvHargaProduk.text = item.base_price.toString()
 
         btnUpdate.setOnClickListener {
-            Toast.makeText(requireContext(),"Update",Toast.LENGTH_SHORT).show()
+            bundleEdit.apply {
+                putInt("PRODUCT_ID", item.id)
+                putString("PRODUCT_NAME", item.name)
+                putInt("PRODUCT_PRICE", item.base_price)
+                listCategory.clear()
+                listCategoryId.clear()
+                for (kategori in item.Categories){
+                    listCategory.add(kategori.name)
+                    listCategoryId.add(kategori.id)
+                }
+                putString("PRODUCT_DESCRIPTION",item.description)
+                putString("PRODUCT_IMAGE",item.image_url)
+                putString("PRODUCT_LOCATION",item.location)
+            }
+            findNavController().navigate(R.id.action_navigation_daftar_jual_to_editProductFragment, bundleEdit)
+            dialog.dismiss()
         }
         btnDelete.setOnClickListener {
             AlertDialog.Builder(requireContext())
@@ -355,7 +371,8 @@ class DaftarJualFragment : Fragment() {
             } else {
                 Glide.with(requireContext())
                     .load(it.image_url)
-                    .error(R.drawable.ic_launcher_background)
+                    .error(R.drawable.error)
+                    .placeholder(R.drawable.loading)
                     .transform(RoundedCorners(20))
                     .into(binding.ivakun)
             }

@@ -42,6 +42,7 @@ class JualFragment : Fragment() {
     private val viewModel: JualViewModel by viewModels()
 
     private var uri: String = ""
+
     companion object {
         const val NAMA_PRODUCT_KEY = "namaProduk"
         const val HARGA_PRODUCT_KEY = "hargaProduk"
@@ -59,7 +60,7 @@ class JualFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentJualBinding.inflate(inflater,container,false)
+        _binding = FragmentJualBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -68,35 +69,26 @@ class JualFragment : Fragment() {
         viewModel.getUserData()
         bindViewModel()
         bindView()
-
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-//                findNavController().navigate(R.id.action_jualFragment_to_homeFragment)
-            }
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
     }
 
-    private fun bindViewModel(){
-        viewModel.categoryList.observe(viewLifecycleOwner){ kat ->
-            if (kat.isNotEmpty()){
+    private fun bindViewModel() {
+        viewModel.categoryList.observe(viewLifecycleOwner) { kat ->
+            if (kat.isNotEmpty()) {
                 var kategori = ""
-                for(element in kat){
+                for (element in kat) {
                     kategori += ", $element"
                 }
                 binding.etKategori.setText(kategori.drop(2))
             }
         }
 
-        viewModel.showSuccess.observe(viewLifecycleOwner){
+        viewModel.showSuccess.observe(viewLifecycleOwner) {
             showToastSuccess()
 //            findNavController().navigate(R.id.action_jualFragment_to_daftarJualFragment)
         }
     }
 
-    private fun bindView(){
+    private fun bindView() {
         binding.etKategori.setOnClickListener {
             val bottomFragment = PilihCategoryFragment(
                 update = {
@@ -132,7 +124,10 @@ class JualFragment : Fragment() {
                 bundle.putString(KATEGORI_PRODUCT_KEY, kategoriProduk)
                 bundle.putString(ALAMAT_PRODUCT_KEY, alamatPenjual)
                 bundle.putString(IMAGE_PRODUCT_KEY, uri)
-                findNavController().navigate(R.id.action_navigation_jual_to_previewFragment2, bundle)
+                findNavController().navigate(
+                    R.id.action_navigation_jual_to_previewFragment2,
+                    bundle
+                )
             }
         }
 
@@ -214,7 +209,14 @@ class JualFragment : Fragment() {
             }
     }
 
-    fun validation(namaProduk: String, hargaProduk: String, deskripsiProduk: String, alamatPenjual: String, uriFoto: String, listCategory: List<Int>): String {
+    fun validation(
+        namaProduk: String,
+        hargaProduk: String,
+        deskripsiProduk: String,
+        alamatPenjual: String,
+        uriFoto: String,
+        listCategory: List<Int>
+    ): String {
         when {
             namaProduk.isEmpty() -> {
                 binding.etNama.error = "Nama Produk tidak boleh kosong"
@@ -242,7 +244,8 @@ class JualFragment : Fragment() {
             }
             listCategory.isEmpty() -> {
                 binding.etKategori.error = "Kategori produk tidak boleh kosong"
-                Toast.makeText(requireContext(), "Kategori Produk Kosong", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Kategori Produk Kosong", Toast.LENGTH_SHORT)
+                    .show()
                 return "Kategori Produk Kosong!"
             }
             else -> {
@@ -265,7 +268,7 @@ class JualFragment : Fragment() {
         layoutParams.gravity = Gravity.TOP
         layoutParams.setMargins(32, 150, 32, 0)
         snackBarView.view.setPadding(24, 16, 0, 16)
-        snackBarView.view.setBackgroundColor(resources.getColor(R.color.success))
+        snackBarView.view.setBackgroundColor(resources.getColor(R.color.purple_700))
         snackBarView.view.layoutParams = layoutParams
         snackBarView.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
         snackBarView.show()
