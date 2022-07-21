@@ -1,27 +1,32 @@
 package com.tegarpenemuan.secondhandecomerce.ui.daftarjual
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.tegarpenemuan.secondhandecomerce.R
+import com.tegarpenemuan.secondhandecomerce.common.GetInisial.getInitial
 import com.tegarpenemuan.secondhandecomerce.convertDate
 import com.tegarpenemuan.secondhandecomerce.currency
 import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.UpdateStatusOrder.UpdateStatusOrderRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.SellerOrder.SellerOrderResponseItem
 import com.tegarpenemuan.secondhandecomerce.databinding.FragmentDaftarJualBinding
+import com.tegarpenemuan.secondhandecomerce.ui.buyerOrder.BuyerOrderActivity
 import com.tegarpenemuan.secondhandecomerce.ui.daftarjual.adapter.DaftarJualAdapter
 import com.tegarpenemuan.secondhandecomerce.ui.daftarjual.adapter.SellerOrderAdapter
 import com.tegarpenemuan.secondhandecomerce.ui.profile.Profile
@@ -52,7 +57,8 @@ class DaftarJualFragment : Fragment() {
         val root: View = binding.root
 
         viewModel.getProductSeller()
-        viewModel.getUser()
+        viewModel. getUserData()
+        //viewModel.getUser() //Room
 
         bindview()
         bindviewModel()
@@ -72,9 +78,8 @@ class DaftarJualFragment : Fragment() {
         productSellerAdapter =
             DaftarJualAdapter(listener = object : DaftarJualAdapter.EventListener {
                 override fun onClick(item: GetProductResponse) {
-                    Toast.makeText(requireContext(), item.image_name, Toast.LENGTH_SHORT).show()
+                    bottomSheetClickProduct(item)
                 }
-
             }, emptyList())
         binding.rvProduct.adapter = productSellerAdapter
 
@@ -94,7 +99,6 @@ class DaftarJualFragment : Fragment() {
             binding.tvTitle.text = "Produk Ditolak"
         }
         binding.btnTerjual.setOnClickListener {
-//            hubungiAdapter()
             viewModel.getOrder("accepted")
             binding.rvProduct.visibility = View.GONE
             binding.rvOrder.visibility = View.VISIBLE
@@ -128,31 +132,95 @@ class DaftarJualFragment : Fragment() {
         binding.rvOrder.adapter = sellerOrderAdapter
     }
 
+    private fun bottomSheetClickProduct(item: GetProductResponse) {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.bottom_sheet_click_product)
+
+        val ivProduk = dialog.findViewById<ImageView>(R.id.iv_image_product)
+        val tvCategory = dialog.findViewById<TextView>(R.id.tv_jenis_product)
+        val tvNamaProduk = dialog.findViewById<TextView>(R.id.tv_nama_product)
+        val tvHargaProduk = dialog.findViewById<TextView>(R.id.tv_harga_product)
+        val btnUpdate = dialog.findViewById<CardView>(R.id.cvEdit)
+        val btnDelete = dialog.findViewById<CardView>(R.id.cvDelete)
+
+        Glide.with(requireContext())
+            .load(item.image_url)
+            .error(R.drawable.error)
+            .placeholder(R.drawable.loading)
+            .transform(RoundedCorners(20))
+            .into(ivProduk)
+
+        var listCategory :String? = ""
+        if (item.Categories.isNotEmpty()) {
+            for (data in item.Categories){
+                listCategory += ", ${data.name}"
+            }
+            tvCategory.text = listCategory!!.drop(2)
+        }
+        tvNamaProduk.text = item.name
+        tvHargaProduk.text = item.base_price.toString()
+
+        btnUpdate.setOnClickListener {
+            Toast.makeText(requireContext(),"Update",Toast.LENGTH_SHORT).show()
+        }
+        btnDelete.setOnClickListener {
+            AlertDialog.Builder(requireContext())
+                .setTitle("Pesan")
+                .setMessage("Yakin ingin menghapus produk ${item.name}?")
+                .setPositiveButton("Ya") { dialogP, _ ->
+                    viewModel.deleteSellerProduct(item.id)
+                    dialogP.dismiss()
+                    onResume()
+                    Toast.makeText(requireContext(), "Data Berhasil Dihapus", Toast.LENGTH_SHORT).show()
+                }
+                .setNegativeButton("Batal") { dialogN, _ ->
+                    dialogN.dismiss()
+                    onResume()
+                    Toast.makeText(requireContext(), "Data Batal Dihapus", Toast.LENGTH_SHORT).show()
+                }
+                .setCancelable(false)
+                .show()
+
+            dialog.dismiss()
+        }
+        dialog.show()
+        dialog.window!!.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
+        dialog.window!!.setGravity(Gravity.BOTTOM)
+    }
+
     private fun bottomSheetHubPenjual() {
-        val dialog = BottomSheetDialog(requireContext())
-        val view =
-            layoutInflater.inflate(R.layout.bottom_sheet_hubungi_penawar, null)
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.bottom_sheet_hubungi_penawar)
 
-        val ivPembeli = view.findViewById<ImageView>(R.id.iv_pembeli)
-        val tvNamaPembeli = view.findViewById<TextView>(R.id.tv_nama_pembeli)
-        val tvKotaPembeli = view.findViewById<TextView>(R.id.tv_Kota_pembeli)
+        val ivPembeli = dialog.findViewById<ImageView>(R.id.iv_pembeli)
+        val tvNamaPembeli = dialog.findViewById<TextView>(R.id.tv_nama_pembeli)
+        val tvInisial = dialog.findViewById<TextView>(R.id.tvInisialHub)
+        val tvKotaPembeli = dialog.findViewById<TextView>(R.id.tv_Kota_pembeli)
 
-        val ivProduk = view.findViewById<ImageView>(R.id.iv_barang)
-        val tvNamaProduk = view.findViewById<TextView>(R.id.tv_nama_barang)
-        val tvHargaProduk = view.findViewById<TextView>(R.id.tv_harga_awal)
-        val tvPenawaran = view.findViewById<TextView>(R.id.tv_harga_tawar)
-        val tvTime = view.findViewById<TextView>(R.id.tv_notif_time)
-
-        val btnHubungi = view.findViewById<Button>(R.id.btnHubungi)
+        val ivProduk = dialog.findViewById<ImageView>(R.id.iv_barang)
+        val tvNamaProduk = dialog.findViewById<TextView>(R.id.tv_nama_barang)
+        val tvHargaProduk = dialog.findViewById<TextView>(R.id.tv_harga_awal)
+        val tvPenawaran = dialog.findViewById<TextView>(R.id.tv_harga_tawar)
+        val btnHubungi = dialog.findViewById<Button>(R.id.btnHubungi)
 
         viewModel.getDetailOrder(idOrder)
 
         viewModel.shouldShowDetailNotif.observe(viewLifecycleOwner) {
+            when (it.image_url) {
+                null -> tvInisial.text = it.User.full_name.getInitial()
+                else -> Glide.with(requireContext())
+                    .load(it.User.image_url)
+                    .transform(RoundedCorners(20))
+                    .into(ivPembeli)
+            }
 
-            Glide.with(requireContext())
-                .load(it.User.image_url)
-                .transform(RoundedCorners(20))
-                .into(ivPembeli)
             tvNamaPembeli.text = it.User.full_name
             tvKotaPembeli.text = it.User.city
             nomorPembeli = it.User.phone_number
@@ -170,9 +238,6 @@ class DaftarJualFragment : Fragment() {
         }
 
         btnHubungi.setOnClickListener {
-            //viewModel.updateStatusOrder(idOrder, UpdateStatusOrderRequest("accepted"))
-            //dialog.dismiss()
-
             val smilingFaceUnicode = 0x1F60A
             val waveUnicode = 0x1F44B
             val stringBuilder1 = StringBuilder()
@@ -199,39 +264,48 @@ class DaftarJualFragment : Fragment() {
                 )
             )
         }
-
-        dialog.setContentView(view)
         dialog.show()
+        dialog.window!!.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
+        dialog.window!!.setGravity(Gravity.BOTTOM)
     }
 
     private fun bottomSheetAccOrder() {
-        val dialog = BottomSheetDialog(requireContext())
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_acc_produk, null)
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.bottom_sheet_acc_produk)
 
-        val ivPembeli = view.findViewById<ImageView>(R.id.ivPembeli)
-        val tvNamaPembeli = view.findViewById<TextView>(R.id.namaPembeli)
-        val tvKotaPembeli = view.findViewById<TextView>(R.id.tvKotaPembeli)
+        val ivPembeli = dialog.findViewById<ImageView>(R.id.ivPembeli)
+        val tvNamaPembeli = dialog.findViewById<TextView>(R.id.namaPembeli)
+        val tvKotaPembeli = dialog.findViewById<TextView>(R.id.tvKotaPembeli)
 
-        val ivProduk = view.findViewById<ImageView>(R.id.img_product)
-        val tvNamaProduk = view.findViewById<TextView>(R.id.tv_nama_product)
-        val tvHargaProduk = view.findViewById<TextView>(R.id.tv_info_harga)
-        val tvPenawaran = view.findViewById<TextView>(R.id.tv_info_tawar)
-        val tvTime = view.findViewById<TextView>(R.id.tv_notif_time)
+        val ivProduk = dialog.findViewById<ImageView>(R.id.img_product)
+        val tvNamaProduk = dialog.findViewById<TextView>(R.id.tv_nama_product)
+        val tvHargaProduk = dialog.findViewById<TextView>(R.id.tv_info_harga)
+        val tvPenawaran = dialog.findViewById<TextView>(R.id.tv_info_tawar)
+        val tvTime = dialog.findViewById<TextView>(R.id.tv_notif_time)
+        val tvInisialAcc = dialog.findViewById<TextView>(R.id.tvInisialAcc)
 
-        val btnTolak = view.findViewById<Button>(R.id.btnTolakProduct)
-        val btnTerima = view.findViewById<Button>(R.id.btnTerimaProduct)
+        val btnTolak = dialog.findViewById<Button>(R.id.btnTolakProduct)
+        val btnTerima = dialog.findViewById<Button>(R.id.btnTerimaProduct)
 
         viewModel.getDetailOrder(idOrder)
 
         viewModel.shouldShowDetailNotif.observe(viewLifecycleOwner) {
+            when (it.image_url) {
+                null -> tvInisialAcc.text = it.User.full_name.getInitial()
+                else -> Glide.with(requireContext())
+                    .load(it.User.image_url)
+                    .transform(RoundedCorners(20))
+                    .into(ivPembeli)
+            }
 
-            Glide.with(requireContext())
-                .load(it.User.image_url)
-                .transform(RoundedCorners(20))
-                .into(ivPembeli)
             tvNamaPembeli.text = it.User.full_name
             tvKotaPembeli.text = it.User.city
-
 
             Glide.with(requireContext())
                 .load(it.Product.image_url)
@@ -257,8 +331,14 @@ class DaftarJualFragment : Fragment() {
             dialog.dismiss()
 
         }
-        dialog.setContentView(view)
         dialog.show()
+        dialog.window!!.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
+        dialog.window!!.setGravity(Gravity.BOTTOM)
     }
 
     private fun bindviewModel() {
@@ -268,22 +348,41 @@ class DaftarJualFragment : Fragment() {
         viewModel.shouldShowGetSellerOrder.observe(viewLifecycleOwner) {
             sellerOrderAdapter.updateList(it)
         }
-        viewModel.shouldShowUser.observe(viewLifecycleOwner) {
-            Glide.with(requireContext())
-                .load(it.image_url)
-                .error(R.drawable.ic_launcher_background)
-                .transform(RoundedCorners(20))
-                .into(binding.ivakun)
+
+        viewModel.showUser.observe(viewLifecycleOwner) {
+            if (it.image_url == null) {
+                binding.tvInisial.text = it.full_name.getInitial()
+            } else {
+                Glide.with(requireContext())
+                    .load(it.image_url)
+                    .error(R.drawable.ic_launcher_background)
+                    .transform(RoundedCorners(20))
+                    .into(binding.ivakun)
+            }
             binding.tvnama.text = it.full_name
             binding.tvkota.text = it.city
         }
+//Room
+//        viewModel.shouldShowUser.observe(viewLifecycleOwner) {
+//            if (it.image_url == null) {
+//                binding.tvInisial.text = it.full_name.getInitial()
+//            } else {
+//                Glide.with(requireContext())
+//                    .load(it.image_url)
+//                    .error(R.drawable.ic_launcher_background)
+//                    .transform(RoundedCorners(20))
+//                    .into(binding.ivakun)
+//            }
+//            binding.tvnama.text = it.full_name
+//            binding.tvkota.text = it.city
+//        }
     }
 
     private fun refreshData() {
         when (binding.tvTitle.text.toString()) {
             "Produk Ditolak" -> viewModel.getOrder("declined")
             "Produk Terjual" -> viewModel.getOrder("accepted")
-            "Produk Saya" -> viewModel.getProductSeller()
+//            "Produk Saya" -> viewModel.getProductSeller()
             "Produk Diminati" -> viewModel.getOrder("pending")
         }
     }

@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
-import com.tegarpenemuan.secondhandecomerce.data.local.UserEntity
 import com.tegarpenemuan.secondhandecomerce.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -81,19 +80,6 @@ class LoginViewModel @Inject constructor(
             val response = repository.getProfile(access_token)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
-                    val getProfileResponse = response.body()
-                    getProfileResponse?.let {
-                        val userEntity = UserEntity(
-                            id = it.id.toString(),
-                            full_name = it.full_name,
-                            email = it.email,
-                            phone_number = it.phone_number,
-                            address = it.address,
-                            image_url = it.image_url,
-                            city = it.city
-                        )
-                        insertProfile(userEntity)
-                    }
                     shouldShowSuccess.postValue(true)
                 } else {
                     shouldShowError.postValue("Request get Profile Tidak Failed" + response.code())
@@ -102,18 +88,19 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun insertProfile(userEntity: UserEntity) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val result = repository.insertUser(userEntity)
-            withContext(Dispatchers.Main) {
-                if (result != 0L) {
-                    shouldShowSuccess.postValue(true)
-                } else {
-                    shouldShowError.postValue("Maaf, gagal insert ke dalam database")
-                }
-            }
-        }
-    }
+// Room
+//    private fun insertProfile(userEntity: UserEntity) {
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val result = repository.insertUser(userEntity)
+//            withContext(Dispatchers.Main) {
+//                if (result != 0L) {
+//                    shouldShowSuccess.postValue(true)
+//                } else {
+//                    shouldShowError.postValue("Maaf, gagal insert ke dalam database")
+//                }
+//            }
+//        }
+//    }
 
     private fun insertToken(token: String) {
         if (token.isNotEmpty()) {
@@ -136,7 +123,7 @@ class LoginViewModel @Inject constructor(
             val result = repository.getToken()
             withContext(Dispatchers.Main) {
                 if (result == "") {
-
+                    println("Hai")
                 } else {
                     shouldOpenMain.postValue(true)
                 }

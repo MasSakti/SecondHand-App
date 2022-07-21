@@ -3,6 +3,7 @@ package com.tegarpenemuan.secondhandecomerce.ui.akun
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
 import com.tegarpenemuan.secondhandecomerce.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -18,7 +19,7 @@ class AkunViewModel @Inject constructor(
     val showLogin: MutableLiveData<Boolean> = MutableLiveData()
     val showResponseError: MutableLiveData<String> = MutableLiveData()
     val showResponseSuccess: MutableLiveData<String> = MutableLiveData()
-    val shouldShowProfile: MutableLiveData<String> = MutableLiveData()
+    val shouldShowProfile: MutableLiveData<GetProfileResponse> = MutableLiveData()
 
     fun getProfile() {
         CoroutineScope(Dispatchers.IO).launch {
@@ -27,7 +28,7 @@ class AkunViewModel @Inject constructor(
                 if (response.isSuccessful) {
                     val getProfileResponse = response.body()
                     getProfileResponse?.let {
-                        shouldShowProfile.postValue(it.image_url)
+                        shouldShowProfile.postValue(it)
                     }
                 } else {
                     showResponseError.postValue("Request get Profile Tidak Failed" + response.code())
@@ -49,12 +50,11 @@ class AkunViewModel @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             repository.clearToken()
             repository.clearID()
-            val result = repository.deleteAll()
+//            val result = repository.deleteAll() Room
             withContext(Dispatchers.Main) {
-                result.let {
+//                result.let { Room
                     clearCredential()
-                    shouldShowProfile.postValue("Anda Berhasil Logout")
-                }
+//                } Room
             }
         }
     }

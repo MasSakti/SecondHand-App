@@ -18,19 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_nama" />
 
-<!--    <androidx.appcompat.widget.AppCompatSpinner-->
-<!--        android:id="@+id/et_pilih_kota"-->
-<!--        style="@style/GeneralEditText"-->
-<!--        android:visibility="gone"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:entries="@array/daftar_kota"-->
-<!--        android:hint="Pilih Kota"-->
-<!--        android:inputType="text"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tv_kota" />-->
-
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_pilih_kota"
         style="@style/GeneralEditText"
@@ -113,7 +100,7 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/container" />
 
     <TextView
         android:id="@+id/tv_akun_saya"
@@ -128,15 +115,40 @@
         app:layout_constraintStart_toEndOf="@+id/ic_arrow"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/container"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:cardCornerRadius="50dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_akun_saya"
-        app:srcCompat="@drawable/img_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_akun_saya">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_inisial"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/purple_700"
+                android:gravity="center"
+                tools:text="TP"
+                android:textColor="@color/white"
+                android:textSize="35sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/tv_alamat"

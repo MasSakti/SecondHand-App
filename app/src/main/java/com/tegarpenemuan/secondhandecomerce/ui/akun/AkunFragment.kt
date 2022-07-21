@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.tegarpenemuan.secondhandecomerce.R
+import com.tegarpenemuan.secondhandecomerce.common.GetInisial.getInitial
 import com.tegarpenemuan.secondhandecomerce.databinding.FragmentAkunBinding
 import com.tegarpenemuan.secondhandecomerce.showToastSuccess
 import com.tegarpenemuan.secondhandecomerce.ui.login.Login
@@ -44,9 +45,13 @@ class AkunFragment : Fragment() {
 
     private fun bindviewModel() {
         viewModel.shouldShowProfile.observe(viewLifecycleOwner) {
-            if(it != null) {
+            if (it.image_url == null) {
+                binding.tvInisial.text = it.full_name.getInitial()
+            } else {
                 Glide.with(requireContext())
-                    .load(it)
+                    .load(it.image_url)
+                    .error(R.drawable.error)
+                    .placeholder(R.drawable.loading)
                     .circleCrop()
                     .into(binding.ivProfile)
             }
@@ -60,7 +65,7 @@ class AkunFragment : Fragment() {
 
     private fun bindview() {
         binding.ivProfile.setOnClickListener {
-            startActivity(Intent(requireContext(),Profile::class.java))
+            startActivity(Intent(requireContext(), Profile::class.java))
         }
 
         binding.tvKeluar.setOnClickListener {
@@ -81,12 +86,13 @@ class AkunFragment : Fragment() {
             val btnNo = dialog.findViewById(R.id.btnTidak) as Button
             btnNo.setOnClickListener {
                 dialog.dismiss()
-                showToastSuccess(requireView(), "Batal Logout",R.color.success)
+                showToastSuccess(requireView(), "Batal Logout", R.color.success)
             }
             dialog.show()
+            activity!!.finish()
         }
         binding.tvPengaturan.setOnClickListener {
-            Toast.makeText(requireContext(),"Setting",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Setting", Toast.LENGTH_SHORT).show()
         }
         binding.tvUbahAkun.setOnClickListener {
             startActivity(Intent(requireContext(), Profile::class.java))

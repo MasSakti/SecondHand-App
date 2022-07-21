@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/dialog_bg"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="12dp"
-        app:srcCompat="@drawable/ic_top_button_bottomsheet" />
+        app:srcCompat="@drawable/ic_top_button_bottomsheet"
+        android:contentDescription="@string/topbottomsheet" />
 
     <TextView
         android:id="@+id/txt_judul"
@@ -21,7 +22,7 @@
         android:layout_marginTop="48dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
-        android:text="Masukan harga tawarmu"
+        android:text="@string/masukan_harga_tawarmu"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -41,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:text="Harga tawaranmu akan diketahui penjual, jika penjual cocok kamu akan segera dihubungi penjual."
+                android:text="@string/harga_tawaranmu_akan_diketahui_penjual_jika_penjual_cocok_kamu_akan_segera_dihubungi_penjual"
                 android:textColor="#8A8A8A"
                 android:textSize="16sp" />
 
@@ -82,7 +83,7 @@
                         android:layout_marginEnd="16dp"
                         android:ellipsize="end"
                         android:singleLine="true"
-                        android:text="Barang"
+                        android:text="@string/barang"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/img_view"
@@ -98,7 +99,7 @@
                         android:layout_marginBottom="18dp"
                         android:ellipsize="end"
                         android:singleLine="true"
-                        android:text="Rp0"
+                        android:text="@string/rp0"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/img_view"
@@ -124,7 +125,7 @@
                     android:id="@+id/txt_input_bid_harga"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Harga tawar"
+                    android:hint="@string/harga_tawar"
                     android:inputType="number|numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -137,7 +138,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="21dp"
-                android:text="Kirim"
+                android:text="@string/kirim"
                 android:textAllCaps="false"
                 app:cornerRadius="16dp" />
 

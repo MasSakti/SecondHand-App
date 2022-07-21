@@ -35,14 +35,39 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="16dp">
 
-            <ImageView
-                android:id="@+id/ivakun"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/container"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_akun"
+                app:cardCornerRadius="14dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_inisial"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/purple_700"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="TP" />
+
+                    <ImageView
+                        android:id="@+id/ivakun"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/tvnama"
@@ -54,8 +79,8 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/btnedit"
-                app:layout_constraintStart_toEndOf="@+id/ivakun"
-                app:layout_constraintTop_toTopOf="@+id/ivakun" />
+                app:layout_constraintStart_toEndOf="@+id/container"
+                app:layout_constraintTop_toTopOf="@+id/container" />
 
             <TextView
                 android:id="@+id/tvkota"
@@ -64,9 +89,9 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="4dp"
                 android:text="Kota"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 app:layout_constraintEnd_toStartOf="@+id/btnedit"
-                app:layout_constraintStart_toEndOf="@+id/ivakun"
+                app:layout_constraintStart_toEndOf="@+id/container"
                 app:layout_constraintTop_toBottomOf="@+id/tvnama" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -75,7 +100,7 @@
                 android:layout_width="47dp"
                 android:layout_height="26dp"
                 android:layout_marginEnd="4dp"
-                android:text="Edit"
+                android:text="@string/edit"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/tvkota"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -95,7 +120,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cvProfile">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -147,19 +172,6 @@
         app:layout_constraintTop_toBottomOf="@id/horizontalScrollView"
         tools:text="Daftar Produk" />
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_product"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:paddingBottom="50dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
-            app:spanCount="2"
-            tools:layout_editor_absoluteX="0dp"
-            tools:listitem="@layout/list_item_product_home" />
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe"
         android:layout_width="match_parent"
@@ -180,5 +192,17 @@
         tools:visibility="visible" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:paddingBottom="50dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
+        app:spanCount="2"
+        tools:layout_editor_absoluteX="0dp"
+        tools:listitem="@layout/list_item_product_home" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

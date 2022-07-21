@@ -7,7 +7,8 @@ import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.UpdateStatusOrde
 import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.UpdateStatusOrder.UpdateStatusOrderResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.SellerOrder.SellerOrderResponseItem
-import com.tegarpenemuan.secondhandecomerce.data.local.UserEntity
+import com.tegarpenemuan.secondhandecomerce.data.api.deleteproduct.DeleteSellerProductResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
 import com.tegarpenemuan.secondhandecomerce.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -23,12 +24,17 @@ class DaftarJualViewModel @Inject constructor(
 
     val shouldShowGetProductSeller: MutableLiveData<List<GetProductResponse>> = MutableLiveData()
     val shouldShowGetSellerOrder: MutableLiveData<List<SellerOrderResponseItem>> = MutableLiveData()
-    val shouldShowUser: MutableLiveData<UserEntity> = MutableLiveData()
+    val showError: MutableLiveData<String> = MutableLiveData()
+    val showUser: MutableLiveData<GetProfileResponse> = MutableLiveData()
+
+    //val shouldShowUser: MutableLiveData<UserEntity> = MutableLiveData()
     val shouldShowDetailNotif: MutableLiveData<GetDetailOrderResponse> = MutableLiveData()
     val shouldShowUpdateStatusOrdoer: MutableLiveData<UpdateStatusOrderResponse> = MutableLiveData()
+    val showDelete: MutableLiveData<DeleteSellerProductResponse> = MutableLiveData()
+    val showErrorDeleteProduct: MutableLiveData<String> = MutableLiveData()
 
-    fun getProductSeller(){
-        CoroutineScope(Dispatchers.IO).launch{
+    fun getProductSeller() {
+        CoroutineScope(Dispatchers.IO).launch {
             val response = repository.getProductSeller(repository.getToken()!!)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
@@ -55,28 +61,45 @@ class DaftarJualViewModel @Inject constructor(
         }
     }
 
-    fun getUser() {
+    //Room
+//    fun getUser() {
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val result = repository.getUser()
+//            withContext(Dispatchers.Main) {
+//                shouldShowUser.postValue(
+//                    UserEntity(
+//                        id = result.id,
+//                        full_name = result.full_name,
+//                        email = result.email,
+//                        phone_number = result.phone_number,
+//                        address = result.address,
+//                        image_url = result.image_url,
+//                        city = result.city
+//                    )
+//                )
+//            }
+//        }
+//    }
+    fun getUserData() {
         CoroutineScope(Dispatchers.IO).launch {
-            val result = repository.getUser()
+            val result = repository.getProfile(repository.getToken()!!)
             withContext(Dispatchers.Main) {
-                shouldShowUser.postValue(
-                    UserEntity(
-                        id = result.id,
-                        full_name = result.full_name,
-                        email = result.email,
-                        phone_number = result.phone_number,
-                        address = result.address,
-                        image_url = result.image_url,
-                        city = result.city
-                    )
-                )
+                if (result.isSuccessful) {
+                    //show data
+                    val data = result.body()
+                    showUser.postValue(data!!)
+                } else {
+                    //show error
+                    val data = result.errorBody()
+                    showError.postValue(data.toString())
+                }
             }
         }
     }
 
-    fun getDetailOrder(id: Int){
-        CoroutineScope(Dispatchers.IO).launch{
-            val response = repository.getDetailOrder(repository.getToken()!!,id)
+    fun getDetailOrder(id: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.getDetailOrder(repository.getToken()!!, id)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     val getNotificationResponse = response.body()
@@ -88,15 +111,30 @@ class DaftarJualViewModel @Inject constructor(
         }
     }
 
-    fun updateStatusOrder(id: Int,request: UpdateStatusOrderRequest){
-        CoroutineScope(Dispatchers.IO).launch{
-            val response = repository.updateStatusOrder(repository.getToken()!!,id,request)
+    fun updateStatusOrder(id: Int, request: UpdateStatusOrderRequest) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.updateStatusOrder(repository.getToken()!!, id, request)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     val updateStatusOrder = response.body()
                     shouldShowUpdateStatusOrdoer.postValue(updateStatusOrder!!)
                 } else {
                     //shouldShowError.postValue("Request get Profile Tidak Failed" + response.code())
+                }
+            }
+        }
+    }
+
+    fun deleteSellerProduct(id: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val result = repository.deleteSellerProduct(repository.getToken()!!, id)
+            withContext(Dispatchers.Main) {
+                if (result.isSuccessful) {
+                    val data = result.body()
+                    showDelete.postValue(data!!)
+                } else {
+                    val data = result.errorBody()
+                    showErrorDeleteProduct.postValue(data.toString())
                 }
             }
         }

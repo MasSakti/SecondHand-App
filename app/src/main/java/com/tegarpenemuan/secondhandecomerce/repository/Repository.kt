@@ -1,5 +1,6 @@
 package com.tegarpenemuan.secondhandecomerce.repository
 
+import com.example.projectgroup2.data.api.main.updateproduct.UpdateProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.Api
 import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.CreateOrder.createOrderRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.CreateOrder.createOrderResponse
@@ -14,6 +15,8 @@ import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.ProductDetail.GetProductDetailsResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.SellerOrder.SellerOrderResponseItem
 import com.tegarpenemuan.secondhandecomerce.data.api.banner.BannerResponseItem
+import com.tegarpenemuan.secondhandecomerce.data.api.deleteproduct.DeleteSellerProductResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.detailproduct.DetailProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginResponse
@@ -21,8 +24,6 @@ import com.tegarpenemuan.secondhandecomerce.data.api.register.request.SignUpRequ
 import com.tegarpenemuan.secondhandecomerce.data.api.register.response.SuccessRegisterResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.updateUser.UpdateUserRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.updateUser.UpdateUserResponse
-import com.tegarpenemuan.secondhandecomerce.data.local.UserDAO
-import com.tegarpenemuan.secondhandecomerce.data.local.UserEntity
 import com.tegarpenemuan.secondhandecomerce.datastore.AuthDatastoreManager
 import kotlinx.coroutines.flow.firstOrNull
 import okhttp3.MultipartBody
@@ -33,7 +34,6 @@ import javax.inject.Inject
 class Repository @Inject constructor(
     private val authDatastore: AuthDatastoreManager,
     private val api: Api,
-    private val dao: UserDAO
 ) {
     suspend fun clearToken() {
         updateToken("")
@@ -150,36 +150,6 @@ class Repository @Inject constructor(
         )
     }
 
-    suspend fun insertUser(userEntity: UserEntity): Long {
-        return dao.insertUser(userEntity)
-    }
-
-    suspend fun getUser(): UserEntity {
-        return dao.getUser()!!
-    }
-
-    suspend fun deleteAll(): Int {
-        return dao.deleteAll()
-    }
-
-    suspend fun updateUser(
-        id: String,
-        full_name: String,
-        phone_number: String,
-        address: String,
-        image_url: String,
-        city: String
-    ) {
-        return dao.updateUser(
-            id = id,
-            full_name = full_name,
-            phone_number = phone_number,
-            address = address,
-            image_url = image_url,
-            city = city
-        )
-    }
-
     suspend fun getProductId(
         id: Int
     ): Response<GetProductDetailsResponse> {
@@ -203,6 +173,37 @@ class Repository @Inject constructor(
     ): Response<GetProductResponse> {
         return api.addProduct(token, file, name, description, base_price, categoryIds, location)
     }
+
+    suspend fun updateProduct(
+        token: String,
+        id: Int,
+        file: MultipartBody.Part?,
+        name: RequestBody,
+        description: RequestBody,
+        base_price: RequestBody,
+        categoryIds: List<Int>,
+        location: RequestBody,
+    ): Response<UpdateProductResponse> {
+        return api.updateProduct(
+            token,
+            id,
+            file,
+            name,
+            description,
+            base_price,
+            categoryIds,
+            location
+        )
+    }
+
+    suspend fun deleteSellerProduct(token: String, id: Int): Response<DeleteSellerProductResponse> {
+        return api.deleteSellerProduct(token = token, id = id)
+    }
+
+    suspend fun getProductId(token: String, id: Int): Response<DetailProductResponse> {
+        return api.getProductId(access_token = token, id = id)
+    }
+
 
     suspend fun getBanner(): Response<List<BannerResponseItem>> {
         return api.getBanner()

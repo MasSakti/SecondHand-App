@@ -38,6 +38,13 @@ class DaftarJualAdapter(
             .transform(RoundedCorners(20))
             .into(holder.binding.ivImageProduct)
         holder.binding.tvHargaProduct.text = ChangeCurrency.gantiRupiah(item.base_price.toString())
+        var listCategory :String? = ""
+        if (item.Categories.isNotEmpty()) {
+            for (data in item.Categories){
+                listCategory += ", ${data.name}"
+            }
+            holder.binding.tvJenisProduct.text = listCategory!!.drop(2)
+        }
 
         holder.itemView.setOnClickListener {
             listener.onClick(item)

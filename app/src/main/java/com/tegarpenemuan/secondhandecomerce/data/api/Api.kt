@@ -1,5 +1,6 @@
 package com.tegarpenemuan.secondhandecomerce.data.api
 
+import com.example.projectgroup2.data.api.main.updateproduct.UpdateProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.UpdateStatusOrder.UpdateStatusOrderRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.CreateOrder.createOrderRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.BuyerOrder.CreateOrder.createOrderResponse
@@ -13,6 +14,8 @@ import com.tegarpenemuan.secondhandecomerce.data.api.category.GetCategoryRespons
 import com.tegarpenemuan.secondhandecomerce.data.api.Product.GetProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.ProductDetail.GetProductDetailsResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.SellerOrder.SellerOrderResponseItem
+import com.tegarpenemuan.secondhandecomerce.data.api.deleteproduct.DeleteSellerProductResponse
+import com.tegarpenemuan.secondhandecomerce.data.api.detailproduct.DetailProductResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.getProfile.GetProfileResponse
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginRequest
 import com.tegarpenemuan.secondhandecomerce.data.api.login.LoginResponse
@@ -93,18 +96,6 @@ interface Api {
         @Body request: createOrderRequest
     ): Response<createOrderResponse>
 
-    @Multipart
-    @POST("seller/product")
-    suspend fun addProduct(
-        @Header("access_token") access_token: String,
-        @Part file: MultipartBody.Part,
-        @Part("name") name: RequestBody?,
-        @Part("description") description: RequestBody?,
-        @Part("base_price") base_price: RequestBody?,
-        @Part("category_ids") categoryIds: List<Int>,
-        @Part("location") location: RequestBody?,
-    ):Response<GetProductResponse>
-
     @GET("seller/order")
     suspend fun getOrder(
         @Header("access_token") access_token: String,
@@ -131,6 +122,43 @@ interface Api {
     suspend fun getProduct(
         @Header("access_token") access_token: String
     ): Response<List<GetProductResponse>>
+
+    @Multipart
+    @POST("seller/product")
+    suspend fun addProduct(
+        @Header("access_token") access_token: String,
+        @Part file: MultipartBody.Part,
+        @Part("name") name: RequestBody?,
+        @Part("description") description: RequestBody?,
+        @Part("base_price") base_price: RequestBody?,
+        @Part("category_ids") categoryIds: List<Int>,
+        @Part("location") location: RequestBody?,
+    ):Response<GetProductResponse>
+
+    @Multipart
+    @PUT("seller/product/{id}")
+    suspend fun updateProduct(
+        @Header("access_token") token: String,
+        @Path("id") id: Int,
+        @Part file: MultipartBody.Part?,
+        @Part("name") name: RequestBody?,
+        @Part("description") description: RequestBody?,
+        @Part("base_price") base_price: RequestBody?,
+        @Part("category_ids") categoryIds: List<Int>,
+        @Part("location") location: RequestBody?,
+    ): Response<UpdateProductResponse>
+
+    @DELETE("seller/product/{id}")
+    suspend fun deleteSellerProduct(
+        @Header("access_token") token: String,
+        @Path("id") id: Int
+    ): Response<DeleteSellerProductResponse>
+
+    @GET("seller/product/{id}")
+    suspend fun getProductId(
+        @Header("access_token") access_token: String,
+        @Path("id") id: Int
+    ): Response<DetailProductResponse>
 
     @GET("seller/banner")
     suspend fun getBanner(): Response<List<BannerResponseItem>>

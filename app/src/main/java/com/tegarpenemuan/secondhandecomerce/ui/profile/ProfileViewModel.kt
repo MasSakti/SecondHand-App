@@ -87,46 +87,48 @@ class ProfileViewModel @Inject constructor(
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     showResponseSuccess.postValue("Data Berhasil Di update")
-                    val data = response.body()
-                    updateUser(
-                        id = repository.getId()!!,
-                        full_name = data!!.full_name,
-                        phone_number = data.phone_number,
-                        address = data.address,
-                        image_url = data.image_url,
-                        city = data.city
-                    )
+//                    val data = response.body()
+//                    updateUser( //Room
+//                        id = repository.getId()!!,
+//                        full_name = data!!.full_name,
+//                        phone_number = data.phone_number,
+//                        address = data.address,
+//                        image_url = data.image_url,
+//                        city = data.city
+//                    )
+                } else if (response.code() == 500) {
+                    showResponseError.postValue("Server Sedang Error")
                 } else {
                     showResponseError.postValue("Data gagal diupdate")
                 }
             }
         }
     }
-
-    private fun updateUser(
-        id: String,
-        full_name: String,
-        phone_number: String,
-        address: String,
-        image_url: String? = null,
-        city: String
-    ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val result = repository.updateUser(
-                id = id,
-                full_name = full_name,
-                phone_number = phone_number,
-                address = address,
-                image_url = image_url!!,
-                city = city
-            )
-            withContext(Dispatchers.Main) {
-                result.let {
-                    //showResponseSuccess.postValue("Data Berhasil Di update")
-                }
-            }
-        }
-    }
+//Room
+//    private fun updateUser(
+//        id: String,
+//        full_name: String,
+//        phone_number: String,
+//        address: String,
+//        image_url: String? = null,
+//        city: String
+//    ) {
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val result = repository.updateUser(
+//                id = id,
+//                full_name = full_name,
+//                phone_number = phone_number,
+//                address = address,
+//                image_url = image_url!!,
+//                city = city
+//            )
+//            withContext(Dispatchers.Main) {
+//                result.let {
+//                    //showResponseSuccess.postValue("Data Berhasil Di update")
+//                }
+//            }
+//        }
+//    }
 
     fun getProfile() {
         CoroutineScope(Dispatchers.IO).launch {

@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.github.drjacky.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import com.tegarpenemuan.secondhandecomerce.R
+import com.tegarpenemuan.secondhandecomerce.common.GetInisial.getInitial
 import com.tegarpenemuan.secondhandecomerce.databinding.ActivityProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,14 +35,20 @@ class Profile : AppCompatActivity() {
 
     private fun bindviewModel() {
         viewModel.shouldShowUser.observe(this) {
-            Glide.with(this)
-                .load(it.image_url)
-                .circleCrop()
-                .error(R.drawable.img_profile)
-                .into(binding.ivProfile)
+            if (it.image_url == null) {
+                binding.tvInisial.text = it.full_name.getInitial()
+            } else {
+                Glide.with(this)
+                    .load(it.image_url)
+                    .circleCrop()
+                    .error(R.drawable.error)
+                    .placeholder(R.drawable.loading)
+                    .into(binding.ivProfile)
+            }
+
             binding.etAlamat.setText(it.address)
             binding.etNama.setText(it.full_name)
-            binding.etPilihKota.setText(it.city.toString())
+            binding.etPilihKota.setText(it.city)
             binding.etNoHandphone.setText(it.phone_number)
         }
 
