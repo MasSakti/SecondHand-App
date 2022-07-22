@@ -13,6 +13,7 @@ import com.example.projectgroup2.data.api.main.notification.NotifResponse
 import com.example.projectgroup2.databinding.ListItemNotificationBinding
 import com.example.projectgroup2.utils.convertDate
 import com.example.projectgroup2.utils.currency
+import java.lang.StringBuilder
 
 class NotifAdapter(
     private val onItemClick : OnClickListener
@@ -55,6 +56,15 @@ class NotifAdapter(
         RecyclerView.ViewHolder(binding.root){
         @SuppressLint("SetTextI18n")
         fun bind(data: NotifResponse){
+            val Unicode1 = 0x1F973
+            val Unicode2 = 0x1F61E
+            val Unicode3 = 0x1F603
+            val stringBuilder1 = StringBuilder()
+            val stringBuilder2 = StringBuilder()
+            val stringBuilder3 = StringBuilder()
+            val emoteParty = stringBuilder1.append(Character.toChars(Unicode1))
+            val emoteSad = stringBuilder2.append(Character.toChars(Unicode2))
+            val emoteHappy = stringBuilder3.append(Character.toChars(Unicode3))
             binding.apply {
                 when (data.status) {
                     "create" -> {
@@ -78,7 +88,7 @@ class NotifAdapter(
                         tvNotifInfo.text = "Tawar"
                         if (data.product != null) {
                             if (data.receiverId == data.product.userId) {
-                                tvNotifHeader.text = "Ada yang tawar produk anda!"
+                                tvNotifHeader.text = "Ada yang tawar produk anda!${emoteHappy}"
                                 tvNotifBody.text =
                                     "Hey, ada yang menawar produk anda ${data.productName} dengan harga "+ currency(data.basePrice.toInt())+" ditawar sebesar "+ currency(data.bidPrice.toInt())
                             } else {
@@ -99,7 +109,7 @@ class NotifAdapter(
                                 tvNotifBody.text =
                                     "Anda menolak tawaran penawar pada produk ${data.productName} dengan harga "+ currency(data.basePrice.toInt())+" ditawar "+ currency(data.bidPrice.toInt())
                             } else {
-                                tvNotifHeader.text = "Tawaran anda ditolak oleh penjual"
+                                tvNotifHeader.text = "Tawaran anda ditolak oleh penjual${emoteSad}"
                                 tvNotifBody.text =
                                     "Wah tampaknya tawaran anda pada produk ${data.productName} dengan harga "+ currency(data.basePrice.toInt())+" ditawar sebesar "+ currency(data.bidPrice.toInt())+" ditolak oleh penjual."
                             }
@@ -116,9 +126,9 @@ class NotifAdapter(
                                 tvNotifBody.text =
                                     "Anda menerima tawaran penawar pada produk ${data.productName} dengan harga "+ currency(data.basePrice.toInt())+" ditawar sebesar "+ currency(data.bidPrice.toInt())
                             } else {
-                                tvNotifHeader.text = "Tawaran anda diterima oleh penjual"
+                                tvNotifHeader.text = "Tawaran anda diterima oleh penjual${emoteParty}"
                                 tvNotifBody.text =
-                                    "Selamat! tawaran anda pada produk ${data.productName} dengan harga "+ currency(data.basePrice.toInt())+" ditawar "+ currency(data.bidPrice.toInt())+" diterima oleh penjual."
+                                    "Selamat! tawaran anda pada produk ${data.productName} dengan harga "+ currency(data.basePrice.toInt())+" ditawar sebesar"+ currency(data.bidPrice.toInt())+" diterima oleh penjual."
                             }
                         } else {
                             tvNotifHeader.text = "Produk Sudah di hapus"

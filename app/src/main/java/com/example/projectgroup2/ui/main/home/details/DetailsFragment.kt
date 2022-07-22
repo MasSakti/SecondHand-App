@@ -88,7 +88,7 @@ class DetailsFragment : Fragment() {
                         .toSquare()
                         .setLabel(it.user.fullName.toString())
                         .build())
-                    .apply(RequestOptions.bitmapTransform(RoundedCorners(10)))
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(50)))
                     .into(binding.rivDetailPhotoPenjual)
                 //nama penjual & kota penjual
                 binding.tvDetailNamaPenjual.text = it.user.fullName

@@ -1,5 +1,6 @@
 package com.example.projectgroup2.ui.main.daftarjual.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -37,6 +38,7 @@ class SellerOrderAdapter(private val OnItemClick: OnClickListener) :
 
     inner class ViewHolder(private val binding: ListItemDiminatiBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(data: SellerOrderResponse) {
             val basePrice = currency(data.product.basePrice)
             val priceNego = currency(data.price)
@@ -57,8 +59,24 @@ class SellerOrderAdapter(private val OnItemClick: OnClickListener) :
                 }
                 if (data.status == "declined") {
                     root.alpha = 0.5f
+                    tvPenawaranProduct.text = "Ditolak"
+                    tvHargaProduct.apply {
+                        text = striketroughtText(this, basePrice)
+                    }
                     tvDitawarProduct.apply {
-                        text = striketroughtText(this,priceNego)
+                        text = "Ditolak $priceNego"
+                    }
+                }
+                if (data.status == "accepted") {
+                    tvPenawaranProduct.text = "Diterima"
+                    tvHargaProduct.apply {
+                        text = striketroughtText(this, basePrice)
+                    }
+                }
+                if (data.status == "pending") {
+                    tvPenawaranProduct.text = "Ditawar"
+                    tvHargaProduct.apply {
+                        text = striketroughtText(this, basePrice)
                     }
                 }
             }

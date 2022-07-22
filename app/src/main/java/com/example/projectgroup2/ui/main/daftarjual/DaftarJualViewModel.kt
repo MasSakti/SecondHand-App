@@ -20,6 +20,8 @@ class DaftarJualViewModel @Inject constructor(private val repoAuth: AuthReposito
     val showUser: MutableLiveData<GetUserResponse> = MutableLiveData()
     val showProductSeller: MutableLiveData<List<SellerProductResponse>> = MutableLiveData()
     val showOrderSeller: MutableLiveData<List<SellerOrderResponse>> = MutableLiveData()
+    val showEmpty: MutableLiveData<Boolean> = MutableLiveData()
+    val showEmpty2: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getUserData(){
         CoroutineScope(Dispatchers.IO).launch {

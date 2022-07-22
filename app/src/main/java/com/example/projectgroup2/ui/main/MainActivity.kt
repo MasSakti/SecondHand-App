@@ -91,6 +91,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.editProfileFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
+                R.id.editProductFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+                R.id.infoPenawarFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
                 else -> {
                     binding.bottomNavigationView.visibility = View.VISIBLE
                 }

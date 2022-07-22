@@ -1,5 +1,6 @@
 package com.example.projectgroup2.ui.main.daftarjual
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,7 +10,10 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.avatarfirst.avatargenlib.AvatarGenerator
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.projectgroup2.R
 import com.example.projectgroup2.data.api.main.buyer.product.GetProductResponse
 import com.example.projectgroup2.data.api.main.sellerorder.SellerOrderResponse
@@ -75,6 +79,15 @@ class DaftarJualFragment : Fragment() {
             binding.tvKotaPenjual.text = it.address
             Glide.with(this@DaftarJualFragment)
                 .load(it.imageUrl)
+                .placeholder(
+                    AvatarGenerator
+                        .AvatarBuilder(requireContext())
+                        .setTextSize(50)
+                        .setAvatarSize(200)
+                        .toSquare()
+                        .setLabel(it.fullName.toString())
+                        .build())
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(50)))
                 .into(binding.ivGambarPenjual)
         }
     }
@@ -111,6 +124,24 @@ class DaftarJualFragment : Fragment() {
 
     private fun adapterProduct(){
         viewModel.getProductSeller()
+        binding.cardCategory.setBackgroundColor(Color.parseColor("#39E1C1"))
+        binding.tvCategoryProduct.setTextColor(Color.parseColor("#FFFFFF"))
+
+        binding.cardCategory2.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        binding.tvCategoryDiminati.setTextColor(Color.parseColor("#000000"))
+        binding.cardCategory2.setBackgroundResource(R.drawable.bg_category_home)
+
+        binding.cardCategory3.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        binding.tvCategoryDitolak.setTextColor(Color.parseColor("#000000"))
+        binding.cardCategory3.setBackgroundResource(R.drawable.bg_category_home)
+
+        binding.cardCategory4.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        binding.tvCategoryDiterima.setTextColor(Color.parseColor("#000000"))
+        binding.cardCategory4.setBackgroundResource(R.drawable.bg_category_home)
+
+        binding.cardCategory5.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        binding.tvCategoryTerjual.setTextColor(Color.parseColor("#000000"))
+        binding.cardCategory5.setBackgroundResource(R.drawable.bg_category_home)
         viewModel.showProductSeller.observe(viewLifecycleOwner){
             val sellerProductAdapter = SellerProductAdapter(object: SellerProductAdapter.OnClickListener {
                 override fun onClickItem(data: SellerProductResponse) {
@@ -140,6 +171,24 @@ class DaftarJualFragment : Fragment() {
     private fun adapterOrder(){
         val statusPending = "pending"
         viewModel.getOrderSeller(statusPending)
+        binding.cardCategory.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        binding.tvCategoryProduct.setTextColor(Color.parseColor("#000000"))
+        binding.cardCategory.setBackgroundResource(R.drawable.bg_category_home)
+
+        binding.cardCategory2.setBackgroundColor(Color.parseColor("#39E1C1"))
+        binding.tvCategoryDiminati.setTextColor(Color.parseColor("#FFFFFF"))
+
+        binding.cardCategory3.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        binding.tvCategoryDitolak.setTextColor(Color.parseColor("#000000"))
+        binding.cardCategory3.setBackgroundResource(R.drawable.bg_category_home)
+
+        binding.cardCategory4.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        binding.tvCategoryDiterima.setTextColor(Color.parseColor("#000000"))
+        binding.cardCategory4.setBackgroundResource(R.drawable.bg_category_home)
+
+        binding.cardCategory5.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        binding.tvCategoryTerjual.setTextColor(Color.parseColor("#000000"))
+        binding.cardCategory5.setBackgroundResource(R.drawable.bg_category_home)
         viewModel.showOrderSeller.observe(viewLifecycleOwner){
             val sellerOrderAdapter = SellerOrderAdapter(object: SellerOrderAdapter.OnClickListener {
                 override fun onClickItem(data: SellerOrderResponse) {
@@ -167,6 +216,24 @@ class DaftarJualFragment : Fragment() {
     private fun adapterOrderDitolak(){
         val statusDeclined = "declined"
         viewModel.getOrderSeller(statusDeclined)
+        binding.cardCategory.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        binding.tvCategoryProduct.setTextColor(Color.parseColor("#000000"))
+        binding.cardCategory.setBackgroundResource(R.drawable.bg_category_home)
+
+        binding.cardCategory2.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        binding.tvCategoryDiminati.setTextColor(Color.parseColor("#000000"))
+        binding.cardCategory2.setBackgroundResource(R.drawable.bg_category_home)
+
+        binding.cardCategory3.setBackgroundColor(Color.parseColor("#39E1C1"))
+        binding.tvCategoryDitolak.setTextColor(Color.parseColor("#FFFFFF"))
+
+        binding.cardCategory4.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        binding.tvCategoryDiterima.setTextColor(Color.parseColor("#000000"))
+        binding.cardCategory4.setBackgroundResource(R.drawable.bg_category_home)
+
+        binding.cardCategory5.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        binding.tvCategoryTerjual.setTextColor(Color.parseColor("#000000"))
+        binding.cardCategory5.setBackgroundResource(R.drawable.bg_category_home)
         viewModel.showOrderSeller.observe(viewLifecycleOwner){
             val sellerOrderAdapter = SellerOrderAdapter(object: SellerOrderAdapter.OnClickListener {
                 override fun onClickItem(data: SellerOrderResponse) {
@@ -182,6 +249,24 @@ class DaftarJualFragment : Fragment() {
     private fun adapterOrderDiterima(){
         val statusAccepted = "accepted"
         viewModel.getOrderSeller(statusAccepted)
+        binding.cardCategory.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        binding.tvCategoryProduct.setTextColor(Color.parseColor("#000000"))
+        binding.cardCategory.setBackgroundResource(R.drawable.bg_category_home)
+
+        binding.cardCategory2.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        binding.tvCategoryDiminati.setTextColor(Color.parseColor("#000000"))
+        binding.cardCategory2.setBackgroundResource(R.drawable.bg_category_home)
+
+        binding.cardCategory3.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        binding.tvCategoryDitolak.setTextColor(Color.parseColor("#000000"))
+        binding.cardCategory3.setBackgroundResource(R.drawable.bg_category_home)
+
+        binding.cardCategory4.setBackgroundColor(Color.parseColor("#39E1C1"))
+        binding.tvCategoryDiterima.setTextColor(Color.parseColor("#FFFFFF"))
+
+        binding.cardCategory5.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        binding.tvCategoryTerjual.setTextColor(Color.parseColor("#000000"))
+        binding.cardCategory5.setBackgroundResource(R.drawable.bg_category_home)
         viewModel.showOrderSeller.observe(viewLifecycleOwner){
             val sellerOrderAdapter = SellerOrderAdapter(object: SellerOrderAdapter.OnClickListener {
                 override fun onClickItem(data: SellerOrderResponse) {

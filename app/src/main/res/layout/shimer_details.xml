@@ -88,7 +88,7 @@
                 android:layout_height="50dp"
                 android:scaleType="centerCrop"
                 app:optRoundCardBackgroundColor="@color/shimer"
-                app:optRoundCardCornerRadius="10dp"
+                app:optRoundCardCornerRadius="50dp"
                 app:optRoundCardElevation="0dp"
                 android:layout_marginTop="15dp"
                 app:layout_constraintStart_toStartOf="@+id/tv_productharga"

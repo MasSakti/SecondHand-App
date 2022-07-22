@@ -4,113 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.main.akun.AkunFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <View
+        android:id="@+id/view3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="60dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_acc_Header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="50dp"
-            android:fontFamily="@font/nunitobold"
-            android:text="Akun Saya"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Akun Saya"
+        android:fontFamily="@font/nunitobold"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintEnd_toEndOf="@+id/view3"
+        app:layout_constraintStart_toStartOf="@+id/view3"
+        app:layout_constraintTop_toTopOf="@+id/view3" />
 
-        <ImageView
-            android:id="@+id/iv_profile_acc"
-            android:layout_width="137dp"
-            android:layout_height="134dp"
-            android:layout_marginStart="140dp"
-            android:layout_marginTop="125dp"
-            android:background="@drawable/fi_profile"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/fi_edit"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_profile_acc" />
 
-        <TextView
-            android:id="@+id/tv_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
-            android:text="Ubah Akun"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/iv_edit"
-            app:layout_constraintTop_toBottomOf="@+id/iv_profile_acc" />
-
-        <ImageView
-            android:id="@+id/iv_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/fi_edit"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_edit" />
-
-        <TextView
-            android:id="@+id/tv_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="33dp"
-            android:text="Pengaturan Akun"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/iv_setting"
-            app:layout_constraintTop_toBottomOf="@+id/tv_edit" />
-
-        <ImageView
-            android:id="@+id/iv_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/fi_edit"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_setting" />
-
-        <TextView
-            android:id="@+id/tv_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="32dp"
-            android:text="Keluar"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/iv_logout"
-            app:layout_constraintTop_toBottomOf="@+id/tv_setting" />
-
-        <TextView
-            android:id="@+id/tv_version"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="250dp"
-            android:text="Version x.x"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

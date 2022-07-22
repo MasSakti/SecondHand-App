@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunitobold"
-            android:text="Detail produk"
+            android:text="Detail Produk"
             android:textColor="@color/black"
             android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@+id/card_Back"

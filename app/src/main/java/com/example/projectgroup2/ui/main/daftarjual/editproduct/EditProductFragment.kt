@@ -62,6 +62,10 @@ class EditProductFragment : Fragment() {
         viewModel.addCategory(listCategory)
         updateProduct()
         deleteProduct()
+
+        binding.cardBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun bindViewModel() {
