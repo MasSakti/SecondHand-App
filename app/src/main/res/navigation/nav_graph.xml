@@ -61,6 +61,9 @@
         <action
             android:id="@+id/action_akunFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_akunFragment_to_notifFragment"
+            app:destination="@id/notifFragment" />
     </fragment>
     <fragment
         android:id="@+id/jualFragment"
@@ -76,6 +79,9 @@
         <action
             android:id="@+id/action_jualFragment_to_previewFragment"
             app:destination="@id/previewFragment" />
+        <action
+            android:id="@+id/action_jualFragment_to_notifFragment"
+            app:destination="@id/notifFragment" />
     </fragment>
     <activity
         android:id="@+id/loginActivity"
@@ -101,12 +107,28 @@
         <action
             android:id="@+id/action_daftarJualFragment_to_infoPenawarFragment"
             app:destination="@id/infoPenawarFragment" />
+        <action
+            android:id="@+id/action_daftarJualFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_daftarJualFragment_to_notifFragment"
+            app:destination="@id/notifFragment" />
     </fragment>
     <fragment
         android:id="@+id/notifFragment"
         android:name="com.example.projectgroup2.ui.main.notif.NotifFragment"
         android:label="fragment_notif"
-        tools:layout="@layout/fragment_notif" />
+        tools:layout="@layout/fragment_notif" >
+        <action
+            android:id="@+id/action_notifFragment_to_jualFragment"
+            app:destination="@id/jualFragment" />
+        <action
+            android:id="@+id/action_notifFragment_to_akunFragment"
+            app:destination="@id/akunFragment" />
+        <action
+            android:id="@+id/action_notifFragment_to_daftarJualFragment"
+            app:destination="@id/daftarJualFragment" />
+    </fragment>
     <activity
         android:id="@+id/splashActivity2"
         android:name="com.example.projectgroup2.ui.splash.SplashActivity"
@@ -144,6 +166,9 @@
         <action
             android:id="@+id/action_editProfileFragment_to_akunFragment"
             app:destination="@id/akunFragment" />
+        <action
+            android:id="@+id/action_editProfileFragment_to_daftarJualFragment"
+            app:destination="@id/daftarJualFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProductFragment"

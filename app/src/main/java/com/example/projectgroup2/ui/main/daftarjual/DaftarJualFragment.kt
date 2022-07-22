@@ -120,6 +120,10 @@ class DaftarJualFragment : Fragment() {
             binding.rvDiminatiDaftarJual.visibility = View.GONE
             binding.rvDitolakDaftarJual.visibility = View.GONE
         }
+
+        binding.ivGambarPenjual.setOnClickListener {
+            findNavController().navigate(R.id.action_daftarJualFragment_to_editProfileFragment)
+        }
     }
 
     private fun adapterProduct(){
