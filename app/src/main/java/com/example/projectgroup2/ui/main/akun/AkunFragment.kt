@@ -14,6 +14,7 @@ import com.avatarfirst.avatargenlib.AvatarGenerator
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.projectgroup2.R
 import com.example.projectgroup2.databinding.FragmentAkunBinding
 import com.example.projectgroup2.ui.login.LoginActivity
@@ -64,13 +65,17 @@ class AkunFragment : Fragment() {
                 .load(it.imageUrl.toString())
                 .placeholder(AvatarGenerator
                     .AvatarBuilder(requireContext())
-                    .setTextSize(20)
+                    .setTextSize(50)
                     .setAvatarSize(200)
                     .toSquare()
                     .setLabel(it.fullName.toString())
                     .build())
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(50)))
                 .into(binding.ivProfileAcc)
             bundle.putString(USER_IMAGE, it.imageUrl)
+
+            binding.tvProfileName.text = it.fullName
+            binding.tvProfileAddress.text = it.address
         }
     }
 

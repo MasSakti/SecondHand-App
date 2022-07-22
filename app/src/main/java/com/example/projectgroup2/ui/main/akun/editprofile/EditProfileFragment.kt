@@ -15,9 +15,11 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.avatarfirst.avatargenlib.AvatarGenerator
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.projectgroup2.R
 import com.example.projectgroup2.databinding.FragmentEditProfileBinding
 import com.example.projectgroup2.ui.main.akun.AkunFragment.Companion.USER_ADDRESS
@@ -64,9 +66,21 @@ class EditProfileFragment : Fragment() {
                 etNohpUser.setText(it.phoneNumber.toString())
                 Glide.with(requireContext())
                     .load(it.imageUrl)
-                    .transform(CenterCrop(), RoundedCorners(8))
+                    .placeholder(
+                        AvatarGenerator
+                        .AvatarBuilder(requireContext())
+                        .setTextSize(50)
+                        .setAvatarSize(200)
+                        .toSquare()
+                        .setLabel(it.fullName.toString())
+                        .build())
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(50)))
                     .into(ivProfileImage)
             }
+        }
+
+        binding.cardBack.setOnClickListener {
+            findNavController().popBackStack()
         }
 
         binding.ivProfileImage.setOnClickListener {
@@ -88,7 +102,8 @@ class EditProfileFragment : Fragment() {
                         alamat,
                         kota
                     )
-                Toast.makeText(requireContext(), "Berhasil Update Data!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Berhasil edit akun!", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_editProfileFragment_to_akunFragment)
             }
         }
 

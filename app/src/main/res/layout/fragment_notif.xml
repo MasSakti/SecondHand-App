@@ -27,6 +27,7 @@
         app:layout_constraintStart_toStartOf="@+id/view3"
         app:layout_constraintTop_toTopOf="@+id/view3" />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvNotification"
         android:layout_width="match_parent"
