@@ -29,13 +29,13 @@ jobs:
       - uses: maierj/fastlane-action@v2.2.1
         with:
           lane: 'go'
-      - name: Setup build apks
-        uses: actions/upload-artifact@v3
-        with:
-          name: Build apks
-          path: app/build/outputs/apk
-      - name: Setup build reports
-        uses: actions/upload-artifact@v3
-        with:
-          name: Build reports
-          path: app/build/reports
+#       - name: Setup build apks
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: Build apks
+#           path: app/build/outputs/apk
+#       - name: Setup build reports
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: Build reports
+#           path: app/build/reports
