@@ -60,7 +60,7 @@ data class User(
 	val city: String? = null,
 
 	@SerializedName("phone_number")
-	val phoneNumber: Long? = null,
+	val phoneNumber: String? = null,
 
 	@SerializedName("id")
 	val id: Int? = null,
