@@ -76,6 +76,11 @@ class HomeFragment : Fragment() {
     private fun bindviewModel() {
         viewModel.shouldShowGetProduct.observe(viewLifecycleOwner) {
             homeAdapter.updateList(it)
+            if (it.isEmpty()) {
+                binding.lottieEmpty.visibility = View.VISIBLE
+            } else {
+                binding.lottieEmpty.visibility = View.GONE
+            }
         }
 
         viewModel.shouldShowGetCategory.observe(viewLifecycleOwner) {

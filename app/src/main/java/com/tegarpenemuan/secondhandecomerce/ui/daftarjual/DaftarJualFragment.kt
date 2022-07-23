@@ -56,6 +56,7 @@ class DaftarJualFragment : Fragment() {
         _binding = FragmentDaftarJualBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        binding.lottieEmpty.visibility = View.GONE
         viewModel.getProductSeller()
         viewModel.getUserData()
         //viewModel.getUser() //Room
@@ -67,6 +68,7 @@ class DaftarJualFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        binding.lottieEmpty.visibility = View.GONE
         viewModel.getProductSeller()
     }
 
@@ -441,6 +443,7 @@ class DaftarJualFragment : Fragment() {
 
     private fun bindviewModel() {
         viewModel.shouldShowGetProductSeller.observe(viewLifecycleOwner) { data ->
+            binding.lottieEmpty.visibility = View.GONE
             productSellerAdapter.updateList(data)
             if (data.isEmpty()) {
                 binding.lottieEmpty.visibility = View.VISIBLE
