@@ -10,9 +10,6 @@ interface UserDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(userEntity: UserEntity): Long
 
-    @Query("UPDATE user SET full_name = :fullName, email = :email, password = :password, phone_number = :phoneNumber, address = :address, imageUrl = :imageUrl WHERE id = :id")
-    suspend fun updateUser(id: Int, fullName: String, email: String, password: String, phoneNumber: Long, address: String, imageUrl: String )
-
     @Delete
     suspend fun removeUser(userEntity: UserEntity): Int
 }

@@ -29,27 +29,6 @@ class ProfileRepository @Inject constructor(
         }
     }
 
-    suspend fun uploadImage(token: String, image: MultipartBody.Part): Resource<UpdateUserDataResponse> {
-        authAPI.updateUser(
-            token = token
-        ).let {
-            if (it.isSuccessful) {
-                updateImageProfile(image = it.body()?.imageUrl.orEmpty())
-                return Resource(
-                    status = Status.SUCCESS,
-                    data = it.body(),
-                    message = null
-                )
-            } else {
-                return Resource(
-                    status = Status.ERROR,
-                    data = null,
-                    message = it.errorBody().toString()
-                )
-            }
-        }
-    }
-
     suspend fun updateImageProfile(image: String): Long {
         val profile = dao.getUser()
         val updateProfile = UserEntity(

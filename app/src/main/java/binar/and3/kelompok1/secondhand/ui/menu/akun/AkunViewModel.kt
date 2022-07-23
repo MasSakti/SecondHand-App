@@ -43,28 +43,6 @@ class AkunViewModel @Inject constructor(
         }
     }
 
-    fun uploadImage(body: MultipartBody.Part) {
-        shouldShowLoading.postValue(true)
-        CoroutineScope(Dispatchers.IO).launch {
-            val token = authRepository.getToken()
-            val result = profileRepository.uploadImage(image = body, token = token.toString())
-            withContext(Dispatchers.Main) {
-                when (result.status) {
-                    Status.SUCCESS -> {
-                        shouldShowImageProfile.postValue(result.data?.imageUrl)
-                    }
-                    Status.ERROR -> {
-                        shouldShowError.postValue(result.message.toString())
-                        shouldShowLoading.postValue(false)
-                    }
-                    Status.LOADING -> {
-
-                    }
-                }
-            }
-            getUserData(token = token.toString())
-        }
-    }
 
     private fun getUserData(token: String) {
         CoroutineScope(Dispatchers.IO).launch {

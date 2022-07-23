@@ -6,6 +6,8 @@ import binar.and3.kelompok1.secondhand.data.local.auth.UserEntity
 import binar.and3.kelompok1.secondhand.datastore.AuthDataStoreManager
 import binar.and3.kelompok1.secondhand.data.api.getNotification.GetNotifResponseItem
 import kotlinx.coroutines.flow.firstOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -38,31 +40,30 @@ class AuthRepository @Inject constructor(
         return api.getUser(token = token)
     }
 
+    suspend fun updateUserData(
+        access_token: String,
+        imageUrl: MultipartBody.Part?,
+        fullName: RequestBody?,
+        address: RequestBody?,
+        city: RequestBody?,
+        phoneNumber: RequestBody?
+
+    ): Response<UpdateUserDataResponse> {
+        return api.updateUser(
+            access_token = access_token,
+            image = imageUrl,
+            fullName = fullName,
+            address = address,
+            city = city,
+            phoneNumber = phoneNumber
+        )
+    }
+
     suspend fun insertUser(userEntity: UserEntity): Long {
         return dao.insertUser(userEntity)
     }
 
     suspend fun getNotification(access_token: String): Response<List<GetNotifResponseItem>> {
         return api.getNotification(access_token)
-    }
-
-    suspend fun updateUser(
-        id: Int,
-        fullName: String,
-        email: String,
-        password: String,
-        phoneNumber: Long,
-        address: String,
-        imageUrl: String
-    ) {
-        return dao.updateUser(
-            id = id,
-            fullName = fullName,
-            email = email,
-            password = password,
-            phoneNumber = phoneNumber,
-            address = address,
-            imageUrl = imageUrl
-        )
     }
 }

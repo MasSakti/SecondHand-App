@@ -28,6 +28,7 @@ class HomeViewModel @Inject constructor(
 
     fun onViewLoaded() {
         getSellerCategory()
+        getBuyerProduct(categoryId = "", search = "")
     }
 
     private fun getSellerCategory() {
@@ -43,9 +44,9 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getBuyerProductByCategory(categoryId: Int) {
+    fun getBuyerProduct(categoryId: String, search: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val result = productRepository.getBuyerProductByCategory(categoryId = categoryId)
+            val result = productRepository.getBuyerProductByCategory(categoryId = categoryId, search = search)
             withContext(Dispatchers.Main) {
                 if (result.isSuccessful) {
                     shouldShowBuyerProductByCategory.postValue(result.body())

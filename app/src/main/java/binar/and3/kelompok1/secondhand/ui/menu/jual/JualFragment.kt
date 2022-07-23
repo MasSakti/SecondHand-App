@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
@@ -63,7 +64,7 @@ class JualFragment : Fragment() {
             viewModel.onChangeDescription(it.toString())
         }
         binding.etHargaProduk.doAfterTextChanged {
-            viewModel.onChangeBasePrice(it.hashCode())
+            viewModel.onChangeBasePrice(it.toString())
         }
         binding.etKategori.doAfterTextChanged {
             viewModel.onChangeCategoryIds(listCategoryId)
@@ -92,6 +93,11 @@ class JualFragment : Fragment() {
                 }
                 binding.etKategori.setText(category.drop(2))
             }
+        }
+        viewModel.shouldShowError.observe(viewLifecycleOwner) {
+            val snackbar = Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG)
+            snackbar.view.setBackgroundColor(Color.RED)
+            snackbar.show()
         }
     }
 

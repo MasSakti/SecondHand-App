@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerProductResponse
 import binar.and3.kelompok1.secondhand.data.api.seller.GetSellerCategoryResponse
 import binar.and3.kelompok1.secondhand.databinding.FragmentHomeBinding
+import binar.and3.kelompok1.secondhand.ui.buyer.ProductDetailActivity
 import binar.and3.kelompok1.secondhand.ui.menu.home.adapter.HomeCategoryButtonAdapter
 import binar.and3.kelompok1.secondhand.ui.menu.home.adapter.product.HomeProductAdapter
 import binar.and3.kelompok1.secondhand.ui.seller.ProductPreviewActivity
@@ -48,7 +50,7 @@ class HomeFragment : Fragment() {
         homeProductAdapter =
             HomeProductAdapter(listener = object : HomeProductAdapter.EventListener {
                 override fun onClick(item: BuyerProductResponse) {
-                    val intent = Intent(activity, ProductPreviewActivity::class.java)
+                    val intent = Intent(activity, ProductDetailActivity::class.java)
                     val bundle = Bundle()
                     item.id?.let { bundle.putInt(PRODUCT_ID, it) }
                     intent.putExtras(bundle)
@@ -59,7 +61,7 @@ class HomeFragment : Fragment() {
         homeCategoryButtonAdapter =
             HomeCategoryButtonAdapter(listener = object : HomeCategoryButtonAdapter.EventListener {
                 override fun onClick(item: GetSellerCategoryResponse) {
-                    item.id?.let { viewModel.getBuyerProductByCategory(categoryId = it) }
+                    item.id?.let { viewModel.getBuyerProduct(categoryId = it.toString(), search = "") }
                 }
             }, emptyList())
 
@@ -68,9 +70,23 @@ class HomeFragment : Fragment() {
         binding.rvCategories.adapter = homeCategoryButtonAdapter
 
         viewModel.onViewLoaded()
+        viewModel.getBuyerProduct(categoryId = "", search = "")
         bindViewModel()
+        bindView()
 
         return root
+    }
+
+    private fun bindView(){
+        binding.etSearch.setOnEditorActionListener { textView, i, keyEvent ->
+            if (i == EditorInfo.IME_ACTION_SEARCH) {
+                val onSearch = binding.etSearch.text.toString()
+                viewModel.getBuyerProduct(categoryId = "", search = onSearch)
+                true
+            } else {
+                false
+            }
+        }
     }
 
     private fun bindViewModel() {

@@ -41,7 +41,7 @@ class ItemProdukAdapter(
             .load(sellerProduct.imageUrl)
             .into(holder.binding.ivItem)
         holder.binding.tvTitle.text = sellerProduct.name
-        holder.binding.tvHarga.text = "Rp. " + sellerProduct.basePrice.toString()
+        holder.binding.tvHarga.text = "Rp " + sellerProduct.basePrice.toString()
         holder.itemView.setOnClickListener {
             listener.onClick(item = sellerProduct)
         }

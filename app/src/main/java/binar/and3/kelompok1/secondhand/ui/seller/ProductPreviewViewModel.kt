@@ -16,7 +16,6 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductPreviewViewModel @Inject constructor(
     private val productRepository: ProductRepository,
-    private val authRepository: AuthRepository
 ) : ViewModel() {
 
     val shouldShowProduct: MutableLiveData<GetProductByIdResponse> = MutableLiveData()

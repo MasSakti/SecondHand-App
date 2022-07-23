@@ -17,14 +17,4 @@
         app:spanCount="2"
         tools:listitem="@layout/list_item_product_card" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="?actionBarSize"
-        android:clickable="true"
-        android:src="@drawable/ic_fi_plus"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

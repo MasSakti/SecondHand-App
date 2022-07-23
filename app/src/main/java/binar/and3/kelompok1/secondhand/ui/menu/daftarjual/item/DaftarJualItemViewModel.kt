@@ -39,4 +39,9 @@ class DaftarJualItemViewModel @Inject constructor(
             }
         }
     }
+
+    private fun getWishes() {
+        CoroutineScope(Dispatchers.IO).launch {
+        }
+    }
 }

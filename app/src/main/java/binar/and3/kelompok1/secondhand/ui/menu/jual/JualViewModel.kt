@@ -1,5 +1,6 @@
 package binar.and3.kelompok1.secondhand.ui.menu.jual
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,10 +9,7 @@ import binar.and3.kelompok1.secondhand.data.api.seller.GetSellerCategoryResponse
 import binar.and3.kelompok1.secondhand.repository.AuthRepository
 import binar.and3.kelompok1.secondhand.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -28,7 +26,7 @@ class JualViewModel @Inject constructor(
 
     private var name: String = ""
     private var description: String = ""
-    private var basePrice: Int = 0
+    private var basePrice: String = ""
     private var categoryIds: List<Int> = emptyList()
     private var image: File? = null
 
@@ -38,7 +36,7 @@ class JualViewModel @Inject constructor(
     fun onChangeDescription(description: String) {
         this.description = description
     }
-    fun onChangeBasePrice(basePrice: Int) {
+    fun onChangeBasePrice(basePrice: String) {
         this.basePrice = basePrice
     }
     fun onChangeCategoryIds(categoryIds: List<Int>) {
@@ -77,7 +75,7 @@ class JualViewModel @Inject constructor(
             shouldShowError.postValue("Nama produk harus diisi")
         } else if (description.isEmpty()) {
             shouldShowError.postValue("Deskripsi harus jelas")
-        } else if (basePrice.toString().isEmpty()) {
+        } else if (basePrice.isEmpty()) {
             shouldShowError.postValue("Kamu harus menentukan harga")
         } else if (categoryIds.isEmpty()) {
             shouldShowError.postValue("Setidaknya kamu harus mengisi satu jenis kategori")
@@ -99,7 +97,7 @@ class JualViewModel @Inject constructor(
     private fun processToUploadProduct(
         name: String,
         description: String,
-        basePrice: Int,
+        basePrice: String,
         categoryIds: List<Int>,
         image: File,
         location: String = "-"
@@ -107,7 +105,7 @@ class JualViewModel @Inject constructor(
         val requestFile = reduceFileImage(image).asRequestBody("image/jpg".toMediaTypeOrNull())
         val nameRequestBody = name.toRequestBody("text/plain".toMediaType())
         val descriptionRequestBody = description.toRequestBody("text/plain".toMediaType())
-        val basePriceRequestBody = basePrice.toString().toRequestBody("text/plain".toMediaType())
+        val basePriceRequestBody = basePrice.toRequestBody("text/plain".toMediaType())
         val imageRequestBody = MultipartBody.Part.createFormData("image", image.name, requestFile)
         val locationRequestBody = location.toRequestBody("text/plain".toMediaType())
         CoroutineScope(Dispatchers.IO).launch {

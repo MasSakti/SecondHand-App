@@ -1,5 +1,6 @@
 package binar.and3.kelompok1.secondhand.ui.menu.daftarjual
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import binar.and3.kelompok1.secondhand.R
 import binar.and3.kelompok1.secondhand.databinding.FragmentDaftarJualBinding
+import binar.and3.kelompok1.secondhand.ui.lengkapiinfoakun.LengkapiInfoAkunActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -58,9 +60,18 @@ class DaftarJualFragment : Fragment() {
         }
 
         viewModel.getProfile()
+        bindView()
         bindViewModel()
 
         return root
+    }
+
+    private fun bindView() {
+        binding.btnEdit.setOnClickListener {
+            val intent = Intent(context, LengkapiInfoAkunActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
     }
 
     private fun bindViewModel() {

@@ -94,6 +94,7 @@ class SignInViewModel @Inject constructor(
                             email = it.email.orEmpty(),
                             password = it.password.orEmpty(),
                             phoneNumber = it.phoneNumber.hashCode(),
+                            city = it.city.orEmpty(),
                             address = it.address.orEmpty(),
                             imageUrl = it.imageUrl.orEmpty()
                         )

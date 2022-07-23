@@ -30,12 +30,6 @@ class ItemProdukFragment : Fragment() {
         _binding = FragmentItemProdukBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        binding.floatingActionButton.setOnClickListener{
-            val intent = Intent(requireContext(), JualFormActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-        }
-
         itemProdukAdapter =
             ItemProdukAdapter(listener = object : ItemProdukAdapter.EventListener {
                 override fun onClick(item: GetProductResponse) {

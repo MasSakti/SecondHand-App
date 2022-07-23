@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import binar.and3.kelompok1.secondhand.databinding.FragmentAkunBinding
+import binar.and3.kelompok1.secondhand.ui.lengkapiinfoakun.LengkapiInfoAkunActivity
 import binar.and3.kelompok1.secondhand.ui.signin.LoginUI
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -50,32 +51,15 @@ class AkunFragment : Fragment() {
     }
 
     private fun bindView() {
-        val getContent =
-            registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri ->
-                uri.let {
-                    val type = requireActivity().contentResolver.getType(it)
-
-                    val tempFile = File.createTempFile("temp-", null, null)
-                    val inputStream = requireActivity().contentResolver.openInputStream(uri)
-
-                    tempFile.outputStream().use { inputStream?.copyTo(it) }
-
-                    val requestBody: RequestBody = tempFile.asRequestBody(type?.toMediaType())
-                    val body =
-                        MultipartBody.Part.createFormData("image", tempFile.name, requestBody)
-
-                    viewModel.uploadImage(body)
-                }
-            }
-
-        binding.ivImageAccount.setOnClickListener {
-            getContent.launch("image/*")
-        }
 
         binding.llSignOut.setOnClickListener {
             viewModel.signOut()
         }
-
+        binding.llChangeAccount.setOnClickListener {
+            val intent = Intent(context, LengkapiInfoAkunActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
     }
 
     private fun bindViewModel() {

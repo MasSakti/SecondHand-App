@@ -2,6 +2,8 @@ package binar.and3.kelompok1.secondhand.repository
 
 import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerAPI
 import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerProductResponse
+import binar.and3.kelompok1.secondhand.data.api.buyer.PostBuyerBidRequest
+import binar.and3.kelompok1.secondhand.data.api.buyer.PostBuyerBidResponse
 import binar.and3.kelompok1.secondhand.data.api.seller.*
 import binar.and3.kelompok1.secondhand.data.local.buyer.BuyerDAO
 import binar.and3.kelompok1.secondhand.data.local.buyer.BuyerEntity
@@ -20,12 +22,16 @@ class ProductRepository @Inject constructor(
         return buyerAPI.getBuyerProduct(status = "available")
     }
 
-    suspend fun getBuyerProductByCategory(categoryId: Int): Response<List<BuyerProductResponse>> {
-        return buyerAPI.getBuyerProduct(categoryId = categoryId, status = "available")
+    suspend fun getBuyerProductByCategory(categoryId: String, search: String): Response<List<BuyerProductResponse>> {
+        return buyerAPI.getBuyerProduct(categoryId = categoryId, status = "available", search = search)
     }
 
     suspend fun getBuyerProductById(id: Int): Response<GetProductByIdResponse> {
         return buyerAPI.getBuyerProductById(id = id)
+    }
+
+    suspend fun postBuyerBid(accessToken: String, postBuyerBidRequest: PostBuyerBidRequest) : Response<PostBuyerBidResponse> {
+        return buyerAPI.postBuyerBid(accessToken = accessToken, postBuyerBidRequest = postBuyerBidRequest)
     }
 
     // Seller
@@ -57,13 +63,14 @@ class ProductRepository @Inject constructor(
         )
     }
 
-    suspend fun insertProductToLocal(buyerEntity: BuyerEntity): Long {
-        return dao.insertProduct(buyerEntity)
-    }
-
     // Seller Category
     suspend fun getSellerCategory(): Response<List<GetSellerCategoryResponse>> {
         return sellerAPI.getSellerCategory()
+    }
+
+    // Local
+    suspend fun insertProductToLocal(buyerEntity: BuyerEntity): Long {
+        return dao.insertProduct(buyerEntity)
     }
 
 }
