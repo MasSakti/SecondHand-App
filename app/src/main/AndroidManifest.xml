@@ -13,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SecondHandEcomerce">
         <activity
+            android:name=".ui.onboarding.OnboardingActivity"
+            android:theme="@style/Theme.Onboarding.fullscreen"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".ui.splashscreen.SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -33,11 +38,10 @@
             android:label="@string/title_activity_main" />
         <activity
             android:name=".ui.login.Login"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.register.Register"
             android:exported="false" />
         <activity android:name=".ui.detailnotification.DetailNotificationActivity" />
     </application>
-
 </manifest>

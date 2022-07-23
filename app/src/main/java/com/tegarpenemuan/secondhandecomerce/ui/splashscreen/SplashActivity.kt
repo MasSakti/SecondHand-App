@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import com.tegarpenemuan.secondhandecomerce.databinding.ActivitySplashBinding
 import com.tegarpenemuan.secondhandecomerce.ui.login.Login
 import com.tegarpenemuan.secondhandecomerce.ui.main.MainActivity
+import com.tegarpenemuan.secondhandecomerce.ui.onboarding.OnboardingActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val timer = object : CountDownTimer(5000, 1000) {
+        val timer = object : CountDownTimer(3000, 1000) {
             override fun onTick(millisUntilFinished: Long) {}
             override fun onFinish() {
                 viewModel.onViewLoaded()
@@ -36,7 +37,7 @@ class SplashActivity : AppCompatActivity() {
         viewModel.shouldOpenOnBoarding.observe(this) {
             if (it) {
                 //Ke Onboarding
-                val intent = Intent(this, Login::class.java)
+                val intent = Intent(this, OnboardingActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }

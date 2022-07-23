@@ -11,4 +11,10 @@
     <color name="purple">#7126B5</color>
     <color name="neutral">#3C3C3C</color>
     <color name="success">#73CA5C</color>
+
+    <color name="purple_gradient">#8B188D</color>
+    <color name="textColorPrimary">#1B1B1B</color>
+    <color name="textColorSecondary">#808080</color>
+
+
 </resources>

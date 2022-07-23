@@ -31,12 +31,14 @@
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.112" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/drawable/ic_round_search_24.xml" value="0.1" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/drawable/list_item_product_home.xml" value="0.1" />
+        <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/drawable/purple_circle.xml" value="0.1" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/drawable/shape_button_blue.xml" value="0.103" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/drawable/shape_rounded_cyan.xml" value="0.103" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/activity_akun_saya.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/activity_buyer6.xml" value="0.22" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/activity_main.xml" value="0.184375" />
+        <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/activity_onboarding.xml" value="0.14130434782608695" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/activity_profile.xml" value="0.1308876811594203" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/activity_seller18.xml" value="0.13333333333333333" />
@@ -54,6 +56,8 @@
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/fragment_preview.xml" value="0.13722826086956522" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/fragment_seller25.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/fragment_seller30.xml" value="0.22" />
+        <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/item_onboarding_screen.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/item_onboarding_screen2.xml" value="0.14130434782608695" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/item_slide.xml" value="0.13722826086956522" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/layout_validasi_logout.xml" value="0.1390625" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/list_item.xml" value="0.4466666666666667" />
@@ -68,41 +72,13 @@
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/list_item_tawaaran.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/list_product_category.xml" value="0.1390625" />
         <entry key="..\:/Users/User/StudioProjects/FinalProject-G3/app/src/main/res/layout/spinner_list.xml" value="0.1308876811594203" />
-        <entry key="..\:/lll/app/src/main/res/drawable/bg_rounded.xml" value="0.118" />
-        <entry key="..\:/lll/app/src/main/res/drawable/dialog_bg.xml" value="0.118" />
-        <entry key="..\:/lll/app/src/main/res/drawable/rounded_dialog.xml" value="0.118" />
-        <entry key="..\:/lll/app/src/main/res/layout/activity_buyer_order.xml" value="0.17592592592592593" />
+        <entry key="..\:/lll/app/src/main/res/layout/activity_buyer_order.xml" value="0.209375" />
         <entry key="..\:/lll/app/src/main/res/layout/activity_detail_notification.xml" value="0.209375" />
-        <entry key="..\:/lll/app/src/main/res/layout/activity_login.xml" value="0.209375" />
-        <entry key="..\:/lll/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/lll/app/src/main/res/layout/activity_profile.xml" value="0.209375" />
-        <entry key="..\:/lll/app/src/main/res/layout/activity_register.xml" value="0.209375" />
-        <entry key="..\:/lll/app/src/main/res/layout/activity_update_product.xml" value="0.209375" />
-        <entry key="..\:/lll/app/src/main/res/layout/bottom_sheet_acc_produk.xml" value="0.20615384615384616" />
-        <entry key="..\:/lll/app/src/main/res/layout/bottom_sheet_click_product.xml" value="0.18518518518518517" />
-        <entry key="..\:/lll/app/src/main/res/layout/bottom_sheet_dialog_nego.xml" value="0.209375" />
-        <entry key="..\:/lll/app/src/main/res/layout/bottom_sheet_hubungi_penawar.xml" value="0.22" />
-        <entry key="..\:/lll/app/src/main/res/layout/fragment_akun.xml" value="0.209375" />
-        <entry key="..\:/lll/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.18518518518518517" />
-        <entry key="..\:/lll/app/src/main/res/layout/fragment_edit_product.xml" value="0.209375" />
-        <entry key="..\:/lll/app/src/main/res/layout/fragment_home.xml" value="0.209375" />
-        <entry key="..\:/lll/app/src/main/res/layout/fragment_jual.xml" value="0.209375" />
+        <entry key="..\:/lll/app/src/main/res/layout/activity_main.xml" value="0.209375" />
+        <entry key="..\:/lll/app/src/main/res/layout/bottom_sheet_acc_produk.xml" value="0.209375" />
+        <entry key="..\:/lll/app/src/main/res/layout/bottom_sheet_hubungi_penawar.xml" value="0.209375" />
+        <entry key="..\:/lll/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.13541666666666666" />
         <entry key="..\:/lll/app/src/main/res/layout/fragment_notifications.xml" value="0.175" />
-        <entry key="..\:/lll/app/src/main/res/layout/fragment_pilh_category.xml" value="0.209375" />
-        <entry key="..\:/lll/app/src/main/res/layout/fragment_pilih_category.xml" value="0.209375" />
-        <entry key="..\:/lll/app/src/main/res/layout/list_item_daftar_jual.xml" value="0.209375" />
-        <entry key="..\:/project-android-secondhand-clone/app/src/main/res/layout/activity_splash.xml" value="0.22" />
-        <entry key="..\:/project-android-secondhand-clone/app/src/main/res/layout/bottom_sheet_acc_produk.xml" value="0.209375" />
-        <entry key="..\:/project-android-secondhand-clone/app/src/main/res/layout/bottom_sheet_click_product.xml" value="0.209375" />
-        <entry key="..\:/project-android-secondhand-clone/app/src/main/res/layout/bottom_sheet_hubungi_penawar.xml" value="0.209375" />
-        <entry key="..\:/project-android-secondhand-clone/app/src/main/res/layout/bottom_sheet_perbaharui_status.xml" value="0.209375" />
-        <entry key="..\:/project-android-secondhand-clone/app/src/main/res/layout/bottom_sheet_terjual_click.xml" value="0.184375" />
-        <entry key="..\:/project-android-secondhand-clone/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.22" />
-        <entry key="..\:/project-android-secondhand-clone/app/src/main/res/layout/fragment_home.xml" value="0.209375" />
-        <entry key="..\:/project-android-secondhand-clone/app/src/main/res/layout/list_item_daftar_jual.xml" value="0.209375" />
-        <entry key="..\:/project-android-secondhand-clone/app/src/main/res/layout/list_item_order.xml" value="0.1" />
-        <entry key="..\:/project-android-secondhand-clone/app/src/main/res/layout/list_item_product_home.xml" value="0.209375" />
-        <entry key="..\:/project-android-secondhand-clone/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.133" />
         <entry key="..\:/project-android-secondhand/FinalProject-G3-fix/app/src/main/res/layout/activity_detail_notification.xml" value="0.209375" />
         <entry key="..\:/project-android-secondhand/FinalProject-G3-fix/app/src/main/res/layout/bottom_sheet_dialog_nego.xml" value="0.209375" />
         <entry key="..\:/project-android-secondhand/FinalProject-G3-fix/app/src/main/res/layout/bottom_sheet_hubungi_penawar.xml" value="0.25" />
