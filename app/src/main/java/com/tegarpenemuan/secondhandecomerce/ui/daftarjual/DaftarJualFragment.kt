@@ -7,11 +7,9 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -39,6 +37,7 @@ class DaftarJualFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: DaftarJualViewModel by viewModels()
     private val bundleEdit = Bundle()
+    var rb1: RadioButton? = null
 
     lateinit var productSellerAdapter: DaftarJualAdapter
     lateinit var sellerOrderAdapter: SellerOrderAdapter
@@ -58,7 +57,7 @@ class DaftarJualFragment : Fragment() {
         val root: View = binding.root
 
         viewModel.getProductSeller()
-        viewModel. getUserData()
+        viewModel.getUserData()
         //viewModel.getUser() //Room
 
         bindview()
@@ -107,6 +106,7 @@ class DaftarJualFragment : Fragment() {
 
         }
         binding.btnProduct.setOnClickListener {
+            binding.lottieEmpty.visibility = View.GONE
             viewModel.getProductSeller()
             binding.rvProduct.visibility = View.VISIBLE
             binding.rvOrder.visibility = View.GONE
@@ -125,12 +125,56 @@ class DaftarJualFragment : Fragment() {
                 override fun onClick(item: SellerOrderResponseItem) {
                     idOrder = item.id
                     when (item.status) {
-                        "accepted" -> bottomSheetHubPenjual()
+                        "accepted" -> bottomSheetTerjualClick()
+                        "declined" -> bottomSheetUpdateStatus()
                         else -> bottomSheetAccOrder()
                     }
                 }
             }, emptyList())
         binding.rvOrder.adapter = sellerOrderAdapter
+    }
+
+    private fun bottomSheetUpdateStatus() {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.bottom_sheet_perbaharui_status)
+
+        val radioButton = dialog.findViewById<View>(R.id.radioButton) as RadioButton
+        val radioButton1 = dialog.findViewById<View>(R.id.radioButton2) as RadioButton
+        val button = dialog.findViewById<View>(R.id.button2) as Button
+
+        radioButton.isChecked = false
+        radioButton1.isChecked = false
+
+        viewModel.getDetailOrder(idOrder)
+
+        button.setOnClickListener {
+            if (radioButton.isChecked) {
+                viewModel.updateStatusOrder(idOrder, UpdateStatusOrderRequest("accepted"))
+                refreshData()
+                onResume()
+                dialog.dismiss()
+                onResume()
+                bottomSheetHubPenjual()
+                refreshData()
+            } else if(radioButton1.isChecked) {
+                viewModel.updateStatusOrder(idOrder, UpdateStatusOrderRequest("declined"))
+                refreshData()
+                onResume()
+                dialog.dismiss()
+                Toast.makeText(requireContext(),"Transaksi Dibatalkan",Toast.LENGTH_SHORT).show()
+                refreshData()
+            }
+        }
+
+        dialog.show()
+        dialog.window!!.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
+        dialog.window!!.setGravity(Gravity.BOTTOM)
     }
 
     private fun bottomSheetClickProduct(item: GetProductResponse) {
@@ -152,9 +196,9 @@ class DaftarJualFragment : Fragment() {
             .transform(RoundedCorners(20))
             .into(ivProduk)
 
-        var listCategoryy :String? = ""
+        var listCategoryy: String? = ""
         if (item.Categories.isNotEmpty()) {
-            for (data in item.Categories){
+            for (data in item.Categories) {
                 listCategoryy += ", ${data.name}"
             }
             tvCategory.text = listCategoryy!!.drop(2)
@@ -163,42 +207,78 @@ class DaftarJualFragment : Fragment() {
         tvHargaProduk.text = item.base_price.toString()
 
         btnUpdate.setOnClickListener {
-            bundleEdit.apply {
-                putInt("PRODUCT_ID", item.id)
-                putString("PRODUCT_NAME", item.name)
-                putInt("PRODUCT_PRICE", item.base_price)
-                listCategory.clear()
-                listCategoryId.clear()
-                for (kategori in item.Categories){
-                    listCategory.add(kategori.name)
-                    listCategoryId.add(kategori.id)
-                }
-                putString("PRODUCT_DESCRIPTION",item.description)
-                putString("PRODUCT_IMAGE",item.image_url)
-                putString("PRODUCT_LOCATION",item.location)
-            }
-            findNavController().navigate(R.id.action_navigation_daftar_jual_to_editProductFragment, bundleEdit)
+            bottomSheetUpdateStatus()
             dialog.dismiss()
         }
         btnDelete.setOnClickListener {
-            AlertDialog.Builder(requireContext())
-                .setTitle("Pesan")
-                .setMessage("Yakin ingin menghapus produk ${item.name}?")
-                .setPositiveButton("Ya") { dialogP, _ ->
-                    viewModel.deleteSellerProduct(item.id)
-                    dialogP.dismiss()
-                    onResume()
-                    Toast.makeText(requireContext(), "Data Berhasil Dihapus", Toast.LENGTH_SHORT).show()
-                }
-                .setNegativeButton("Batal") { dialogN, _ ->
-                    dialogN.dismiss()
-                    onResume()
-                    Toast.makeText(requireContext(), "Data Batal Dihapus", Toast.LENGTH_SHORT).show()
-                }
-                .setCancelable(false)
-                .show()
-
+            bottomSheetHubPenjual()
             dialog.dismiss()
+        }
+        dialog.show()
+        dialog.window!!.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
+        dialog.window!!.setGravity(Gravity.BOTTOM)
+    }
+
+    private fun bottomSheetTerjualClick() {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.bottom_sheet_terjual_click)
+
+        val ivPembeli = dialog.findViewById<ImageView>(R.id.ivPembeli)
+        val tvNamaPembeli = dialog.findViewById<TextView>(R.id.namaPembeli)
+        val tvKotaPembeli = dialog.findViewById<TextView>(R.id.tvKotaPembeli)
+
+        val ivProduk = dialog.findViewById<ImageView>(R.id.img_product)
+        val tvNamaProduk = dialog.findViewById<TextView>(R.id.tv_nama_product)
+        val tvHargaProduk = dialog.findViewById<TextView>(R.id.tv_info_harga)
+        val tvPenawaran = dialog.findViewById<TextView>(R.id.tv_info_tawar)
+        val tvTime = dialog.findViewById<TextView>(R.id.tv_notif_time)
+        val tvInisialAcc = dialog.findViewById<TextView>(R.id.tvInisialAcc)
+
+        val btnTolak = dialog.findViewById<Button>(R.id.btnTolakProduct)
+        val btnTerima = dialog.findViewById<Button>(R.id.btnTerimaProduct)
+
+        viewModel.getDetailOrder(idOrder)
+
+        viewModel.shouldShowDetailNotif.observe(viewLifecycleOwner) {
+            when (it.image_url) {
+                null -> tvInisialAcc.text = it.User.full_name.getInitial()
+                else -> Glide.with(requireContext())
+                    .load(it.User.image_url)
+                    .transform(RoundedCorners(20))
+                    .into(ivPembeli)
+            }
+
+            tvNamaPembeli.text = it.User.full_name
+            tvKotaPembeli.text = it.User.city
+
+            Glide.with(requireContext())
+                .load(it.Product.image_url)
+                .transform(RoundedCorners(20))
+                .into(ivProduk)
+            tvNamaProduk.text = it.Product.name
+            tvHargaProduk.text = currency(it.Product.base_price)
+            tvPenawaran.text = "Ditawar ${currency(it.price)}"
+            tvTime.text = convertDate(it.createdAt)
+        }
+
+        btnTerima.setOnClickListener {
+            viewModel.updateStatusOrder(idOrder, UpdateStatusOrderRequest("accepted"))
+            refreshData()
+            onResume()
+            dialog.dismiss()
+            bottomSheetHubPenjual()
+        }
+        btnTolak.setOnClickListener {
+            dialog.dismiss()
+            onResume()
+            bottomSheetUpdateStatus()
+
         }
         dialog.show()
         dialog.window!!.setLayout(
@@ -264,7 +344,9 @@ class DaftarJualFragment : Fragment() {
             val phonenumberPenawar = "+62$nomorPembeli"
             val message =
                 "Halo ${namaPembeli}${emoteWave} Tawaranmu pada product *$namaProduk* telah disetujui oleh penjual dengan harga *${
-                    currency(hargaDitawarProduk)
+                    currency(
+                        hargaDitawarProduk
+                    )
                 }*. Penjual akan menghubungimu secepatnya$emoteSmile"
 
             startActivity(
@@ -358,11 +440,21 @@ class DaftarJualFragment : Fragment() {
     }
 
     private fun bindviewModel() {
-        viewModel.shouldShowGetProductSeller.observe(viewLifecycleOwner) {
-            productSellerAdapter.updateList(it)
+        viewModel.shouldShowGetProductSeller.observe(viewLifecycleOwner) { data ->
+            productSellerAdapter.updateList(data)
+            if (data.isEmpty()) {
+                binding.lottieEmpty.visibility = View.VISIBLE
+            } else {
+                binding.lottieEmpty.visibility = View.GONE
+            }
         }
-        viewModel.shouldShowGetSellerOrder.observe(viewLifecycleOwner) {
-            sellerOrderAdapter.updateList(it)
+        viewModel.shouldShowGetSellerOrder.observe(viewLifecycleOwner) { data ->
+            sellerOrderAdapter.updateList(data)
+            if (data.isEmpty()) {
+                binding.lottieEmpty.visibility = View.VISIBLE
+            } else {
+                binding.lottieEmpty.visibility = View.GONE
+            }
         }
 
         viewModel.showUser.observe(viewLifecycleOwner) {
@@ -379,27 +471,13 @@ class DaftarJualFragment : Fragment() {
             binding.tvnama.text = it.full_name
             binding.tvkota.text = it.city
         }
-//Room
-//        viewModel.shouldShowUser.observe(viewLifecycleOwner) {
-//            if (it.image_url == null) {
-//                binding.tvInisial.text = it.full_name.getInitial()
-//            } else {
-//                Glide.with(requireContext())
-//                    .load(it.image_url)
-//                    .error(R.drawable.ic_launcher_background)
-//                    .transform(RoundedCorners(20))
-//                    .into(binding.ivakun)
-//            }
-//            binding.tvnama.text = it.full_name
-//            binding.tvkota.text = it.city
-//        }
     }
 
     private fun refreshData() {
         when (binding.tvTitle.text.toString()) {
             "Produk Ditolak" -> viewModel.getOrder("declined")
             "Produk Terjual" -> viewModel.getOrder("accepted")
-//            "Produk Saya" -> viewModel.getProductSeller()
+            "Produk Saya" -> viewModel.getProductSeller()
             "Produk Diminati" -> viewModel.getOrder("pending")
         }
     }

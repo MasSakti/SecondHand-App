@@ -19,7 +19,7 @@ class SellerOrderAdapter(
         RecyclerView.ViewHolder(binding.root)
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateList(list:  List<SellerOrderResponseItem>) {
+    fun updateList(list: List<SellerOrderResponseItem>) {
         this.list = list.sortedByDescending { it.createdAt }
         notifyDataSetChanged()
     }

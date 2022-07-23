@@ -2,6 +2,7 @@ package com.tegarpenemuan.secondhandecomerce.ui.daftarjual.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -32,23 +33,29 @@ class DaftarJualAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
 
+        if (item.status == "available") {
+            holder.itemView.setOnClickListener {
+                listener.onClick(item)
+            }
+        } else {
+            holder.binding.ivSold.visibility = View.VISIBLE
+        }
+
         holder.binding.tvNamaProduct.text = item.name
         Glide.with(holder.binding.root.context)
             .load(item.image_url)
             .transform(RoundedCorners(20))
             .into(holder.binding.ivImageProduct)
-        holder.binding.tvHargaProduct.text = ChangeCurrency.gantiRupiah(item.base_price.toString())
-        var listCategory :String? = ""
+        holder.binding.tvHargaProduct.text =
+            ChangeCurrency.gantiRupiah(item.base_price.toString())
+        var listCategory: String? = ""
         if (item.Categories.isNotEmpty()) {
-            for (data in item.Categories){
+            for (data in item.Categories) {
                 listCategory += ", ${data.name}"
             }
             holder.binding.tvJenisProduct.text = listCategory!!.drop(2)
         }
 
-        holder.itemView.setOnClickListener {
-            listener.onClick(item)
-        }
     }
 
     override fun getItemCount(): Int {

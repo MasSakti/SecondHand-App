@@ -80,8 +80,9 @@ class AkunFragment : Fragment() {
             val btnYes = dialog.findViewById(R.id.btnIya) as Button
             btnYes.setOnClickListener {
                 viewModel.logout()
-                startActivity(Intent(requireContext(), Login::class.java))
                 dialog.dismiss()
+                activity!!.finish()
+                startActivity(Intent(requireContext(), Login::class.java))
             }
             val btnNo = dialog.findViewById(R.id.btnTidak) as Button
             btnNo.setOnClickListener {
@@ -89,7 +90,6 @@ class AkunFragment : Fragment() {
                 showToastSuccess(requireView(), "Batal Logout", R.color.success)
             }
             dialog.show()
-            activity!!.finish()
         }
         binding.tvPengaturan.setOnClickListener {
             Toast.makeText(requireContext(), "Setting", Toast.LENGTH_SHORT).show()

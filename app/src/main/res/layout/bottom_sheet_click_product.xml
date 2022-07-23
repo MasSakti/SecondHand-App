@@ -101,7 +101,7 @@
         android:layout_margin="10dp"
         app:cardCornerRadius="20dp"
         android:layout_width="match_parent"
-        app:cardBackgroundColor="#8BC34A">
+        app:cardBackgroundColor="@color/purple_700">
 
         <TextView
             android:layout_gravity="center"
@@ -119,7 +119,7 @@
         android:layout_margin="10dp"
         app:cardCornerRadius="20dp"
         android:layout_width="match_parent"
-        app:cardBackgroundColor="#F44336">
+        app:cardBackgroundColor="#D51609">
 
         <TextView
             android:layout_gravity="center"

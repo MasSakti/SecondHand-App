@@ -27,7 +27,6 @@ class DaftarJualViewModel @Inject constructor(
     val showError: MutableLiveData<String> = MutableLiveData()
     val showUser: MutableLiveData<GetProfileResponse> = MutableLiveData()
 
-    //val shouldShowUser: MutableLiveData<UserEntity> = MutableLiveData()
     val shouldShowDetailNotif: MutableLiveData<GetDetailOrderResponse> = MutableLiveData()
     val shouldShowUpdateStatusOrdoer: MutableLiveData<UpdateStatusOrderResponse> = MutableLiveData()
     val showDelete: MutableLiveData<DeleteSellerProductResponse> = MutableLiveData()
@@ -61,25 +60,6 @@ class DaftarJualViewModel @Inject constructor(
         }
     }
 
-    //Room
-//    fun getUser() {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            val result = repository.getUser()
-//            withContext(Dispatchers.Main) {
-//                shouldShowUser.postValue(
-//                    UserEntity(
-//                        id = result.id,
-//                        full_name = result.full_name,
-//                        email = result.email,
-//                        phone_number = result.phone_number,
-//                        address = result.address,
-//                        image_url = result.image_url,
-//                        city = result.city
-//                    )
-//                )
-//            }
-//        }
-//    }
     fun getUserData() {
         CoroutineScope(Dispatchers.IO).launch {
             val result = repository.getProfile(repository.getToken()!!)
