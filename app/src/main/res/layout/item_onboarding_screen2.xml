@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/textColorSecondary"
         android:maxWidth="220dp"
+        android:justificationMode="inter_word"
         android:text="Beli barang bisa di mana saja dan kapan saja"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"

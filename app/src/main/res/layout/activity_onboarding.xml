@@ -11,25 +11,29 @@
         android:id="@+id/img_previous"
         android:layout_width="?actionBarSize"
         android:layout_height="?actionBarSize"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:padding="5dp"
         android:onClick="onClick"
+        android:padding="5dp"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_skip"
         android:layout_width="?actionBarSize"
         android:layout_height="?actionBarSize"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:gravity="center"
         android:onClick="onClick"
         android:text="Skip"
         android:textColor="@color/textColorSecondary"
         android:textSize="14sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager_onboarding"
@@ -45,23 +49,24 @@
         android:id="@+id/tv_next"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="Next"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/purple_circle"
         android:gravity="center"
+        android:onClick="onClick"
+        android:text="Next"
         android:textColor="@color/white"
         android:textSize="12sp"
-        android:onClick="onClick"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
         android:id="@+id/worm_dot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="24dp"
         app:dotsColor="@color/purple"
         app:dotsSize="12dp"
         app:dotsSpacing="2dp"
@@ -69,7 +74,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/tv_next"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_next"
-        app:stiffness="300"/>
+        app:stiffness="300" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.tegarpenemuan.secondhandecomerce.R
 import com.tegarpenemuan.secondhandecomerce.databinding.ActivityMainBinding
 import com.tegarpenemuan.secondhandecomerce.databinding.ActivityOnboardingBinding
-import com.tegarpenemuan.secondhandecomerce.databinding.BottomSheetHubungiPenawarBinding
 import com.tegarpenemuan.secondhandecomerce.ui.home.HomeFragment
 import com.tegarpenemuan.secondhandecomerce.ui.login.Login
 import com.tegarpenemuan.secondhandecomerce.ui.onboarding.adapter.PagerAdapterOnBoarding
@@ -55,21 +54,24 @@ class OnboardingActivity : AppCompatActivity() {
         val items = ArrayList<OnBoardingData>()
         items.add(
             OnBoardingData(
-                "Pesan Barang yang Anda Minati", "Beli barang bisa di mana saja dan kapan saja",
+                "Pilih Produk yang Anda Minati",
+                "Tersedia lebih dari 100 Ribu produk. Pilih produk Anda hanya dengan klik aplikasi SecondHand",
                 R.drawable.img_onboarding1
             )
         )
 
         items.add(
             OnBoardingData(
-                "Pesan Barang yang Anda Minati", "Beli barang bisa di mana saja dan kapan saja",
+                "Order Produk",
+                "Order produk dengan negosiasi langsung dengan penjual. Anda bebas menawar dengan harga berapa pun.",
                 R.drawable.img_onboarding2
             )
         )
 
         items.add(
             OnBoardingData(
-                "Pesan Barang yang Anda Minati", "Beli barang bisa di mana saja dan kapan saja",
+                "Transaksi Langsung Tanpa Perantara",
+                "Tunggu tawaran Anda diterima dan proses akan dilanjutkan via WhatsApp agar Anda lebih leluasa bertransaksi dengan penjual.",
                 R.drawable.img_onboarding3
             )
         )

@@ -23,6 +23,7 @@
         android:textColor="@color/textColorSecondary"
         android:maxWidth="220dp"
         android:text="Beli barang bisa di mana saja dan kapan saja"
+        android:justificationMode="inter_word"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/tv_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
