@@ -37,7 +37,7 @@ class LoginUI : AppCompatActivity() {
             viewModel.onChangeEmail(it.toString())
         }
 
-        binding.etPassword.doAfterTextChanged {
+        binding.txtInputLayoutPassword.doAfterTextChanged {
             viewModel.onChangePassword(it.toString())
         }
 
