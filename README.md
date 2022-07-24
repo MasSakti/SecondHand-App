@@ -8,6 +8,9 @@
 # Second Hand App
 <img alt='Logo - Second Hand' width="180" height="180" src='https://user-images.githubusercontent.com/43742778/179236694-b1007e5b-2405-4038-b3c2-8cad56d3535b.png'/>
 
+# Second Hand App - Banner Apps
+![Custom Size – 2](https://user-images.githubusercontent.com/43742778/180656934-39910bd4-51c3-4d56-a215-eb787bc9cdda.png)
+
 ### Description :
 Sebuah platform marketplace yang menyediakan berbagai macam barang bekas baru dan hingga langka untuk semua kebutuhan anda yang ingin mengoleksi barang ataupun produk makanan, dan juga menyediakan harga negosiasi antar pengguna 👍 <br>
 Jika anda ingin menguji coba aplikasi debug beta tes bisa langsung ke artifact ci ada menu <a href='https://github.com/rrfadilah/FinalProject-G5/actions'>ini</a> 
