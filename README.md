@@ -16,7 +16,7 @@ Sebuah platform marketplace yang menyediakan berbagai macam barang bekas baru da
 |--|--|--|
 |<img alt='Home Page' width="300" height="600" src='https://user-images.githubusercontent.com/78681642/179988996-dfa81cf0-2461-4c90-9dcc-4cdbfbe152f8.jpg'/>|<img alt='Register' width="300" height="600" src='https://user-images.githubusercontent.com/78681642/179989669-aa9cc458-6c3b-45de-a248-35dffc242928.jpg'/>|<img alt='Login' width="300" height="600" src='https://user-images.githubusercontent.com/78681642/179989612-d5de29fd-a982-4fe7-b236-155befcc81ee.jpg'/>|
 
-|Biding Product|Product By Category|?|
+|Biding Product|Product By Category|Product Search|
 |--|--|--|
 |<img alt='Biding Product' width="300" height="600" src='https://user-images.githubusercontent.com/43742778/180631611-9c4181b9-b3bb-432f-802e-303f6d226889.png'/>|<img alt='Product By Category' width="300" height="600" src='https://user-images.githubusercontent.com/43742778/180631613-b891e20e-c4e2-4574-86c5-e85508cfb3bd.png'/>|<img alt='Product Search' width="300" height="600" src='https://user-images.githubusercontent.com/43742778/180631615-60289517-0d82-4c62-83f7-5799676d9de1.png'/>|
 
