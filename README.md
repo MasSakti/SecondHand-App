@@ -11,6 +11,7 @@
 ```
 
 # About SecondHand App
+![Hi-Fi design Group2](https://user-images.githubusercontent.com/96243284/180640077-e48b0cb5-8db6-4a16-ada6-b3b07323c4c6.jpg)
 ## Logo
 <br>
 <img src="https://user-images.githubusercontent.com/96243284/179536507-cf737303-b415-48a1-8894-5d749918c1bf.png" width="250" height="250" align="left"> 
