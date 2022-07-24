@@ -10,21 +10,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.NonNull
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import com.tegarpenemuan.secondhandecomerce.R
+import com.tegarpenemuan.secondhandecomerce.*
 import com.tegarpenemuan.secondhandecomerce.databinding.FragmentPreviewBinding
-import com.tegarpenemuan.secondhandecomerce.listCategoryId
+import com.tegarpenemuan.secondhandecomerce.ui.daftarjual.DaftarJualFragment
 import com.tegarpenemuan.secondhandecomerce.ui.jual.JualFragment.Companion.ALAMAT_PRODUCT_KEY
 import com.tegarpenemuan.secondhandecomerce.ui.jual.JualFragment.Companion.DESKRIPSI_PRODUCT_KEY
 import com.tegarpenemuan.secondhandecomerce.ui.jual.JualFragment.Companion.HARGA_PRODUCT_KEY
 import com.tegarpenemuan.secondhandecomerce.ui.jual.JualFragment.Companion.IMAGE_PRODUCT_KEY
 import com.tegarpenemuan.secondhandecomerce.ui.jual.JualFragment.Companion.KATEGORI_PRODUCT_KEY
 import com.tegarpenemuan.secondhandecomerce.ui.jual.JualFragment.Companion.NAMA_PRODUCT_KEY
-import com.tegarpenemuan.secondhandecomerce.uriToFile
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,7 +55,6 @@ class PreviewFragment : Fragment() {
     private fun bindViewModel(){
         viewModel.showSuccess.observe(viewLifecycleOwner){
             showToastSuccess()
-
             findNavController().navigate(R.id.action_previewFragment2_to_navigation_home)
         }
     }
@@ -75,11 +76,13 @@ class PreviewFragment : Fragment() {
             binding.tvkota.text = it.address
             Glide.with(requireContext())
                 .load(it.image_url)
+                .error(R.drawable.error)
+                .placeholder(R.drawable.loading)
                 .into(binding.ivakun)
         }
 
         binding.tvNamaproduct.text = namaProduk
-        //binding.tvProductharga.text = hargaProduk
+        binding.tvHarga.text = currency(hargaProduk!!.toInt())
         binding.tvDeskripsi.text = deskripsiProduk
         binding.tvKategori.text = kategoriProduk
         Glide.with(requireContext())

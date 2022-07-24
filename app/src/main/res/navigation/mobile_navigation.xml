@@ -21,11 +21,11 @@
         android:label="@string/title_jual"
         tools:layout="@layout/fragment_jual" >
         <action
-            android:id="@+id/action_navigation_jual_to_navigation_daftar_jual"
-            app:destination="@id/navigation_daftar_jual" />
-        <action
             android:id="@+id/action_navigation_jual_to_previewFragment2"
             app:destination="@id/previewFragment2" />
+        <action
+            android:id="@+id/action_navigation_jual_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
 
     <fragment
@@ -55,9 +55,6 @@
         android:label="fragment_preview"
         tools:layout="@layout/fragment_preview" >
         <action
-            android:id="@+id/action_previewFragment2_to_navigation_daftar_jual"
-            app:destination="@id/navigation_daftar_jual" />
-        <action
             android:id="@+id/action_previewFragment2_to_navigation_home"
             app:destination="@id/navigation_home" />
     </fragment>
@@ -65,5 +62,9 @@
         android:id="@+id/editProductFragment"
         android:name="com.tegarpenemuan.secondhandecomerce.ui.editproduct.EditProductFragment"
         android:label="fragment_edit_product"
-        tools:layout="@layout/fragment_edit_product" />
+        tools:layout="@layout/fragment_edit_product" >
+        <action
+            android:id="@+id/action_editProductFragment_to_navigation_daftar_jual"
+            app:destination="@id/navigation_daftar_jual" />
+    </fragment>
 </navigation>

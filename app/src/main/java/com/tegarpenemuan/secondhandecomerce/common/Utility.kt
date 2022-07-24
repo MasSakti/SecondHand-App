@@ -9,9 +9,12 @@ import android.graphics.BitmapFactory
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Environment
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
 import android.view.Window
+import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.WindowCompat
@@ -19,8 +22,12 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import java.io.*
+import java.lang.ref.WeakReference
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -175,4 +182,44 @@ fun showToastSuccess(view: View, message: String, color: Int) {
     snackBarView.view.layoutParams = layoutParams
     snackBarView.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
     snackBarView.show()
+}
+
+class MoneyTextWatcher(editText: EditText?) : TextWatcher {
+    private val editTextWeakReference: WeakReference<EditText>
+    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+    override fun afterTextChanged(s: Editable) {
+        val editText: EditText? = editTextWeakReference.get()
+        if (editText == null || editText.text.toString() == "") {
+            return
+        }
+        editText.removeTextChangedListener(this)
+        val parsed: BigDecimal = parseCurrencyValue(editText.text.toString())
+        val formatted: String = numberFormat.format(parsed)
+        editText.setText(formatted)
+        editText.setSelection(formatted.length)
+        editText.addTextChangedListener(this)
+    }
+
+    companion object {
+        val numberFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+        fun parseCurrencyValue(value: String): BigDecimal {
+            try {
+                val replaceRegex = java.lang.String.format(
+                    "[%s,.\\s]", Objects.requireNonNull(
+                        numberFormat.currency
+                    ).displayName
+                )
+                val currencyValue = value.replace(replaceRegex.toRegex(), "")
+                return BigDecimal(currencyValue)
+            } catch (e: Exception) {}
+            return BigDecimal.ZERO
+        }
+    }
+
+    init {
+        editTextWeakReference = WeakReference(editText)
+        numberFormat.maximumFractionDigits = 0
+        numberFormat.roundingMode = RoundingMode.FLOOR
+    }
 }

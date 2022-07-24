@@ -22,11 +22,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import com.tegarpenemuan.secondhandecomerce.R
+import com.tegarpenemuan.secondhandecomerce.*
 import com.tegarpenemuan.secondhandecomerce.databinding.FragmentEditProductBinding
-import com.tegarpenemuan.secondhandecomerce.listCategory
-import com.tegarpenemuan.secondhandecomerce.listCategoryId
-import com.tegarpenemuan.secondhandecomerce.uriToFile
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
@@ -73,7 +70,7 @@ class EditProductFragment : Fragment() {
 
         viewModel.showSuccess.observe(viewLifecycleOwner){
             showToastSuccess()
-//            findNavController().navigate(R.id.action_editProductFragment_to_daftarJualFragment)
+            findNavController().navigate(R.id.action_editProductFragment_to_navigation_daftar_jual)
             listCategoryId.clear()
         }
 
@@ -88,8 +85,9 @@ class EditProductFragment : Fragment() {
     }
 
     private fun bindView() {
+        binding.etHarga.addTextChangedListener(MoneyTextWatcher(binding.etHarga))
         binding.etEditNamaProduct.setText(arguments?.getString("PRODUCT_NAME"))
-        binding.etEditHargaProduct.setText(arguments?.getInt("PRODUCT_PRICE").toString())
+        binding.etHarga.setText(arguments?.getInt("PRODUCT_PRICE").toString())
         binding.etEditDeskripsiProduct.setText(arguments?.getString("PRODUCT_DESCRIPTION"))
         binding.etEditLokasiProduct.setText(arguments?.getString("PRODUCT_LOCATION"))
         Glide.with(requireContext())
@@ -113,8 +111,9 @@ class EditProductFragment : Fragment() {
         val productId = arguments?.getInt("PRODUCT_ID")!!
         binding.btnEditProduct.setOnClickListener {
             resetError()
+            val harga  = MoneyTextWatcher.parseCurrencyValue(binding.etHarga.text.toString()).toInt()
             val namaProduk = binding.etEditNamaProduct.text.toString()
-            val hargaProduk = binding.etEditHargaProduct.text.toString()
+            val hargaProduk = binding.etHarga.text.toString()
             val deskripsiProduk = binding.etEditDeskripsiProduct.text.toString()
             val alamatProduk = binding.etEditLokasiProduct.text.toString()
             var file: File? = null
@@ -133,7 +132,7 @@ class EditProductFragment : Fragment() {
                     productId,
                     namaProduk,
                     deskripsiProduk,
-                    hargaProduk,
+                    harga.toString(),
                     listCategoryId,
                     alamatProduk,
                     file
@@ -158,7 +157,7 @@ class EditProductFragment : Fragment() {
                 binding.etEditHargaProduct.error = "Harga Produk tidak boleh kosong"
                 return "Harga Produk Kosong!"
             }
-            hargaProduk.toInt() > 2000000000 -> {
+            MoneyTextWatcher.parseCurrencyValue(hargaProduk).toInt()  > 2000000000 -> {
                 binding.etEditHargaProduct.error = "Harga Produk tidak boleh lebih dari 2M"
                 return "Harga Produk Melebihi Batas!"
             }
@@ -183,7 +182,7 @@ class EditProductFragment : Fragment() {
 
     fun resetError() {
         binding.etEditNamaProduct.error = null
-        binding.etEditHargaProduct.error = null
+        binding.etHarga.error = null
         binding.etEditKategoriProduct.error = null
         binding.etEditDeskripsiProduct.error = null
     }

@@ -206,14 +206,43 @@ class DaftarJualFragment : Fragment() {
             tvCategory.text = listCategoryy!!.drop(2)
         }
         tvNamaProduk.text = item.name
-        tvHargaProduk.text = item.base_price.toString()
+        tvHargaProduk.text = currency(item.base_price)
 
         btnUpdate.setOnClickListener {
-            bottomSheetUpdateStatus()
+            bundleEdit.apply {
+                putInt("PRODUCT_ID", item.id)
+                putString("PRODUCT_NAME", item.name)
+                putInt("PRODUCT_PRICE", item.base_price)
+                listCategory.clear()
+                listCategoryId.clear()
+                for (kategori in item.Categories){
+                    listCategory.add(kategori.name)
+                    listCategoryId.add(kategori.id)
+                }
+                putString("PRODUCT_DESCRIPTION",item.description)
+                putString("PRODUCT_IMAGE",item.image_url)
+                putString("PRODUCT_LOCATION",item.location)
+            }
+            findNavController().navigate(R.id.action_navigation_daftar_jual_to_editProductFragment, bundleEdit)
             dialog.dismiss()
         }
         btnDelete.setOnClickListener {
-            bottomSheetHubPenjual()
+            AlertDialog.Builder(requireContext())
+                .setTitle("Pesan")
+                .setMessage("Yakin ingin menghapus produk ${item.name}?")
+                .setPositiveButton("Ya") { dialogP, _ ->
+                    viewModel.deleteSellerProduct(item.id)
+                    dialogP.dismiss()
+                    onResume()
+                    Toast.makeText(requireContext(), "Data Berhasil Dihapus", Toast.LENGTH_SHORT).show()
+                }
+                .setNegativeButton("Batal") { dialogN, _ ->
+                    dialogN.dismiss()
+                    onResume()
+                    Toast.makeText(requireContext(), "Data Batal Dihapus", Toast.LENGTH_SHORT).show()
+                }
+                .setCancelable(false)
+                .show()
             dialog.dismiss()
         }
         dialog.show()
@@ -442,6 +471,9 @@ class DaftarJualFragment : Fragment() {
     }
 
     private fun bindviewModel() {
+        viewModel.showDelete.observe(viewLifecycleOwner) {
+            onResume()
+        }
         viewModel.shouldShowGetProductSeller.observe(viewLifecycleOwner) { data ->
             binding.lottieEmpty.visibility = View.GONE
             productSellerAdapter.updateList(data)

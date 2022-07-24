@@ -15,8 +15,11 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -25,11 +28,9 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import com.tegarpenemuan.secondhandecomerce.R
+import com.tegarpenemuan.secondhandecomerce.*
 import com.tegarpenemuan.secondhandecomerce.databinding.FragmentJualBinding
-import com.tegarpenemuan.secondhandecomerce.listCategory
-import com.tegarpenemuan.secondhandecomerce.listCategoryId
-import com.tegarpenemuan.secondhandecomerce.uriToFile
+import com.tegarpenemuan.secondhandecomerce.ui.daftarjual.DaftarJualFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.text.NumberFormat
@@ -84,11 +85,16 @@ class JualFragment : Fragment() {
 
         viewModel.showSuccess.observe(viewLifecycleOwner) {
             showToastSuccess()
-//            findNavController().navigate(R.id.action_jualFragment_to_daftarJualFragment)
+        }
+        viewModel.showSuccessUploadProduk.observe(viewLifecycleOwner) {
+            showToastSuccess()
+            findNavController().navigate(R.id.action_navigation_jual_to_navigation_home)
         }
     }
 
     private fun bindView() {
+        binding.etHarga.addTextChangedListener(MoneyTextWatcher(binding.etHarga))
+
         binding.etKategori.setOnClickListener {
             val bottomFragment = PilihCategoryFragment(
                 update = {
@@ -104,6 +110,7 @@ class JualFragment : Fragment() {
         val bundle = Bundle()
         binding.btnPreview.setOnClickListener {
             resetError()
+            val harga  = MoneyTextWatcher.parseCurrencyValue(binding.etHarga.text.toString()).toInt()
             val namaProduk = binding.etNama.text.toString()
             val hargaProduk = binding.etHarga.text.toString()
             val deskripsiProduk = binding.etDeskripsi.text.toString()
@@ -119,7 +126,7 @@ class JualFragment : Fragment() {
             )
             if (validation == "passed") {
                 bundle.putString(NAMA_PRODUCT_KEY, namaProduk)
-                bundle.putString(HARGA_PRODUCT_KEY, hargaProduk)
+                bundle.putString(HARGA_PRODUCT_KEY, harga.toString())
                 bundle.putString(DESKRIPSI_PRODUCT_KEY, deskripsiProduk)
                 bundle.putString(KATEGORI_PRODUCT_KEY, kategoriProduk)
                 bundle.putString(ALAMAT_PRODUCT_KEY, alamatPenjual)
@@ -133,6 +140,7 @@ class JualFragment : Fragment() {
 
         binding.btnTerbitkan.setOnClickListener {
             resetError()
+            val harga  = MoneyTextWatcher.parseCurrencyValue(binding.etHarga.text.toString()).toInt()
             val namaProduk = binding.etNama.text.toString()
             val hargaProduk = binding.etHarga.text.toString()
             val deskripsiProduk = binding.etDeskripsi.text.toString()
@@ -149,7 +157,7 @@ class JualFragment : Fragment() {
                 viewModel.uploadProduct(
                     namaProduk,
                     deskripsiProduk,
-                    hargaProduk,
+                    harga.toString(),
                     listCategoryId,
                     alamatPenjual,
                     uriToFile(Uri.parse(uri), requireContext())
@@ -226,7 +234,7 @@ class JualFragment : Fragment() {
                 binding.etHarga.error = "Harga Produk tidak boleh kosong"
                 return "Harga Produk Kosong!"
             }
-            hargaProduk.toInt() > 2000000000 -> {
+            MoneyTextWatcher.parseCurrencyValue(hargaProduk).toInt() > 2000000000 -> {
                 binding.etHarga.error = "Harga Produk tidak boleh lebih dari 2M"
                 return "Harga Produk Melebihi Batas!"
             }
@@ -268,7 +276,7 @@ class JualFragment : Fragment() {
         layoutParams.gravity = Gravity.TOP
         layoutParams.setMargins(32, 150, 32, 0)
         snackBarView.view.setPadding(24, 16, 0, 16)
-        snackBarView.view.setBackgroundColor(resources.getColor(R.color.purple_700))
+        snackBarView.view.setBackgroundColor(resources.getColor(R.color.success))
         snackBarView.view.layoutParams = layoutParams
         snackBarView.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
         snackBarView.show()

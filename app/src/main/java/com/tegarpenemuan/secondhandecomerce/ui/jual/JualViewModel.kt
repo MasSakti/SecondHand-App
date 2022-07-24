@@ -34,6 +34,7 @@ class JualViewModel @Inject constructor(
     val categoryList: LiveData<List<String>> get() = addCategory
     private var showUploadProduct: MutableLiveData<List<GetProductResponse>> = MutableLiveData()
     val showSuccess: MutableLiveData<Boolean> = MutableLiveData()
+    val showSuccessUploadProduk: MutableLiveData<Boolean> = MutableLiveData()
     val showErrorPost: MutableLiveData<String> = MutableLiveData()
     val showBottomSheet: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -108,7 +109,7 @@ class JualViewModel @Inject constructor(
             )
             withContext(Dispatchers.Main) {
                 if (result.isSuccessful) {
-                    showSuccess.postValue(true)
+                    showSuccessUploadProduk.postValue(true)
                 } else {
                     val data = result.errorBody()
                     showError.postValue(data.toString())

@@ -13,6 +13,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.tegarpenemuan.secondhandecomerce.MoneyTextWatcher
 import com.tegarpenemuan.secondhandecomerce.R
 import com.tegarpenemuan.secondhandecomerce.currency
 import com.tegarpenemuan.secondhandecomerce.databinding.ActivityBuyerOrderBinding
@@ -104,6 +105,8 @@ class BuyerOrderActivity : AppCompatActivity() {
         val tvHarga = dialog.findViewById<TextView>(R.id.tvHarga)
         val etBid = dialog.findViewById<EditText>(R.id.txt_input_bid_harga)
         val btnClose = dialog.findViewById<Button>(R.id.btn_submit)
+        etBid.addTextChangedListener(MoneyTextWatcher(etBid))
+        val bid  = MoneyTextWatcher.parseCurrencyValue(etBid.text.toString()).toInt()
 
         Glide.with(this)
             .load(imageUrl)
@@ -120,7 +123,7 @@ class BuyerOrderActivity : AppCompatActivity() {
             } else {
                 viewModel.createOrder(
                     product_id = produkID.toInt(),
-                    bid_price = etBid.text.toString().toInt()
+                    bid_price = bid
                 )
             }
 
