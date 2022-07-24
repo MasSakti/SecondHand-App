@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import binar.and3.kelompok1.secondhand.R
@@ -67,16 +68,11 @@ class TawarBottomSheetsFragment(
             snackbar.view.setBackgroundColor(Color.RED)
             snackbar.show()
         }
-        productViewModel.shouldShowSuccessBiding.observe(viewLifecycleOwner) {
-            val snackbar = Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG)
-            snackbar.show()
-        }
         productViewModel.shouldOpenHome.observe(viewLifecycleOwner) {
-            if (it) {
-                val intent = Intent(requireContext(), HomeFragment::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-            }
+            dismiss()
+        }
+        productViewModel.shouldShowSuccessBiding.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         }
     }
 

@@ -29,6 +29,33 @@ interface SellerAPI {
         @Part("location") location: RequestBody?
     ): Response<PostProductResponse>
 
+    @PATCH("seller/product/{id}")
+    suspend fun patchSellerProductById(
+        @Header("access_token") accessToken: String,
+        @Path("id") id: Int,
+        @Body patchStatusRequest: PatchStatusRequest
+    ): Response<PatchSellerProductById>
+
+    // Seller Order
+
+    @GET("seller/order")
+    suspend fun getSellerOrders(
+        @Header("access_token") accessToken: String,
+    ) : Response<List<GetSellerOrdersResponse>>
+
+    @GET("seller/order/{id}")
+    suspend fun getSellerOderById(
+        @Header("access_token") accessToken: String,
+        @Path("id") id: Int
+    ) : Response<GetSellerOderByIdResponse>
+
+    @PATCH("seller/order/{id}")
+    suspend fun patchSellerOderById(
+        @Header("access_token") accessToken: String,
+        @Path("id") id: Int,
+        @Body patchStatusRequest: PatchStatusRequest
+    ) : Response<PatchSellerOderByIdResponse>
+
     // Seller Category
     @GET("seller/category")
     suspend fun getSellerCategory(): Response<List<GetSellerCategoryResponse>>

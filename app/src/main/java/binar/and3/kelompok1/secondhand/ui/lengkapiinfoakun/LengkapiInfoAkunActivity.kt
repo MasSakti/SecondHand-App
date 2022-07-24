@@ -1,6 +1,7 @@
 package binar.and3.kelompok1.secondhand.ui.lengkapiinfoakun
 
 import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
 import binar.and3.kelompok1.secondhand.common.uriToFile
 import binar.and3.kelompok1.secondhand.databinding.ActivityLengkapiInfoAkunBinding
+import binar.and3.kelompok1.secondhand.ui.MenuActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -59,7 +61,9 @@ class LengkapiInfoAkunActivity : AppCompatActivity() {
             viewModel.onValidate()
         }
         binding.ivBtnBack.setOnClickListener {
-            onBackPressed()
+            val intent = Intent(this, MenuActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
     }
 
@@ -133,5 +137,12 @@ class LengkapiInfoAkunActivity : AppCompatActivity() {
             .createIntent {
                 startForProfileImageResult.launch(it)
             }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, MenuActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 }

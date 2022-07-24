@@ -15,7 +15,6 @@ import binar.and3.kelompok1.secondhand.databinding.FragmentHomeBinding
 import binar.and3.kelompok1.secondhand.ui.buyer.ProductDetailActivity
 import binar.and3.kelompok1.secondhand.ui.menu.home.adapter.HomeCategoryButtonAdapter
 import binar.and3.kelompok1.secondhand.ui.menu.home.adapter.product.HomeProductAdapter
-import binar.and3.kelompok1.secondhand.ui.seller.ProductPreviewActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -7,12 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import binar.and3.kelompok1.secondhand.R
 import binar.and3.kelompok1.secondhand.data.api.seller.GetProductResponse
 import binar.and3.kelompok1.secondhand.databinding.FragmentItemProdukBinding
-import binar.and3.kelompok1.secondhand.ui.jualform.JualFormActivity
 import binar.and3.kelompok1.secondhand.ui.adapterproductcard.ItemProdukAdapter
-import binar.and3.kelompok1.secondhand.ui.seller.ProductPreviewActivity
+import binar.and3.kelompok1.secondhand.ui.seller.productpreview.ProductPreviewActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,16 +41,22 @@ class ItemProdukFragment : Fragment() {
 
         binding.rvDaftarJual.adapter = itemProdukAdapter
 
-        viewModel.onViewLoaded()
         bindViewModel()
 
-        // Inflate the layout for this fragment
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.onViewLoaded()
+    }
+
+
     private fun bindViewModel() {
-        viewModel.shouldShowMyProduct.observe(requireActivity()) {
-            itemProdukAdapter.updateSellerProduct(it)
+        viewModel.shouldShowMyProduct.observe(requireActivity()) { list ->
+            itemProdukAdapter.updateSellerProduct(list.filter {
+                it.status?.let { status -> "available".contains(status) }!!
+            })
         }
     }
 

@@ -22,20 +22,36 @@ class ProductRepository @Inject constructor(
         return buyerAPI.getBuyerProduct(status = "available")
     }
 
-    suspend fun getBuyerProductByCategory(categoryId: String, search: String): Response<List<BuyerProductResponse>> {
-        return buyerAPI.getBuyerProduct(categoryId = categoryId, status = "available", search = search)
+    suspend fun getBuyerProductByCategory(
+        categoryId: String,
+        search: String
+    ): Response<List<BuyerProductResponse>> {
+        return buyerAPI.getBuyerProduct(
+            categoryId = categoryId,
+            status = "available",
+            search = search
+        )
     }
 
     suspend fun getBuyerProductById(id: Int): Response<GetProductByIdResponse> {
         return buyerAPI.getBuyerProductById(id = id)
     }
 
-    suspend fun postBuyerBid(accessToken: String, postBuyerBidRequest: PostBuyerBidRequest) : Response<PostBuyerBidResponse> {
-        return buyerAPI.postBuyerBid(accessToken = accessToken, postBuyerBidRequest = postBuyerBidRequest)
+    suspend fun postBuyerBid(
+        accessToken: String,
+        postBuyerBidRequest: PostBuyerBidRequest
+    ): Response<PostBuyerBidResponse> {
+        return buyerAPI.postBuyerBid(
+            accessToken = accessToken,
+            postBuyerBidRequest = postBuyerBidRequest
+        )
     }
 
     // Seller
-    suspend fun getProductById(accessToken: String, id: Int): Response<List<GetProductByIdResponse>> {
+    suspend fun getProductById(
+        accessToken: String,
+        id: Int
+    ): Response<List<GetProductByIdResponse>> {
         return sellerAPI.getProductById(accessToken = accessToken, id = id)
     }
 
@@ -60,6 +76,42 @@ class ProductRepository @Inject constructor(
             categoryIds = categoryIds,
             file = image,
             location = location
+        )
+    }
+
+    suspend fun patchSellerProductById(
+        id: Int,
+        accessToken: String,
+        patchStatusRequest: PatchStatusRequest
+    ): Response<PatchSellerProductById> {
+        return sellerAPI.patchSellerProductById(
+            id = id,
+            accessToken = accessToken,
+            patchStatusRequest = patchStatusRequest
+        )
+    }
+
+    // Seller Order
+    suspend fun getSellerOrders(accessToken: String): Response<List<GetSellerOrdersResponse>> {
+        return sellerAPI.getSellerOrders(accessToken = accessToken)
+    }
+
+    suspend fun getSellerOderById(
+        accessToken: String,
+        id: Int
+    ): Response<GetSellerOderByIdResponse> {
+        return sellerAPI.getSellerOderById(accessToken = accessToken, id = id)
+    }
+
+    suspend fun patchSellerOderById(
+        accessToken: String,
+        id: Int,
+        patchStatusRequest: PatchStatusRequest
+    ): Response<PatchSellerOderByIdResponse> {
+        return sellerAPI.patchSellerOderById(
+            accessToken = accessToken,
+            id = id,
+            patchStatusRequest = patchStatusRequest
         )
     }
 

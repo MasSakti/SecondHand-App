@@ -1,12 +1,12 @@
-package binar.and3.kelompok1.secondhand.ui.seller
+package binar.and3.kelompok1.secondhand.ui.seller.productpreview
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import binar.and3.kelompok1.secondhand.databinding.ActivityProductPreviewBinding
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -56,6 +56,12 @@ class ProductPreviewActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(it.user?.imageUrl)
                 .into(binding.ivAvatar)
+        }
+
+        viewModel.shouldShowError.observe(this) {
+            val snackbar = Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG)
+            snackbar.view.setBackgroundColor(Color.RED)
+            snackbar.show()
         }
 
     }

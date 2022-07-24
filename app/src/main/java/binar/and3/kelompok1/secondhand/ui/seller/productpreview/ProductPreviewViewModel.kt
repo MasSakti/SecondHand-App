@@ -1,10 +1,8 @@
-package binar.and3.kelompok1.secondhand.ui.seller
+package binar.and3.kelompok1.secondhand.ui.seller.productpreview
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import binar.and3.kelompok1.secondhand.data.api.seller.GetProductByIdResponse
-import binar.and3.kelompok1.secondhand.model.ProductDetailModel
-import binar.and3.kelompok1.secondhand.repository.AuthRepository
 import binar.and3.kelompok1.secondhand.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope

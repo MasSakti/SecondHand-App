@@ -47,7 +47,7 @@ class JualViewModel @Inject constructor(
     }
 
     val shouldShowCategory: MutableLiveData<List<GetSellerCategoryResponse>> = MutableLiveData()
-    val shouldShowSuccess: MutableLiveData<Boolean> = MutableLiveData()
+    val shouldShowSuccess: MutableLiveData<String> = MutableLiveData()
     val shouldShowError: MutableLiveData<String> = MutableLiveData()
 
     private var addCategory = MutableLiveData<List<String>>()
@@ -121,7 +121,7 @@ class JualViewModel @Inject constructor(
             )
             withContext(Dispatchers.Main) {
                 if (result.isSuccessful) {
-                    shouldShowSuccess.postValue(true)
+                    shouldShowSuccess.postValue("Produkmu berhasil ditambah. Silakan cek Daftar Jual!")
                 } else {
                     shouldShowError.postValue(result.errorBody().toString())
                 }

@@ -1,4 +1,4 @@
-package binar.and3.kelompok1.secondhand.ui.seller
+package binar.and3.kelompok1.secondhand.ui.seller.productpreview
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

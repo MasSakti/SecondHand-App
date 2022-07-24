@@ -1,13 +1,12 @@
 package binar.and3.kelompok1.secondhand.ui.adapterproductcard
 
 import android.annotation.SuppressLint
-import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import binar.and3.kelompok1.secondhand.common.currency
 import binar.and3.kelompok1.secondhand.data.api.seller.GetProductResponse
-import binar.and3.kelompok1.secondhand.databinding.ListItemCategoriesBinding
 import binar.and3.kelompok1.secondhand.databinding.ListItemProductCardBinding
 import com.bumptech.glide.Glide
 
@@ -41,7 +40,7 @@ class ItemProdukAdapter(
             .load(sellerProduct.imageUrl)
             .into(holder.binding.ivItem)
         holder.binding.tvTitle.text = sellerProduct.name
-        holder.binding.tvHarga.text = "Rp " + sellerProduct.basePrice.toString()
+        holder.binding.tvHarga.text = sellerProduct.basePrice?.let { currency(it) }
         holder.itemView.setOnClickListener {
             listener.onClick(item = sellerProduct)
         }

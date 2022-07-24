@@ -2,6 +2,7 @@ package binar.and3.kelompok1.secondhand.ui.menu.jual
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -18,6 +19,7 @@ import binar.and3.kelompok1.secondhand.common.listCategory
 import binar.and3.kelompok1.secondhand.common.listCategoryId
 import binar.and3.kelompok1.secondhand.common.uriToFile
 import binar.and3.kelompok1.secondhand.databinding.FragmentJualBinding
+import binar.and3.kelompok1.secondhand.ui.menu.daftarjual.DaftarJualFragment
 import binar.and3.kelompok1.secondhand.ui.menu.jual.bottomsheets.CategoryBottomSheetsFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -98,6 +100,9 @@ class JualFragment : Fragment() {
             val snackbar = Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG)
             snackbar.view.setBackgroundColor(Color.RED)
             snackbar.show()
+        }
+        viewModel.shouldShowSuccess.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         }
     }
 
