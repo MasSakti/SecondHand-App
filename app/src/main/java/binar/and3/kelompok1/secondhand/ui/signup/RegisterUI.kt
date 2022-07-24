@@ -37,7 +37,7 @@ class RegisterUI : AppCompatActivity() {
         binding.etEmail.doAfterTextChanged {
             viewModel.onChangeEmail(it.toString())
         }
-        binding.etPassword.doAfterTextChanged {
+        binding.txtInputLayoutPassword.doAfterTextChanged {
             viewModel.onChangePassword(it.toString())
         }
         binding.btnDaftar.setOnClickListener {
