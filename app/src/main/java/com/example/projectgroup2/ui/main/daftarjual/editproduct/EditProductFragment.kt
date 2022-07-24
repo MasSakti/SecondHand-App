@@ -1,9 +1,8 @@
 package com.example.projectgroup2.ui.main.daftarjual.editproduct
 
-import android.app.ActionBar
-import android.app.Activity
-import android.app.AlertDialog
-import android.app.ProgressDialog
+import android.app.*
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
@@ -11,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -156,21 +156,23 @@ class EditProductFragment : Fragment() {
     private fun deleteProduct(){
         productId = arguments?.getInt(PRODUCT_ID)!!
         binding.btnHapusProduct.setOnClickListener {
-            AlertDialog.Builder(requireContext())
-                .setTitle("Pesan")
-                .setMessage("Yakin ingin menghapus produk kamu?")
-                .setPositiveButton("Ya") { dialogP, _ ->
-                    viewModel.deleteSellerProduct(
-                        id = productId
-                    )
-                    dialogP.dismiss()
-                }
-                .setNegativeButton("Batal") { dialogN, _ ->
-                    dialogN.dismiss()
-                }
-                .setCancelable(false)
-                .show()
+            val dialogCustom = Dialog(requireContext())
+            dialogCustom.setContentView(R.layout.alert_confirmation_delete_product)
+            dialogCustom.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialogCustom.setCancelable(false)
+            dialogCustom.show()
+
+            dialogCustom.findViewById<Button>(R.id.btnYa).setOnClickListener {
+                viewModel.deleteSellerProduct(
+                    id = productId
+                )
+                dialogCustom.dismiss()
+            }
+            dialogCustom.findViewById<TextView>(R.id.tv_cancel).setOnClickListener {
+                dialogCustom.dismiss()
+            }
         }
+
     }
 
 
