@@ -30,3 +30,13 @@ Platform ini merupakan tempat jual-beli barang secara online, khususnya barang b
 
 https://user-images.githubusercontent.com/63510707/180637898-0c10e135-4aaa-4a7d-9266-0ed2290098c2.mp4
 
+### License (Thanks to) :
+- Retrofit2 Apache License
+- Gson Apache License
+- Dagger-hilt Apache License
+- Datastore Apache License
+- Coroutines Apache License
+- Drjacky Image Picker License
+- Makeramen Roundedimageview Apache License
+- Okhttp3 Apache License
+- Glide BSD, part MIT and Apache 2.0. 
