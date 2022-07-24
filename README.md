@@ -49,5 +49,5 @@ https://market-final-project.herokuapp.com/api-docs/
 
 ## Demonstration
 
-https://user-images.githubusercontent.com/75381611/180494367-0e1eac56-5c6b-4eae-90a8-5bb082c3e149.mp4
+https://user-images.githubusercontent.com/75381611/180655639-0dd09c30-ea53-446e-b9dd-a1947277c92a.mp4
 
