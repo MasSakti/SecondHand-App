@@ -37,7 +37,6 @@ interface SellerAPI {
     ): Response<PatchSellerProductById>
 
     // Seller Order
-
     @GET("seller/order")
     suspend fun getSellerOrders(
         @Header("access_token") accessToken: String,
@@ -59,4 +58,8 @@ interface SellerAPI {
     // Seller Category
     @GET("seller/category")
     suspend fun getSellerCategory(): Response<List<GetSellerCategoryResponse>>
+
+    // Selelr Banner
+    @GET("seller/banner")
+    suspend fun getSellerBanner(): Response<List<GetSellerBannerResponse>>
 }

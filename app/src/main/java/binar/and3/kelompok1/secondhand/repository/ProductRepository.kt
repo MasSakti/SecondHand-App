@@ -120,6 +120,11 @@ class ProductRepository @Inject constructor(
         return sellerAPI.getSellerCategory()
     }
 
+    // Seller Banner
+    suspend fun getSellerBanner(): Response<List<GetSellerBannerResponse>> {
+        return sellerAPI.getSellerBanner()
+    }
+
     // Local
     suspend fun insertProductToLocal(buyerEntity: BuyerEntity): Long {
         return dao.insertProduct(buyerEntity)

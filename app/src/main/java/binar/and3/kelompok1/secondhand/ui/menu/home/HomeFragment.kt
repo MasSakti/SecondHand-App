@@ -13,6 +13,7 @@ import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerProductResponse
 import binar.and3.kelompok1.secondhand.data.api.seller.GetSellerCategoryResponse
 import binar.and3.kelompok1.secondhand.databinding.FragmentHomeBinding
 import binar.and3.kelompok1.secondhand.ui.buyer.ProductDetailActivity
+import binar.and3.kelompok1.secondhand.ui.menu.home.adapter.BannerAdapter
 import binar.and3.kelompok1.secondhand.ui.menu.home.adapter.HomeCategoryButtonAdapter
 import binar.and3.kelompok1.secondhand.ui.menu.home.adapter.product.HomeProductAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +28,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var homeProductAdapter: HomeProductAdapter
+    lateinit var bannerAdapter: BannerAdapter
+    private lateinit var homeProductAdapter: HomeProductAdapter
     lateinit var homeCategoryButtonAdapter: HomeCategoryButtonAdapter
 
     val viewModel: HomeViewModel by viewModels()
@@ -46,6 +48,8 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        bannerAdapter = BannerAdapter(emptyList())
+
         homeProductAdapter =
             HomeProductAdapter(listener = object : HomeProductAdapter.EventListener {
                 override fun onClick(item: BuyerProductResponse) {
@@ -55,7 +59,7 @@ class HomeFragment : Fragment() {
                     intent.putExtras(bundle)
                     startActivity(intent)
                 }
-            }, emptyList())
+            })
 
         homeCategoryButtonAdapter =
             HomeCategoryButtonAdapter(listener = object : HomeCategoryButtonAdapter.EventListener {
@@ -64,6 +68,7 @@ class HomeFragment : Fragment() {
                 }
             }, emptyList())
 
+        binding.rvBanner.adapter = bannerAdapter
         binding.rvItem.adapter = homeProductAdapter
         binding.rvItem.isNestedScrollingEnabled = false
         binding.rvCategories.adapter = homeCategoryButtonAdapter
@@ -89,6 +94,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun bindViewModel() {
+        viewModel.shouldShowBanner.observe(viewLifecycleOwner) {
+            bannerAdapter.updateBanner(it)
+        }
         viewModel.shouldShowBuyerProductByCategory.observe(viewLifecycleOwner) {
             homeProductAdapter.submitData(it)
         }

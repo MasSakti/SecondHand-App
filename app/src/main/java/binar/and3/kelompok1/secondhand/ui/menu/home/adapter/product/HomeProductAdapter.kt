@@ -12,9 +12,7 @@ import binar.and3.kelompok1.secondhand.databinding.ListItemProductCardBinding
 import com.bumptech.glide.Glide
 
 class HomeProductAdapter(
-    private val listener: EventListener,
-    private var buyerProduct: List<BuyerProductResponse>
-
+    private val listener: EventListener
 ) : RecyclerView.Adapter<HomeProductAdapter.ViewHolder>() {
 
     private val diffCallBack = object : DiffUtil.ItemCallback<BuyerProductResponse>() {

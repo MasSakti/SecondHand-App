@@ -35,7 +35,6 @@ class JualFragment : Fragment() {
     private var _binding: FragmentJualBinding? = null
     private val binding get() = _binding!!
     private val viewModel: JualViewModel by viewModels()
-    private val progressDialog: ProgressDialog by lazy { ProgressDialog(requireContext()) }
 
     private var uri: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,6 +102,11 @@ class JualFragment : Fragment() {
         }
         viewModel.shouldShowSuccess.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+
+            binding.etNamaProduk.setText("")
+            binding.etHargaProduk.setText("")
+            binding.etKategori.setText("")
+            binding.etDeskripsi.setText("")
         }
     }
 

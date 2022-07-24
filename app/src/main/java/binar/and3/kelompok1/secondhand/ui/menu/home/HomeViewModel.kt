@@ -3,6 +3,7 @@ package binar.and3.kelompok1.secondhand.ui.menu.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import binar.and3.kelompok1.secondhand.data.api.buyer.BuyerProductResponse
+import binar.and3.kelompok1.secondhand.data.api.seller.GetSellerBannerResponse
 import binar.and3.kelompok1.secondhand.data.api.seller.GetSellerCategoryResponse
 import binar.and3.kelompok1.secondhand.data.local.buyer.BuyerEntity
 import binar.and3.kelompok1.secondhand.repository.ProductRepository
@@ -19,7 +20,7 @@ class HomeViewModel @Inject constructor(
     private val productRepository: ProductRepository
 ) : ViewModel() {
 
-    val shouldShowBuyerProduct: MutableLiveData<List<BuyerProductResponse>> = MutableLiveData()
+    val shouldShowBanner: MutableLiveData<List<GetSellerBannerResponse>> = MutableLiveData()
     val shouldShowBuyerProductByCategory: MutableLiveData<List<BuyerProductResponse>> =
         MutableLiveData()
     val tempShouldShowCategory: MutableLiveData<List<GetSellerCategoryResponse>> = MutableLiveData()
@@ -27,8 +28,22 @@ class HomeViewModel @Inject constructor(
     val shouldShowError: MutableLiveData<String> = MutableLiveData()
 
     fun onViewLoaded() {
+        getBanner()
         getSellerCategory()
         getBuyerProduct(categoryId = "", search = "")
+    }
+
+    private fun getBanner() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val result = productRepository.getSellerBanner()
+            withContext(Dispatchers.Main) {
+                if (result.isSuccessful) {
+                    shouldShowBanner.postValue(result.body())
+                } else {
+                    shouldShowError.postValue(result.errorBody().toString())
+                }
+            }
+        }
     }
 
     private fun getSellerCategory() {
