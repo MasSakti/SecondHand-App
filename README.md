@@ -8,7 +8,7 @@
 # Second Hand App
 <img alt='Logo - Second Hand' width="180" height="180" src='https://user-images.githubusercontent.com/43742778/179236694-b1007e5b-2405-4038-b3c2-8cad56d3535b.png'/>
 
-# Second Hand App - Banner Apps
+### Banner Apps
 ![Custom Size – 2](https://user-images.githubusercontent.com/43742778/180656934-39910bd4-51c3-4d56-a215-eb787bc9cdda.png)
 
 ### Description :
