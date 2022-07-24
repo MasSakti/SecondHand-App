@@ -10,7 +10,7 @@
 
 ### Description :
 Sebuah platform marketplace yang menyediakan berbagai macam barang bekas baru dan hingga langka untuk semua kebutuhan anda yang ingin mengoleksi barang ataupun produk makanan, dan juga menyediakan harga negosiasi antar pengguna 👍 <br>
-Jika anda ingin menguji coba aplikasi debug beta tes bisa langsung artifact ada menu <a href='https://github.com/rrfadilah/FinalProject-G5/actions'>ini</a> 
+Jika anda ingin menguji coba aplikasi debug beta tes bisa langsung ke artifact ci ada menu <a href='https://github.com/rrfadilah/FinalProject-G5/actions'>ini</a> 
 
 ### Screenshoot :
 |Home Page|Login|Register|
