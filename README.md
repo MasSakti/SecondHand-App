@@ -23,14 +23,14 @@ MVVM (Model–view–viewmodel)
 
 # Library tambahan
 
->- <a href='https://developer.android.com/jetpack/androidx/releases/lifecycle'>Lifecycle ViewModel</a>: Untuk memisahkan Live Data dengan UI
->- <a href='https://square.github.io/retrofit/'>Retrofit</a>: Untuk mengambil dan mengubah JSON file melalui web service berbasis REST
->- <a href='https://developer.android.com/jetpack/androidx/releases/datastore'>Datastore</a>: Untuk menyimpan key-value pair
->- <a href='https://developer.android.com/jetpack/androidx/releases/room'>Room Database</a>: Untuk local database
->- <a href='https://kotlinlang.org/docs/coroutines-guide.html'>Kotlin Coroutines</a>: Untuk mengubah async code menjadi seperti sync code pada Live Data
->- <a href='https://developer.android.com/training/dependency-injection/hilt-android'>Hilt (Dagger-hilt)</a>: Untuk depenency injection
->- <a href='https://github.com/bumptech/glide'>Glide</a>: Untuk image loading
->- <a href='https://github.com/Dhaval2404/ImagePicker'>Image Picker</a>: untuk mengambil image dari folder ataupun kamera
+>- <a href='https://developer.android.com/jetpack/androidx/releases/lifecycle'>Lifecycle ViewModel</a>: Dipakai untuk memisahkan Live data dengan UI.
+>- <a href='https://square.github.io/retrofit/'>Retrofit</a>: Dipakai untuk mengambil, mengubah, dan post data JSON file melalui web service berbasis REST
+>- <a href='https://developer.android.com/jetpack/androidx/releases/datastore'>Datastore</a>: Dipakai untuk menyimpan access token key-value pair
+>- <a href='https://developer.android.com/jetpack/androidx/releases/room'>Room Database</a>: Dipakai untuk database local
+>- <a href='https://kotlinlang.org/docs/coroutines-guide.html'>Kotlin Coroutines</a>: Dipakai untuk async code menjadi sync code pada Live Data
+>- <a href='https://developer.android.com/training/dependency-injection/hilt-android'>Hilt (Dagger-hilt)</a>: Dipakai untuk dependency injection
+>- <a href='https://github.com/bumptech/glide'>Glide</a>: Dipakai untuk image loading
+>- <a href='https://github.com/Dhaval2404/ImagePicker'>Image Picker</a>: Diapkai untuk ambil image dari camera atau gallery
 
 # Online Data
 <a href='https://market-final-project.herokuapp.com/api-docs/'>Rest API</a>
