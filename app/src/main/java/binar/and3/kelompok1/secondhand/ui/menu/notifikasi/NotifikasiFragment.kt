@@ -45,7 +45,7 @@ class NotifikasiFragment : Fragment() {
         notificationsAdapter =
             NotificationsAdapter(listener = object : NotificationsAdapter.EventListener {
                 override fun onClick(item: GetNotifResponseItem) {
-                    Toast.makeText(requireContext(),item.buyer_name, Toast.LENGTH_SHORT).show()
+                    
                 }
 
             }, emptyList())

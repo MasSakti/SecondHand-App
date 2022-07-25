@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import binar.and3.kelompok1.secondhand.R
+import binar.and3.kelompok1.secondhand.common.currency
 import binar.and3.kelompok1.secondhand.databinding.FragmentCategoryBottomSheetsBinding
 import binar.and3.kelompok1.secondhand.databinding.FragmentTawarBottomSheetsBinding
 import binar.and3.kelompok1.secondhand.ui.buyer.ProductDetailViewModel
@@ -58,7 +59,7 @@ class TawarBottomSheetsFragment(
     private fun bindViewModel() {
         productViewModel.shouldShowProduct.observe(viewLifecycleOwner) {
             binding.tvProductName.text = it.name
-            binding.tvProductBasePrice.text = "Rp ${it.basePrice}"
+            binding.tvProductBasePrice.text = it.basePrice?.let { it1 -> currency(it1) }
             Glide.with(binding.root)
                 .load(it.imageUrl)
                 .into(binding.ivProductImage)

@@ -4,6 +4,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import binar.and3.kelompok1.secondhand.common.currency
 import binar.and3.kelompok1.secondhand.databinding.ActivityProductDetailBinding
 import binar.and3.kelompok1.secondhand.ui.buyer.bottomsheets.TawarBottomSheetsFragment
 import binar.and3.kelompok1.secondhand.ui.seller.productpreview.ProductPreviewCategoryAdapter
@@ -50,7 +51,7 @@ class ProductDetailActivity : AppCompatActivity() {
         viewModel.shouldShowProduct.observe(this) {
             productPreviewCategoryAdapter.updateProductCategory(it.categories)
             binding.tvProductName.text = it.name
-            binding.tvProductBasePrice.text = it.basePrice.toString()
+            binding.tvProductBasePrice.text = it.basePrice?.let { it1 -> currency(it1) }
             binding.tvDescription.text = it.description
 
             Glide.with(this)

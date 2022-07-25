@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import binar.and3.kelompok1.secondhand.common.convertDate
 import binar.and3.kelompok1.secondhand.common.currency
 import binar.and3.kelompok1.secondhand.data.api.seller.GetSellerOrdersResponse
 import binar.and3.kelompok1.secondhand.databinding.ListItemDiminatiBinding
@@ -38,7 +39,7 @@ class ItemDiminatiAdapter(
         holder.binding.tvProductName.text = sellerDiminati.productName
         holder.binding.tvBasePrice.text = sellerDiminati.basePrice?.let { currency(it) }
         holder.binding.tvBidPrice.text = "Ditawar: ${sellerDiminati.price?.let { currency(it) }}"
-        holder.binding.tvDatetime.text = sellerDiminati.transactionDate
+        holder.binding.tvDatetime.text = sellerDiminati.transactionDate?.let { convertDate(it) }
 
         holder.itemView.setOnClickListener {
             listener.onClick(item = sellerDiminati)

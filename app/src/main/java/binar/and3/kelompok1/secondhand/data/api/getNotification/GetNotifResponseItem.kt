@@ -1,20 +1,47 @@
 package binar.and3.kelompok1.secondhand.data.api.getNotification
 
+import com.google.gson.annotations.SerializedName
+
 data class GetNotifResponseItem(
-    val Product: Product,
-    val User: User,
-    val base_price: String,
-    val bid_price: Int,
-    val buyer_name: String,
-    val createdAt: String,
-    val id: Int,
-    val image_url: String,
-    val product_id: Int,
-    val product_name: String,
-    val read: Boolean,
-    val receiver_id: Int,
-    val seller_name: String,
-    val status: String,
-    val transaction_date: String,
-    val updatedAt: String
-)
+    @SerializedName("id"                ) var id               : Int?     = null,
+    @SerializedName("product_id"        ) var productId        : Int?     = null,
+    @SerializedName("product_name"      ) var productName      : String?  = null,
+    @SerializedName("base_price"        ) var basePrice        : String?  = null,
+    @SerializedName("bid_price"         ) var bidPrice         : String?  = null,
+    @SerializedName("image_url"         ) var imageUrl         : String?  = null,
+    @SerializedName("transaction_date"  ) var transactionDate  : String?  = null,
+    @SerializedName("status"            ) var status           : String?  = null,
+    @SerializedName("seller_name"       ) var sellerName       : String?  = null,
+    @SerializedName("buyer_name"        ) var buyerName        : String?  = null,
+    @SerializedName("receiver_id"       ) var receiverId       : Int?     = null,
+    @SerializedName("read"              ) var read             : Boolean? = null,
+    @SerializedName("notification_type" ) var notificationType : String?  = null,
+    @SerializedName("order_id"          ) var orderId          : String?  = null,
+    @SerializedName("createdAt"         ) var createdAt        : String?  = null,
+    @SerializedName("updatedAt"         ) var updatedAt        : String?  = null,
+    @SerializedName("Product"           ) var product         : Product?  = Product(),
+    @SerializedName("User"              ) var user             : User?    = User()
+) {
+    data class Product (
+        @SerializedName("id"         ) var id        : Int?    = null,
+        @SerializedName("name"       ) var name      : String? = null,
+        @SerializedName("base_price" ) var basePrice : Int?    = null,
+        @SerializedName("image_url"  ) var imageUrl  : String? = null,
+        @SerializedName("image_name" ) var imageName : String? = null,
+        @SerializedName("location"   ) var location  : String? = null,
+        @SerializedName("user_id"    ) var userId    : Int?    = null,
+        @SerializedName("status"     ) var status    : String? = null
+    )
+
+    data class User (
+
+        @SerializedName("id"           ) var id          : Int?    = null,
+        @SerializedName("full_name"    ) var fullName    : String? = null,
+        @SerializedName("email"        ) var email       : String? = null,
+        @SerializedName("phone_number" ) var phoneNumber : String? = null,
+        @SerializedName("address"      ) var address     : String? = null,
+        @SerializedName("image_url"    ) var imageUrl    : String? = null,
+        @SerializedName("city"         ) var city        : String? = null
+
+    )
+}

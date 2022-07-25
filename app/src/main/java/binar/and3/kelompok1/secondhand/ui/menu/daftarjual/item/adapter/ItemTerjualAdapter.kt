@@ -5,6 +5,7 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import binar.and3.kelompok1.secondhand.common.convertDate
 import binar.and3.kelompok1.secondhand.common.currency
 import binar.and3.kelompok1.secondhand.data.api.seller.GetSellerOrdersResponse
 import binar.and3.kelompok1.secondhand.databinding.ListItemDiminatiBinding
@@ -39,7 +40,7 @@ class ItemTerjualAdapter(
         holder.binding.tvBasePrice.text = sellerTerjual.basePrice?.let { currency(it) }
         holder.binding.tvBasePrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
         holder.binding.tvBidPrice.text = "Ditawar: ${sellerTerjual.price?.let { currency(it) }}"
-        holder.binding.tvDatetime.text = sellerTerjual.transactionDate
+        holder.binding.tvDatetime.text = sellerTerjual.transactionDate?.let { convertDate(it) }
 
         holder.itemView.setOnClickListener {
             listener.onClick(item = sellerTerjual)

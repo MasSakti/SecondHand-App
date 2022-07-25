@@ -33,7 +33,7 @@ class LoginUI : AppCompatActivity() {
     }
 
     private fun bindView() {
-        binding.etEmail.doAfterTextChanged {
+        binding.txtInputLayoutEmail.doAfterTextChanged {
             viewModel.onChangeEmail(it.toString())
         }
 

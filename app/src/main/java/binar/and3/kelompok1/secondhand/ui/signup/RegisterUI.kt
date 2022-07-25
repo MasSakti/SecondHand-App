@@ -31,10 +31,10 @@ class RegisterUI : AppCompatActivity() {
     }
 
     private fun bindView() {
-        binding.etNama.doAfterTextChanged {
+        binding.txtInputLayoutNama.doAfterTextChanged {
             viewModel.onChangeFullName(it.toString())
         }
-        binding.etEmail.doAfterTextChanged {
+        binding.txtInputLayoutEmail.doAfterTextChanged {
             viewModel.onChangeEmail(it.toString())
         }
         binding.txtInputLayoutPassword.doAfterTextChanged {
