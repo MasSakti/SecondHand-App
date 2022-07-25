@@ -2,6 +2,7 @@ package binar.and3.kelompok1.secondhand.ui.seller.infopenawar.berhasilterima
 
 import android.content.Intent
 import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,7 +40,7 @@ class BerhasilTerimaBottomSheetFragment(private val productId: Int) : BottomShee
         binding.btnHubungi.setOnClickListener {
             viewModel.shouldShowOrder.observe(viewLifecycleOwner) {
                 val link = "https://api.whatsapp.com/send?phone=%s&text=%s"
-                val phoneNumber = it.user?.phoneNumber
+                val phoneNumber = "+62" + it.user?.phoneNumber
                 val message =
                     "Halo ${it.user?.fullName}, kami menyetujui tawaranmu pada produk *${it.productName}* dengan harga yang kamu tawar sebesar *${
                         it.price?.let { it1 ->
@@ -49,14 +50,16 @@ class BerhasilTerimaBottomSheetFragment(private val productId: Int) : BottomShee
                         }
                     }*. Mohon balasannya untuk diskusi selanjutnya. 😁"
 
-                val sendIntent: Intent = Intent().apply {
+                /*val sendIntent: Intent = Intent().apply {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, message)
                     type = "text/plain"
                 }
                 sendIntent.setPackage("com.whatsapp")
-                val shareIntent = Intent.createChooser(sendIntent, null)
-                startActivity(shareIntent)
+                val shareIntent = Intent.createChooser(sendIntent, null)*/
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(
+                    String.format(link, phoneNumber, message)
+                )))
             }
         }
     }
