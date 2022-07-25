@@ -57,7 +57,7 @@ class ItemDiminatiFragment : Fragment() {
         viewModel.shouldShowSellerOrder.observe(requireActivity()) { list ->
             itemDiminatiAdapter.updateProductOrder(
                 list.filter {
-                    it.product?.status?.let { status -> "available".contains(status) }!!
+                    it.status?.contains("pending")!!
                 })
         }
     }

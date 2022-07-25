@@ -11,6 +11,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
+import binar.and3.kelompok1.secondhand.R
 import binar.and3.kelompok1.secondhand.common.uriToFile
 import binar.and3.kelompok1.secondhand.databinding.ActivityLengkapiInfoAkunBinding
 import binar.and3.kelompok1.secondhand.ui.MenuActivity
@@ -55,7 +56,7 @@ class LengkapiInfoAkunActivity : AppCompatActivity() {
             viewModel.onChangeAddress(it.toString())
         }
         binding.etPhone.doAfterTextChanged {
-            viewModel.onChangePhoneNumber(it.toString())
+            viewModel.onChangePhoneNumber(it.hashCode())
         }
         binding.btnSimpan.setOnClickListener {
             viewModel.onValidate()
@@ -69,10 +70,14 @@ class LengkapiInfoAkunActivity : AppCompatActivity() {
 
     private fun bindViewModel() {
         viewModel.shouldShowProfile.observe(this) {
-            Glide.with(applicationContext)
-                .load(it.imageUrl)
-                .apply(RequestOptions.bitmapTransform(RoundedCorners(12)))
-                .into(binding.ivImageAccount)
+            if (it.imageUrl == "") {
+                binding.ivImageAccount.setImageResource(R.drawable.ic_profile_image)
+            } else {
+                Glide.with(applicationContext)
+                    .load(it.imageUrl)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(12)))
+                    .into(binding.ivImageAccount)
+            }
 
             binding.etName.setText(it.full_name)
             binding.etAlamat.setText(it.address)
@@ -86,9 +91,8 @@ class LengkapiInfoAkunActivity : AppCompatActivity() {
         }
 
         viewModel.shouldShowSuccess.observe(this) {
-            val snackbar = Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG)
-            snackbar.view.setBackgroundColor(Color.GREEN)
-            snackbar.show()
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            onBackPressed()
         }
     }
 

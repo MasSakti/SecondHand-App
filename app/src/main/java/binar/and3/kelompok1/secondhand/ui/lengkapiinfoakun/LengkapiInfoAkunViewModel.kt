@@ -32,7 +32,7 @@ class LengkapiInfoAkunViewModel @Inject constructor(
     private var fullName: String = ""
     private var city: String = ""
     private var address: String = ""
-    private var phoneNumber: String = ""
+    private var phoneNumber: Int = 0
 
     val shouldShowProfile: MutableLiveData<ProfileModel> = MutableLiveData()
     val shouldShowSuccess: MutableLiveData<String> = MutableLiveData()
@@ -50,7 +50,7 @@ class LengkapiInfoAkunViewModel @Inject constructor(
     fun onChangeAddress(address: String) {
         this.address = address
     }
-    fun onChangePhoneNumber(phoneNumber: String) {
+    fun onChangePhoneNumber(phoneNumber: Int) {
         this.phoneNumber = phoneNumber
     }
 
@@ -65,7 +65,7 @@ class LengkapiInfoAkunViewModel @Inject constructor(
             shouldShowError.postValue("Kamu harus mengisi kota tinggalmu")
         } else if (address.isEmpty()) {
             shouldShowError.postValue("Kamu harus mengisi alamat tinggalmu")
-        } else if (phoneNumber.isEmpty()) {
+        } else if (phoneNumber.toString().isEmpty()) {
             shouldShowError.postValue("Nomor telpon harus diisi")
         } else {
             println("Tombol berhasil diklik!")
@@ -75,7 +75,7 @@ class LengkapiInfoAkunViewModel @Inject constructor(
                     fullName = fullName,
                     city = city,
                     address = address,
-                    phoneNumber = phoneNumber
+                    phoneNumber = phoneNumber.toString()
                 )
             }
         }

@@ -31,6 +31,9 @@ class RegisterUI : AppCompatActivity() {
     }
 
     private fun bindView() {
+        binding.ivIconback.setOnClickListener {
+            onBackPressed()
+        }
         binding.txtInputLayoutNama.doAfterTextChanged {
             viewModel.onChangeFullName(it.toString())
         }

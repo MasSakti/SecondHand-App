@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import binar.and3.kelompok1.secondhand.R
 import binar.and3.kelompok1.secondhand.databinding.FragmentAkunBinding
 import binar.and3.kelompok1.secondhand.ui.lengkapiinfoakun.LengkapiInfoAkunActivity
 import binar.and3.kelompok1.secondhand.ui.signin.LoginUI
@@ -64,10 +65,14 @@ class AkunFragment : Fragment() {
 
     private fun bindViewModel() {
         viewModel.shouldShowProfile.observe(viewLifecycleOwner) {
-            Glide.with(requireContext())
-                .load(it.imageUrl)
-                .apply(RequestOptions.bitmapTransform(RoundedCorners(12)))
-                .into(binding.ivImageAccount)
+            if (it.imageUrl == "") {
+                binding.ivImageAccount.setImageResource(R.drawable.ic_profile_image)
+            } else {
+                Glide.with(requireContext())
+                    .load(it.imageUrl)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(12)))
+                    .into(binding.ivImageAccount)
+            }
         }
         viewModel.shouldShowLogin.observe(viewLifecycleOwner) {
             if (it) {

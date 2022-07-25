@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import binar.and3.kelompok1.secondhand.R
 import binar.and3.kelompok1.secondhand.common.listCategory
 import binar.and3.kelompok1.secondhand.common.listCategoryId
 import binar.and3.kelompok1.secondhand.common.uriToFile
@@ -107,6 +108,7 @@ class JualFragment : Fragment() {
             binding.etHargaProduk.setText("")
             binding.etKategori.setText("")
             binding.etDeskripsi.setText("")
+            binding.ivFotoProduk.setImageResource(R.drawable.ic_add_product)
         }
     }
 

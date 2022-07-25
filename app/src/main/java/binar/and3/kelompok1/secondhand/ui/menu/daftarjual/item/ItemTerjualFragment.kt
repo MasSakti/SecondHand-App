@@ -12,6 +12,7 @@ import binar.and3.kelompok1.secondhand.databinding.FragmentItemTerjualBinding
 import binar.and3.kelompok1.secondhand.ui.menu.daftarjual.item.adapter.ItemDiminatiAdapter
 import binar.and3.kelompok1.secondhand.ui.menu.daftarjual.item.adapter.ItemTerjualAdapter
 import binar.and3.kelompok1.secondhand.ui.seller.infopenawar.InfoPenawarActivity
+import binar.and3.kelompok1.secondhand.ui.seller.productpreview.ProductPreviewActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,7 +31,11 @@ class ItemTerjualFragment : Fragment() {
         itemOrderAdapter =
             ItemTerjualAdapter(listener = object : ItemTerjualAdapter.EventListener {
                 override fun onClick(item: GetSellerOrdersResponse) {
-                    TODO("Not yet implemented")
+                    val intent = Intent(requireContext(), ProductPreviewActivity::class.java)
+                    val bundle = Bundle()
+                    item.productId?.let { bundle.putInt("id", it) }
+                    intent.putExtras(bundle)
+                    startActivity(intent)
                 }
             }, emptyList())
 

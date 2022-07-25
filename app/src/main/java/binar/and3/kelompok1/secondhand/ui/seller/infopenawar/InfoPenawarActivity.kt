@@ -5,6 +5,7 @@ import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import binar.and3.kelompok1.secondhand.common.convertDate
 import binar.and3.kelompok1.secondhand.databinding.ActivityInfoPenawarBinding
 import binar.and3.kelompok1.secondhand.ui.seller.infopenawar.berhasilterima.BerhasilTerimaBottomSheetFragment
 import binar.and3.kelompok1.secondhand.ui.seller.infopenawar.perbaruistatus.PerbaruiStatusBottomSheetFragment
@@ -48,7 +49,7 @@ class InfoPenawarActivity : AppCompatActivity() {
             binding.tvCity.text = it.user?.city
 
             // Order
-            binding.tvDatetime.text = it.transactionDate
+            binding.tvDatetime.text = it.transactionDate?.let { it1 -> convertDate(it1) }
             binding.tvProductName.text = it.productName
             binding.tvBasePrice.text = "Rp ${it.basePrice}"
             binding.tvBidPrice.text = "Ditawar Rp ${it.price}"

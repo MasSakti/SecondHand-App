@@ -76,10 +76,14 @@ class DaftarJualFragment : Fragment() {
 
     private fun bindViewModel() {
         viewModel.shouldShowProfile.observe(viewLifecycleOwner) {
-            Glide.with(requireContext())
-                .load(it.imageUrl)
-                .apply(RequestOptions.bitmapTransform(RoundedCorners(12)))
-                .into(binding.ivAvatar)
+            if (it.imageUrl == "") {
+                binding.ivAvatar.setImageResource(R.drawable.ic_profile_image)
+            } else {
+                Glide.with(requireContext())
+                    .load(it.imageUrl)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(12)))
+                    .into(binding.ivAvatar)
+            }
 
             with(binding) {
                 tvName.text = it.full_name
