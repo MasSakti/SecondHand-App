@@ -11,12 +11,12 @@ Platform ini merupakan tempat jual-beli barang secara online, khususnya barang b
 # APK
 <a href="https://github.com/rrfadilah/FinalProject-G1/raw/master/app/build/outputs/apk/debug/app-debug.apk"><img src="https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsrounded/file_download/wght700/48px.svg" alt="download" width=18pt height=18pt/> Download APK</a>
 
-# Kelompok 1 member
+<!-- # Kelompok 1 member
 >- Abdul Hafiz
 >- Ammar Ma'Ruf Takinardi
 >- Marcelino Nursalim
 >- Muhammad Mutawali Syarawi
->- Muhira
+>- Muhira -->
 
 # Design Pattern
 MVVM (Model–view–viewmodel)
